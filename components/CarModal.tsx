@@ -24,8 +24,7 @@ export default function CarModal({
     };
   }, [onClose]);
 
-  const displayName =
-    "Hyundai " + car.name.charAt(0) + car.name.slice(1).toLowerCase();
+  const displayName = "Mahindra " + car.name;
 
   return (
     <div
@@ -70,9 +69,9 @@ export default function CarModal({
             <div>
               <p className="text-xs font-medium text-muted">Starting at</p>
               <p className="mt-0.5 text-base font-semibold text-text">
-                {formatINR(car.priceINR)}
+                {car.priceOnRequest ? "On Request" : formatINR(car.priceINR)}
               </p>
-              <p className="text-xs text-faint">*Ex Showroom Price</p>
+              {!car.priceOnRequest && <p className="text-xs text-faint">*Ex Showroom Price</p>}
             </div>
             <div>
               <p className="text-xs font-medium text-muted">Engine</p>

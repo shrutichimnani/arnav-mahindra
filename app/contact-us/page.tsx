@@ -8,9 +8,9 @@ import Reveal from "@/components/Reveal";
 import { aboutHeroImage, company, SITE_URL } from "@/lib/data";
 import { DEALER_ID } from "@/lib/schema";
 
-const title = "Contact Us | Modi Hyundai";
+const title = "Contact Us | Mahindra Modi";
 const description =
-  "Get in touch with Modi Hyundai. Call, WhatsApp, email us, or send a message to our team.";
+  "Get in touch with Mahindra Modi. Call, WhatsApp, email us, or send a message to our team.";
 
 export const metadata: Metadata = {
   title,
@@ -60,11 +60,11 @@ export default function ContactUsPage() {
       />
       <Navbar />
       <FloatingActions />
-      <main style={{ marginTop: "96px" }}>
+      <main style={{ marginTop: "60px" }}>
         <section className="relative h-[240px] w-full overflow-hidden bg-brand-deep sm:h-[300px]">
           <Image
             src={aboutHeroImage}
-            alt="Modi Hyundai showroom"
+            alt="Mahindra Modi showroom"
             fill
             priority
             sizes="100vw"

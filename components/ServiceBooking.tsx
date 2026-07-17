@@ -14,7 +14,7 @@ const timeSlots = [
   { label: "Evening (4–8)", start: 16, end: 20 },
 ];
 
-const serviceCentreOptions = serviceCentres.map((s) => `${s.name} — ${s.city}`);
+const serviceCentreOptions = serviceCentres.map((s) => `${s.name} - ${s.city}`);
 
 const serviceTypes = ["Free Service", "Paid Service", "Running Repair"];
 
@@ -96,7 +96,7 @@ export default function ServiceBooking() {
           </p>
         </Reveal>
 
-        <Reveal delay={150} className="mx-auto max-w-3xl rounded-lg border border-border bg-bg-2 p-8 shadow-[0_4px_32px_0_rgba(0,44,95,0.08)] sm:p-10">
+        <Reveal delay={150} className="mx-auto max-w-3xl rounded-lg border border-border bg-bg-2 p-8 shadow-[0_4px_32px_0_rgba(200,16,46,0.08)] sm:p-10">
           {submitted ? (
             <div className="flex flex-col items-center justify-center py-10 text-center">
               <span className="grid h-16 w-16 place-items-center rounded-full bg-brand/10 text-brand">
@@ -106,7 +106,7 @@ export default function ServiceBooking() {
                 Service booking received!
               </h3>
               <p className="mt-2 max-w-sm text-muted">
-                Thank you. A Modi Hyundai service advisor will call you shortly to confirm your appointment.
+                Thank you. A Mahindra Modi service advisor will call you shortly to confirm your appointment.
               </p>
               <button
                 onClick={() => setSubmitted(false)}
@@ -152,7 +152,7 @@ export default function ServiceBooking() {
 
               <label className="block">
                 <span className="mb-1.5 block text-xs font-semibold text-muted">Email</span>
-                <input type="email" required placeholder="you@example.com" className={fieldBase} />
+                <input type="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Enter a valid email with a domain (e.g. name@example.com)" placeholder="you@example.com" className={fieldBase} />
               </label>
 
               <label className="block">
@@ -211,7 +211,7 @@ export default function ServiceBooking() {
                 Book My Service
               </button>
               <p className="col-span-full text-center text-xs text-faint">
-                By submitting, you agree to be contacted by Modi Hyundai about
+                By submitting, you agree to be contacted by Mahindra Modi about
                 your service request. See our{" "}
                 <a href="#" className="font-medium text-brand hover:underline">
                   Privacy Policy

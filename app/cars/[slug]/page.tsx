@@ -26,10 +26,9 @@ export async function generateMetadata({
   if (!car) return {};
   const detail = getCarDetail(car);
 
-  const displayName =
-    "Hyundai " + car.name.charAt(0) + car.name.slice(1).toLowerCase();
-  const title = `${displayName}: Price, Specs, Colours & Test Drive | Modi Hyundai`;
-  const description = `${detail.overview} Starting at ${formatINR(car.priceINR)}* ex-showroom. Compare variants, colours, features and specifications, then book a Hyundai test drive with Modi Hyundai.`;
+  const displayName = "Mahindra " + car.name;
+  const title = `${displayName}: Price, Specs, Colours & Test Drive | Mahindra Modi`;
+  const description = `${detail.overview} ${car.priceOnRequest ? "Price on request." : `Starting at ${formatINR(car.priceINR)}* ex-showroom.`} Compare variants, colours, features and specifications, then book a Mahindra test drive with Mahindra Modi.`;
 
   return {
     title,
@@ -59,8 +58,7 @@ export default async function CarDetailPage({
   const car = getCar(slug);
   if (!car) notFound();
 
-  const displayName =
-    "Hyundai " + car.name.charAt(0) + car.name.slice(1).toLowerCase();
+  const displayName = "Mahindra " + car.name;
   const detail = getCarDetail(car);
   const gallery = getCarGallery(car);
 
@@ -73,7 +71,7 @@ export default async function CarDetailPage({
         name: displayName,
         description: detail.overview,
         image: [car.image, ...gallery.map((image) => image.src)],
-        brand: { "@type": "Brand", name: "Hyundai" },
+        brand: { "@type": "Brand", name: "Mahindra" },
         vehicleConfiguration: car.type,
         fuelType: car.fuel.replace(/\s·\s/g, ", "),
         vehicleEngine: { "@type": "EngineSpecification", name: car.engine },
@@ -132,7 +130,7 @@ export default async function CarDetailPage({
       />
       <Navbar />
       <FloatingActions />
-      <main style={{ marginTop: "96px" }}>
+      <main style={{ marginTop: "60px" }}>
         <CarDetailClient car={car} />
       </main>
       <Footer />

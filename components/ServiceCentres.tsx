@@ -14,8 +14,8 @@ export default function ServiceCentres() {
             Locate a Service Centre
           </h2>
           <p className="mt-2 text-sm text-white/70">
-            {serviceCentres.length} authorised Modi Hyundai service centres across
-            Mumbai, Thane, Vasai, Virar, and Wada.
+            {serviceCentres.length} authorised Mahindra Modi service centre
+            across Thane, serving Thane, Navi Mumbai and Mumbai.
           </p>
         </Reveal>
 
@@ -26,7 +26,7 @@ export default function ServiceCentres() {
                 <div className="relative h-40 w-full overflow-hidden">
                   <Image
                     src={loc.image}
-                    alt={`Modi Hyundai ${loc.name} in ${loc.city}`}
+                    alt={`${loc.name} service centre in ${loc.city}`}
                     fill
                     sizes="(max-width: 640px) 100vw, 33vw"
                     className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"

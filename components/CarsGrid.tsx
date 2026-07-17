@@ -10,10 +10,10 @@ import Reveal from "./Reveal";
 const categories: ("All" | CarCategory)[] = [
   "All",
   "SUV",
-  "Sedan",
-  "Hatchback",
   "Electric",
-  "Taxi",
+  "MPV",
+  "Pickup",
+  "Commercial",
 ];
 
 export default function CarsGrid() {
@@ -42,11 +42,10 @@ export default function CarsGrid() {
 
         <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((car, i) => {
-            const displayName =
-              "Hyundai " + car.name.charAt(0) + car.name.slice(1).toLowerCase();
+            const displayName = "Mahindra " + car.name;
             return (
               <Reveal key={car.slug} delay={(i % 3) * 90} variant="fade-up">
-                <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-white shadow-[0_2px_12px_0_rgba(0,44,95,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(0,44,95,0.12)]">
+                <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-white shadow-[0_2px_12px_0_rgba(200,16,46,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(200,16,46,0.12)]">
                   <div className="relative flex h-44 items-center justify-center bg-bg-2 p-6">
                     <Image
                       src={car.image}
@@ -64,10 +63,16 @@ export default function CarsGrid() {
                       {displayName}
                     </h3>
                     <p className="mt-1 text-sm text-muted">
-                      Starts from{" "}
-                      <span className="font-semibold text-text">
-                        {formatINR(car.priceINR)}
-                      </span>
+                      {car.priceOnRequest ? (
+                        <span className="font-semibold text-text">Price on Request</span>
+                      ) : (
+                        <>
+                          Starts from{" "}
+                          <span className="font-semibold text-text">
+                            {formatINR(car.priceINR)}
+                          </span>
+                        </>
+                      )}
                     </p>
                     <p className="mt-1 text-xs text-faint">{car.fuel}</p>
                     <Link

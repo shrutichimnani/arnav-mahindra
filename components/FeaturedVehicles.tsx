@@ -10,10 +10,10 @@ import Reveal from "./Reveal";
 const categories: ("All" | CarCategory)[] = [
   "All",
   "SUV",
-  "Sedan",
-  "Hatchback",
   "Electric",
-  "Taxi",
+  "MPV",
+  "Pickup",
+  "Commercial",
 ];
 
 export default function FeaturedVehicles() {
@@ -56,13 +56,15 @@ export default function FeaturedVehicles() {
 
   // Step distance and scale/opacity falloff are proportional to the stage's
   // own measured width, so the "coverflow" spacing stays consistent across
-  // breakpoints without a hardcoded pixel value.
+  // breakpoints without a hardcoded pixel value. Kept just short of the
+  // fixed-position prev/next arrows (absolute left-0/right-0) so the side
+  // cars sit close to, but don't get covered by, the arrow controls.
   const step = Math.min(stageWidth * 0.36, 380);
   // The centre card renders larger than its neighbours, so a purely linear
   // step makes the main-to-neighbour gap look tighter than the gaps further
   // out. A small constant push on every non-zero offset widens just that
   // first gap, without changing the spacing between the side cards.
-  const centreGapBoost = 28;
+  const centreGapBoost = 24;
 
   return (
     <section
@@ -119,12 +121,12 @@ export default function FeaturedVehicles() {
             if (!hasNavigated && offset < 0) return null;
             if (Math.abs(offset) > 3) return null;
             const abs = Math.abs(offset);
-            // The focused car is scaled up clearly so it dominates as the hero
-            // of the section; neighbours fall away more steeply so the centre
-            // reads as the clear focal point. Kept below 1.3 so the wider
-            // centre card doesn't push the side cards out of the stage.
-            const scale = offset === 0 ? 1.28 : Math.max(0.4, 0.62 - abs * 0.15);
-            const opacity = abs > 2 ? 0 : 1 - abs * 0.34;
+            // The focused car is scaled up so it dominates as the hero of the
+            // section, but kept modest enough not to crowd the stage;
+            // neighbours shrink and fade sharply so they read as small,
+            // distant thumbnails rather than near-peers of the centre car.
+            const scale = offset === 0 ? 1.08 : Math.max(0.24, 0.4 - abs * 0.1);
+            const opacity = abs > 2 ? 0 : 1 - abs * 0.48;
             const translateX =
               offset === 0
                 ? 0
@@ -150,7 +152,7 @@ export default function FeaturedVehicles() {
                 {offset === 0 ? (
                   <Link
                     href={`/cars/${car.slug}`}
-                    aria-label={`View Hyundai ${car.name} details`}
+                    aria-label={`View Mahindra ${car.name} details`}
                     className="block w-full"
                   >
                     <Image
@@ -200,7 +202,7 @@ export default function FeaturedVehicles() {
             href={`/cars/${active.slug}`}
             className="group mx-auto inline-flex items-center gap-1 text-xl font-bold text-brand transition-colors hover:text-brand-light sm:text-2xl"
           >
-            Hyundai {active.name.charAt(0) + active.name.slice(1).toLowerCase()}
+            Mahindra {active.name}
             <ChevronRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
           </Link>
 
@@ -208,9 +210,9 @@ export default function FeaturedVehicles() {
             <div>
               <p className="text-xs font-medium text-muted">Starting at</p>
               <p className="mt-0.5 text-base font-semibold text-text">
-                {formatINR(active.priceINR)}
+                {active.priceOnRequest ? "On Request" : formatINR(active.priceINR)}
               </p>
-              <p className="text-xs text-faint">*Ex Showroom Price</p>
+              {!active.priceOnRequest && <p className="text-xs text-faint">*Ex Showroom Price</p>}
             </div>
             <div>
               <p className="text-xs font-medium text-muted">Engine</p>

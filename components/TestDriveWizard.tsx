@@ -130,7 +130,7 @@ export default function TestDriveWizard() {
 
   return (
     <>
-      <div className="mx-auto max-w-3xl rounded-lg border border-border bg-white p-6 shadow-[0_4px_32px_0_rgba(0,44,95,0.08)] sm:p-10">
+      <div className="mx-auto max-w-3xl rounded-lg border border-border bg-white p-6 shadow-[0_4px_32px_0_rgba(200,16,46,0.08)] sm:p-10">
         {/* Step indicator */}
         <div className="flex items-center justify-between">
           {steps.map((label, i) => {
@@ -278,7 +278,7 @@ export default function TestDriveWizard() {
                   </p>
                   {showroomsInCity.length === 0 && (
                     <p className="text-sm text-faint">
-                      No showroom listed in {city} yet — our nearest team will reach out.
+                      No showroom listed in {city} yet - our nearest team will reach out.
                     </p>
                   )}
                   {showroomsInCity.map((s) => (
@@ -286,7 +286,7 @@ export default function TestDriveWizard() {
                       key={s.name}
                       className="rounded border border-border bg-bg-2 px-4 py-3 text-sm text-text"
                     >
-                      {s.name} — <span className="text-muted">{s.address}</span>
+                      {s.name} - <span className="text-muted">{s.address}</span>
                     </div>
                   ))}
                 </div>
@@ -435,9 +435,9 @@ export default function TestDriveWizard() {
               Test drive booked!
             </h3>
             <p className="mt-2 text-muted">
-              Thank you, {name}. A Modi Hyundai representative will call you at{" "}
+              Thank you, {name}. A Mahindra Modi representative will call you at{" "}
               {mobile} shortly to confirm your{" "}
-              {selectedCar ? `Hyundai ${selectedCar.name}` : ""} test drive on{" "}
+              {selectedCar ? `Mahindra ${selectedCar.name}` : ""} test drive on{" "}
               {date} ({time}) at {city}.
             </p>
             <button

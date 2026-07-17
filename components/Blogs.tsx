@@ -25,7 +25,7 @@ export default function Blogs() {
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {blogs.map((post, i) => (
             <Reveal key={post.title} delay={i * 70}>
-              <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-white shadow-[0_2px_12px_0_rgba(0,44,95,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(0,44,95,0.12)]">
+              <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-white shadow-[0_2px_12px_0_rgba(200,16,46,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(200,16,46,0.12)]">
                 {/* Image */}
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <Image

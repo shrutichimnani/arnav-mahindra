@@ -8,9 +8,9 @@ import Reveal from "@/components/Reveal";
 import { aboutHeroImage, SITE_URL } from "@/lib/data";
 import { DEALER_ID } from "@/lib/schema";
 
-const title = "Locate Us | Modi Hyundai Showrooms & Service Centres";
+const title = "Locate Us | Mahindra Modi Showrooms & Service Centres";
 const description =
-  "Find Modi Hyundai showrooms and service centres across Mumbai, Thane, Vasai, Virar and Wada. View each branch on the map and open Google Maps directions.";
+  "Find Mahindra Modi showrooms and service centres across Thane and Navi Mumbai. View each branch on the map and open Google Maps directions.";
 
 export const metadata: Metadata = {
   title,
@@ -60,11 +60,11 @@ export default function LocateUsPage() {
       />
       <Navbar />
       <FloatingActions />
-      <main style={{ marginTop: "96px" }}>
+      <main style={{ marginTop: "60px" }}>
         <section className="relative h-[260px] w-full overflow-hidden bg-brand-deep sm:h-[320px]">
           <Image
             src={aboutHeroImage}
-            alt="Modi Hyundai locations"
+            alt="Mahindra Modi locations"
             fill
             priority
             sizes="100vw"
@@ -77,10 +77,10 @@ export default function LocateUsPage() {
                 Locate Us
               </p>
               <h1 className="mt-2 font-display text-3xl font-bold text-white sm:text-4xl">
-                Find Your Nearest Modi Hyundai Location
+                Find Your Nearest Mahindra Modi Location
               </h1>
               <p className="mt-3 max-w-2xl text-sm text-white/80 sm:text-base">
-                Explore every Modi Hyundai showroom and service centre, preview the
+                Explore every Mahindra Modi showroom and service centre, preview the
                 branch on the map, and get live navigation in Google Maps.
               </p>
             </Reveal>

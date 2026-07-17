@@ -22,6 +22,13 @@ export const Phone = (p: IconProps) => (
   </svg>
 );
 
+export const RotateCw = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M21 12a9 9 0 1 1-3.05-6.75" />
+    <path d="M21 3v6h-6" />
+  </svg>
+);
+
 export const MapPin = (p: IconProps) => (
   <svg {...base} {...p}>
     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
@@ -191,6 +198,13 @@ export const Check = (p: IconProps) => (
 export const Download = (p: IconProps) => (
   <svg {...base} {...p}>
     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+  </svg>
+);
+
+export const Search = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <circle cx="11" cy="11" r="8" />
+    <path d="m21 21-4.35-4.35" />
   </svg>
 );
 

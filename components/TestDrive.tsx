@@ -80,12 +80,12 @@ export default function TestDrive() {
   return (
     <section id="test-drive" className="scroll-mt-24 bg-white py-14 lg:py-20 overflow-hidden">
       <div className="container-px mx-auto max-w-[1400px]">
-        <div className="overflow-hidden rounded-lg border border-border shadow-[0_4px_32px_0_rgba(0,44,95,0.08)] lg:grid lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="overflow-hidden rounded-lg border border-border shadow-[0_4px_32px_0_rgba(200,16,46,0.08)] lg:grid lg:grid-cols-[0.9fr_1.1fr]">
           {/* Visual side */}
           <Reveal variant="slide-right" className="relative min-h-[280px] overflow-hidden lg:min-h-full">
             <Image
               src={testDriveImage}
-              alt="Hyundai Creta interior and dashboard"
+              alt="Mahindra SUV interior and dashboard"
               fill
               sizes="(max-width: 1024px) 100vw, 45vw"
               className="object-cover"
@@ -96,7 +96,7 @@ export default function TestDrive() {
                 Book a Test Drive
               </p>
               <h2 className="mt-2 max-w-sm font-display text-2xl font-bold leading-tight text-white sm:text-3xl">
-                Take Your Favourite Hyundai for a Spin
+                Take Your Favourite Mahindra for a Spin
               </h2>
               <p className="mt-3 max-w-sm text-sm text-white/70">
                 Pick a date, time and location, and we&apos;ll have the car ready,
@@ -116,7 +116,7 @@ export default function TestDrive() {
                   Booking received!
                 </h3>
                 <p className="mt-2 max-w-sm text-muted">
-                  Thank you. A Modi Hyundai representative will call you shortly to confirm your test drive.
+                  Thank you. A Mahindra Modi representative will call you shortly to confirm your test drive.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
@@ -159,6 +159,8 @@ export default function TestDrive() {
                   <input
                     type="email"
                     required
+                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                    title="Enter a valid email with a domain (e.g. name@example.com)"
                     placeholder="you@example.com"
                     className={fieldBase}
                   />
@@ -222,7 +224,7 @@ export default function TestDrive() {
                   Book My Test Drive
                 </button>
                 <p className="col-span-full text-center text-xs text-faint">
-                  By submitting, you agree to be contacted by Modi Hyundai about
+                  By submitting, you agree to be contacted by Mahindra Modi about
                   your test drive request. See our{" "}
                   <a href="#" className="font-medium text-brand hover:underline">
                     Privacy Policy

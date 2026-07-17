@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 /* ============================================================
-   DESIGN TOKENS — Hyundai India brand guide
-   White canvas, deep navy accent, clean corporate aesthetics.
+   DESIGN TOKENS — Mahindra dealership brand guide
+   White canvas, bold red + near-black accent, clean corporate
+   aesthetics — matching Mahindra's twin-peaks red/black identity.
    ============================================================ */
 :root {
   /* Base surfaces */
@@ -19,20 +20,22 @@
   --muted: #5a6478;
   --faint: #96a0b5;
 
-  /* Hyundai brand navy */
-  --brand: #002c5f;
-  --brand-deep: #001a3a;
-  --brand-light: #0057b8;
-  --accent: #0057b8;
+  /* Mahindra brand red + near-black */
+  --brand: #c8102e;
+  --brand-deep: #1a1a1a;
+  --brand-light: #e4132f;
+  --accent: #c8102e;
 
-  /* Section accent strips */
+  /* Section accent strips. --accent-red is repurposed to a warm gold,
+     since the primary brand colour is already a strong red and a
+     second identical red would be visually redundant. */
   --accent-blue: #0057b8;
-  --accent-red: #e8002d;
+  --accent-red: #d9a404;
   --accent-orange: #f59e42;
   --accent-violet: #6d4fc2;
 
   /* Shadows */
-  --shadow-card: 0 2px 16px 0 rgba(0,44,95,0.08);
+  --shadow-card: 0 2px 16px 0 rgba(200,16,46,0.08);
   --shadow-nav: 0 1px 0 0 #e2e6ec;
 }
 
@@ -256,6 +259,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     transform: none;
     filter: blur(0);
   }
+}
+
+@keyframes hero-progress {
+  from { width: 0%; }
+  to   { width: 100%; }
 }
 
 @keyframes marquee {

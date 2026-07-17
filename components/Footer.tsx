@@ -17,7 +17,6 @@ const quickLinks = [
   { label: "Home", href: "/#home" },
   { label: "About Us", href: "/about" },
   { label: "Cars", href: "/cars" },
-  { label: "Hyundai Promise", href: "/hyundai-promise" },
   { label: "Service", href: "/locate-service-centre" },
   { label: "Locate Us", href: "/locate-us" },
   { label: "Book a Test Drive", href: "/book-a-test-drive" },
@@ -51,16 +50,16 @@ export default function Footer() {
           <div className="col-span-2 lg:col-span-1">
             <Logo dark />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/60">
-              Modi Hyundai is an authorised Hyundai dealership offering new car
-              sales, servicing and genuine Hyundai parts across Mumbai, Thane,
-              Vasai, Virar and Wada.
+              Mahindra Modi is an authorised Mahindra dealership offering new
+              car sales, servicing and genuine Mahindra parts across Thane,
+              Navi Mumbai and Mumbai.
             </p>
             <div className="mt-6 flex gap-2.5">
               {socials.map(({ Icon, label }) => (
                 <a
                   key={label}
                   href="#"
-                  aria-label={`Follow Modi Hyundai on ${label}`}
+                  aria-label={`Follow Mahindra Modi on ${label}`}
                   className="grid h-9 w-9 place-items-center rounded border border-white/15 text-white/60 transition-all hover:border-white/40 hover:text-white"
                 >
                   <Icon className="h-4 w-4" />
@@ -96,7 +95,7 @@ export default function Footer() {
                     href={`/cars/${c.slug}`}
                     className="text-sm text-white/60 transition-colors hover:text-white"
                   >
-                    Hyundai {c.name}
+                    Mahindra {c.name}
                   </Link>
                 </li>
               ))}
@@ -127,8 +126,8 @@ export default function Footer() {
               <li className="flex gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
                 <span>
-                  Modi Hyundai, New Link Road, Malad West, Mumbai, Maharashtra
-                  400064
+                  Mahindra Modi, RD Ashar Compound, Road No 27, Wagle Ind.
+                  Estate, Thane West, Maharashtra 400604
                 </span>
               </li>
               <li className="flex gap-3">
@@ -159,7 +158,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col items-center justify-between gap-3 pt-8 text-xs text-white/40 sm:flex-row">
-          <p>© {new Date().getFullYear()} Modi Hyundai. All Rights Reserved.</p>
+          <p>© {new Date().getFullYear()} Mahindra Modi. All Rights Reserved.</p>
           <div className="flex gap-6">
             <a href="#" className="transition-colors hover:text-white">Privacy Policy</a>
             <a href="#" className="transition-colors hover:text-white">Terms &amp; Conditions</a>

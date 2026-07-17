@@ -75,8 +75,8 @@ export default function Testimonials() {
               What Our Customers Say
             </h2>
             <p className="mt-3 text-sm text-muted">
-              <span className="font-semibold text-text">98% customer satisfaction</span>{" "}
-              across 250,000+ Hyundai cars sold and 550,000+ services completed.
+              <span className="font-semibold text-text">97% customer satisfaction</span>{" "}
+              across 10,000+ Mahindra cars sold and 150,000+ services completed.
             </p>
           </div>
           <div className="flex gap-2">
@@ -107,7 +107,7 @@ export default function Testimonials() {
           {testimonials.map((t) => (
             <figure
               key={t.name}
-              className="flex w-[85vw] shrink-0 snap-start flex-col rounded-lg border border-border bg-white p-6 shadow-[0_2px_16px_0_rgba(0,44,95,0.07)] transition-shadow hover:shadow-[0_4px_24px_0_rgba(0,44,95,0.12)] sm:w-[360px]"
+              className="flex w-[85vw] shrink-0 snap-start flex-col rounded-lg border border-border bg-white p-6 shadow-[0_2px_16px_0_rgba(200,16,46,0.07)] transition-shadow hover:shadow-[0_4px_24px_0_rgba(200,16,46,0.12)] sm:w-[360px]"
             >
               <div className="flex gap-1">
                 {Array.from({ length: t.rating }).map((_, i) => (

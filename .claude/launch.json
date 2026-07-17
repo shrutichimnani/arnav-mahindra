@@ -5,7 +5,7 @@
       "name": "hyundai-dev",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "cwd": "C:/Users/veera/Hyundai Website",
+      "cwd": "C:/Users/Shruti Chimnani/OneDrive/Desktop/arnav automobile/hyundai-website-latest",
       "port": 3000,
       "autoPort": true
     }

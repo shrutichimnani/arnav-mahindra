@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { nav } from "@/lib/data";
+import { company, nav } from "@/lib/data";
 import { Calendar, WhatsApp, Phone, ChevronRight, ChevronLeft } from "./icons";
 
 const actions = [
   { label: "Book a\nTest Drive", href: "/book-a-test-drive", Icon: Calendar },
-  { label: "WhatsApp", href: "https://wa.me/919870012345", Icon: WhatsApp },
+  { label: "WhatsApp", href: `https://wa.me/${company.whatsappE164.replace("+", "")}?text=${encodeURIComponent("Hello.")}`, Icon: WhatsApp },
   { label: "Call Us", href: `tel:${nav.phone.replace(/\s/g, "")}`, Icon: Phone },
 ];
 
@@ -42,6 +42,7 @@ export default function FloatingActions() {
             key={label}
             href={href}
             aria-label={label}
+            {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
             className={`group flex items-center bg-brand text-white transition-colors hover:bg-brand-light ${
               i === 0 ? "rounded-tl-lg" : ""
             } ${i === actions.length - 1 ? "rounded-bl-lg" : ""}`}

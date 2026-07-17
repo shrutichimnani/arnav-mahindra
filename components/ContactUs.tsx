@@ -62,12 +62,12 @@ export default function ContactUs() {
                 <div>
                   <p className="text-xs font-medium text-muted">WhatsApp</p>
                   <a
-                    href={`https://wa.me/${company.phoneE164.replace("+", "")}`}
+                    href={`https://wa.me/${company.whatsappE164.replace("+", "")}?text=${encodeURIComponent("Hello.")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm font-semibold text-text transition-colors hover:text-brand"
                   >
-                    {company.phone}
+                    {company.whatsapp}
                   </a>
                 </div>
               </li>
@@ -100,7 +100,7 @@ export default function ContactUs() {
           <Reveal
             delay={120}
             variant="slide-left"
-            className="rounded-lg border border-border bg-white p-6 shadow-[0_4px_32px_0_rgba(0,44,95,0.06)] sm:p-8"
+            className="rounded-lg border border-border bg-white p-6 shadow-[0_4px_32px_0_rgba(200,16,46,0.06)] sm:p-8"
           >
             <h3 className="font-display text-lg font-bold text-text">
               Send Us a Message
@@ -141,9 +141,20 @@ export default function ContactUs() {
                 </label>
                 <label className="block">
                   <span className="mb-1.5 block text-xs font-semibold text-muted">Your Email</span>
-                  <input type="email" required placeholder="you@example.com" className={fieldBase} />
+                  <input type="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Enter a valid email with a domain (e.g. name@example.com)" placeholder="you@example.com" className={fieldBase} />
                 </label>
                 <label className="block">
+                  <span className="mb-1.5 block text-xs font-semibold text-muted">Pincode</span>
+                  <input
+                    type="text"
+                    required
+                    inputMode="numeric"
+                    pattern="[0-9]{6}"
+                    placeholder="e.g. 400604"
+                    className={fieldBase}
+                  />
+                </label>
+                <label className="col-span-full block">
                   <span className="mb-1.5 block text-xs font-semibold text-muted">Subject</span>
                   <input type="text" required placeholder="How can we help?" className={fieldBase} />
                 </label>

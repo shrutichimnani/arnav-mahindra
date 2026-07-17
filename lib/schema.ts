@@ -23,7 +23,7 @@ export function buildJsonLd() {
     telephone: company.phoneE164,
     email: company.email,
     priceRange: "₹₹",
-    brand: { "@type": "Brand", name: "Hyundai" },
+    brand: { "@type": "Brand", name: "Mahindra" },
     address: {
       "@type": "PostalAddress",
       streetAddress: company.primaryAddress.street,
@@ -51,7 +51,7 @@ export function buildJsonLd() {
     // Each physical outlet as a sub-department for local relevance.
     department: locations.map((loc) => ({
       "@type": loc.type === "Showroom" ? "AutoDealer" : "AutoRepair",
-      name: `Modi Hyundai ${loc.name} ${loc.type}`,
+      name: `${loc.name} ${loc.type}`,
       telephone: loc.phone.replace(/[^0-9+]/g, ""),
       address: {
         "@type": "PostalAddress",
@@ -65,10 +65,10 @@ export function buildJsonLd() {
 
   const products = cars.map((car) => ({
     "@type": "Car",
-    name: `Hyundai ${car.name}`,
+    name: `Mahindra ${car.name}`,
     image: car.image,
     description: car.blurb,
-    brand: { "@type": "Brand", name: "Hyundai" },
+    brand: { "@type": "Brand", name: "Mahindra" },
     vehicleConfiguration: car.type,
     fuelType: car.fuel.replace(/\s·\s/g, ", "),
     vehicleEngine: { "@type": "EngineSpecification", name: car.engine },
@@ -98,7 +98,7 @@ export function buildJsonLd() {
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
     url: SITE_URL,
-    name: `${company.name} | Authorised Hyundai Dealer`,
+    name: `${company.name} | Authorised Mahindra Dealer`,
     publisher: { "@id": DEALER_ID },
     inLanguage: "en-IN",
   };

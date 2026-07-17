@@ -10,17 +10,17 @@ import { ArrowRight, Check } from "@/components/icons";
 import {
   company,
   groupInfo,
-  hyundaiIndiaFacts,
+  mahindraFacts,
   aboutFaqData,
-  aboutHeroImage,
+  aboutPageHeroImage,
   aboutCultureImage,
   SITE_URL,
 } from "@/lib/data";
 import { DEALER_ID } from "@/lib/schema";
 
-const title = "About Modi Hyundai: Our Story, Values and Group";
+const title = "About Mahindra Modi: Our Story, Values and Group";
 const description =
-  "Modi Hyundai is an authorised Hyundai dealership owned by the Gautam Modi Group, serving Mumbai, Thane, Vasai, Virar and Wada with 250,000+ cars sold and 98% customer satisfaction.";
+  "Mahindra Modi is an authorised Mahindra dealership owned by the Gautam Modi Group, serving Thane, Navi Mumbai and Mumbai with 10,000+ cars sold and 97% customer satisfaction.";
 
 export const metadata: Metadata = {
   title,
@@ -96,12 +96,12 @@ export default function AboutPage() {
       />
       <Navbar />
       <FloatingActions />
-      <main style={{ marginTop: "96px" }}>
+      <main style={{ marginTop: "60px" }}>
         {/* Hero */}
         <section className="relative h-[320px] w-full overflow-hidden bg-brand-deep sm:h-[380px]">
           <Image
-            src={aboutHeroImage}
-            alt="Modi Hyundai showroom"
+            src={aboutPageHeroImage}
+            alt="Mahindra Modi showroom at dusk, Thane"
             fill
             priority
             sizes="100vw"
@@ -114,12 +114,12 @@ export default function AboutPage() {
                 Who We Are
               </p>
               <h1 className="mt-2 font-display text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-                About Modi Hyundai
+                About Mahindra Modi
               </h1>
               <p className="mt-3 max-w-xl text-sm text-white/80 sm:text-base">
-                An authorised Hyundai dealership from the Gautam Modi Group,
-                serving the Mumbai region with genuine cars, honest service and
-                a customer-first promise.
+                An authorised Mahindra dealership from the Gautam Modi Group,
+                serving Thane and Navi Mumbai with genuine cars, honest service
+                and a customer-first promise.
               </p>
             </Reveal>
           </div>
@@ -137,10 +137,10 @@ export default function AboutPage() {
               </h2>
               <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted sm:text-base">
                 <p>
-                  Modi Hyundai is an authorised Hyundai dealership, owned and
-                  operated by the {groupInfo.name}. We run showrooms and
-                  service centres across Mumbai, Thane, Vasai, Virar and Wada,
-                  and we have sold over{" "}
+                  Mahindra Modi is an authorised Mahindra dealership, owned
+                  and operated by the {groupInfo.name}. We run a showroom and
+                  service centre in Thane, plus a dedicated XUV showroom in
+                  Airoli, and we have sold over{" "}
                   {company.stats.carsSold} new cars with a{" "}
                   {company.stats.satisfaction} customer satisfaction score.
                 </p>
@@ -159,7 +159,7 @@ export default function AboutPage() {
             >
               <Image
                 src={aboutCultureImage}
-                alt="Modi Hyundai team culture"
+                alt="Mahindra Modi team culture"
                 fill
                 sizes="(max-width: 1024px) 100vw, 45vw"
                 className="object-cover"
@@ -206,7 +206,7 @@ export default function AboutPage() {
                   key={v.title}
                   delay={i * 100}
                   variant="scale-up"
-                  className="rounded-lg border border-border bg-white p-6 text-center transition-[transform,box-shadow] duration-700 ease-out hover:-translate-y-1 hover:shadow-[0_8px_30px_0_rgba(0,44,95,0.12)]"
+                  className="rounded-lg border border-border bg-white p-6 text-center transition-[transform,box-shadow] duration-700 ease-out hover:-translate-y-1 hover:shadow-[0_8px_30px_0_rgba(200,16,46,0.12)]"
                 >
                   <h3 className="text-sm font-semibold text-text">{v.title}</h3>
                   <p className="mt-2 text-xs leading-relaxed text-muted">
@@ -218,7 +218,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Hyundai Motor India credibility */}
+        {/* Mahindra & Mahindra credibility */}
         <section className="bg-brand-deep py-14 text-white lg:py-20">
           <div className="container-px mx-auto max-w-[1400px]">
             <Reveal className="mx-auto max-w-2xl text-center">
@@ -226,16 +226,16 @@ export default function AboutPage() {
                 Backed By
               </p>
               <h2 className="mt-2 font-display text-2xl font-bold sm:text-3xl">
-                Hyundai Motor India: &ldquo;{hyundaiIndiaFacts.tagline}&rdquo;
+                Mahindra &amp; Mahindra: &ldquo;{mahindraFacts.tagline}&rdquo;
               </h2>
               <p className="mt-3 text-sm text-white/70 sm:text-base">
-                Founded in {hyundaiIndiaFacts.founded}, Hyundai Motor India is
-                the country&apos;s leading automobile manufacturer, with{" "}
-                {hyundaiIndiaFacts.network} {hyundaiIndiaFacts.milestone}
+                {mahindraFacts.foundedNote} Today, Mahindra is one of India&apos;s
+                largest SUV makers, with {mahindraFacts.plant}{" "}
+                {mahindraFacts.network}
               </p>
             </Reveal>
             <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
-              {hyundaiIndiaFacts.csr.map((c, i) => (
+              {mahindraFacts.csr.map((c, i) => (
                 <Reveal
                   key={c.title}
                   delay={i * 100}
@@ -262,7 +262,7 @@ export default function AboutPage() {
         <FAQ
           id="about-faq"
           data={aboutFaqData}
-          title="About Modi Hyundai: Frequently Asked Questions"
+          title="About Mahindra Modi: Frequently Asked Questions"
           subtitle="Quick answers about our ownership, group and track record."
         />
 
@@ -273,7 +273,7 @@ export default function AboutPage() {
               Ready to visit a showroom?
             </h2>
             <p className="max-w-md text-sm text-muted">
-              Book a free test drive or find your nearest Modi Hyundai
+              Book a free test drive or find your nearest Mahindra Modi
               showroom and service centre.
             </p>
             <div className="mt-2 flex flex-wrap justify-center gap-3">
@@ -285,7 +285,7 @@ export default function AboutPage() {
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
               <Link
-                href="/#locations"
+                href="/locate-us"
                 className="inline-flex items-center gap-2 rounded border border-brand px-6 py-3 text-sm font-semibold text-brand transition-all hover:bg-brand hover:text-white"
               >
                 Find a Showroom

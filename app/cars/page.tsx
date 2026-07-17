@@ -9,9 +9,9 @@ import { cars, SITE_URL } from "@/lib/data";
 import { DEALER_ID } from "@/lib/schema";
 import CarsGrid from "@/components/CarsGrid";
 
-const title = "New Hyundai Cars, Prices, Variants & Specifications | Modi Hyundai";
+const title = "New Mahindra Cars, Prices, Variants & Specifications | Mahindra Modi";
 const description =
-  "Browse the full Hyundai lineup at Modi Hyundai — SUVs, sedans, hatchbacks and electric vehicles, with on-road prices, specs and colours for every model.";
+  "Browse the full Mahindra lineup at Mahindra Modi: SUVs, MPVs, electric vehicles and commercial pickups, with on-road prices, specs and colours for every model.";
 
 export const metadata: Metadata = {
   title,
@@ -55,7 +55,7 @@ const carsPageSchema = {
         "@type": "ListItem",
         position: i + 1,
         url: `${SITE_URL}/cars/${c.slug}`,
-        name: `Hyundai ${c.name}`,
+        name: `Mahindra ${c.name}`,
       })),
     },
   ],
@@ -70,7 +70,7 @@ export default function CarsPage() {
       />
       <Navbar />
       <FloatingActions />
-      <main style={{ marginTop: "96px" }}>
+      <main style={{ marginTop: "60px" }}>
         <section className="bg-bg-2 py-10 lg:py-14">
           <div className="container-px mx-auto max-w-[1400px]">
             <Reveal>
@@ -78,11 +78,11 @@ export default function CarsPage() {
                 Our Cars
               </p>
               <h1 className="mt-2 font-display text-3xl font-bold text-text sm:text-4xl">
-                Compare New Hyundai Cars with Confidence
+                Compare New Mahindra Cars with Confidence
               </h1>
               <p className="mt-3 max-w-xl text-sm text-muted sm:text-base">
-                From compact SUVs to Hyundai&apos;s flagship electric lineup, find
-                the Hyundai that fits your life, with pricing, specs and real
+                From compact SUVs to Mahindra&apos;s flagship electric lineup, find
+                the Mahindra that fits your life, with pricing, specs and real
                 colours for every model.
               </p>
             </Reveal>
@@ -99,7 +99,7 @@ export default function CarsPage() {
               </h2>
               <p className="mt-2 max-w-lg text-sm text-white/70">
                 Tell us how you drive, who travels with you and your budget. Our
-                Hyundai specialists will help you compare the right variants.
+                Mahindra specialists will help you compare the right variants.
               </p>
             </div>
             <Link

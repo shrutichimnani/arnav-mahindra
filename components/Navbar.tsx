@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import { nav } from "@/lib/data";
 import { Phone, Menu, X } from "./icons";
@@ -22,25 +23,33 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  const pathname = usePathname();
+
+  // Clicking a link whose target is the current page does nothing by default;
+  // detect that and scroll back to the top instead.
+  const onNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    const target = href.split("#")[0] || "/";
+    if (target.replace(/\/$/, "") === pathname.replace(/\/$/, "")) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setOpen(false);
+    }
+  };
+
+  // A link is "active" when we're on its exact page, or (for section roots
+  // like /cars) on a nested route beneath it, e.g. /cars/thar-roxx.
+  const isActive = (href: string) => {
+    const linkPath = href.split("#")[0].replace(/\/$/, "") || "/";
+    if (linkPath === "/") return pathname === "/";
+    return pathname === linkPath || pathname.startsWith(`${linkPath}/`);
+  };
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 bg-white transition-shadow duration-300 ${
-        scrolled ? "shadow-[0_1px_0_0_#e2e6ec,0_4px_16px_0_rgba(0,44,95,0.07)]" : "shadow-[0_1px_0_0_#e2e6ec]"
+        scrolled ? "shadow-[0_1px_0_0_#e2e6ec,0_4px_16px_0_rgba(200,16,46,0.07)]" : "shadow-[0_1px_0_0_#e2e6ec]"
       }`}
     >
-      {/* Top utility bar */}
-      <div className="hidden border-b border-border bg-bg-2 lg:block">
-        <div className="container-px mx-auto flex h-9 max-w-[1400px] items-center justify-end gap-6 text-xs text-muted">
-          <a
-            href={`tel:${nav.phone.replace(/\s/g, "")}`}
-            className="flex items-center gap-1.5 transition-colors hover:text-brand"
-          >
-            <Phone className="h-3.5 w-3.5 text-brand" />
-            <span className="font-medium">Call Us: {nav.phone}</span>
-          </a>
-        </div>
-      </div>
-
       {/* Main nav */}
       <nav className="container-px mx-auto flex h-[60px] max-w-[1400px] items-center justify-between">
         <Logo />
@@ -51,7 +60,12 @@ export default function Navbar() {
             <li key={l.href}>
               <Link
                 href={l.href}
-                className="relative rounded px-4 py-2 text-sm font-medium text-muted transition-colors hover:bg-bg-2 hover:text-brand"
+                onClick={(e) => onNavClick(e, l.href)}
+                className={`relative rounded px-4 py-2 text-sm font-medium transition-colors ${
+                  isActive(l.href)
+                    ? "text-brand"
+                    : "text-muted hover:bg-bg-2 hover:text-brand"
+                }`}
               >
                 {l.label}
               </Link>
@@ -108,8 +122,12 @@ export default function Navbar() {
             <Link
               key={l.href}
               href={l.href}
-              onClick={() => setOpen(false)}
-              className="rounded px-4 py-3 text-base font-medium text-text transition-colors hover:bg-bg-2 hover:text-brand"
+              onClick={(e) => { onNavClick(e, l.href); setOpen(false); }}
+              className={`rounded px-4 py-3 text-base font-medium transition-colors ${
+                isActive(l.href)
+                  ? "text-brand"
+                  : "text-text hover:bg-bg-2 hover:text-brand"
+              }`}
             >
               {l.label}
             </Link>

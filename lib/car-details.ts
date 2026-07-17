@@ -1,10 +1,13 @@
 import type { Car, CarDetail, GalleryImage } from "./data";
 
 const passengerCarWarranty =
-  "3 years / unlimited km standard Hyundai warranty. Extended warranty and roadside-assistance plans can be selected at delivery; ask Modi Hyundai to confirm current plan terms for your variant.";
+  "Standard Mahindra manufacturer warranty (terms vary by model). Extended warranty and roadside-assistance plans can be selected at delivery; ask Mahindra Modi to confirm current plan terms for your variant.";
 
 const evWarranty =
-  "3 years / unlimited km standard vehicle warranty, plus an 8-year / 160,000 km high-voltage battery warranty. Extended protection options are available; confirm current terms and exclusions with Modi Hyundai.";
+  "Standard vehicle warranty, plus a separate long-term high-voltage battery warranty. Extended protection options are available; confirm current terms and exclusions with Mahindra Modi.";
+
+const commercialWarranty =
+  "Commercial-vehicle warranty and maintenance terms can differ from retail models. Mahindra Modi will confirm the current coverage in your fleet quotation.";
 
 type DetailInput = Omit<CarDetail, "warranty"> & { warranty?: string };
 
@@ -14,473 +17,664 @@ const detail = (input: DetailInput): CarDetail => ({
 });
 
 /*
- * Buyer-facing facts are maintained separately from card data. They have
- * been checked against the linked Hyundai India highlights, feature and
- * specification pages. Equipment, paint and price can change by variant.
+ * Buyer-facing facts are best-effort, realistic approximations based on
+ * publicly known Mahindra model information. Equipment, paint and price
+ * can change by variant and model year — this is demo/portfolio content,
+ * not a live specification sheet.
  */
 export const carDetails: Record<string, CarDetail> = {
-  exter: detail({
+  "thar-roxx": detail({
     overview:
-      "EXTER brings SUV-like confidence to a compact city footprint. It is an easy first car for buyers who want a high seating position, practical luggage space and a factory-fitted CNG choice without losing everyday usability.",
-    idealFor: "First-time buyers, city commuters and small families seeking a compact SUV stance.",
+      "THAR ROXX takes everything buyers love about the Thar and stretches it into a genuinely usable 5-door SUV, built on a new monocoque platform without losing 4x4 ability.",
+    idealFor: "Buyers who want Thar-level presence and off-road capability with real rear-seat space.",
     performance: [
-      "1.2L Kappa petrol: 83 PS and 114 Nm, with 5-speed manual or Smart Auto AMT.",
-      "Hy-CNG Duo uses twin underfloor cylinders to retain useful luggage space; CNG output is 69 PS and 95.2 Nm.",
-      "185 mm ground clearance and hill-start assist add confidence on ramps, speed breakers and broken urban roads.",
+      "2.0L mStallion turbo-petrol produces 190 PS and 380 Nm, paired with a 6-speed manual or 6-speed torque-converter automatic.",
+      "2.2L mHawk turbo-diesel produces up to 130 PS (RWD) or 177 PS (4WD), with manual or automatic options.",
+      "Available 4x4 with a low-range transfer case and multiple terrain modes for serious off-roading.",
     ],
     safety: [
-      "6 airbags, ABS with EBD, ESC, VSM and hill-start assist are standard safety foundations.",
-      "ISOFIX child-seat anchors, rear parking sensors and seat-belt reminders support family use.",
-      "Rear camera, TPMS and dual-camera dashcam are available on selected variants.",
+      "6 airbags, ESC, hill-hold and hill-descent control are standard across the range.",
+      "Level 2 ADAS with forward collision warning and lane-departure warning on higher trims.",
+      "360-degree camera and rear parking sensors are available by variant.",
     ],
     interior: [
-      "High seating position with practical storage, rear AC vents and a roomy 391-litre petrol boot.",
-      "Semi-leatherette upholstery, cooled glovebox and a leather-wrapped steering wheel are offered higher in the range.",
-      "Hy-CNG Duo variants preserve 225 litres of luggage space through underfloor cylinders.",
+      "Dual-tone cabin with a 10.25-inch touchscreen and a 10.25-inch digital driver display.",
+      "Five-seat layout with a genuinely usable 460-litre boot.",
+      "Ventilated front seats and a premium Harman sound system on top variants.",
     ],
     exterior: [
-      "H-shaped LED DRLs, parametric grille, bridge-type roof rails and muscular wheel arches create the SUV look.",
-      "15-inch diamond-cut alloy wheels and a rear spoiler are available on higher trims.",
-      "Choose from single-tone, dual-tone and matte finishes, subject to variant availability.",
+      "Signature round LED headlamps, a bold seven-slat grille and squared-off wheel arches.",
+      "18-inch alloy wheels and removable roof panels are available on select variants.",
     ],
     infotainment: [
-      "8-inch touchscreen with wireless Android Auto and Apple CarPlay on eligible trims.",
-      "Digital cluster, steering-mounted controls and Hyundai Bluelink connected-car functions are available by variant.",
-      "Segment-first dual-camera dashcam is offered on select versions.",
+      "10.25-inch touchscreen with wireless Android Auto and Apple CarPlay.",
+      "Adventure Stat Pack showing off-road telemetry such as pitch, roll and altitude.",
     ],
     comfort: [
-      "Smart electric sunroof, cruise control and keyless entry with push-button start are available higher in the range.",
-      "AMT is the convenience-led choice for frequent stop-start driving; manual suits buyers who prefer direct control.",
+      "Automatic climate control, cruise control and keyless entry are available higher in the range.",
+      "Automatic transmission suits daily driving; manual keeps direct control for off-road use.",
     ],
     variants: [
-      "Petrol manual: HX 2, HX 3, HX 4, HX 4+, HX 6, HX 8 and HX 10.",
-      "Petrol AMT and Hy-CNG Duo availability depends on the selected HX trim.",
-      "Ask for a feature-by-feature quotation before deciding between a value trim and a top-spec sunroof/tech trim.",
+      "AX Opt, AX7, AX7L and flagship trims span the petrol and diesel, 4x2 and 4x4 range.",
+      "Confirm 4x2 vs 4x4 and transmission availability on your preferred trim before booking.",
     ],
     specifications: [
-      { label: "Dimensions (L × W × H)", value: "3,830 × 1,723 × 1,643 mm" },
+      { label: "Dimensions (L × W × H)", value: "3,985 × 1,855 × 1,922 mm" },
       { label: "Wheelbase", value: "2,450 mm" },
-      { label: "Ground clearance", value: "185 mm" },
-      { label: "Boot space", value: "391 L petrol / 225 L Hy-CNG Duo" },
-      { label: "Fuel tank", value: "37 L petrol; 60 L water-equivalent CNG" },
-      { label: "Claimed efficiency", value: "Up to 21.1 kmpl petrol / 27.1 km/kg CNG" },
+      { label: "Ground clearance", value: "226 mm" },
+      { label: "Boot space", value: "460 L" },
+      { label: "Fuel tank", value: "57 L" },
+      { label: "Claimed efficiency", value: "Up to 15.4 kmpl (diesel AT)" },
     ],
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/exter/highlights",
+    sourceUrl: "https://auto.mahindra.com/suv/thar-roxx/TH5D.html",
   }),
-  venue: detail({
+  "xuv-3xo": detail({
     overview:
-      "VENUE is a compact SUV for buyers who want a manageable city size without giving up engine choice, connected technology or a confident highway feel.",
-    idealFor: "Urban professionals and young families who want a flexible petrol or diesel compact SUV.",
+      "XUV 3XO is Mahindra's compact SUV answer for buyers who want segment-leading ADAS, a sunroof and bold styling without stepping up to a mid-size SUV budget.",
+    idealFor: "City-first buyers and small families who want a feature-rich, safety-focused compact SUV.",
     performance: [
-      "1.2L petrol makes 83 PS and 114.7 Nm with a 5-speed manual for relaxed daily use.",
-      "1.0L turbo GDi petrol makes 120 PS and 172 Nm, with manual or 7-speed DCT options on selected trims.",
-      "1.5L CRDi diesel delivers 116 PS and 250 Nm for long-distance efficiency, with manual or automatic options.",
+      "1.2L turbo-petrol produces up to 130 PS, with manual or automatic transmission choices.",
+      "1.5L diesel offers strong low-end torque for a relaxed highway cruise.",
+      "Multiple drive modes tailor throttle response to city or open-road driving.",
     ],
     safety: [
-      "6 airbags, ESC, VSM, hill-start assist and ABS with EBD are standard safety essentials.",
-      "Rear camera, TPMS, ISOFIX anchors and a tyre mobility kit/full-size spare vary with the trim.",
-      "Selected variants add a 360-degree camera and advanced parking aids.",
+      "Level 2 ADAS with forward collision warning, lane-keep assist and adaptive cruise control on top trims.",
+      "6 airbags standard across most of the range, alongside ESC and hill-hold assist.",
+      "360-degree camera and blind-spot monitoring are available by variant.",
     ],
     interior: [
-      "Five-seat cabin with rear AC vents, rear window sunshades and useful small-item storage.",
-      "Higher trims add leatherette upholstery, a power driver seat and an electric sunroof.",
-      "350-litre boot is sized for regular weekend luggage and daily errands.",
+      "Dual 10.25-inch curved displays create a modern, tech-forward cabin.",
+      "Ventilated front seats and a panoramic sunroof are available on higher trims.",
+      "364-litre boot handles everyday shopping and weekend luggage.",
     ],
     exterior: [
-      "Signature parametric grille, LED lighting and a strong shoulder line give the VENUE a grown-up SUV presence.",
-      "Alloy wheels, roof rails, dual-tone roof choices and Knight styling depend on version.",
+      "Bold LED light signature front and rear, with a muscular SUV stance.",
+      "16- and 17-inch alloy wheel options depending on variant.",
     ],
     infotainment: [
-      "Touchscreen infotainment with Android Auto and Apple CarPlay; connectivity format varies by system and trim.",
-      "Hyundai Bluelink, voice recognition, digital cluster and premium audio are offered higher in the range.",
+      "Dual 10.25-inch screens with wireless Android Auto and Apple CarPlay.",
+      "Harman Kardon premium sound system on select top-spec variants.",
     ],
     comfort: [
-      "Automatic climate control, wireless charger, cruise control and keyless entry are offered on selected versions.",
-      "Choose manual for a lower entry price or automatic/DCT for traffic-heavy commutes.",
+      "Automatic climate control, cruise control and a wireless charger are available higher in the range.",
+      "Automatic transmission suits city traffic; manual keeps the entry price lower.",
     ],
     variants: [
-      "HX trims span the 1.2 petrol, turbo-petrol and diesel range.",
-      "Powertrain and gearbox availability changes by trim; the turbo DCT and diesel automatic sit higher in the lineup.",
-      "Knight and dual-tone editions add appearance-led choices where offered.",
+      "MX, AX3, AX5, AX7 and AX7L trims span value to fully-loaded specifications.",
+      "Confirm ADAS, sunroof and camera availability on your preferred trim before booking.",
     ],
     specifications: [
-      { label: "Dimensions (L × W × H)", value: "3,995 × 1,770 × 1,645 mm" },
-      { label: "Wheelbase", value: "2,500 mm" },
-      { label: "Ground clearance", value: "Up to 190 mm (variant dependent)" },
-      { label: "Boot space", value: "350 L" },
+      { label: "Dimensions (L × W × H)", value: "3,990 × 1,821 × 1,647 mm" },
+      { label: "Wheelbase", value: "2,600 mm" },
+      { label: "Ground clearance", value: "201 mm" },
+      { label: "Boot space", value: "364 L" },
       { label: "Fuel tank", value: "45 L" },
-      { label: "Claimed efficiency", value: "Up to 18.4 kmpl petrol / 23.7 kmpl diesel" },
+      { label: "Claimed efficiency", value: "Up to 20.6 kmpl (petrol)" },
     ],
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/venue/highlights",
+    sourceUrl: "https://auto.mahindra.com/suv/xuv3xo/X3XO.html",
   }),
-  "venue-n-line": detail({
+  thar: detail({
     overview:
-      "VENUE N Line gives the compact SUV a more expressive edge with a turbo-petrol heart, N-specific detailing and a more engaging driving character.",
-    idealFor: "Drivers who want compact-SUV practicality with sportier looks and a turbo-petrol response.",
+      "THAR is India's original off-road lifestyle SUV: a true body-on-frame 4x4 built for weekend adventures as much as daily driving.",
+    idealFor: "Off-road enthusiasts and lifestyle buyers who want an open-top, go-anywhere SUV.",
     performance: [
-      "1.0L turbo GDi petrol produces 120 PS and 172 Nm.",
-      "Choose a 6-speed manual or 7-speed DCT; DCT versions add paddle shifters for manual control on demand.",
-      "N Line-specific suspension and steering calibration aim for a more connected feel.",
+      "2.0L mStallion turbo-petrol produces 150 PS and 300 Nm.",
+      "2.2L mHawk turbo-diesel produces 130 PS and 300 Nm.",
+      "Both engines offer manual or torque-converter automatic transmissions with 4x4 drive.",
     ],
     safety: [
-      "6 airbags, ESC, VSM, hill-start assist, ABS with EBD and ISOFIX anchors provide the core protection suite.",
-      "Rear camera, TPMS and parking aids are equipped according to variant.",
+      "6 airbags, ESC and hill-hold assist are standard across the range.",
+      "Roll-over mitigation and a reinforced body structure support off-road safety.",
     ],
     interior: [
-      "All-black N Line cabin with red accents, N-branded seats and a leather-wrapped steering wheel.",
-      "Rear AC vents and a 350-litre boot retain the regular VENUE's everyday practicality.",
+      "Compact four-seat cabin focused on driver engagement over outright space.",
+      "Height-adjustable driver seat and a simple, rugged dashboard layout.",
     ],
     exterior: [
-      "N Line grille, red exterior accents, side skirts, sporty bumper treatment and twin-tip exhaust styling.",
-      "Exclusive alloy-wheel and paint combinations help distinguish it from the standard VENUE.",
+      "Iconic round headlamps, a flat bonnet and boxy proportions carry the Thar's heritage design.",
+      "Convertible soft-top and hard-top body styles are available depending on variant.",
     ],
     infotainment: [
-      "Touchscreen infotainment, Android Auto/Apple CarPlay, Bluelink and digital driver display are available by trim.",
-      "Bose audio and voice-enabled features are offered on higher N Line versions.",
+      "Touchscreen infotainment with Android Auto and Apple CarPlay on higher trims.",
+      "Adventure Stat Pack telemetry showing pitch, roll and altitude.",
     ],
     comfort: [
-      "Electric sunroof, automatic climate control, wireless charger and cruise control are available on higher trims.",
-      "DCT suits traffic and quick highway overtakes; manual is the more hands-on option.",
+      "Air-conditioning, power windows and a height-adjustable driver seat are standard on most trims.",
+      "Automatic transmission suits relaxed city use; manual is preferred for off-road control.",
     ],
     variants: [
-      "N6 and N8 are the principal N Line grades; availability can change with Hyundai updates.",
-      "Both manual and DCT choices should be compared for feature mix as well as driving preference.",
+      "AX Opt and AX7 trims span both petrol and diesel engines, in 4x2 and 4x4 configurations.",
+      "Confirm soft-top vs hard-top and 4x2 vs 4x4 availability before booking.",
     ],
     specifications: [
-      { label: "Dimensions (L × W × H)", value: "3,995 × 1,770 × 1,645 mm" },
-      { label: "Wheelbase", value: "2,500 mm" },
-      { label: "Boot space", value: "350 L" },
-      { label: "Fuel tank", value: "45 L" },
-      { label: "Power / torque", value: "120 PS / 172 Nm" },
-      { label: "Claimed efficiency", value: "Up to 18.2 kmpl" },
+      { label: "Dimensions (L × W × H)", value: "3,985 × 1,855 × 1,844 mm" },
+      { label: "Wheelbase", value: "2,450 mm" },
+      { label: "Ground clearance", value: "226 mm" },
+      { label: "Fuel tank", value: "57 L" },
+      { label: "Claimed efficiency", value: "Up to 15.2 kmpl (diesel manual)" },
     ],
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/venue-n-line/highlights",
+    sourceUrl: "https://auto.mahindra.com/suv/thar/THRN.html",
   }),
-  creta: detail({
+  "scorpio-n": detail({
     overview:
-      "CRETA combines a spacious five-seat cabin, a broad powertrain choice and the technology buyers expect from a modern mid-size SUV. It is the balanced choice for commuting, family duty and regular highway travel.",
-    idealFor: "Families who want a versatile five-seat SUV with a wide range of engine and automatic choices.",
+      "SCORPIO-N brings the legendary Scorpio nameplate into a new generation: a commanding new design, modern technology and genuine off-road ability.",
+    idealFor: "Families who want SUV road presence, seven-seat flexibility and available all-wheel drive.",
     performance: [
-      "1.5L MPi petrol: 115 PS / 143.8 Nm with 6-speed manual or IVT.",
-      "1.5L turbo GDi petrol: 160 PS / 253 Nm with 7-speed DCT for the strongest acceleration.",
-      "1.5L CRDi diesel: 116 PS / 250 Nm with 6-speed manual or 6-speed automatic for long-distance use.",
+      "2.0L mStallion turbo-petrol produces up to 203 PS and 380 Nm.",
+      "2.2L mHawk turbo-diesel produces up to 175 PS and 400/450 Nm depending on transmission.",
+      "Available 4XPLOR all-wheel-drive system with multiple terrain modes.",
     ],
     safety: [
-      "6 airbags, ESC, VSM, hill-start assist, all-wheel disc brakes and ISOFIX anchors form the core suite.",
-      "Tyre pressure monitoring, front/rear parking sensors, rear camera and 360-degree camera are variant dependent.",
-      "Hyundai SmartSense Level 2 ADAS is available on select higher variants.",
+      "6 airbags, ESC, hill-hold and hill-descent control are standard.",
+      "360-degree camera and rear parking sensors are available on higher trims.",
+    ],
+    interior: [
+      "Second-row captain seats or bench seating, with a third row for occasional use.",
+      "192-litre boot with the third row up, expandable when folded flat.",
+      "Ventilated front seats and a panoramic sunroof on top variants.",
+    ],
+    exterior: [
+      "Bold, upright grille, C-shaped LED DRLs and squared wheel arches define the new Scorpio look.",
+      "18-inch alloy wheels and roof rails are available depending on trim.",
+    ],
+    infotainment: [
+      "8-inch or 12-inch touchscreen depending on variant, with wireless Android Auto and Apple CarPlay.",
+      "Sony 3D surround sound system is available on the flagship trim.",
+    ],
+    comfort: [
+      "Dual-zone automatic climate control and paddle shifters are available on automatic variants.",
+      "5 drive modes and 6 terrain modes tailor the SUV to road, sand, mud, snow or off-road use.",
+    ],
+    variants: [
+      "Z2, Z4, Z6, Z8 and Z8L trims span the petrol and diesel, manual and automatic range.",
+      "Confirm seating layout (captain seats vs bench) and 4XPLOR availability on your preferred trim.",
+    ],
+    specifications: [
+      { label: "Dimensions (L × W × H)", value: "4,662 × 1,917 × 1,857 mm" },
+      { label: "Wheelbase", value: "2,750 mm" },
+      { label: "Ground clearance", value: "192 mm (laden)" },
+      { label: "Boot space", value: "192 L (3rd row up), expandable" },
+      { label: "Fuel tank", value: "57 L" },
+      { label: "Claimed efficiency", value: "Up to 16.7 kmpl (diesel manual)" },
+    ],
+    sourceUrl: "https://auto.mahindra.com/suv/scorpio-n/SCN.html",
+  }),
+  "scorpio-classic": detail({
+    overview:
+      "SCORPIO CLASSIC keeps the original Scorpio's rugged body-on-frame silhouette alive for buyers who prioritise toughness and ground clearance above all else.",
+    idealFor: "Buyers who want proven body-on-frame toughness and maximum practicality over the newest tech.",
+    performance: [
+      "2.2L mHawk turbo-diesel produces 132 PS and 300 Nm.",
+      "6-speed manual or 6-speed torque-converter automatic transmission options.",
+    ],
+    safety: [
+      "Dual airbags standard, with up to 6 airbags on higher trims.",
+      "ESC and hill-hold assist are available on select variants.",
+    ],
+    interior: [
+      "7- or 9-seat configurations for maximum passenger flexibility.",
+      "Simple, durable cabin trim built for long-term use.",
+    ],
+    exterior: [
+      "Classic Scorpio silhouette with the familiar tail-lamp cluster and rugged proportions.",
+      "Roof rails and alloy wheels are available on higher trims.",
+    ],
+    infotainment: [
+      "Touchscreen infotainment with Android Auto and Apple CarPlay on select trims.",
+    ],
+    comfort: [
+      "Automatic climate control and cruise control are available on the top trim.",
+      "Automatic transmission suits highway cruising; manual is the value-focused choice.",
+    ],
+    variants: [
+      "S, S11 and S11 4WD trims span manual and automatic, 7- and 9-seat configurations.",
+      "Confirm seating layout and 4WD availability before booking.",
+    ],
+    specifications: [
+      { label: "Dimensions (L × W × H)", value: "4,456 × 1,820 × 1,995 mm" },
+      { label: "Wheelbase", value: "2,680 mm" },
+      { label: "Ground clearance", value: "180 mm" },
+      { label: "Fuel tank", value: "60 L" },
+      { label: "Claimed efficiency", value: "Up to 15.4 kmpl" },
+    ],
+    sourceUrl: "https://auto.mahindra.com/suv/scorpio-classic/SCRC.html",
+  }),
+  "xuv-7xo": detail({
+    overview:
+      "XUV 7XO (formerly XUV700) is Mahindra's flagship SUV: a segment-leading feature list, Level 2 ADAS and a genuinely premium cabin in a five- or seven-seat layout.",
+    idealFor: "Families who want a premium, tech-loaded SUV with strong highway manners and safety credentials.",
+    performance: [
+      "2.0L mStallion turbo-petrol produces up to 200 PS and 380 Nm.",
+      "2.2L mHawk turbo-diesel produces up to 185 PS and 420/450 Nm depending on transmission.",
+      "Available all-wheel drive on select diesel automatic variants.",
+    ],
+    safety: [
+      "7 airbags standard across the range, with ESC, hill-hold and hill-descent control.",
+      "Blind-view monitor and a 360-degree camera are available on higher trims.",
     ],
     adas: [
-      "Forward Collision-Avoidance Assist, Lane Keeping Assist and Lane Following Assist.",
-      "Smart Cruise Control with Stop & Go, Driver Attention Warning and High Beam Assist on eligible variants.",
-      "Blind-Spot Collision Warning and Rear Cross-Traffic Collision-Avoidance Assist where equipped.",
+      "Adaptive cruise control, forward collision warning and autonomous emergency braking on ADAS-equipped trims.",
+      "Lane-keep assist, lane-departure warning and driver drowsiness detection where fitted.",
     ],
     interior: [
-      "Dual 10.25-inch displays, ambient lighting and premium upholstery create the high-tech cabin feel on upper trims.",
-      "Ventilated front seats, rear AC vents and a 433-litre boot support everyday family use.",
-      "Panoramic sunroof and power driver seat are available on selected versions.",
+      "Dual 10.25-inch curved displays with Amazon Alexa built-in.",
+      "240-litre boot with the third row up, expandable when folded.",
+      "Ventilated front seats and a panoramic sunroof on top variants.",
     ],
     exterior: [
-      "Horizon LED positioning lamp/DRL treatment, distinctive grille and connected LED tail lamps define the look.",
-      "17- or 18-inch alloy designs, roof rails and dual-tone choices vary by variant.",
+      "Bold LED light signature, a muscular bonnet line and 18-inch alloy wheels on top trims.",
     ],
     infotainment: [
-      "10.25-inch touchscreen navigation, Bose 8-speaker system and Bluelink connected-car technology on higher variants.",
-      "Android Auto, Apple CarPlay, voice recognition and over-the-air map/infotainment updates depend on trim.",
+      "Dual 10.25-inch screens, Sony 3D audio with 12 speakers and an Adrenox connected-car app on select trims.",
+      "Wireless Android Auto and Apple CarPlay across most of the range.",
     ],
     comfort: [
-      "Dual-zone automatic climate control, ventilated seats, rear sunshades and an electric parking brake are offered higher in the lineup.",
-      "IVT is smooth for city traffic, diesel AT suits mile-eaters and turbo DCT is the performance choice.",
+      "Dual-zone automatic climate control, wireless charger and driver memory seat on top variants.",
+      "Automatic transmission suits highway and city use; manual keeps the entry price accessible.",
     ],
     variants: [
-      "The range spans value, mid and high trims, including manual and automatic choices across petrol and diesel engines.",
-      "Top versions add the panoramic sunroof, Bose audio, 360-degree camera and ADAS; compare the official feature chart before booking.",
-      "Special and Knight editions may be available with unique cosmetic treatments.",
+      "MX, AX3, AX5, AX7 and AX7L trims span 5- and 7-seat, petrol and diesel, manual and automatic combinations.",
+      "Confirm ADAS, sunroof and audio system availability on your preferred trim before booking.",
     ],
     specifications: [
-      { label: "Dimensions (L × W × H)", value: "4,330 × 1,790 × 1,635 mm" },
-      { label: "Wheelbase", value: "2,610 mm" },
-      { label: "Ground clearance", value: "190 mm" },
-      { label: "Boot space", value: "433 L" },
-      { label: "Fuel tank", value: "50 L" },
-      { label: "Claimed efficiency", value: "Up to 18.4 kmpl petrol / 21.8 kmpl diesel" },
-    ],
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/creta/highlights",
-  }),
-  "creta-n-line": detail({
-    overview:
-      "CRETA N Line is the performance-led expression of the Creta: the same usable SUV package, sharpened with an exclusive cabin, bolder bodywork and a turbo-petrol-only drivetrain.",
-    idealFor: "SUV buyers who value strong turbo performance and N Line visual character over diesel efficiency.",
-    performance: [
-      "1.5L turbo GDi petrol delivers 160 PS and 253 Nm.",
-      "6-speed manual and 7-speed DCT choices are offered; DCT versions include paddle shifters.",
-      "N Line-specific steering and suspension tuning are designed for a more engaging response.",
-    ],
-    safety: [
-      "6 airbags, ESC, VSM, hill-start assist, all-wheel disc brakes and ISOFIX anchors.",
-      "Parking sensors/camera, TPMS and 360-degree camera availability depend on the selected N Line variant.",
-      "Level 2 Hyundai SmartSense ADAS is available on the higher grade.",
-    ],
-    adas: [
-      "Forward Collision-Avoidance Assist, lane-support functions and Driver Attention Warning.",
-      "Smart Cruise Control, Blind-Spot Collision Warning and Rear Cross-Traffic Collision-Avoidance Assist on equipped versions.",
-    ],
-    interior: [
-      "All-black cabin with red inserts, N-branded seats, steering wheel, gear knob and metal pedals.",
-      "Ventilated front seats, panoramic sunroof and 433-litre boot retain the regular Creta's usefulness.",
-    ],
-    exterior: [
-      "N Line grille and bumpers, red accents, side skirts, rear diffuser and twin-tip exhaust styling.",
-      "18-inch alloy wheels and exclusive colour choices give it a distinct stance.",
-    ],
-    infotainment: [
-      "Dual 10.25-inch screens, Bose sound, Bluelink and connected navigation are available on upper trims.",
-      "Wireless charger, voice commands and smartphone integration are offered according to variant.",
-    ],
-    comfort: [
-      "Dual-zone climate control, power driver seat, ventilated seats and electric parking brake are offered higher in the range.",
-      "Choose manual for maximum driver involvement or DCT for easy traffic use.",
-    ],
-    variants: [
-      "N8 and N10 grades are offered with manual or DCT availability depending on the current line-up.",
-      "N10 is the feature-led choice; compare its ADAS, camera and comfort equipment against N8 before deciding.",
-    ],
-    specifications: [
-      { label: "Dimensions (L × W × H)", value: "4,330 × 1,790 × 1,635 mm" },
-      { label: "Wheelbase", value: "2,610 mm" },
-      { label: "Ground clearance", value: "190 mm" },
-      { label: "Boot space", value: "433 L" },
-      { label: "Power / torque", value: "160 PS / 253 Nm" },
-      { label: "Claimed efficiency", value: "Up to 18.7 kmpl" },
-    ],
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/creta-n-line/highlights",
-  }),
-  alcazar: detail({
-    overview:
-      "ALCAZAR adds a genuinely usable third row and premium road-trip comforts to Hyundai's SUV formula. Pick six seats for captain-chair comfort or seven seats for maximum passenger flexibility.",
-    idealFor: "Growing families who need three rows, weekend luggage flexibility and a premium long-distance cabin.",
-    performance: [
-      "1.5L turbo GDi petrol: 160 PS / 253 Nm with 6-speed manual or 7-speed DCT.",
-      "1.5L CRDi diesel: 116 PS / 250 Nm with 6-speed manual or 6-speed automatic.",
-      "Drive and traction modes (Snow, Mud and Sand) help tailor throttle and traction response to conditions.",
-    ],
-    safety: [
-      "6 airbags, ESC, VSM, hill-start assist, all-wheel disc brakes and ISOFIX anchors are key protections.",
-      "360-degree camera, TPMS, front parking sensors and blind-view display are available on selected versions.",
-      "Hyundai SmartSense Level 2 ADAS is offered on high variants.",
-    ],
-    adas: [
-      "Forward Collision-Avoidance Assist, Lane Keeping Assist and Lane Following Assist.",
-      "Smart Cruise Control with Stop & Go, High Beam Assist and Driver Attention Warning on equipped versions.",
-      "Blind-Spot and rear cross-traffic collision warnings/assistance where fitted.",
-    ],
-    interior: [
-      "Choose a 6-seat layout with second-row captain chairs or a 7-seat layout with bench seating.",
-      "Ventilated front seats, third-row AC controls and 180-litre boot with all rows up.",
-      "Seatback tables, a magnetic pad and available 8-way powered front seats make long journeys easier.",
-    ],
-    exterior: [
-      "Dark chrome grille, quad-beam LED headlamps, H-shaped LED signatures and bridge-type roof rails.",
-      "18-inch alloy wheels and Knight edition detailing are available on selected variants.",
-    ],
-    infotainment: [
-      "Dual 10.25-inch displays, Bose premium audio, Bluelink and voice recognition are available higher in the range.",
-      "Connected navigation, wireless charger and smartphone connectivity depend on selected trim.",
-    ],
-    comfort: [
-      "Dual-zone climate control, panoramic sunroof, powered front seats and paddle shifters are available by variant.",
-      "Diesel automatic is the relaxed highway choice; turbo DCT prioritises performance.",
-    ],
-    variants: [
-      "Executive, Prestige, Corporate, Platinum and Signature grades are offered, with Knight editions on selected grades.",
-      "Confirm whether your preferred trim has 6 or 7 seats and which powertrain/automatic combination it supports.",
-    ],
-    specifications: [
-      { label: "Dimensions (L × W × H)", value: "4,560 × 1,800 × 1,710 mm" },
-      { label: "Wheelbase", value: "2,760 mm" },
+      { label: "Dimensions (L × W × H)", value: "4,695 × 1,890 × 1,755 mm" },
+      { label: "Wheelbase", value: "2,750 mm" },
       { label: "Ground clearance", value: "200 mm" },
-      { label: "Boot space", value: "180 L with third row up; expandable when folded" },
-      { label: "Fuel tank", value: "50 L" },
-      { label: "Claimed efficiency", value: "Up to 20.4 kmpl diesel / 16.2 kmpl petrol" },
+      { label: "Boot space", value: "240 L (7-seat, 3rd row up), expandable" },
+      { label: "Fuel tank", value: "60 L" },
+      { label: "Claimed efficiency", value: "Up to 17 kmpl (petrol) / 18.3 kmpl (diesel)" },
     ],
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/alcazar/highlights",
+    sourceUrl: "https://auto.mahindra.com/suv/xuv-7xo.html",
   }),
-  verna: detail({
+  marazzo: detail({
     overview:
-      "VERNA is the choice for buyers who prefer a low-slung sedan's ride, a large 528-litre boot and a genuinely quick turbo-petrol option without giving up modern safety technology.",
-    idealFor: "Sedan buyers who value highway stability, rear-seat comfort and a large boot.",
+      "MARAZZO is Mahindra's spacious MPV, built for families and long road trips with flexible 6-, 7- and 8-seat configurations.",
+    idealFor: "Large families and group travellers who want genuine third-row comfort and a high seating position.",
     performance: [
-      "1.5L MPi petrol: 115 PS / 143.8 Nm with 6-speed manual or IVT.",
-      "1.5L turbo GDi petrol: 160 PS / 253 Nm with 6-speed manual or 7-speed DCT.",
-      "Turbo DCT models add paddle shifters and deliver the strongest performance in the range.",
+      "1.5L mHawk100 turbo-diesel produces 123 PS and 300 Nm.",
+      "6-speed manual transmission across the range.",
     ],
     safety: [
-      "6 airbags, ESC, VSM, hill-start assist, ISOFIX anchors and TPMS provide core protection.",
-      "All-wheel disc brakes, front parking sensors, rear camera and 360-degree camera availability differs by grade.",
-      "Hyundai SmartSense Level 2 ADAS is offered on top versions.",
-    ],
-    adas: [
-      "Forward Collision-Avoidance Assist, Lane Keeping Assist and Lane Following Assist.",
-      "Smart Cruise Control with Stop & Go, Blind-Spot Collision Warning and Rear Cross-Traffic Collision-Avoidance Assist on equipped versions.",
+      "Dual airbags standard, with ABS and EBD across the range.",
+      "Reverse parking camera and sensors are available on higher trims.",
     ],
     interior: [
-      "Wide dashboard with dual integrated displays, switchable themes and soft-touch elements on higher variants.",
-      "Ventilated front seats, front armrest, rear AC vents and generous 528-litre boot improve daily practicality.",
+      "Segment-first First Row Captain Seats on select variants.",
+      "Wide cabin with abundant headroom and legroom across all three rows.",
     ],
     exterior: [
-      "Horizon LED positioning lamp, parametric grille and connected LED tail lamps give the VERNA a distinctive sedan profile.",
-      "15- and 16-inch wheel options, sunroof and dual-tone paint availability depend on trim.",
+      "Sculpted body panels and a high, van-like roofline maximise interior space.",
     ],
     infotainment: [
-      "10.25-inch infotainment/navigation, Bose audio, Bluelink and digital key are offered on higher variants.",
-      "Android Auto, Apple CarPlay, wireless charging and voice recognition vary by feature grade.",
+      "Touchscreen infotainment with Android Auto and Apple CarPlay on higher trims.",
     ],
     comfort: [
-      "Ventilated front seats, automatic climate control, electric sunroof, cruise control and remote engine start are available by trim.",
-      "IVT is city-friendly; the turbo DCT is for buyers seeking a faster, more engaging sedan.",
+      "Automatic climate control with rear vents keeps every row comfortable.",
+      "High ground clearance handles varied road conditions with ease.",
     ],
     variants: [
-      "The MPi range focuses on comfort and efficiency; turbo grades add the performance drivetrain and sportier wheels.",
-      "Top variants bring the full ADAS, camera and premium audio feature set. Ask for a live trim-wise feature comparison.",
+      "M2, M4, M6 and M8 trims span 6-, 7- and 8-seat layouts.",
+      "Confirm captain-seat vs bench layout on your preferred trim before booking.",
     ],
     specifications: [
-      { label: "Dimensions (L × W × H)", value: "4,535 × 1,765 × 1,475 mm" },
-      { label: "Wheelbase", value: "2,670 mm" },
-      { label: "Ground clearance", value: "165 mm" },
-      { label: "Boot space", value: "528 L" },
-      { label: "Fuel tank", value: "45 L" },
-      { label: "Claimed efficiency", value: "Up to 20.6 kmpl" },
+      { label: "Dimensions (L × W × H)", value: "4,585 × 1,860 × 1,774 mm" },
+      { label: "Wheelbase", value: "2,772 mm" },
+      { label: "Ground clearance", value: "185 mm" },
+      { label: "Fuel tank", value: "55 L" },
+      { label: "Claimed efficiency", value: "Up to 17.6 kmpl" },
     ],
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/verna/highlights",
+    sourceUrl: "https://auto.mahindra.com/suv/marazzo/MRZO.html",
   }),
-  aura: detail({
+  bolero: detail({
     overview:
-      "AURA delivers compact-sedan value with a large 402-litre boot, easy city dimensions and a factory CNG option for buyers focused on running costs.",
-    idealFor: "Value-led sedan buyers, daily commuters and owners who need a practical boot.",
+      "BOLERO is India's best-selling rugged SUV nameplate: proven reliability, high ground clearance and low running costs, built for decades of tough use.",
+    idealFor: "Buyers who prioritise toughness, resale value and low running costs above all else.",
     performance: [
-      "1.2L Kappa petrol makes 83 PS and 114 Nm, with 5-speed manual or Smart Auto AMT.",
-      "Factory-fitted CNG provides a lower-running-cost alternative with 69 PS and 95.2 Nm.",
-      "AMT is the easier choice for city traffic; manual gives buyers direct gearbox control.",
+      "1.5L mHawk75 diesel produces 75 PS and 210 Nm.",
+      "5-speed manual transmission, tuned for durability and torque delivery.",
     ],
     safety: [
-      "6 airbags, ABS with EBD, ESC, VSM and hill-start assist are available across the range as specified by Hyundai.",
-      "ISOFIX anchors, rear camera, rear parking sensors and TPMS availability varies by trim.",
+      "Dual airbags and ABS with EBD are standard across the range.",
+      "Hill-hold assist is available on select variants.",
     ],
-    interior: ["Five-seat cabin with rear AC vents, rear armrest and a substantial 402-litre boot.", "Higher trims add leatherette upholstery, cooled glovebox, adjustable rear headrests and a wireless charger."],
-    exterior: ["Cascade grille, projector headlamps, LED DRLs and 15-inch diamond-cut alloy wheels are offered across selected variants.", "Compact proportions make the AURA simple to park while retaining a sedan boot."],
-    infotainment: ["8-inch touchscreen with smartphone connectivity, Bluetooth and steering-mounted controls on selected versions.", "Digital cluster and Arkamys audio are available higher in the range."],
-    comfort: ["Rear AC vents, automatic climate control, push-button start and cruise control are offered by variant.", "Factory CNG is best for predictable high-mileage use; petrol/AMT adds flexibility in stop-start traffic."],
-    variants: ["Petrol manual, petrol AMT and CNG manual choices are distributed across E, S, SX and higher grades.", "Confirm boot space and feature availability when comparing petrol with CNG versions."],
+    interior: [
+      "7-seat cabin with a durable, easy-to-clean trim built for high-mileage use.",
+    ],
+    exterior: [
+      "Bold grille and squared-off proportions carry decades of Bolero heritage design.",
+    ],
+    infotainment: [
+      "Touchscreen infotainment with Bluetooth and USB connectivity on higher trims.",
+    ],
+    comfort: [
+      "Air-conditioning and power steering are standard across the range.",
+    ],
+    variants: [
+      "B4, B6 and B6(O) trims span the value to feature-rich range.",
+      "Confirm current feature availability with Mahindra Modi before booking.",
+    ],
     specifications: [
-      { label: "Dimensions (L × W × H)", value: "3,995 × 1,680 × 1,520 mm" },
-      { label: "Wheelbase", value: "2,450 mm" },
-      { label: "Ground clearance", value: "165 mm" },
-      { label: "Boot space", value: "402 L" },
-      { label: "Fuel tank", value: "37 L petrol" },
-      { label: "Claimed efficiency", value: "Up to 20.1 kmpl petrol / 26.4 km/kg CNG" },
+      { label: "Dimensions (L × W × H)", value: "3,995 × 1,795 × 1,880 mm" },
+      { label: "Wheelbase", value: "2,680 mm" },
+      { label: "Ground clearance", value: "180 mm" },
+      { label: "Fuel tank", value: "60 L" },
+      { label: "Claimed efficiency", value: "Up to 17 kmpl" },
     ],
-    warranty: "3 years / 100,000 km (whichever comes first) standard Hyundai warranty. Extended warranty plans may be available; ask Modi Hyundai to confirm the current terms for your variant.",
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/aura/highlights",
+    sourceUrl: "https://auto.mahindra.com/suv/bolero/BOL.html",
   }),
-  "grand-i10-nios": detail({
-    overview: "GRAND i10 NIOS makes city driving feel easy while still giving a five-seat cabin, rear AC vents and Hyundai's factory CNG option. It is a strong all-round hatchback for everyday ownership.",
-    idealFor: "First-time car owners and small families wanting an easy-to-own premium hatchback.",
-    performance: ["1.2L Kappa petrol produces 83 PS and 114 Nm with 5-speed manual or Smart Auto AMT.", "Hy-CNG Duo offers 69 PS and 95.2 Nm with twin underfloor cylinders to preserve boot usability.", "Compact size and light controls make it suited to dense city roads and parking."],
-    safety: ["6 airbags, ABS with EBD, ESC, VSM and hill-start assist are available as specified by Hyundai across the range.", "ISOFIX anchors, rear parking sensors, rear camera and TPMS are feature/variant dependent."],
-    interior: ["Five-seat cabin with segment-first rear AC vents and a 260-litre boot.", "Higher trims bring leatherette upholstery, cooled glovebox, rear USB charging and adjustable rear headrests."],
-    exterior: ["Cascading grille, swept-back headlamps, LED DRLs and diamond-cut alloy wheels on selected grades.", "VIBE editions and paint choices add more visual character where offered."],
-    infotainment: ["8-inch touchscreen, Android Auto, Apple CarPlay and wireless phone charging are available on suitable trims.", "Digital display, Bluetooth and steering-wheel controls support daily use."],
-    comfort: ["Rear AC vents, automatic climate control, keyless entry and cruise control are offered by version.", "AMT is the low-effort traffic choice; CNG is aimed at high-mileage cost savings."],
-    variants: ["Petrol manual is offered from Era through Asta; petrol AMT and CNG manual are available on selected grades.", "Sportz, Sportz (O) and VIBE versions should be compared for infotainment and style equipment."],
-    specifications: [{ label: "Dimensions (L × W × H)", value: "3,815 × 1,680 × 1,520 mm" }, { label: "Wheelbase", value: "2,450 mm" }, { label: "Ground clearance", value: "165 mm" }, { label: "Boot space", value: "260 L" }, { label: "Fuel tank", value: "37 L petrol" }, { label: "Claimed efficiency", value: "Up to 20.3 kmpl petrol / 25.4 km/kg CNG" }],
-    warranty: "3 years / 100,000 km (whichever comes first) standard Hyundai warranty. Extended warranty plans may be available; ask Modi Hyundai to confirm the current terms for your variant.",
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/grand-i10-nios/highlights",
+  "bolero-neo": detail({
+    overview:
+      "BOLERO NEO blends Bolero-grade ruggedness with a more modern cabin, in a compact SUV footprint suited to both city and rough-road use.",
+    idealFor: "Buyers who want Bolero toughness with a smaller footprint and more contemporary features.",
+    performance: [
+      "1.5L mHawk75 turbo-diesel produces 100 PS and 260 Nm.",
+      "5-speed manual transmission across the range.",
+    ],
+    safety: [
+      "Dual airbags and ABS with EBD are standard, with ESC on higher trims.",
+    ],
+    interior: [
+      "7-seat cabin with a 200 mm ground clearance for rough-road confidence.",
+    ],
+    exterior: [
+      "Ladder-frame toughness paired with a more compact, city-friendly design.",
+    ],
+    infotainment: [
+      "Touchscreen infotainment with Android Auto and Apple CarPlay on higher trims.",
+    ],
+    comfort: [
+      "Air-conditioning and power windows are standard across most of the range.",
+    ],
+    variants: [
+      "N4, N8 and N10 trims span the value to feature-rich range.",
+      "Confirm current feature availability with Mahindra Modi before booking.",
+    ],
+    specifications: [
+      { label: "Dimensions (L × W × H)", value: "3,995 × 1,819 × 1,817 mm" },
+      { label: "Wheelbase", value: "2,700 mm" },
+      { label: "Ground clearance", value: "200 mm" },
+      { label: "Fuel tank", value: "50 L" },
+      { label: "Claimed efficiency", value: "Up to 17.5 kmpl" },
+    ],
+    sourceUrl: "https://auto.mahindra.com/suv/bolero-neo/NEO.html",
   }),
-  i20: detail({
-    overview: "i20 gives buyers a premium hatchback experience with bold styling, a composed cabin and technology usually expected a class above. It is practical enough for daily use and polished enough for the highway.",
-    idealFor: "Hatchback buyers who prioritise premium features, design and everyday flexibility.",
-    performance: ["1.2L Kappa petrol produces 83 PS and 114.7 Nm.", "Choose a 5-speed manual or IVT automatic; the IVT is especially suited to daily traffic.", "170 mm ground clearance offers useful confidence over typical urban obstacles."],
-    safety: ["6 airbags, ESC, VSM, hill-start assist, ABS with EBD and ISOFIX anchors are central safety features.", "Rear camera, TPMS and parking sensors are supplied according to selected trim."],
-    interior: ["Five-seat cabin with a layered dashboard, leatherette upholstery options and 311-litre boot.", "Electric sunroof, ambient lighting and a digital instrument cluster are offered on high variants."],
-    exterior: ["Parametric jewel-pattern grille, LED headlamps/DRLs and a strong tailgate treatment define the i20.", "16-inch alloy wheels, dual-tone roof and Knight edition styling vary by trim."],
-    infotainment: ["10.25-inch touchscreen with navigation, Bose sound and Bluelink connected-car technology on higher grades.", "Android Auto, Apple CarPlay, wireless charger and voice recognition availability varies by variant."],
-    comfort: ["Automatic climate control, cruise control, electric sunroof and keyless entry are offered on selected trims.", "Manual is the value-led choice; IVT keeps city driving smooth and relaxed."],
-    variants: ["Manual and IVT options are available across the i20 range, from value-focused to feature-rich grades.", "Top trims add the premium audio, larger screens and sunroof; verify the current feature matrix before booking."],
-    specifications: [{ label: "Dimensions (L × W × H)", value: "3,995 × 1,775 × 1,505 mm" }, { label: "Wheelbase", value: "2,580 mm" }, { label: "Ground clearance", value: "170 mm" }, { label: "Boot space", value: "311 L" }, { label: "Fuel tank", value: "37 L" }, { label: "Claimed efficiency", value: "Up to 20.35 kmpl" }],
-    warranty: "3 years / 100,000 km (whichever comes first) standard Hyundai warranty. Extended warranty plans may be available; ask Modi Hyundai to confirm the current terms for your variant.",
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/i20/highlights",
+  "bolero-neo-plus": detail({
+    overview:
+      "BOLERO NEO PLUS is Mahindra's rugged, body-on-frame 9-seater SUV, built for large families and fleet operators who need genuine three-row space and go-anywhere toughness.",
+    idealFor: "Large families, taxi and fleet operators who need real 9-seat capacity and ladder-frame durability.",
+    performance: [
+      "2.2L mHawk turbo-diesel produces up to 120 PS and 280 Nm.",
+      "6-speed manual transmission across the range.",
+      "Rear-wheel drive, ladder-frame chassis construction.",
+    ],
+    safety: [
+      "Dual front airbags, ABS with EBD and Electronic Stability Programme are standard.",
+      "Hill-hold assist, rear parking sensors and ISOFIX child-seat mounts are included.",
+    ],
+    interior: [
+      "Genuine 9-seat, three-row layout with bench-type front and second rows.",
+      "Side-facing jump seats in the third row, two per side.",
+      "Rear AC vents across the second and third rows.",
+    ],
+    exterior: [
+      "Boxy, upright SUV stance with R15 steel wheels and wheel covers.",
+      "Ladder-frame toughness built for rough-road and fleet duty.",
+    ],
+    infotainment: [
+      "7-inch touchscreen with USB connectivity on higher trims.",
+    ],
+    comfort: [
+      "Manual air-conditioning, power steering and electric ORVMs across the range.",
+      "Height-adjustable driver's seat and steering-mounted audio controls.",
+    ],
+    variants: [
+      "Trims span value to feature-rich configurations across the 9-seat layout.",
+      "Confirm current feature availability and colour options with Mahindra Modi before booking.",
+    ],
+    specifications: [
+      { label: "Seating", value: "9, three-row bench and jump-seat layout" },
+      { label: "Engine displacement", value: "2,184 cc" },
+      { label: "Wheels", value: "R15 steel wheels with covers" },
+      { label: "Claimed efficiency", value: "Up to 14 kmpl" },
+    ],
+    sourceUrl: "https://auto.mahindra.com/suv/bolero-neo-plus/NEOP.html",
   }),
-  "i20-n-line": detail({
-    overview: "i20 N Line makes the premium hatchback more playful with a turbo-petrol engine, sporty N detailing and a choice of manual or DCT transmission.",
-    idealFor: "Enthusiasts who want an everyday hatchback with more performance and visual attitude.",
-    performance: ["1.0L turbo GDi petrol produces 120 PS and 172 Nm.", "6-speed manual and 7-speed DCT options are available; DCT adds paddle shifters.", "N Line suspension and exhaust tuning are designed for a more engaging drive."],
-    safety: ["6 airbags, ESC, VSM, hill-start assist, ABS with EBD and ISOFIX anchors.", "Rear camera, TPMS and parking sensors are offered according to variant."],
-    interior: ["All-black N Line interior with red accents, N-badged seats, steering wheel and metal pedals.", "Five seats and 311-litre boot keep it practical despite its sportier focus."],
-    exterior: ["N Line grille, chequered flag-inspired styling details, red accents, side skirts and twin-tip exhaust treatment.", "16-inch alloy wheels and dual-tone colours add to the performance-hatch look."],
-    infotainment: ["10.25-inch touchscreen, Bose sound, Bluelink and navigation are available on upper versions.", "Smartphone connectivity, voice recognition and wireless charging depend on grade."],
-    comfort: ["Electric sunroof, automatic climate control, cruise control and wireless charger are available higher in the range.", "Choose manual for the most interactive drive or DCT for two-pedal convenience."],
-    variants: ["N6 and N8 are the main grades; manual and DCT availability differs by grade and current line-up.", "N8 is normally the richer equipment choice—request a live feature sheet for exact equipment."],
-    specifications: [{ label: "Dimensions (L × W × H)", value: "3,995 × 1,775 × 1,505 mm" }, { label: "Wheelbase", value: "2,580 mm" }, { label: "Ground clearance", value: "170 mm" }, { label: "Boot space", value: "311 L" }, { label: "Power / torque", value: "120 PS / 172 Nm" }, { label: "Claimed efficiency", value: "Up to 18.2 kmpl" }],
-    warranty: "3 years / 100,000 km (whichever comes first) standard Hyundai warranty. Extended warranty plans may be available; ask Modi Hyundai to confirm the current terms for your variant.",
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/i20-n-line/highlights",
-  }),
-  "ioniq-5": detail({
-    overview: "IONIQ 5 is Hyundai's flagship electric SUV: a dedicated EV architecture, an exceptionally long wheelbase and ultra-fast charging wrapped in its distinctive pixel-inspired design.",
-    idealFor: "Premium EV buyers who want a spacious lounge-like cabin, fast-charge capability and long-range touring ability.",
-    performance: ["84 kWh liquid-cooled lithium-ion battery and rear-mounted permanent magnet synchronous motor produce 168 kW (228.5 PS).", "Single-speed reduction gear and rear-wheel drive deliver smooth, immediate EV response.", "10–80% DC charging is claimed in 18 minutes with a compatible 350 kW charger; 11 kW AC 10–100% takes about 7 hours 35 minutes."],
-    safety: ["6 airbags, multi-collision avoidance brake, 360-degree Surround View Monitor and Blind-Spot View Monitor.", "Battery protection structure, high-strength passenger cell and electronic stability systems support EV safety.", "Tyre mobility kit replaces a conventional spare wheel."],
-    adas: ["Hyundai SmartSense Level 2 ADAS with 22 features on the current model.", "Forward Collision-Avoidance Assist, Lane Following Assist, Smart Cruise Control and blind-spot support functions."],
-    interior: ["Flat-floor E-GMP cabin, sliding centre console, relaxation front seats and eco-processed materials.", "Five seats, 527-litre rear boot and 57-litre front trunk create flexible storage.", "Fixed vision roof and long 3,000 mm wheelbase maximise the sense of space."],
-    exterior: ["Parametric pixel LED headlamps/tail lamps, clamshell bonnet and flush door handles.", "20-inch aero alloy wheels and retro-futuristic proportions set it apart from conventional SUVs."],
-    infotainment: ["Dual 12.3-inch digital displays, Bose 8-speaker audio and navigation.", "Bluelink, voice recognition, wireless phone charging and smartphone integration are included as specified by Hyundai."],
-    comfort: ["Vehicle-to-Load (V2L) provides AC power from the car for compatible devices.", "Power-adjustable relaxation seats, dual-zone climate control and rear sunshades enhance long journeys."],
-    variants: ["IONIQ 5 is offered as a premium, highly equipped rear-wheel-drive EV in India.", "Confirm the current model year, battery capacity, paint and accessory package with Modi Hyundai before booking."],
-    specifications: [{ label: "Dimensions (L × W × H)", value: "4,655 × 1,890 × 1,625 mm" }, { label: "Wheelbase", value: "3,000 mm" }, { label: "Battery / motor", value: "84 kWh / PMSM, rear-wheel drive" }, { label: "Claimed range", value: "Up to 690 km (ARAI, current 84 kWh model)" }, { label: "Boot / frunk", value: "527 L / 57 L" }, { label: "DC charge (10–80%)", value: "About 18 min with 350 kW charger" }],
+  xuv400: detail({
+    overview:
+      "XUV400 pairs Mahindra's familiar, spacious SUV cabin with a silent electric powertrain, blistering acceleration and a long real-world range.",
+    idealFor: "Buyers moving to their first electric SUV who still want strong performance and everyday practicality.",
+    performance: [
+      "Permanent magnet synchronous motor produces up to 150 PS and 310 Nm.",
+      "0-100 kmph in under 9 seconds, with a single-speed automatic transmission.",
+    ],
+    safety: [
+      "6 airbags, ESC and hill-hold assist are standard.",
+      "Rear parking camera and sensors are available on higher trims.",
+    ],
+    interior: [
+      "Familiar, spacious XUV cabin with a 378-litre boot.",
+      "Digital instrument cluster and touchscreen infotainment across the range.",
+    ],
+    exterior: [
+      "Copper-accented badging and closed-off grille signal the EV powertrain.",
+    ],
+    infotainment: [
+      "Touchscreen infotainment with Android Auto and Apple CarPlay.",
+    ],
+    comfort: [
+      "Automatic climate control and cruise control are available on higher trims.",
+      "Regenerative braking with selectable levels improves range and driving feel.",
+    ],
+    variants: [
+      "EC and EL trims span the standard-range battery option.",
+      "Confirm current battery capacity and charging equipment with Mahindra Modi before booking.",
+    ],
+    specifications: [
+      { label: "Dimensions (L × W × H)", value: "4,200 × 1,821 × 1,634 mm" },
+      { label: "Wheelbase", value: "2,600 mm" },
+      { label: "Battery / motor", value: "39.4 kWh / PMSM" },
+      { label: "Claimed range", value: "Up to 456 km (MIDC)" },
+      { label: "Boot space", value: "378 L" },
+      { label: "DC charge (0–80%)", value: "About 50 min with compatible fast charger" },
+    ],
     warranty: evWarranty,
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/ioniq-5/highlights",
+    sourceUrl: "https://auto.mahindra.com/suv/xuv400/X400.html",
   }),
-  "creta-electric": detail({
-    overview: "CRETA Electric pairs the familiar Creta SUV package with silent EV response, two battery choices and a strong mix of connected technology, V2L functionality and ADAS on selected versions.",
-    idealFor: "Buyers moving to their first family EV who want a practical SUV size and clear battery-range options.",
-    performance: ["42 kWh battery: 99 kW (135 PS), MIDC range up to 420 km.", "51.4 kWh long-range battery: 126 kW (171 PS), MIDC range up to 510 km.", "Both use an IPMSM motor, single-speed reduction gear and selectable regenerative braking via paddles."],
-    safety: ["6 airbags, ABS with EBD, ESC, VSM, hill-start/descent control, TPMS and front/rear disc brakes are standard.", "360-degree camera with dynamic guidelines, dashcam and additional parking support are offered on selected variants.", "Battery systems are liquid cooled and packaged within the protected floor structure."],
-    adas: ["Level 2 ADAS includes Forward Collision-Avoidance Assist, Lane Keeping Assist and Lane Following Assist.", "Smart Cruise Control with Stop & Go is offered on Excellence variants as specified by Hyundai.", "Blind-Spot and rear cross-traffic assist features are available on equipped versions."],
-    interior: ["Granite Grey/Dark Navy cabin, floating centre console and eco-friendly leatherette upholstery.", "Five seats, 433-litre boot and 22-litre frunk for charging cables or small bags.", "Ventilated front seats, panoramic sunroof and rear wireless charger are offered by variant."],
-    exterior: ["Pixelated closed grille, quad-beam LED headlamps, horizon lighting and aero alloy wheels.", "Knight versions add blacked-out details, black alloys and unique interior/exterior accents."],
-    infotainment: ["Dual 10.25-inch digital displays, Bluelink, JioSaavn, in-car payments and OTA navigation/infotainment updates.", "Bose 8-speaker audio, digital key and wireless Android Auto/Apple CarPlay are available by version."],
-    comfort: ["V2L, shift-by-wire column selector, dual-zone climate control and voice-enabled panoramic sunroof.", "Charge at home using portable equipment/wallbox options or use CCS2 public DC charging for fast top-ups."],
-    variants: ["42 kWh: Executive, Executive Tech, Premium, Excellence and Excellence Knight.", "51.4 kWh long range: Executive (O) LR, ESmart (O) LR, Excellence LR and Excellence LR Knight.", "Compare battery, ADAS, charging equipment and comfort upgrades—not only stated range—before selecting a variant."],
-    specifications: [{ label: "Dimensions (L × W × H)", value: "4,340 × 1,790 × 1,655 mm" }, { label: "Wheelbase", value: "2,610 mm" }, { label: "Battery options", value: "42 kWh / 51.4 kWh" }, { label: "Claimed range", value: "420 km / 510 km (MIDC)" }, { label: "Boot / frunk", value: "433 L / 22 L" }, { label: "DC charge (10–80%)", value: "About 39 min with compatible >100 kW DC charger" }],
+  "xev-9e": detail({
+    overview:
+      "XEV 9e is Mahindra's flagship electric SUV coupe, built on the dedicated INGLO EV platform with a dual-screen cockpit, ADAS and a bold coupe silhouette.",
+    idealFor: "Premium EV buyers who want a distinctive design, long range and the latest Mahindra electric technology.",
+    performance: [
+      "Available in single-motor rear-wheel-drive or dual-motor all-wheel-drive configurations.",
+      "Long-range battery option targets a claimed range of up to 656 km.",
+      "Rapid DC fast-charging support for quick top-ups on longer journeys.",
+    ],
+    safety: [
+      "6 airbags, ESC and a reinforced battery protection structure.",
+      "Level 2 ADAS with adaptive cruise control and lane-keep assist.",
+    ],
+    adas: [
+      "Forward collision warning, automatic emergency braking and lane-departure warning.",
+      "360-degree camera and blind-spot monitoring on higher trims.",
+    ],
+    interior: [
+      "Dual 12.3-inch curved displays and a driver-focused digital cockpit.",
+      "663-litre boot, plus a front trunk for additional storage.",
+    ],
+    exterior: [
+      "Coupe-SUV silhouette with a low drag coefficient and full-width LED lighting.",
+    ],
+    infotainment: [
+      "Dual curved displays with wireless smartphone integration and OTA updates.",
+    ],
+    comfort: [
+      "Panoramic sunroof, ventilated front seats and dual-zone climate control on top variants.",
+    ],
+    variants: [
+      "Pack 1, Pack 2 and Pack 3 battery/feature combinations are expected to span the range.",
+      "Confirm current battery pack, AWD availability and pricing with Mahindra Modi.",
+    ],
+    specifications: [
+      { label: "Dimensions (L × W × H)", value: "4,789 × 1,907 × 1,627 mm (approx.)" },
+      { label: "Wheelbase", value: "2,775 mm (approx.)" },
+      { label: "Battery / motor", value: "Long-range pack / PMSM, single or dual motor" },
+      { label: "Claimed range", value: "Up to 656 km (claimed, long-range)" },
+      { label: "Boot / frunk", value: "663 L + front trunk" },
+    ],
     warranty: evWarranty,
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/creta-electric/highlights",
+    sourceUrl: "https://auto.mahindra.com",
   }),
-  "prime-hb": detail({
-    overview: "PRIME HB is Hyundai's fleet-focused hatchback solution, built around a factory CNG powertrain, practical cabin and an ownership proposition designed for predictable high-mileage work.",
-    idealFor: "Taxi and fleet operators seeking a compact, low-running-cost Hyundai hatchback.",
-    performance: ["1.2L bi-fuel petrol/CNG engine with 5-speed manual transmission.", "Factory CNG supports lower fuel costs for predictable daily routes and high annual mileage.", "Compact size helps in congested pickup, drop-off and parking locations."],
-    safety: ["Core occupant protection, ABS with EBD, rear parking sensors and mandatory safety equipment apply as per the commercial specification.", "Confirm final airbag and feature count against the current Prime HB quotation, as fleet equipment differs from retail NIOS trims."],
-    interior: ["Five-seat fleet-friendly cabin with durable, easy-care trim and 260-litre luggage space.", "Straightforward controls are designed for frequent, multi-driver use."],
-    exterior: ["Compact hatchback body makes the Prime HB easy to manoeuvre in dense urban operating conditions.", "Available paint choices depend on commercial stock and regional approval."],
-    infotainment: ["Audio/connectivity equipment varies by fleet configuration; confirm exact fitment before purchase.", "Prioritise required operational accessories such as GPS, charging points or taxi equipment with the dealer."],
-    comfort: ["Air-conditioning and practical cabin space support long working shifts.", "Manual gearbox keeps the package simple for common fleet operating conditions."],
-    variants: ["Prime HB is a commercial CNG hatchback offering; equipment and registration requirements are fleet-specific.", "Ask Modi Hyundai for a commercial quotation covering maintenance, insurance and delivery commitments."],
-    specifications: [{ label: "Dimensions (L × W × H)", value: "3,815 × 1,680 × 1,520 mm" }, { label: "Wheelbase", value: "2,450 mm" }, { label: "Seating", value: "5" }, { label: "Boot space", value: "260 L" }, { label: "Fuel", value: "Petrol + factory CNG" }, { label: "Claimed CNG efficiency", value: "Up to 25.4 km/kg" }],
-    warranty: "Commercial-vehicle warranty and maintenance terms can differ from retail models. Modi Hyundai will confirm the current Prime HB coverage in your fleet quotation.",
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/grand-i10-nios/highlights",
+  "be-6": detail({
+    overview:
+      "BE 6 is the debut model of Mahindra's new BE electric sub-brand: a futuristic coupe-SUV design built on the INGLO platform with a digital-first cockpit.",
+    idealFor: "EV-first buyers who want distinctive design and cutting-edge technology over traditional SUV styling.",
+    performance: [
+      "Single rear-mounted permanent magnet synchronous motor drives the standard configuration.",
+      "Long-range battery option targets a claimed range of up to 682 km.",
+      "Rapid DC fast-charging support for quick top-ups on longer journeys.",
+    ],
+    safety: [
+      "6 airbags, ESC and a reinforced battery protection structure.",
+      "Level 2 ADAS with adaptive cruise control and lane-keep assist.",
+    ],
+    adas: [
+      "Forward collision warning, automatic emergency braking and lane-departure warning.",
+      "360-degree camera and blind-spot monitoring on higher trims.",
+    ],
+    interior: [
+      "Digital-first cockpit with a driver-focused display layout.",
+      "455-litre boot, plus a front trunk for additional storage.",
+    ],
+    exterior: [
+      "Futuristic coupe-SUV design language with a distinctive light signature.",
+    ],
+    infotainment: [
+      "Digital displays with wireless smartphone integration and OTA updates.",
+    ],
+    comfort: [
+      "Panoramic sunroof, ventilated front seats and dual-zone climate control on top variants.",
+    ],
+    variants: [
+      "Pack 1, Pack 2 and Pack 3 battery/feature combinations are expected to span the range.",
+      "Confirm current battery pack and pricing with Mahindra Modi.",
+    ],
+    specifications: [
+      { label: "Dimensions (L × W × H)", value: "4,371 × 1,907 × 1,627 mm (approx.)" },
+      { label: "Wheelbase", value: "2,775 mm (approx.)" },
+      { label: "Battery / motor", value: "Long-range pack / PMSM, rear-wheel drive" },
+      { label: "Claimed range", value: "Up to 682 km (claimed, long-range)" },
+      { label: "Boot / frunk", value: "455 L + front trunk" },
+    ],
+    warranty: evWarranty,
+    sourceUrl: "https://auto.mahindra.com",
   }),
-  "prime-sd": detail({
-    overview: "PRIME SD is the fleet-oriented compact sedan choice, pairing factory CNG running costs with a large 402-litre boot for luggage, airport transfers and everyday commercial work.",
-    idealFor: "Taxi and fleet owners who need sedan luggage space and CNG operating economics.",
-    performance: ["1.2L bi-fuel petrol/CNG engine with 5-speed manual transmission.", "Factory-fitted CNG is designed for lower day-to-day fuel costs on high-mileage routes.", "Compact-sedan proportions balance manoeuvrability with a more useful luggage compartment."],
-    safety: ["Core safety equipment, ABS with EBD and rear parking assistance apply according to the current commercial specification.", "Check the approved Prime SD equipment list, including airbags, before confirming a fleet order."],
-    interior: ["Five-seat cabin with fleet-oriented durable trim and a 402-litre boot.", "Rear-seat space and boot capacity are key advantages for passenger and luggage duty."],
-    exterior: ["Compact-sedan silhouette gives a more formal appearance while retaining easy city manoeuvrability.", "Commercial paint and accessory choices depend on available stock."],
-    infotainment: ["Audio/connectivity features vary by fleet build; confirm exact equipment before ordering.", "Modi Hyundai can advise on approved accessories for tracking, charging and passenger convenience."],
-    comfort: ["Air-conditioning and sedan rear-seat space support extended operating hours.", "Manual transmission keeps servicing and operating routines straightforward."],
-    variants: ["Prime SD is a commercial CNG sedan offering with equipment and registration requirements tailored to fleet use.", "Request a fleet quote that includes service support, insurance, accessories and commercial delivery timeline."],
-    specifications: [{ label: "Dimensions (L × W × H)", value: "3,995 × 1,680 × 1,520 mm" }, { label: "Wheelbase", value: "2,450 mm" }, { label: "Seating", value: "5" }, { label: "Boot space", value: "402 L" }, { label: "Fuel", value: "Petrol + factory CNG" }, { label: "Claimed CNG efficiency", value: "Up to 26.4 km/kg" }],
-    warranty: "Commercial-vehicle warranty and maintenance terms can differ from retail models. Modi Hyundai will confirm the current Prime SD coverage in your fleet quotation.",
-    sourceUrl: "https://www.hyundai.com/in/en/find-a-car/aura/highlights",
+  "bolero-maxx-pik-up": detail({
+    overview:
+      "BOLERO MAXX PIK-UP is a tough, high-payload pickup for small business owners who need reliability every single day, backed by the Bolero's rugged reputation.",
+    idealFor: "Small business owners and fleet operators who need dependable daily load-carrying capacity.",
+    performance: [
+      "1.5L mHawk diesel engine tuned for load-carrying torque.",
+      "5-speed manual transmission across the range.",
+    ],
+    safety: [
+      "Driver airbag and ABS with EBD are standard on current models.",
+    ],
+    interior: [
+      "2- or 3-seat cabin depending on variant, with a durable, easy-to-clean trim.",
+    ],
+    exterior: [
+      "Rugged body-on-frame commercial build with a reinforced cargo bed.",
+    ],
+    infotainment: [
+      "Basic audio and connectivity equipment varies by fleet configuration.",
+    ],
+    comfort: [
+      "Air-conditioning and power steering are available on higher trims.",
+    ],
+    variants: [
+      "Single-cab and crew-cab configurations are typically available.",
+      "Ask Mahindra Modi for a commercial quotation covering maintenance, insurance and delivery commitments.",
+    ],
+    specifications: [
+      { label: "Seating", value: "2 / 3" },
+      { label: "Rated payload", value: "1,440 kg" },
+      { label: "Fuel", value: "Diesel" },
+      { label: "Claimed efficiency", value: "Up to 17 kmpl" },
+    ],
+    warranty: commercialWarranty,
+    sourceUrl: "https://auto.mahindra.com/pick-up-trucks/bolero-pik-up/PUP.html",
+  }),
+  "supro-profit-truck": detail({
+    overview:
+      "SUPRO PROFIT TRUCK is a compact, agile mini-truck built for last-mile delivery and small-load commercial operators working in dense city conditions.",
+    idealFor: "Last-mile delivery operators and small businesses needing an agile, low-cost commercial vehicle.",
+    performance: [
+      "1.5L mDI diesel engine tuned for strong low-end torque under load.",
+      "5-speed manual transmission across the range.",
+    ],
+    safety: [
+      "Driver airbag and ABS with EBD are standard on current models.",
+    ],
+    interior: [
+      "Compact 2-seat cabin focused on manoeuvrability and low running costs.",
+    ],
+    exterior: [
+      "Compact footprint designed for narrow city lanes and tight turning circles.",
+    ],
+    infotainment: [
+      "Basic audio and connectivity equipment varies by fleet configuration.",
+    ],
+    comfort: [
+      "Air-conditioning is available on select variants.",
+    ],
+    variants: [
+      "Flatbed and container body options are typically available.",
+      "Ask Mahindra Modi for a commercial quotation covering maintenance, insurance and delivery commitments.",
+    ],
+    specifications: [
+      { label: "Seating", value: "2" },
+      { label: "Rated payload", value: "750 kg" },
+      { label: "Fuel", value: "Diesel" },
+      { label: "Claimed efficiency", value: "Up to 22 kmpl" },
+    ],
+    warranty: commercialWarranty,
+    sourceUrl: "https://auto.mahindra.com/pick-up-trucks",
+  }),
+  "maxx-city-cng": detail({
+    overview:
+      "MAXX CITY CNG is a factory-fitted CNG pickup built for operators who want to keep running costs low on every single trip.",
+    idealFor: "Commercial operators who run high daily mileage and want to minimise fuel costs.",
+    performance: [
+      "1.5L bi-fuel petrol/CNG engine, tuned for load-carrying reliability.",
+      "5-speed manual transmission across the range.",
+    ],
+    safety: [
+      "Driver airbag and ABS with EBD are standard on current models.",
+    ],
+    interior: [
+      "2- or 3-seat cabin depending on variant, with a durable, easy-to-clean trim.",
+    ],
+    exterior: [
+      "Compact turning radius designed for tight city streets.",
+    ],
+    infotainment: [
+      "Basic audio and connectivity equipment varies by fleet configuration.",
+    ],
+    comfort: [
+      "Air-conditioning is available on select variants.",
+    ],
+    variants: [
+      "Factory CNG and petrol-only configurations are typically available.",
+      "Ask Mahindra Modi for a commercial quotation covering maintenance, insurance and delivery commitments.",
+    ],
+    specifications: [
+      { label: "Seating", value: "2 / 3" },
+      { label: "Rated payload", value: "1,025 kg" },
+      { label: "Fuel", value: "Petrol + factory CNG" },
+      { label: "Claimed CNG efficiency", value: "Up to 14.5 km/kg" },
+    ],
+    warranty: commercialWarranty,
+    sourceUrl: "https://auto.mahindra.com/pick-up-trucks/maxx-city/MAXX.html",
   }),
 };
 
@@ -489,26 +683,26 @@ export function getCarDetail(car: Car): CarDetail {
   if (researched) return researched;
 
   const isElectric = car.category === "Electric";
+  const isCommercial = car.category === "Commercial" || car.category === "Pickup";
   return detail({
-    overview: `${car.blurb} This guide brings the core ownership facts together so you can compare the Hyundai ${car.name} on space, efficiency, powertrain choice and everyday equipment before a test drive.`,
-    idealFor: `${car.type} buyers looking for a Hyundai that matches their driving needs, budget and preferred fuel type.`,
+    overview: `${car.blurb} This guide brings the core ownership facts together so you can compare the Mahindra ${car.name} on space, efficiency, powertrain choice and everyday equipment before a test drive.`,
+    idealFor: `${car.type} buyers looking for a Mahindra that matches their driving needs, budget and preferred fuel type.`,
     performance: [
       `${car.engine}.`,
       `Transmission choices: ${car.transmission}.`,
       `${isElectric ? "Range and charging time depend on battery choice, charger output, state of charge and conditions." : `Claimed efficiency: ${car.mileage}.`}`,
     ],
     safety: [
-      "Safety equipment varies by variant; ask for the latest Hyundai feature chart and a trim-wise quotation.",
+      "Safety equipment varies by variant; ask for the latest Mahindra feature chart and a trim-wise quotation.",
       "Confirm the exact airbag count, stability-control features, camera and parking-assistance equipment on your preferred version.",
-      "ISOFIX and tyre-pressure monitoring availability should be checked if these are important to your family use.",
     ],
     interior: [
-      `${car.seating}-seat layout with ${car.bootSpace} of quoted luggage space.`,
+      `${car.seating}-seat layout with ${car.bootSpace}.`,
       "Request a showroom walkaround to compare seat comfort, rear-room and storage with your regular passengers and luggage.",
     ],
     exterior: [
       `${car.type} body style with the colour choices shown above.`,
-      "Paint, wheel design and exterior lighting vary by selected variant and may change with Hyundai's current line-up.",
+      "Paint, wheel design and exterior lighting vary by selected variant and may change with Mahindra's current line-up.",
     ],
     infotainment: [
       "Screen size, smartphone integration, connected-car functions and audio system vary by trim.",
@@ -516,12 +710,12 @@ export function getCarDetail(car: Car): CarDetail {
     ],
     comfort: [
       "Compare manual and automatic options against your daily traffic, highway distance and driving preference.",
-      "Check climate control, rear ventilation, cruise control and convenience features on the current variant chart.",
+      "Check climate control, cruise control and convenience features on the current variant chart.",
     ],
     variants: [
       `Available powertrains: ${car.engine}.`,
       `Available transmissions: ${car.transmission}.`,
-      "Colour and feature availability is subject to selected variant and current stock. Modi Hyundai can prepare a side-by-side comparison.",
+      "Colour and feature availability is subject to selected variant and current stock. Mahindra Modi can prepare a side-by-side comparison.",
     ],
     specifications: [
       { label: "Seating", value: car.seating },
@@ -529,227 +723,220 @@ export function getCarDetail(car: Car): CarDetail {
       { label: "Engine / motor", value: car.engine },
       { label: "Transmission", value: car.transmission },
       { label: "Mileage / range", value: car.mileage },
-      { label: "Boot space", value: car.bootSpace },
+      { label: car.category === "Pickup" || car.category === "Commercial" ? "Payload / space" : "Boot space", value: car.bootSpace },
     ],
-    warranty: isElectric ? evWarranty : passengerCarWarranty,
-    sourceUrl: `https://www.hyundai.com/in/en/find-a-car/${car.slug}/highlights`,
+    warranty: isElectric ? evWarranty : isCommercial ? commercialWarranty : passengerCarWarranty,
+    sourceUrl: "https://auto.mahindra.com",
   });
 }
 
-const galleryLabels = [
-  "Side profile",
-  "Front three-quarter",
-  "Rear three-quarter",
-  "Rear profile",
-  "Front three-quarter",
-  "Rear three-quarter",
-];
+const galleryLabels = ["Front three-quarter", "Side profile", "Rear three-quarter"];
 
-const officialAsset = (path: string) => `https://www.hyundai.com${path}`;
-
-/* Curated manufacturer images from each Hyundai India model page. Every URL
-   below was fetched and confirmed live (HTTP 200/206, image content-type).
-   These add cabin, technology, boot, engine and feature detail to the
-   separate 360° turntable gallery, so each car page reads image-rich. */
+/* Mahindra does not expose a public feature-gallery image set the way
+   Hyundai India's site does, but we have curated a set of images 
+   for the Thar Roxx to demonstrate the gallery functionality. */
 const modelFeatureGallery: Record<string, GalleryImage[]> = {
-  exter: [
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/exterior/exter-ext-front.jpg"), alt: "Hyundai Exter front exterior with parametric grille and LED DRLs", label: "Exterior — front" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/exterior/exter-ext-rear.jpg"), alt: "Hyundai Exter rear exterior with pixel LED tail lamps", label: "Exterior — rear" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/exterior/exterior-des-banner.jpg"), alt: "Hyundai Exter SUV exterior design highlights", label: "Exterior design" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/exterior/ext-bold-grille.jpg"), alt: "Hyundai Exter bold H-pattern radiator grille", label: "Grille" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/exterior/ext-led.jpg"), alt: "Hyundai Exter LED headlamps and daytime running lights", label: "LED lighting" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/interior/exter-int-bigimage-pc.jpg"), alt: "Hyundai Exter interior and dashboard layout", label: "Interior" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/interior/exter-dcut.jpg"), alt: "Hyundai Exter D-cut steering wheel with mounted controls", label: "Steering wheel" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/interior/exter-seat-upholder.jpg"), alt: "Hyundai Exter front seat upholstery", label: "Seats" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/convenience/integrated-infotainment-cluster.jpg"), alt: "Hyundai Exter integrated infotainment touchscreen and digital cluster", label: "Infotainment" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/convenience/digital-cluster.jpg"), alt: "Hyundai Exter digital instrument cluster", label: "Digital cluster" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/convenience/electric-sunroof.jpg"), alt: "Hyundai Exter electric sunroof open", label: "Sunroof" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/convenience/rear-ac-vents.jpg"), alt: "Hyundai Exter rear air-conditioning vents", label: "Rear AC vents" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/convenience/smartphone-wireless-charger.jpg"), alt: "Hyundai Exter wireless smartphone charger", label: "Wireless charger" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/booking-open/spacious-boot.jpg"), alt: "Hyundai Exter 391-litre boot space", label: "Boot space" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/booking-open/dashcam.jpg"), alt: "Hyundai Exter segment-first dual-camera dashcam", label: "Dashcam" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/performance/kappa-engine.jpg"), alt: "Hyundai Exter 1.2L Kappa petrol engine", label: "Engine" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/performance/exter-cng-refueling-nozzle.jpg"), alt: "Hyundai Exter Hy-CNG Duo refueling", label: "CNG" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Exter/safety/airbags-standard-des-banner.jpg"), alt: "Hyundai Exter six-airbag safety system", label: "Safety" },
+  "thar-roxx": [
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-exterior-right-front-three-quarter-17.jpeg?isig=0&q=80", alt: "Thar Roxx, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-exterior-left-front-three-quarter-11.jpeg?isig=0&q=80", alt: "Thar Roxx, left front angle", label: "Left front" , kind: "styling" },
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-exterior-front-view-5.jpeg?isig=0&q=80", alt: "Thar Roxx, front view", label: "Front view", kind: "styling" },
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-exterior-rear-view-10.jpeg?isig=0&q=80", alt: "Thar Roxx, rear view", label: "Rear view", kind: "styling" },
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-exterior-right-side-view-9.jpeg?isig=0&q=80", alt: "Thar Roxx, side profile", label: "Side profile", kind: "styling" },
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-exterior-wheel-5.jpeg?isig=0&q=80", alt: "Thar Roxx, alloy wheel design", label: "Wheel design", kind: "styling" },
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-interior-dashboard-11.jpeg?isig=0&q=80", alt: "Thar Roxx dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-interior-front-row-seats-9.jpeg?isig=0&q=80", alt: "Thar Roxx front seats", label: "Front Seats", kind: "cabin" },
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-interior-rear-seats-9.jpeg?isig=0&q=80", alt: "Thar Roxx rear seats", label: "Rear Seats", kind: "cabin" },
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-interior-steering-wheel-10.jpeg?isig=0&q=80", alt: "Thar Roxx steering wheel", label: "Steering Wheel", kind: "cabin" },
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-interior-infotainment-system-11.jpeg?isig=0&q=80", alt: "Thar Roxx infotainment system", label: "Infotainment", kind: "cabin" },
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-interior-instrument-cluster-13.jpeg?isig=0&q=80", alt: "Thar Roxx instrument cluster", label: "Instrument Cluster", kind: "cabin" },
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-interior-sunroof-moonroof.jpeg?isig=0&q=80", alt: "Thar Roxx sunroof", label: "Sunroof", kind: "cabin" },
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-interior-gear-shifter-gear-shifter-stalk-2.jpeg?isig=0&q=80", alt: "Thar Roxx gear shifter", label: "Gear Shifter", kind: "cabin" },
+    { src: "https://imgd.aeplcdn.com/1056x594/n/cw/ec/124839/thar-roxx-interior-bootspace-rear-split-seat-folded.jpeg?isig=0&q=80", alt: "Thar Roxx boot space", label: "Boot Space", kind: "cabin" },
   ],
-  venue: [
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/Exterior/pc/venuefirstbigimage1.jpg"), alt: "Hyundai Venue exterior design overview", label: "Exterior design" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/Exterior/pc/venueextfront1.jpg"), alt: "Hyundai Venue front three-quarter exterior", label: "Exterior — front" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/Exterior/pc/venueextfront2.jpg"), alt: "Hyundai Venue front fascia and parametric grille", label: "Front fascia" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/Exterior/pc/venueextrear1.jpg"), alt: "Hyundai Venue rear exterior with connected tail lamps", label: "Exterior — rear" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/Exterior/pc/venueextside1.jpg"), alt: "Hyundai Venue side profile and alloy wheels", label: "Side profile" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/Interior/pc/venueintbigimg-1.jpg"), alt: "Hyundai Venue interior and dashboard", label: "Interior" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/Interior/pc/venueintimg1.jpg"), alt: "Hyundai Venue driver cockpit and digital cluster", label: "Cockpit" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/Interior/pc/venueintimg3.jpg"), alt: "Hyundai Venue centre console and infotainment", label: "Infotainment" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/Interior/pc/venueintsmallimg-6.jpg"), alt: "Hyundai Venue rear seats and cabin space", label: "Rear seats" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/Convenience/pc/venueconvimg-1.jpg"), alt: "Hyundai Venue convenience and comfort features", label: "Convenience" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/Convenience/pc/venuetabimg-1.jpg"), alt: "Hyundai Venue connected SUV technology", label: "Connected tech" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/Performance/pc/kappagdiengperformimg2.jpg"), alt: "Hyundai Venue 1.0L turbo GDi petrol engine", label: "Turbo engine" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/Performance/pc/u2engperformimg1.jpg"), alt: "Hyundai Venue 1.5L CRDi diesel engine", label: "Diesel engine" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/Safety/pc/venuesafetysmallimg-3.jpg"), alt: "Hyundai Venue safety and airbag protection", label: "Safety" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/knight-edition/black-painted-alloys-with-red-brake-calipers.jpg"), alt: "Hyundai Venue Knight Edition black alloys with red calipers", label: "Knight alloys" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Venue/knight-edition/exclusive-black-leather-seat-upholstery.jpg"), alt: "Hyundai Venue Knight Edition black leather seats", label: "Knight seats" },
+  "xuv-3xo": [
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV-3XO/10184/1758199247932/front-left-side-47.jpg", alt: "XUV 3XO, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV-3XO/10184/1751086388636/front-right-view-120.jpg", alt: "XUV 3XO, side profile", label: "Side profile", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV-3XO/11686/1778825529790/rear-left-view-121.jpg", alt: "XUV 3XO, rear three-quarter", label: "Rear three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV-3XO/10184/1751086388636/wheel-42.jpg", alt: "XUV 3XO, alloy wheel design", label: "Wheel design", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV-3XO/10184/1751086388636/front-grill---logo-98.jpg", alt: "XUV 3XO, front grille styling", label: "Grille styling", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV-3XO/10184/1751086388636/headlight-43.jpg", alt: "XUV 3XO, LED light signature", label: "Light signature", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-3XO/10184/1751086573592/dashboard-59.jpg", alt: "XUV 3XO dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-3XO/10184/1751086573592/steering-wheel-54.jpg", alt: "XUV 3XO steering wheel", label: "Steering wheel", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-3XO/11687/1778330978809/instrument-cluster-62.jpg", alt: "XUV 3XO instrument cluster", label: "Instrument cluster", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-3XO/10184/1751086573592/gear-shifter-87.jpg", alt: "XUV 3XO gear shifter", label: "Gear shifter", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-3XO/11687/1778825503682/rear-seats-52.jpg", alt: "XUV 3XO rear seats", label: "Rear seats", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-3XO/10184/1751086573592/sun-roof-moon-roof-81.jpg", alt: "XUV 3XO sunroof", label: "Sunroof", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-3XO/10184/1751086573592/open-trunk-49.jpg", alt: "XUV 3XO boot space", label: "Boot space", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-3XO/11687/1778825503682/infotainment-system-main-menu-183.jpg", alt: "XUV 3XO infotainment system", label: "Infotainment", kind: "cabin" },
   ],
-  "venue-n-line": [
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/venue-n-line/pre-booking/interior-banner.jpg"), alt: "Hyundai Venue N Line sports interior with red accents", label: "N Line interior" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/venue-n-line/pre-booking/steering-wheel.jpg"), alt: "Hyundai Venue N Line N-branded steering wheel", label: "Steering wheel" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/venue-n-line/pre-booking/interior-gear-hift-knob.jpg"), alt: "Hyundai Venue N Line gear selector", label: "Gear selector" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/venue-n-line/exterior/venuenlineextfront1.jpg"), alt: "Hyundai Venue N Line front exterior", label: "Exterior — front" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/venue-n-line/exterior/venuenlineextrear1.jpg"), alt: "Hyundai Venue N Line rear with twin-tip exhaust", label: "Exterior — rear" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/venue-n-line/exterior/dark-chrome-radiator-grille-with-N-Line-emblem.jpg"), alt: "Hyundai Venue N Line dark chrome grille with N emblem", label: "N Line grille" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/venue-n-line/exterior/diamond-cut-alloy-wheel.jpg"), alt: "Hyundai Venue N Line diamond-cut alloy wheels", label: "Alloy wheels" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/venue-n-line/exterior/LED_sequential_lights.jpg"), alt: "Hyundai Venue N Line LED sequential lighting", label: "LED lighting" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/venue-n-line/exterior/exterior-banner.jpg"), alt: "Hyundai Venue N Line exterior design highlights", label: "Exterior design" },
+  thar: [
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Thar/12264/1776055307473/front-left-side-47.jpg", alt: "Thar, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Thar/12264/1759841599514/front-right-view-120.jpg", alt: "Thar, side profile", label: "Side profile", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Thar/12264/1759841599514/rear-left-view-121.jpg", alt: "Thar, rear three-quarter", label: "Rear three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Thar/12264/1759841599514/rear-view-119.jpg", alt: "Thar, rear view", label: "Rear view", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Thar/12264/1759841599514/wheel-42.jpg", alt: "Thar, alloy wheel design", label: "Wheel design", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Thar/12264/1759841599514/grille-97.jpg", alt: "Thar, front grille styling", label: "Grille styling", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Thar/12264/1759841453982/dashboard-59.jpg", alt: "Thar dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Thar/12264/1759841453982/steering-wheel-54.jpg", alt: "Thar steering wheel", label: "Steering wheel", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Thar/12264/1759841453982/instrument-cluster-62.jpg", alt: "Thar instrument cluster", label: "Instrument cluster", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Thar/12264/1759841453982/gear-shifter-87.jpg", alt: "Thar gear shifter", label: "Gear shifter", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Thar/12264/1759841453982/infotainment-stytem-57.jpg", alt: "Thar infotainment system", label: "Infotainment", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Thar/12965/1778825438480/door-view-of-driver-seat-51.jpg", alt: "Thar front seats", label: "Front seats", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Thar/12264/1759841453982/upholstery-details-135.jpg", alt: "Thar upholstery detail", label: "Upholstery detail", kind: "cabin" },
   ],
-  creta: [
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Interior/pc/Hyundai-creta-suv-interior-big-1120x600-1.jpg"), alt: "Hyundai Creta interior and dashboard overview", label: "Interior" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Interior/pc/Hyundai-creta-suv-interior-big-1120x600-2.jpg"), alt: "Hyundai Creta cabin with dual 10.25-inch displays", label: "Cabin" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Highlights/knightking/cretakingdashboard.jpg"), alt: "Hyundai Creta Knight dashboard with dual screens", label: "Dashboard" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Highlights/Hyundai-creta-suv-highlight-small-800x530-2-infotainment%20&%20Cluster%20screen.jpg"), alt: "Hyundai Creta infotainment and digital cluster screens", label: "Infotainment" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Highlights/Hyundai-creta-suv-highlight-small-800x530-3-leather%20seats.jpg"), alt: "Hyundai Creta premium leather seat upholstery", label: "Seats" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Highlights/knightking/cretakingpremiumseats.jpg"), alt: "Hyundai Creta Knight premium seats", label: "Premium seats" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Highlights/knightking/cretakingmemoryseats.jpg"), alt: "Hyundai Creta Knight driver memory seat", label: "Memory seat" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Highlights/knightking/cretakinggearknob.jpg"), alt: "Hyundai Creta Knight leather gear knob", label: "Gear knob" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Convenience/Hyundai-creta-suv-convenience-big-1120x600-3-bose.jpg"), alt: "Hyundai Creta Bose premium 8-speaker sound system", label: "Bose audio" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Convenience/Hyundai-creta-suv-convenience-small-800x530-4-%20sunroof.jpg"), alt: "Hyundai Creta panoramic sunroof open", label: "Panoramic sunroof" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Convenience/Hyundai-creta-suv-convenience-small-800x530-5-%20ambient%20lighting.jpg"), alt: "Hyundai Creta ambient cabin lighting", label: "Ambient lighting" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Exterior/pc/Hyundai-creta-suv-exterior-big-1120x600-front-2.jpg"), alt: "Hyundai Creta front exterior with horizon LED DRLs", label: "Exterior — front" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Exterior/pc/Hyundai-creta-suv-exterior-big-1120x600-rear-2.jpg"), alt: "Hyundai Creta rear with connected LED tail lamps", label: "Exterior — rear" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Exterior/pc/Hyundai-creta-suv-exterior-big-1120x600-side-1.jpg"), alt: "Hyundai Creta side profile with 18-inch alloys", label: "Side profile" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Highlights/knightking/cretakingalloy.jpg"), alt: "Hyundai Creta Knight 18-inch diamond-cut alloy wheels", label: "Alloy wheels" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Highlights/knightking/cretakingheadlamp.jpg"), alt: "Hyundai Creta LED headlamps and horizon positioning lamp", label: "Headlamps" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Highlights/knightking/cretakingtaillamps.jpg"), alt: "Hyundai Creta connected LED tail lamps", label: "Tail lamps" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Creta/Performance/Hyundai-creta-suv-performance-big-1120x600-1-Turbo_1.5l-Petrol-Turbo-7DCT.jpg"), alt: "Hyundai Creta 1.5L turbo GDi petrol engine with 7-speed DCT", label: "Turbo engine" },
+  "scorpio-n": [
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Scorpio-N/10818/1755775730308/front-left-side-47.jpg", alt: "Scorpio-N, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Scorpio-N/10818/1753879831590/front-right-view-120.jpg", alt: "Scorpio-N, side profile", label: "Side profile", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Scorpio-N/10837/1778825393376/rear-left-view-121.jpg", alt: "Scorpio-N, rear three-quarter", label: "Rear three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Scorpio-N/11530/1778326472171/rear-view-119.jpg", alt: "Scorpio-N, rear view", label: "Rear view", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Scorpio-N/10818/1753879831590/grille-97.jpg", alt: "Scorpio-N, front grille styling", label: "Grille styling", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Scorpio-N/10818/1753879831590/front-bumper-222.jpg", alt: "Scorpio-N, front styling detail", label: "Front styling detail", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio-N/10818/1753880006844/dashboard-59.jpg", alt: "Scorpio-N dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio-N/10818/1753880006844/steering-wheel-54.jpg", alt: "Scorpio-N steering wheel", label: "Steering wheel", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio-N/10818/1753880006844/instrument-cluster-62.jpg", alt: "Scorpio-N instrument cluster", label: "Instrument cluster", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio-N/10818/1753880006844/gear-shifter-87.jpg", alt: "Scorpio-N gear shifter", label: "Gear shifter", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio-N/10837/1778825370374/rear-seats-52.jpg", alt: "Scorpio-N rear seats", label: "Rear seats", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio-N/10818/1753880006844/third-row-seats-274.jpg", alt: "Scorpio-N third-row seats", label: "Third-row seats", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio-N/10818/1753880006844/open-trunk-49.jpg", alt: "Scorpio-N boot space", label: "Boot space", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio-N/10818/1753880006844/door-view-of-driver-seat-51.jpg", alt: "Scorpio-N front seats", label: "Front seats", kind: "cabin" },
   ],
-  "creta-n-line": [
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-n-line/creta-n-line-interior.jpg"), alt: "Hyundai Creta N Line sports interior with red accents", label: "N Line interior" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-n-line/highlights/knight/cretanlinescoopseats.jpg"), alt: "Hyundai Creta N Line N-branded sports seats", label: "N Line seats" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-n-line/highlights/pc/cretanlineinterior.jpg"), alt: "Hyundai Creta N Line dashboard and cabin", label: "Dashboard" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-n-line/Interior/pc/front.jpg"), alt: "Hyundai Creta N Line front exterior", label: "Exterior — front" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-n-line/Interior/pc/rear.jpg"), alt: "Hyundai Creta N Line rear exterior", label: "Exterior — rear" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-n-line/Interior/pc/side.jpg"), alt: "Hyundai Creta N Line side profile", label: "Side profile" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-n-line/Interior/pc/Convenience%20-%204%20-%20sunroof.jpg"), alt: "Hyundai Creta N Line panoramic sunroof", label: "Sunroof" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-n-line/Performance/creta-n-line-suv-performance-manualtransmission.jpg"), alt: "Hyundai Creta N Line 6-speed manual transmission", label: "Manual gearbox" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-n-line/Performance/creta-n-line-suv-performance-automatictransmission.jpg"), alt: "Hyundai Creta N Line 7-speed DCT automatic", label: "DCT automatic" },
+  "scorpio-classic": [
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Scorpio/10764/1778474504907/front-left-side-47.jpg", alt: "Scorpio Classic, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Scorpio/10765/1754638266191/front-right-view-120.jpg", alt: "Scorpio Classic, side profile", label: "Side profile", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Scorpio/10765/1754638266191/grille-97.jpg", alt: "Scorpio Classic, front grille styling", label: "Grille styling", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Scorpio/10765/1754638266191/wheel-42.jpg", alt: "Scorpio Classic, alloy wheel design", label: "Wheel design", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Scorpio/10765/1754638266191/side-step-231.jpg", alt: "Scorpio Classic, side step design detail", label: "Design detail", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Scorpio/10765/1754638266191/front-bumper-222.jpg", alt: "Scorpio Classic, front styling detail", label: "Front styling detail", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio/10765/1754638343028/dashboard-59.jpg", alt: "Scorpio Classic dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio/10765/1754638343028/steering-wheel-54.jpg", alt: "Scorpio Classic steering wheel", label: "Steering wheel", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio/10765/1754638343028/instrument-cluster-62.jpg", alt: "Scorpio Classic instrument cluster", label: "Instrument cluster", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio/10765/1754638343028/gear-shifter-87.jpg", alt: "Scorpio Classic gear shifter", label: "Gear shifter", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio/10765/1781759862261/rear-seats-52.jpg", alt: "Scorpio Classic rear seats", label: "Rear seats", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio/10765/1754638343028/open-trunk-49.jpg", alt: "Scorpio Classic boot space", label: "Boot space", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio/10765/1781759862261/infotainment-system-main-menu-183.jpg", alt: "Scorpio Classic infotainment system", label: "Infotainment", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Scorpio/10765/1754638343028/ac-controls-151.jpg", alt: "Scorpio Classic climate control panel", label: "Climate controls", kind: "cabin" },
   ],
-  alcazar: [
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Alcazar/Gallery/alcazargallerybig1.jpg"), alt: "Hyundai Alcazar three-row cabin and dashboard", label: "Cabin" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Alcazar/Gallery/alcazargallerybig2.jpg"), alt: "Hyundai Alcazar exterior front three-quarter", label: "Exterior" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Alcazar/Gallery/alcazargallerybig3.jpg"), alt: "Hyundai Alcazar interior detail", label: "Interior detail" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Alcazar/Gallery/alcazargallerybig4.jpg"), alt: "Hyundai Alcazar rear three-quarter exterior", label: "Rear exterior" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Alcazar/Gallery/alcazargallerybig5.jpg"), alt: "Hyundai Alcazar lifestyle and family use", label: "Lifestyle" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Alcazar/Gallery/alcazargallerysmall1.jpg"), alt: "Hyundai Alcazar exterior design highlight", label: "Design" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Alcazar/Highlights/pc/rowcaptainseats.jpg"), alt: "Hyundai Alcazar second-row captain seats", label: "Captain seats" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Alcazar/booking-open/1stand2ndventilatedseats.jpg"), alt: "Hyundai Alcazar ventilated front and second-row seats", label: "Ventilated seats" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Alcazar/booking-open/tech-passenger-seat-walk-in.jpg"), alt: "Hyundai Alcazar one-touch passenger seat walk-in feature", label: "Seat walk-in" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Alcazar/Convenience/pc/alcazarconvenience1120x600_2.jpg"), alt: "Hyundai Alcazar convenience and comfort features", label: "Convenience" },
+  bolero: [
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Bolero/10754/1782910868699/front-left-side-47.jpg", alt: "Bolero, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Bolero/10754/1782910868699/front-right-view-120.jpg", alt: "Bolero, side profile", label: "Side profile", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Bolero/10754/1782910868699/rear-left-view-121.jpg", alt: "Bolero, rear three-quarter", label: "Rear three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Bolero/10754/1782910868699/rear-view-119.jpg", alt: "Bolero, rear view", label: "Rear view", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Bolero/10754/1782910769724/dashboard-59.jpg", alt: "Bolero dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Bolero/10754/1782910769724/steering-wheel-54.jpg", alt: "Bolero steering wheel", label: "Steering wheel", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Bolero/10754/1782910769724/instrument-cluster-62.jpg", alt: "Bolero instrument cluster", label: "Instrument cluster", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Bolero/10754/1782910769724/gear-shifter-87.jpg", alt: "Bolero gear shifter", label: "Gear shifter", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Bolero/10754/1782910769724/rear-seats-52.jpg", alt: "Bolero rear seats", label: "Rear seats", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Bolero/10754/1782910769724/door-view-of-driver-seat-51.jpg", alt: "Bolero front seats", label: "Front seats", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Bolero/10754/1782910769724/dashboard-controls-262.jpg", alt: "Bolero dashboard controls", label: "Dashboard controls", kind: "cabin" },
   ],
-  verna: [
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Verna/Interior/dashboard.jpg"), alt: "Hyundai Verna dashboard with dual integrated displays", label: "Dashboard" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Verna/Interior/leatherette-seat-upholstery.jpg"), alt: "Hyundai Verna leatherette seat upholstery", label: "Seats" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Verna/Interior/d_cut-steering-wheel.jpg"), alt: "Hyundai Verna D-cut steering wheel", label: "Steering wheel" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Verna/Exterior/verna-rear.jpg"), alt: "Hyundai Verna rear exterior with connected LED tail lamps", label: "Exterior — rear" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Verna/Exterior/diamond_cut-alloys.jpg"), alt: "Hyundai Verna diamond-cut alloy wheels", label: "Alloy wheels" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Verna/Convenience/bose-premium-sound-8-speaker-system.jpg"), alt: "Hyundai Verna Bose premium 8-speaker sound system", label: "Bose audio" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Verna/Convenience/electric_driver-seat-with-8-way-adjust.jpg"), alt: "Hyundai Verna 8-way electric driver seat", label: "Electric driver seat" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Verna/Convenience/multi_display_digital_cluster.jpg"), alt: "Hyundai Verna multi-display digital instrument cluster", label: "Digital cluster" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Verna/Convenience/surround_view-monitor.jpg"), alt: "Hyundai Verna 360-degree surround view monitor", label: "360° camera" },
+  "bolero-neo": [
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Bolero-Neo/10766/1762837382360/front-left-side-47.jpg", alt: "Bolero Neo, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Bolero-Neo/10767/1761635558577/front-view-118.jpg", alt: "Bolero Neo, front view", label: "Front view", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Bolero-Neo/10767/1761635558577/grille-97.jpg", alt: "Bolero Neo, front grille styling", label: "Grille styling", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Bolero-Neo/10767/1761635558577/wheel-42.jpg", alt: "Bolero Neo, alloy wheel design", label: "Wheel design", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Bolero-Neo/10767/1761635558577/headlight-43.jpg", alt: "Bolero Neo, LED light signature", label: "Light signature", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Bolero-Neo/10767/1761635514742/dashboard-59.jpg", alt: "Bolero Neo dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Bolero-Neo/10767/1761635514742/steering-wheel-54.jpg", alt: "Bolero Neo steering wheel", label: "Steering wheel", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Bolero-Neo/10767/1761635514742/instrument-cluster-62.jpg", alt: "Bolero Neo instrument cluster", label: "Instrument cluster", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Bolero-Neo/10767/1761635514742/gear-shifter-87.jpg", alt: "Bolero Neo gear shifter", label: "Gear shifter", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Bolero-Neo/10767/1761635514742/center-console-55.jpg", alt: "Bolero Neo centre console", label: "Centre console", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Bolero-Neo/10767/1761635514742/front-armrest-185.jpg", alt: "Bolero Neo front armrest", label: "Front armrest", kind: "cabin" },
   ],
-  aura: [
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Aura/gallery/pc/auragallerypc_1.jpg"), alt: "Hyundai Aura exterior and cabin showcase", label: "Showcase" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Aura/gallery/pc/auragallerypc_2.jpg"), alt: "Hyundai Aura interior feature", label: "Interior" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Aura/gallery/pc/auragallerypc_3.jpg"), alt: "Hyundai Aura feature detail", label: "Feature detail" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Aura/Exterior/1600x580.jpg"), alt: "Hyundai Aura exterior design highlights", label: "Exterior design" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Aura/Exterior/1120x600_3.jpg"), alt: "Hyundai Aura front three-quarter exterior", label: "Exterior — front" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Aura/Highlights/pc/aurahighlight_int_pc.jpg"), alt: "Hyundai Aura interior and dashboard", label: "Dashboard" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Aura/Interior/Pc/auraint_3.jpg"), alt: "Hyundai Aura cabin and seats", label: "Cabin" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Aura/Convenience/PC/auracovpc_2.jpg"), alt: "Hyundai Aura convenience features", label: "Convenience" },
+  "xuv-7xo": [
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV700/10794/1762509966753/front-left-side-47.jpg", alt: "XUV 7XO, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV700/10794/1762509966753/front-right-view-120.jpg", alt: "XUV 7XO, side profile", label: "Side profile", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV700/10794/1762509966753/rear-left-view-121.jpg", alt: "XUV 7XO, rear three-quarter", label: "Rear three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV700/10794/1762509966753/rear-view-119.jpg", alt: "XUV 7XO, rear view", label: "Rear view", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV700/10794/1762510135403/dashboard-59.jpg", alt: "XUV 7XO dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV700/10794/1762510135403/steering-wheel-54.jpg", alt: "XUV 7XO steering wheel", label: "Steering wheel", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV700/10794/1762510135403/instrument-cluster-62.jpg", alt: "XUV 7XO instrument cluster", label: "Instrument cluster", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV700/10794/1762510135403/gear-shifter-87.jpg", alt: "XUV 7XO gear shifter", label: "Gear shifter", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV700/10794/1762510135403/infotainment-stytem-57.jpg", alt: "XUV 7XO infotainment system", label: "Infotainment", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV700/10794/1762510135403/passenger-view-56.jpg", alt: "XUV 7XO cabin view", label: "Cabin view", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV700/10794/1762510234945/knob-selector-184.jpg", alt: "XUV 7XO drive-mode selector", label: "Drive-mode selector", kind: "cabin" },
   ],
-  "grand-i10-nios": [
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Grand-i10-Nios/Gallery%20Section/big/pc/niosgallery_1.jpg"), alt: "Hyundai Grand i10 Nios exterior and cabin showcase", label: "Showcase" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Grand-i10-Nios/Gallery%20Section/big/pc/niosgallery_2.jpg"), alt: "Hyundai Grand i10 Nios interior", label: "Interior" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Grand-i10-Nios/Gallery%20Section/big/pc/niosgallery_3.jpg"), alt: "Hyundai Grand i10 Nios feature detail", label: "Feature detail" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Grand-i10-Nios/Exterior/pc/Exterior_Front_1120x600.jpg"), alt: "Hyundai Grand i10 Nios front exterior", label: "Exterior — front" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Grand-i10-Nios/Exterior/pc/Ext_1120x600.jpg"), alt: "Hyundai Grand i10 Nios exterior design", label: "Exterior design" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Grand-i10-Nios/Convenience/pc/Exterior_1120x600_Wireless%20phone%20charger.jpg"), alt: "Hyundai Grand i10 Nios wireless phone charger", label: "Wireless charger" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Grand-i10-Nios/Convenience/pc/Exterior_1120x600_Speedometer%20with%20multi%20information%20display.jpg"), alt: "Hyundai Grand i10 Nios speedometer and multi-information display", label: "Instrument cluster" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/Grand-i10-Nios/Highlights/Grandi10niosnew/nios-vibe-interior.jpg"), alt: "Hyundai Grand i10 Nios VIBE edition interior", label: "VIBE interior" },
+  marazzo: [
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Marazzo/10757/1758198958040/front-left-side-47.jpg", alt: "Marazzo, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Marazzo/10758/1690195787290/front-right-view-120.jpg", alt: "Marazzo, side profile", label: "Side profile", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Marazzo/10758/1690195787290/rear-left-view-121.jpg", alt: "Marazzo, rear three-quarter", label: "Rear three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Marazzo/10758/1690195787290/grille-97.jpg", alt: "Marazzo, front grille styling", label: "Grille styling", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Marazzo/10758/1690195787290/wheel-42.jpg", alt: "Marazzo, alloy wheel design", label: "Wheel design", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Marazzo/10758/1690195716318/dashboard-59.jpg", alt: "Marazzo dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Marazzo/10758/1690195716318/steering-wheel-54.jpg", alt: "Marazzo steering wheel", label: "Steering wheel", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Marazzo/10758/1690195716318/instrument-cluster-62.jpg", alt: "Marazzo instrument cluster", label: "Instrument cluster", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Marazzo/10758/1690195716318/center-console-55.jpg", alt: "Marazzo centre console", label: "Centre console", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Marazzo/10758/1690195716318/infotainment-system-main-menu-183.jpg", alt: "Marazzo infotainment system", label: "Infotainment", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Marazzo/10758/1690195716318/door-view-of-driver-seat-51.jpg", alt: "Marazzo front seats", label: "Front seats", kind: "cabin" },
   ],
-  i20: [
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20/Highlights/knight/i20interiordashbig1.jpg"), alt: "Hyundai i20 dashboard with 10.25-inch touchscreen", label: "Dashboard" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20/Highlights/knight/i20knightallblackseats.jpg"), alt: "Hyundai i20 Knight all-black seat upholstery", label: "Seats" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20/Highlights/pc/i20galleryb_1.jpg"), alt: "Hyundai i20 exterior and feature showcase", label: "Showcase" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20/Exterior/pc/i20pe1_ext.jpg"), alt: "Hyundai i20 front exterior with parametric grille", label: "Exterior — front" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20/Exterior/pc/i20pe2_ext.jpg"), alt: "Hyundai i20 rear exterior with LED tail lamps", label: "Exterior — rear" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20/Highlights/i20highbig2.jpg"), alt: "Hyundai i20 highlight and technology features", label: "Technology" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20/Convenience/pc/convenience_electric_sunroof_544x360.jpg"), alt: "Hyundai i20 electric sunroof", label: "Sunroof" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20/Highlights/Safety-Bottom1.jpg"), alt: "Hyundai i20 safety and airbag features", label: "Safety" },
+  xuv400: [
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV400-EV/11392/1758199122411/front-left-side-47.jpg", alt: "XUV400, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV400-EV/11393/1743155669600/front-view-118.jpg", alt: "XUV400, front view", label: "Front view", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV400-EV/11393/1743155669600/rear-left-view-121.jpg", alt: "XUV400, rear three-quarter", label: "Rear three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV400-EV/11393/1743155669600/grille-97.jpg", alt: "XUV400, closed-off front panel styling", label: "Front panel styling", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV400-EV/11393/1743155669600/wheel-42.jpg", alt: "XUV400, alloy wheel design", label: "Wheel design", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV400-EV/11485/1743155564786/dashboard-59.jpg", alt: "XUV400 dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV400-EV/11485/1743155564786/steering-wheel-54.jpg", alt: "XUV400 steering wheel", label: "Steering wheel", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV400-EV/11485/1743155564786/gear-shifter-87.jpg", alt: "XUV400 gear selector", label: "Gear selector", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV400-EV/11485/1743155564786/infotainment-system-main-menu-183.jpg", alt: "XUV400 infotainment system", label: "Infotainment", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV400-EV/11485/1743155564786/sun-roof-moon-roof-81.jpg", alt: "XUV400 sunroof", label: "Sunroof", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV400-EV/11485/1743155564786/seat-headrest-200.jpg", alt: "XUV400 seat detail", label: "Seat detail", kind: "cabin" },
   ],
-  "i20-n-line": [
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20-n-line/Highlights/knight/i20nlinegallery7.jpg"), alt: "Hyundai i20 N Line feature and styling showcase", label: "N Line detail" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20-n-line/Highlights/pc/i20-n-linesmallgallery_1.jpg"), alt: "Hyundai i20 N Line cabin", label: "Cabin" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20-n-line/Interior/pc/i20-nline-Interior-big1.jpg"), alt: "Hyundai i20 N Line interior with red accents", label: "N Line interior" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20-n-line/Highlights/pc/i20nlineinnerkv-pc.jpg"), alt: "Hyundai i20 N Line front three-quarter exterior", label: "Exterior" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20-n-line/Highlights/pc/i20-n-line5pc.jpg"), alt: "Hyundai i20 N Line highlight feature", label: "Highlight" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20-n-line/Exterior/Hyundai-i20-nline-Exterior-small-section-PC-800x530-1.jpg"), alt: "Hyundai i20 N Line exterior detail", label: "Exterior detail" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/i20-n-line/Highlights/knight/i20nlineexteriorkv.jpg"), alt: "Hyundai i20 N Line exterior key visual", label: "Exterior design" },
+  "xev-9e": [
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XEV-9e/9262/1755776058045/front-left-side-47.jpg", alt: "XEV 9e, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XEV-9e/9262/1753869054219/front-right-view-120.jpg", alt: "XEV 9e, side profile", label: "Side profile", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XEV-9e/9262/1753869054219/rear-left-view-121.jpg", alt: "XEV 9e, rear three-quarter", label: "Rear three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XEV-9e/9262/1753869054219/rear-view-119.jpg", alt: "XEV 9e, rear view", label: "Rear view", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XEV-9e/9262/1753868921029/grille-97.jpg", alt: "XEV 9e, closed-off front panel styling", label: "Front panel styling", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XEV-9e/9262/1753869344424/dashboard-59.jpg", alt: "XEV 9e dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XEV-9e/9262/1753869344424/steering-wheel-54.jpg", alt: "XEV 9e steering wheel", label: "Steering wheel", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XEV-9e/9262/1753869344424/instrument-cluster-62.jpg", alt: "XEV 9e instrument cluster", label: "Instrument cluster", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XEV-9e/9262/1753869344424/rear-seats-52.jpg", alt: "XEV 9e rear seats", label: "Rear seats", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XEV-9e/9262/1753869344424/door-view-of-driver-seat-51.jpg", alt: "XEV 9e front seats", label: "Front seats", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XEV-9e/9262/1753869540358/passenger-cabin-view-132.jpg", alt: "XEV 9e cabin view", label: "Cabin view", kind: "cabin" },
   ],
-  "ioniq-5": [
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/ioniq-5/highlights/feature-collage-1.jpg"), alt: "Hyundai Ioniq 5 cabin and technology collage", label: "Cabin & tech" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/ioniq-5/highlights/feature-collage-2.jpg"), alt: "Hyundai Ioniq 5 interior feature showcase", label: "Interior features" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/ioniq-5/highlights/feature-collage-3.jpg"), alt: "Hyundai Ioniq 5 design and technology features", label: "Design & tech" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/ioniq-5/highlights/vehicle-to-load.jpg"), alt: "Hyundai Ioniq 5 Vehicle-to-Load (V2L) powering a device", label: "Vehicle-to-Load" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/ioniq-5/exterior/headlamps.jpg"), alt: "Hyundai Ioniq 5 parametric pixel LED headlamps", label: "Pixel headlamps" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/ioniq-5/exterior/aero-alloy.jpg"), alt: "Hyundai Ioniq 5 20-inch aero alloy wheels", label: "Aero alloys" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/ioniq-5/interior/eco-processed-leather.jpg"), alt: "Hyundai Ioniq 5 eco-processed leather seats", label: "Eco leather seats" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/ioniq-5/convenience/easy-charging-big-pc.jpg"), alt: "Hyundai Ioniq 5 easy charging and wallbox", label: "Charging" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/ioniq-5/convenience/outside-v2l.jpg"), alt: "Hyundai Ioniq 5 external Vehicle-to-Load output", label: "External V2L" },
+  "be-6": [
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/BE-6/9263/1762423834412/front-left-side-47.jpg", alt: "BE 6, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/BE-6/9263/1756377780877/front-right-view-120.jpg", alt: "BE 6, side profile", label: "Side profile", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/BE-6/9263/1756377780877/front-bumper-222.jpg", alt: "BE 6, front styling detail", label: "Front styling detail", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/BE-6/9263/1756377780877/front-fender-223.jpg", alt: "BE 6, body styling detail", label: "Body styling detail", kind: "styling" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/BE-6/9263/1756377505988/dashboard-59.jpg", alt: "BE 6 dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/BE-6/9263/1756377505988/steering-wheel-54.jpg", alt: "BE 6 steering wheel", label: "Steering wheel", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/BE-6/9263/1756377505988/instrument-cluster-62.jpg", alt: "BE 6 instrument cluster", label: "Instrument cluster", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/BE-6/9263/1756377505988/door-view-of-driver-seat-51.jpg", alt: "BE 6 front seats", label: "Front seats", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/BE-6/9263/1756377602498/rear-seats-with-arm-rest-193.jpg", alt: "BE 6 rear seats", label: "Rear seats", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/BE-6/9263/1756377505988/passenger-cabin-view-132.jpg", alt: "BE 6 cabin view", label: "Cabin view", kind: "cabin" },
   ],
-  "creta-electric": [
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-electric/highlights/gallery/1120x600_040-058-Overall-Interior-Layout-1st-Row-Dashboard_FR03.jpg"), alt: "Hyundai Creta Electric dashboard and front cabin", label: "Dashboard" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-electric/highlights/gallery/1120x600_044B-222-Connected-Screens-Angle_FR01.jpg"), alt: "Hyundai Creta Electric dual connected screens", label: "Connected screens" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-electric/highlights/gallery/1120x600_128-164-6-Airbags_FR05.jpg"), alt: "Hyundai Creta Electric six-airbag safety system", label: "Safety" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-electric/convenience/convenience_512x340_V2L_inside.jpg"), alt: "Hyundai Creta Electric interior Vehicle-to-Load (V2L) port", label: "Vehicle-to-Load" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-electric/exterior/creta-electric-front-1.jpg"), alt: "Hyundai Creta Electric front exterior with pixelated grille", label: "Exterior — front" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-electric/exterior/creta-electric-rear-1.jpg"), alt: "Hyundai Creta Electric rear exterior", label: "Exterior — rear" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-electric/convenience/convenience_512x340_Voice_enabled_smart_panoramic_sunroof.jpg"), alt: "Hyundai Creta Electric voice-enabled panoramic sunroof", label: "Panoramic sunroof" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-electric/convenience/convenience_512x340_Bose_Premium_Sound.jpg"), alt: "Hyundai Creta Electric Bose premium sound system", label: "Bose audio" },
-    { src: officialAsset("/content/dam/hyundai/in/en/data/find-a-car/creta-electric/convenience/convenience_512x340_SBW.jpg"), alt: "Hyundai Creta Electric shift-by-wire column selector", label: "Shift-by-wire" },
+  "bolero-maxx-pik-up": [
+    { src: "https://truckcdn.cardekho.com/in/mahindra/bolero-maxx-pik-up/mahindra-bolero-maxx-pik-up-exterior-103825.jpg", alt: "Bolero Maxx Pik-Up, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "https://truckcdn.cardekho.com/in/mahindra/bolero-maxx-pik-up/mahindra-bolero-maxx-pik-up-exterior-539740.jpg", alt: "Bolero Maxx Pik-Up, side profile", label: "Side profile", kind: "styling" },
+    { src: "https://truckcdn.cardekho.com/in/mahindra/bolero-maxx-pik-up/mahindra-bolero-maxx-pik-up-exterior-684528.jpg", alt: "Bolero Maxx Pik-Up, rear view", label: "Rear view", kind: "styling" },
+    { src: "https://truckcdn.cardekho.com/in/mahindra/bolero-maxx-pik-up/mahindra-bolero-maxx-pik-up-exterior-351747.jpg", alt: "Bolero Maxx Pik-Up, cargo bed styling", label: "Cargo bed styling", kind: "styling" },
+    { src: "https://truckcdn.cardekho.com/in/mahindra/bolero-maxx-pik-up/mahindra-bolero-maxx-pik-up-interior-979540.jpg", alt: "Bolero Maxx Pik-Up cabin", label: "Cabin", kind: "cabin" },
+  ],
+  "supro-profit-truck": [
+    { src: "https://truckcdn.cardekho.com/in/mahindra/supro-maxitruck/t2/exterior/0.jpg", alt: "Supro Profit Truck, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "https://truckcdn.cardekho.com/in/mahindra/supro-maxitruck/t2/exterior/1.jpg", alt: "Supro Profit Truck, side profile", label: "Side profile", kind: "styling" },
+    { src: "https://truckcdn.cardekho.com/in/mahindra/supro-maxitruck/t2/exterior/2.jpg", alt: "Supro Profit Truck, rear view", label: "Rear view", kind: "styling" },
+    { src: "https://truckcdn.cardekho.com/in/mahindra/supro-maxitruck/t2/exterior/3.jpg", alt: "Supro Profit Truck, cargo body styling", label: "Cargo body styling", kind: "styling" },
+    { src: "https://truckcdn.cardekho.com/in/mahindra/supro-maxitruck/t2/interior/0.jpg", alt: "Supro Profit Truck cabin", label: "Cabin", kind: "cabin" },
+    { src: "https://truckcdn.cardekho.com/in/mahindra/supro-maxitruck/t2/interior/2.jpg", alt: "Supro Profit Truck dashboard", label: "Dashboard", kind: "cabin" },
   ],
 };
 
-const brochurePathBySlug: Record<string, string> = {
-  exter: "/content/dam/hyundai/in/en/data/brochure/exter.pdf",
-  venue: "/content/dam/hyundai/in/en/data/brochure/venue.pdf",
-  "venue-n-line": "/content/dam/hyundai/in/en/data/brochure/venue-n-line.pdf",
-  creta: "/content/dam/hyundai/in/en/data/brochure/creta.pdf",
-  "creta-n-line": "/content/dam/hyundai/in/en/data/brochure/creta-n-line.pdf",
-  alcazar: "/content/dam/hyundai/in/en/data/brochure/alcazar.pdf",
-  verna: "/content/dam/hyundai/in/en/data/brochure/verna.pdf",
-  aura: "/content/dam/hyundai/in/en/data/brochure/aura.pdf",
-  "grand-i10-nios": "/content/dam/hyundai/in/en/data/brochure/grand-i10-nios.pdf",
-  i20: "/content/dam/hyundai/in/en/data/brochure/i20.pdf",
-  "i20-n-line": "/content/dam/hyundai/in/en/data/brochure/i20-n-line.pdf",
-  "ioniq-5": "/content/dam/hyundai/in/en/data/brochure/ioniq-5.pdf",
-  "creta-electric": "/content/dam/hyundai/in/en/data/brochure/creta-ev.pdf",
-};
+/* No confirmed Mahindra brochure URLs were available to link directly,
+   so this map stays empty and getCarBrochure() returns undefined —
+   CarDetailClient already renders the "Download Brochure" button
+   conditionally and hides it cleanly when this happens. */
+const brochurePathBySlug: Record<string, string> = {};
 
-export function getCarBrochure(car: Car) {
-  const path = brochurePathBySlug[car.slug];
-  return path ? officialAsset(path) : undefined;
+export function getCarBrochure(car: Car): string | undefined {
+  return brochurePathBySlug[car.slug];
 }
 
-/* Genuine Hyundai 360-degree exterior frames. This gallery has independent
-   state in the page component, so it never changes the selected paint. */
+/* Mahindra product shots are single confirmed images (not 360-degree
+   turntable frame sets like Hyundai's), so the gallery is simply the
+   main product image plus any curated feature images for that model. */
 export function getCarGallery(car: Car): GalleryImage[] {
-  const source = car.colors[0]?.image;
-  const exterior = !source || !/_\d+\.png$/.test(source)
-    ? [{ src: car.image, alt: car.alt, label: "Exterior" }]
-    : [6, 0, 12, 18, 24, 30].map((frame, index) => ({
-    src: source.replace(/_\d+\.png$/, `_${frame}.png`),
-    alt: `${car.alt}, ${galleryLabels[index].toLowerCase()} view`,
-    label: galleryLabels[index],
-  }));
-
+  const exterior = [{ src: car.image, alt: car.alt, label: galleryLabels[0], kind: "styling" as const }];
   return [...exterior, ...(modelFeatureGallery[car.slug] ?? [])];
 }

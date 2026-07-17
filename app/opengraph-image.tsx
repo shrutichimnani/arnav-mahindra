@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Modi Hyundai, authorised Hyundai dealer across the Mumbai region";
+  "Mahindra Modi, authorised Mahindra dealer across Thane and Navi Mumbai";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -17,7 +17,7 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "linear-gradient(135deg, #001a3a 0%, #002c5f 55%, #0057b8 100%)",
+          background: "linear-gradient(135deg, #1a1a1a 0%, #8c0018 55%, #c8102e 100%)",
           padding: "72px",
           fontFamily: "sans-serif",
         }}
@@ -32,43 +32,43 @@ export default function OpengraphImage() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#002c5f",
-              fontSize: 34,
+              color: "#c8102e",
+              fontSize: 30,
               fontWeight: 800,
             }}
           >
-            H
+            MM
           </div>
           <div style={{ display: "flex", flexDirection: "column", color: "#fff" }}>
             <span style={{ fontSize: 34, fontWeight: 800, letterSpacing: -0.5 }}>
-              MODI HYUNDAI
+              MAHINDRA MODI
             </span>
             <span
               style={{
-                fontSize: 16,
-                letterSpacing: 4,
+                fontSize: 14,
+                letterSpacing: 2,
                 textTransform: "uppercase",
-                color: "#9cc3f2",
+                color: "#f5c6cf",
               }}
             >
-              Customer First
+              A Unit of Arnav Automobiles Pvt Ltd.
             </span>
           </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", color: "#fff" }}>
           <span style={{ fontSize: 62, fontWeight: 800, lineHeight: 1.05, maxWidth: 900 }}>
-            New Hyundai Cars, Test Drives &amp; Service
+            New Mahindra Cars, Test Drives &amp; Service
           </span>
-          <span style={{ fontSize: 34, color: "#bcd4f5", marginTop: 12 }}>
-            Authorised Hyundai dealer across Mumbai region
+          <span style={{ fontSize: 34, color: "#f5c6cf", marginTop: 12 }}>
+            Authorised Mahindra dealer across Thane &amp; Navi Mumbai
           </span>
         </div>
 
-        <div style={{ display: "flex", gap: 40, color: "#dce8f8", fontSize: 24 }}>
-          <span>250,000+ cars sold</span>
-          <span>98% customer satisfaction</span>
-          <span>Creta · Venue · Alcazar</span>
+        <div style={{ display: "flex", gap: 40, color: "#f9dde2", fontSize: 24 }}>
+          <span>10,000+ cars sold</span>
+          <span>97% customer satisfaction</span>
+          <span>Thar Roxx · XUV 7XO · Scorpio-N</span>
         </div>
       </div>
     ),

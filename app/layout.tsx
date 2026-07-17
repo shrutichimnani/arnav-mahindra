@@ -3,6 +3,7 @@ import { Inter, Sora } from "next/font/google";
 import "./globals.css";
 import { SITE_URL } from "@/lib/data";
 import JsonLd from "@/components/JsonLd";
+import WhatsAppWidget from "@/components/WhatsAppWidget";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -17,29 +18,29 @@ const sora = Sora({
   display: "swap",
 });
 
-const title = "New Hyundai Cars, Test Drives & Authorised Service in Mumbai | Modi Hyundai";
+const title = "New Mahindra Cars, Test Drives & Authorised Service in Thane | Mahindra Modi";
 const description =
-  "Compare new Hyundai cars, variants, colours and prices at Modi Hyundai. Book a test drive, request a transparent quote or schedule authorised Hyundai service across Mumbai, Thane, Vasai, Virar and Wada.";
+  "Compare new Mahindra cars, variants, colours and prices at Mahindra Modi. Book a test drive, request a transparent quote or schedule authorised Mahindra service across Thane, Navi Mumbai and Mumbai.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: title,
-    template: "%s | Modi Hyundai",
+    template: "%s | Mahindra Modi",
   },
   description,
-  applicationName: "Modi Hyundai",
+  applicationName: "Mahindra Modi",
   keywords: [
-    "Modi Hyundai",
-    "Hyundai dealer Mumbai",
-    "Hyundai showroom Mumbai",
-    "Hyundai test drive",
-    "Hyundai service Mumbai",
-    "Hyundai Creta price",
-    "Hyundai Venue",
-    "Hyundai Alcazar",
-    "Hyundai Exter",
-    "authorised Hyundai dealer Thane",
+    "Mahindra Modi",
+    "Mahindra dealer Thane",
+    "Mahindra showroom Thane",
+    "Mahindra test drive",
+    "Mahindra service Thane",
+    "Mahindra Thar Roxx price",
+    "Mahindra XUV 7XO",
+    "Mahindra Scorpio-N",
+    "Mahindra XUV 3XO",
+    "authorised Mahindra dealer Navi Mumbai",
   ],
   alternates: { canonical: "/" },
   robots: {
@@ -49,7 +50,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    siteName: "Modi Hyundai",
+    siteName: "Mahindra Modi",
     title,
     description,
     url: SITE_URL,
@@ -81,6 +82,7 @@ export default function RootLayout({
       <body className="min-h-screen antialiased">
         <JsonLd />
         {children}
+        <WhatsAppWidget />
       </body>
     </html>
   );

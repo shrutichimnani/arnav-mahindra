@@ -36,11 +36,11 @@ export default function Locations() {
         <Reveal className="mb-6 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div>
             <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">
-              Find a Modi Hyundai {tab === "Showroom" ? "Showroom" : "Service Centre"} Near You
+              Find a Mahindra Modi {tab === "Showroom" ? "Showroom" : "Service Centre"} Near You
             </h2>
             <p className="mt-2 text-sm text-white/70">
               {items.length} {tab === "Showroom" ? "showrooms" : "service centres"} across
-              Mumbai, Thane, Vasai, Virar, and Wada.
+              Thane, Navi Mumbai and Mumbai.
             </p>
           </div>
           <div className="flex shrink-0 items-center gap-3">
@@ -104,7 +104,7 @@ export default function Locations() {
               <article className="group relative flex h-64 flex-col justify-end overflow-hidden rounded-lg">
                 <Image
                   src={loc.image}
-                  alt={`Modi Hyundai ${loc.name} ${loc.type} in ${loc.city}`}
+                  alt={`${loc.name} ${loc.type} in ${loc.city}`}
                   fill
                   sizes="260px"
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"

@@ -9,9 +9,9 @@ import Reveal from "@/components/Reveal";
 import { serviceHeroImage, serviceCentres, SITE_URL } from "@/lib/data";
 import { DEALER_ID } from "@/lib/schema";
 
-const title = "Locate a Service Centre & Book a Service Appointment | Modi Hyundai";
+const title = "Locate a Service Centre & Book a Service Appointment | Mahindra Modi";
 const description =
-  "Book authorised Hyundai service online across Mumbai, Thane, Vasai, Virar and Wada. Choose a convenient centre and slot for maintenance, repairs, genuine parts and pickup/drop support.";
+  "Book authorised Mahindra service online across Thane, Navi Mumbai and Mumbai. Choose a convenient centre and slot for maintenance, repairs, genuine parts and pickup/drop support.";
 
 export const metadata: Metadata = {
   title,
@@ -79,12 +79,12 @@ export default function LocateServiceCentrePage() {
       />
       <Navbar />
       <FloatingActions />
-      <main style={{ marginTop: "96px" }}>
+      <main style={{ marginTop: "60px" }}>
         {/* Hero */}
         <section className="relative h-[280px] w-full overflow-hidden bg-brand-deep sm:h-[340px]">
           <Image
             src={serviceHeroImage}
-            alt="Hyundai service centre bay"
+            alt="Mahindra service centre bay"
             fill
             priority
             sizes="100vw"
@@ -100,7 +100,7 @@ export default function LocateServiceCentrePage() {
                 Locate a Service Centre & Book a Service
               </h1>
               <p className="mt-3 max-w-xl text-sm text-white/80 sm:text-base">
-                Keep your Hyundai performing at its best with genuine parts,
+                Keep your Mahindra performing at its best with genuine parts,
                 factory-trained technicians, clear estimates and convenient
                 service booking.
               </p>

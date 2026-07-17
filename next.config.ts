@@ -19,6 +19,22 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "www.hyundai.com",
       },
+      {
+        protocol: "https",
+        hostname: "auto.mahindra.com",
+      },
+      {
+        protocol: "https",
+        hostname: "www.mahindraelectricsuv.com",
+      },
+      {
+        protocol: "https",
+        hostname: "stimg.cardekho.com",
+      },
+      {
+        protocol: "https",
+        hostname: "truckcdn.cardekho.com",
+      },
     ],
   },
 };

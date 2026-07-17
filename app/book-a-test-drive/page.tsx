@@ -7,9 +7,9 @@ import Reveal from "@/components/Reveal";
 import { SITE_URL } from "@/lib/data";
 import { DEALER_ID } from "@/lib/schema";
 
-const title = "Book a Hyundai Test Drive in Mumbai | Modi Hyundai";
+const title = "Book a Mahindra Test Drive in Thane | Mahindra Modi";
 const description =
-  "Book a no-obligation Hyundai test drive in Mumbai, Thane, Vasai, Virar or Wada. Choose your model, preferred time and showroom or doorstep location online.";
+  "Book a no-obligation Mahindra test drive in Thane, Navi Mumbai or Mumbai. Choose your model, preferred time and showroom or doorstep location online.";
 
 export const metadata: Metadata = {
   title,
@@ -64,7 +64,7 @@ export default function BookTestDrivePage() {
       />
       <Navbar />
       <FloatingActions />
-      <main style={{ marginTop: "96px" }}>
+      <main style={{ marginTop: "60px" }}>
         <section className="bg-bg-2 py-10 lg:py-14">
           <div className="container-px mx-auto max-w-[1400px]">
             <Reveal className="mx-auto max-w-xl text-center">
@@ -72,12 +72,12 @@ export default function BookTestDrivePage() {
                 Book a Test Drive
               </p>
               <h1 className="mt-2 font-display text-3xl font-bold text-text sm:text-4xl">
-                Drive the Hyundai You&apos;re Comparing
+                Drive the Mahindra You&apos;re Comparing
               </h1>
               <p className="mt-3 text-sm text-muted sm:text-base">
                 Choose your model, a convenient time and a showroom or doorstep
                 location. We&apos;ll confirm the car and help you compare the right
-                variant—without any pressure to buy.
+                variant - without any pressure to buy.
               </p>
             </Reveal>
           </div>

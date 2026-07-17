@@ -17,7 +17,7 @@ export default function Offers() {
                 ₹1.25 Lakh*
               </span>{" "}
               with cash discount, exchange bonus and corporate benefits on select
-              Hyundai models.
+              Mahindra models.
             </h2>
           </div>
           <Link
