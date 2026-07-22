@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
-import TestDriveWizard from "@/components/TestDriveWizard";
 import Reveal from "@/components/Reveal";
+import TestDriveBookingSection from "@/components/TestDriveBookingSection";
 import { SITE_URL } from "@/lib/data";
 import { DEALER_ID } from "@/lib/schema";
 
@@ -55,7 +55,12 @@ const testDrivePageSchema = {
   ],
 };
 
-export default function BookTestDrivePage() {
+export default async function BookTestDrivePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ car?: string }>;
+}) {
+  const { car } = await searchParams;
   return (
     <>
       <script
@@ -85,7 +90,7 @@ export default function BookTestDrivePage() {
 
         <section className="bg-white py-10 lg:py-16">
           <div className="container-px mx-auto max-w-[1400px]">
-            <TestDriveWizard />
+            <TestDriveBookingSection initialCarSlug={car} />
           </div>
         </section>
       </main>

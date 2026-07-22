@@ -4,6 +4,7 @@ import { useMemo, useState, type ChangeEvent, type FormEvent } from "react";
 import { carModels, serviceCentres } from "@/lib/data";
 import { Calendar, Check, ChevronDown } from "./icons";
 import Reveal from "./Reveal";
+import OtpGate, { VerifiedPhoneField } from "./OtpGate";
 
 const fieldBase =
   "w-full rounded border border-border bg-white px-4 py-3 text-sm text-text outline-none transition-colors placeholder:text-faint focus:border-brand focus:ring-2 focus:ring-brand/10";
@@ -62,14 +63,22 @@ export default function ServiceBooking() {
   const [submitted, setSubmitted] = useState(false);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const minDate = new Date().toISOString().slice(0, 10);
+  const [selectedModel, setSelectedModel] = useState("");
+  const [customModel, setCustomModel] = useState("");
+  const carModelOptions = [...carModels, "Other"];
+  // Today's date is blocked: the earliest selectable date is tomorrow, so a
+  // service can never be booked for the same day.
+  const today = new Date().toISOString().slice(0, 10);
+  const minDate = new Date(Date.now() + 24 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10);
 
   const availableTimeSlots = useMemo(() => {
-    if (!date || date !== minDate) return timeSlots;
+    if (!date || date !== today) return timeSlots;
     const now = new Date();
     const currentHour = now.getHours() + now.getMinutes() / 60;
     return timeSlots.filter((s) => s.end > currentHour);
-  }, [date, minDate]);
+  }, [date, today]);
 
   const effectiveTime = availableTimeSlots.some((s) => s.label === time)
     ? time
@@ -96,7 +105,7 @@ export default function ServiceBooking() {
           </p>
         </Reveal>
 
-        <Reveal delay={150} className="mx-auto max-w-3xl rounded-lg border border-border bg-bg-2 p-8 shadow-[0_4px_32px_0_rgba(200,16,46,0.08)] sm:p-10">
+        <Reveal delay={150} className="mx-auto max-w-3xl rounded-lg border border-border bg-bg-2 p-8 shadow-[0_4px_32px_0_rgba(0,0,0,0.08)] sm:p-10">
           {submitted ? (
             <div className="flex flex-col items-center justify-center py-10 text-center">
               <span className="grid h-16 w-16 place-items-center rounded-full bg-brand/10 text-brand">
@@ -116,109 +125,113 @@ export default function ServiceBooking() {
               </button>
             </div>
           ) : (
-            <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <SelectField
-                label="Select Car Model"
-                placeholder="Select Car Model"
-                options={carModels}
-              />
-              <SelectField
-                label="Select Service Centre"
-                placeholder="Select Service Centre"
-                options={serviceCentreOptions}
-              />
-
-              <SelectField
-                label="Type of Service"
-                placeholder="Select Type of Service"
-                options={serviceTypes}
-              />
-
-              <label className="block">
-                <span className="mb-1.5 block text-xs font-semibold text-muted">Your Name</span>
-                <input type="text" required placeholder="Your name" className={fieldBase} />
-              </label>
-
-              <label className="block">
-                <span className="mb-1.5 block text-xs font-semibold text-muted">Mobile Number</span>
-                <input
-                  type="tel"
-                  required
-                  pattern="[0-9]{10}"
-                  placeholder="Mobile number"
-                  className={fieldBase}
-                />
-              </label>
-
-              <label className="block">
-                <span className="mb-1.5 block text-xs font-semibold text-muted">Email</span>
-                <input type="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Enter a valid email with a domain (e.g. name@example.com)" placeholder="you@example.com" className={fieldBase} />
-              </label>
-
-              <label className="block">
-                <span className="mb-1.5 block text-xs font-semibold text-muted">
-                  Registration Number{" "}
-                  <span className="font-normal text-faint">(optional)</span>
-                </span>
-                <input
-                  type="text"
-                  maxLength={12}
-                  placeholder="e.g. MH04AB1234"
-                  className={fieldBase}
-                />
-              </label>
-
-              <label className="block">
-                <span className="mb-1.5 block text-xs font-semibold text-muted">Preferred Date</span>
-                <div className="relative">
-                  <input
-                    type="date"
-                    required
-                    min={minDate}
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    suppressHydrationWarning
-                    className={`${fieldBase} pr-10 ${date ? "" : "text-transparent"}`}
+            <OtpGate
+            >
+              {({ phone, onResetPhone }) => (
+                <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <SelectField
+                    label="Select Car Model"
+                    placeholder="Select Car Model"
+                    options={carModelOptions}
+                    value={selectedModel}
+                    onChange={setSelectedModel}
                   />
-                  <Calendar className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
-                </div>
-              </label>
+                  {selectedModel === "Other" && (
+                    <label className="block sm:col-start-2">
+                      <span className="mb-1.5 block text-xs font-semibold text-muted">Car Model Name</span>
+                      <input type="text" required placeholder="Enter your car model" className={fieldBase} value={customModel} onChange={(e) => setCustomModel(e.target.value)} />
+                    </label>
+                  )}
+                  <SelectField
+                    label="Select Service Centre"
+                    placeholder="Select Service Centre"
+                    options={serviceCentreOptions}
+                  />
 
-              <SelectField
-                label="Preferred Time"
-                placeholder={
-                  date && availableTimeSlots.length === 0
-                    ? "No slots left today"
-                    : "Select time"
-                }
-                options={availableTimeSlots.map((s) => s.label)}
-                value={effectiveTime}
-                onChange={setTime}
-              />
+                  <SelectField
+                    label="Type of Service"
+                    placeholder="Select Type of Service"
+                    options={serviceTypes}
+                  />
 
-              <label className="col-span-full flex items-center gap-2.5 rounded border border-border bg-white px-4 py-3">
-                <input
-                  type="checkbox"
-                  className="h-4 w-4 shrink-0 rounded border-border text-brand accent-brand focus:ring-2 focus:ring-brand/10"
-                />
-                <span className="text-sm text-text">Pick-up &amp; Drop required</span>
-              </label>
+                  <label className="block">
+                    <span className="mb-1.5 block text-xs font-semibold text-muted">Your Name</span>
+                    <input type="text" required placeholder="Your name" className={fieldBase} />
+                  </label>
 
-              <button
-                type="submit"
-                className="col-span-full mt-2 rounded bg-brand py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light"
-              >
-                Book My Service
-              </button>
-              <p className="col-span-full text-center text-xs text-faint">
-                By submitting, you agree to be contacted by Mahindra Modi about
-                your service request. See our{" "}
-                <a href="#" className="font-medium text-brand hover:underline">
-                  Privacy Policy
-                </a>
-                .
-              </p>
-            </form>
+                  <VerifiedPhoneField phone={phone} onChange={onResetPhone} />
+
+                  <label className="block">
+                    <span className="mb-1.5 block text-xs font-semibold text-muted">Email</span>
+                    <input type="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Enter a valid email with a domain (e.g. name@example.com)" placeholder="you@example.com" className={fieldBase} />
+                  </label>
+
+                  <label className="block">
+                    <span className="mb-1.5 block text-xs font-semibold text-muted">
+                      Registration Number{" "}
+                      <span className="font-normal text-faint">(optional)</span>
+                    </span>
+                    <input
+                      type="text"
+                      maxLength={12}
+                      placeholder="e.g. MH04AB1234"
+                      className={fieldBase}
+                    />
+                  </label>
+
+                  <label className="block">
+                    <span className="mb-1.5 block text-xs font-semibold text-muted">Preferred Date</span>
+                    <div className="relative">
+                      <input
+                        type="date"
+                        required
+                        min={minDate}
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                        suppressHydrationWarning
+                        className={`${fieldBase} pr-10 ${date ? "" : "text-transparent"}`}
+                      />
+                      <Calendar className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+                    </div>
+                  </label>
+
+                  <SelectField
+                    label="Preferred Time"
+                    placeholder={
+                      date && availableTimeSlots.length === 0
+                        ? "No slots left today"
+                        : "Select time"
+                    }
+                    options={availableTimeSlots.map((s) => s.label)}
+                    value={effectiveTime}
+                    onChange={setTime}
+                  />
+
+                  <label className="col-span-full flex items-center gap-2.5 rounded border border-border bg-white px-4 py-3">
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 shrink-0 rounded border-border text-brand accent-brand focus:ring-2 focus:ring-brand/10"
+                    />
+                    <span className="text-sm text-text">Pick-up &amp; Drop required</span>
+                  </label>
+
+                  <button
+                    type="submit"
+                    className="col-span-full mt-2 rounded bg-brand py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light"
+                  >
+                    Book My Service
+                  </button>
+                  <p className="col-span-full text-center text-xs text-faint">
+                    By submitting, you agree to be contacted by Mahindra Modi about
+                    your service request. See our{" "}
+                    <a href="#" className="font-medium text-brand hover:underline">
+                      Privacy Policy
+                    </a>
+                    .
+                  </p>
+                </form>
+              )}
+            </OtpGate>
           )}
         </Reveal>
       </div>

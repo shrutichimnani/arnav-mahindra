@@ -82,8 +82,8 @@ export const nav = {
     { label: "Find a Car", href: "/cars" },
     { label: "Service", href: "/locate-service-centre" },
     { label: "Locate Us", href: "/locate-us" },
-    { label: "Contact Us", href: "/contact-us" },
     { label: "Blogs", href: "/blogs" },
+    { label: "Contact Us", href: "/contact-us" },
   ],
 };
 
@@ -93,7 +93,9 @@ export const nav = {
    gautammodigroup.com. Mahindra & Mahindra Ltd brand facts sourced
    from Mahindra's own public "About Us" / corporate history pages. */
 export const aboutHeroImage = stock("photo-1560179707-f14e90ef3623", 1600);
-export const aboutCultureImage = stock("photo-1522071820081-009f0129c71c", 1200);
+export const contactHeroImage = "https://images.openai.com/static-rsc-4/F6mmuHO8pR2ZvITPmHE6WTwy5CJkRdbfTYOF1rrLfsO9AHPBLe5Sl3Kcna93SD-mwT2YRzoFFuPxQuCU8idLMy2P-PVlK5LW_Blvn8cRfTu9YaINq7a19W70B4r3i-mCRaKIVEsOra14tXN3Qea1Uy7KFthSBgeJlRWc29mYGPdAXdZq8wWg9iSWrN3qQimW?purpose=fullsize";
+export const locateHeroImage = "https://images.openai.com/static-rsc-4/kgkFakE6WkrnihH4GLV-V194T5ssFKa-gZBuZaaIytuK6oTIBFIogvOo38RppSKOB47heF2AWTV_A5Xkbt7d_Cin2baS9tH9bdqWk8ArhLaYPDEgjjBUwLfDcXCZjWpndzTk9CiUNjXq-gy6pHGK5RXjCTzxLqOoOVHWCVQWe7pISyochzidbjYYCCr1sd7F?purpose=fullsize";
+export const aboutCultureImage = "https://bunny-wp-pullzone-cghvklkcns.b-cdn.net/wp-content/uploads/2026/05/GNP01423.JPG-2048x1365.jpeg";
 /* Real photo of the Mahindra Modi Thane showroom at dusk, sourced from the
    dealership's own Justdial listing (its catalogue photos, uploaded by the
    business itself). Used only for the About Us page hero. */
@@ -259,11 +261,6 @@ export type Car = {
   bootSpace: string;
   highlights: string[];
   colors: CarColor[];
-  /* Official Mahindra 360-degree exterior/interior viewer, only set for
-     models that actually expose an "Explore in 3D" link on their own
-     auto.mahindra.com page — confirmed per-model, not guessed. Opens in a
-     new tab (their own CSP blocks embedding it via iframe). */
-  view360Url?: string;
 };
 
 export type DetailSpec = { label: string; value: string };
@@ -330,7 +327,6 @@ export const cars: Car[] = [
       "Dual-tone interior with 10.25\" infotainment",
       "Removable roof panels on select variants",
     ],
-    view360Url: "https://auto.mahindra.com/360-view?cid=THAR-ROXX",
   },
   {
     name: "XUV 3XO",
@@ -365,7 +361,6 @@ export const cars: Car[] = [
       "Panoramic sunroof and 360-degree camera",
       "Harman Kardon premium sound system",
     ],
-    view360Url: "https://auto.mahindra.com/360-view?cid=XUV3XO",
   },
   {
     name: "Thar",
@@ -492,7 +487,6 @@ export const cars: Car[] = [
       "Sony 3D audio with 12 speakers on top trims",
       "7 airbags across the range",
     ],
-    view360Url: "https://auto.mahindra.com/360-view?cid=XUV7XO",
   },
   {
     name: "Marazzo",
@@ -649,7 +643,6 @@ export const cars: Car[] = [
       "Familiar, spacious XUV cabin",
       "6 airbags and ESC standard",
     ],
-    view360Url: "https://auto.mahindra.com/suv/xuv400/X400.html#xplore360",
   },
   {
     name: "XEV 9e",
@@ -685,7 +678,6 @@ export const cars: Car[] = [
       "Coupe-SUV silhouette with a low drag coefficient",
       "Available all-wheel-drive dual-motor layout",
     ],
-    view360Url: "https://www.mahindraelectricsuv.com/360-view?model=XEV-9e",
   },
   {
     name: "BE 6",
@@ -721,7 +713,6 @@ export const cars: Car[] = [
       "Level 2 ADAS and a digital-first cockpit",
       "Rapid DC fast-charging capability",
     ],
-    view360Url: "https://www.mahindraelectricsuv.com/360-view?model=BE-6",
   },
   {
     name: "Bolero Maxx Pik-Up",
@@ -1113,7 +1104,7 @@ export const popularCars = popularNames
   .filter((c): c is Car => Boolean(c));
 
 export const testDriveImage = mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw14737114/images/SCN/large/ScorpioN_602x339.png");
-export const serviceHeroImage = stock("photo-1486262715619-67b85e0b08d3", 1600);
+export const serviceHeroImage = "https://bunny-wp-pullzone-cghvklkcns.b-cdn.net/wp-content/uploads/2026/03/charkop-_1_.png-2048x1365.jpg";
 export const carModels = cars.map((c) => c.name);
 export const cityOptions = ["Thane", "Navi Mumbai", "Mumbai"];
 export const serviceCentres = locations.filter((l) => l.type === "Service Centre");

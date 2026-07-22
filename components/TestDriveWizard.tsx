@@ -2,9 +2,11 @@
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import Image from "next/image";
-import { cars, cityOptions, locations, formatINR } from "@/lib/data";
+import { useRouter } from "next/navigation";
+import { cars, cityOptions, locations, type Car } from "@/lib/data";
 import { Calendar, Check, ChevronDown, ChevronRight, X } from "./icons";
 import Reveal from "./Reveal";
+import { VerifiedPhoneField } from "./OtpGate";
 
 const fieldBase =
   "w-full rounded border border-border bg-white px-4 py-3 text-sm text-text outline-none transition-colors placeholder:text-faint focus:border-brand focus:ring-2 focus:ring-brand/10";
@@ -17,33 +19,66 @@ const timeSlots = [
 
 const steps = ["Select Car", "When & Where", "Your Details"];
 
-export default function TestDriveWizard() {
-  const [step, setStep] = useState(1);
+export default function TestDriveWizard({
+  initialCarSlug,
+  verifiedPhone,
+  onResetPhone,
+  inModal,
+  onClose,
+}: {
+  initialCarSlug?: string;
+  /* When the wizard opens behind an OTP gate, the verified phone is
+     passed in and the mobile field is locked to it; to change it the
+     user must re-verify (handled by the parent via onResetPhone). */
+  verifiedPhone?: string;
+  onResetPhone?: () => void;
+  inModal?: boolean;
+  onClose?: () => void;
+}) {
+  const router = useRouter();
+  // Arriving with a pre-selected car (from an individual car page's "Book a
+  // Test Drive" button) gets the Car Selected / More Options layout; the
+  // generic entry points (navbar, floating action, etc.) keep the plain grid.
+  const fromCarPage = Boolean(initialCarSlug);
+
+  const [step, setStep] = useState(initialCarSlug ? 2 : 1);
   const [submitted, setSubmitted] = useState(false);
   const [attempted, setAttempted] = useState(false);
 
-  const [carSlug, setCarSlug] = useState("");
+  const [carSlug, setCarSlug] = useState(initialCarSlug ?? "");
   const [city, setCity] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [name, setName] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [mobile, setMobile] = useState(verifiedPhone ?? "");
   const [email, setEmail] = useState("");
   const [pincode, setPincode] = useState("");
   const [address, setAddress] = useState("");
 
-  const minDate = new Date().toISOString().slice(0, 10);
+  // Today's date is blocked: the earliest selectable date is tomorrow, so a
+  // test drive can never be booked for the same day.
+  const today = new Date().toISOString().slice(0, 10);
+  const minDate = new Date(Date.now() + 24 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10);
+  const orderedCars = useMemo(() => {
+    if (!carSlug) return cars;
+    const idx = cars.findIndex((c) => c.slug === carSlug);
+    if (idx <= 0) return cars;
+    return [cars[idx], ...cars.slice(0, idx), ...cars.slice(idx + 1)];
+  }, [carSlug]);
   const selectedCar = cars.find((c) => c.slug === carSlug);
+  const otherCars = useMemo(() => cars.filter((c) => c.slug !== carSlug), [carSlug]);
   const showroomsInCity = locations.filter(
     (l) => l.type === "Showroom" && (city ? l.city === city : true),
   );
 
   const availableTimeSlots = useMemo(() => {
-    if (!date || date !== minDate) return timeSlots;
+    if (!date || date !== today) return timeSlots;
     const now = new Date();
     const currentHour = now.getHours() + now.getMinutes() / 60;
     return timeSlots.filter((s) => s.end > currentHour);
-  }, [date, minDate]);
+  }, [date, today]);
 
   const isValidEmail = /^\S+@\S+\.\S+$/.test(email);
   const isValidMobile = /^[0-9]{10}$/.test(mobile);
@@ -57,21 +92,9 @@ export default function TestDriveWizard() {
     return true;
   };
 
-  // Field-level messages, only surfaced once the user has tried to move on
-  // from an incomplete step, so the reason a disabled-looking action won't
-  // proceed is always spelled out rather than just greyed out.
-  const fieldErrors = {
-    name: attempted && step === 3 && !name.trim() ? "Please enter your name." : "",
-    mobile:
-      attempted && step === 3 && !isValidMobile
-        ? "Enter a valid 10-digit mobile number."
-        : "",
-    email:
-      attempted && step === 3 && !isValidEmail ? "Enter a valid email address." : "",
-    pincode:
-      attempted && step === 3 && !isValidPincode ? "Enter a valid 6-digit pincode." : "",
-  };
-
+  // Step-level guidance for car/location/date/time selection (steps 1-2).
+  // These use buttons (type="button"), not form submit, so native validation
+  // can't cover them — the message is the only feedback.
   const stepMessage =
     attempted && step === 1 && !carSlug
       ? "Please select a car to continue."
@@ -83,6 +106,7 @@ export default function TestDriveWizard() {
             ? "Please choose a preferred time slot."
             : "";
 
+
   const goNext = () => {
     if (canProceed()) {
       setAttempted(false);
@@ -92,16 +116,73 @@ export default function TestDriveWizard() {
     }
   };
   const goBack = () => {
-    setAttempted(false);
-    setStep((s) => Math.max(1, s - 1));
-  };
-
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!canProceed()) {
-      setAttempted(true);
+    if (step === 1) {
+      if (fromCarPage) router.push(`/cars/${initialCarSlug}`);
       return;
     }
+    setAttempted(false);
+    setStep((s) => s - 1);
+  };
+
+  const carCard = (car: Car, selected: boolean) => (
+    <button
+      type="button"
+      key={car.slug}
+      onClick={() => setCarSlug(car.slug)}
+      className={`flex flex-col items-center justify-center gap-2 rounded-lg border-2 p-4 text-center transition-all ${
+        selected ? "border-brand bg-brand/5" : "border-border hover:border-muted"
+      }`}
+    >
+      <Image
+        src={car.image}
+        alt={car.alt}
+        width={140}
+        height={60}
+        className="h-10 w-full object-contain"
+      />
+      <span className="text-xs font-semibold text-text">{car.name}</span>
+    </button>
+  );
+
+  const navButtons = (
+    <div className="flex items-center justify-between gap-3">
+      <button
+        type="button"
+        onClick={goBack}
+        disabled={step === 1 && !fromCarPage}
+        className="rounded border border-border px-6 py-3 text-sm font-semibold text-text transition-colors hover:bg-bg-2 disabled:cursor-not-allowed disabled:opacity-40"
+      >
+        Back
+      </button>
+      {step < 3 ? (
+        <button
+          type="button"
+          onClick={goNext}
+          className={`group inline-flex items-center gap-2 rounded bg-brand px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-brand-light ${
+            !canProceed() ? "opacity-50" : ""
+          }`}
+        >
+          Next Step
+          <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+        </button>
+      ) : (
+        <button
+          type="submit"
+          className="rounded bg-brand px-8 py-3 text-sm font-semibold text-white transition-all hover:bg-brand-light"
+        >
+          Confirm Booking
+        </button>
+      )}
+    </div>
+  );
+
+  const onSubmit = (e: FormEvent) => {
+    // Step 3's "Confirm Booking" is a real type="submit" button, so the
+    // browser's own required/pattern validation runs first and shows its
+    // native "please fill out this field" popup — only on an actual submit
+    // attempt — if anything mandatory is missing or invalid. This handler
+    // only ever runs once that native check has already passed.
+    e.preventDefault();
     setSubmitted(true);
   };
 
@@ -109,7 +190,7 @@ export default function TestDriveWizard() {
     setSubmitted(false);
     setAttempted(false);
     setStep(1);
-    setCarSlug("");
+    setCarSlug(initialCarSlug ?? "");
     setCity("");
     setDate("");
     setTime("");
@@ -120,17 +201,22 @@ export default function TestDriveWizard() {
     setAddress("");
   };
 
+  const dismissConfirmation = () => {
+    setSubmitted(false);
+    if (inModal) onClose?.();
+  };
+
   useEffect(() => {
-    if (!submitted) return;
+    if (!submitted || inModal) return;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [submitted]);
+  }, [submitted, inModal]);
 
   return (
     <>
-      <div className="mx-auto max-w-3xl rounded-lg border border-border bg-white p-6 shadow-[0_4px_32px_0_rgba(200,16,46,0.08)] sm:p-10">
+      <div className={inModal ? undefined : "mx-auto max-w-3xl rounded-lg border border-border bg-white p-6 shadow-[0_4px_32px_0_rgba(0,0,0,0.08)] sm:p-10"}>
         {/* Step indicator */}
         <div className="flex items-center justify-between">
           {steps.map((label, i) => {
@@ -173,35 +259,38 @@ export default function TestDriveWizard() {
         <form onSubmit={onSubmit} className="mt-8">
           {step === 1 && (
             <Reveal variant="fade-in">
-              <h3 className="font-display text-lg font-bold text-text">Select Your Car</h3>
-              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {cars.slice(0, 12).map((car) => (
-                  <button
-                    type="button"
-                    key={car.slug}
-                    onClick={() => setCarSlug(car.slug)}
-                    className={`flex flex-col items-center gap-2 rounded-lg border-2 p-4 text-center transition-all ${
-                      carSlug === car.slug
-                        ? "border-brand bg-brand/5"
-                        : "border-border hover:border-muted"
-                    }`}
-                  >
-                    <Image
-                      src={car.image}
-                      alt={car.alt}
-                      width={140}
-                      height={60}
-                      className="h-10 w-full object-contain"
-                    />
-                    <span className="text-xs font-semibold text-text">{car.name}</span>
-                    <span className="text-[11px] text-faint">
-                      {formatINR(car.priceINR)}
-                    </span>
-                  </button>
-                ))}
-              </div>
-              {stepMessage && (
-                <p className="mt-3 text-sm font-medium text-red-600">{stepMessage}</p>
+              <h3 className="text-center font-display text-lg font-bold text-text">Select Your Car</h3>
+
+              {fromCarPage ? (
+                <>
+                  <p className="mt-6 text-xs font-semibold uppercase tracking-wider text-muted">
+                    Car Selected
+                  </p>
+                  <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                    {selectedCar && carCard(selectedCar, true)}
+                  </div>
+                  {stepMessage && (
+                    <p className="mt-3 text-sm font-medium text-red-600">{stepMessage}</p>
+                  )}
+
+                  <div className="mt-6">{navButtons}</div>
+
+                  <p className="mt-8 text-xs font-semibold uppercase tracking-wider text-muted">
+                    More Options
+                  </p>
+                  <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                    {otherCars.map((car) => carCard(car, false))}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                    {orderedCars.map((car) => carCard(car, carSlug === car.slug))}
+                  </div>
+                  {stepMessage && (
+                    <p className="mt-3 text-sm font-medium text-red-600">{stepMessage}</p>
+                  )}
+                </>
               )}
             </Reveal>
           )}
@@ -309,27 +398,25 @@ export default function TestDriveWizard() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your name"
-                    className={`${fieldBase} ${fieldErrors.name ? "border-red-400 focus:border-red-400" : ""}`}
+                    className={fieldBase}
                   />
-                  {fieldErrors.name && (
-                    <p className="mt-1.5 text-xs font-medium text-red-600">{fieldErrors.name}</p>
-                  )}
                 </label>
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold text-muted">Mobile Number</span>
-                  <input
-                    type="tel"
-                    required
-                    pattern="[0-9]{10}"
-                    value={mobile}
-                    onChange={(e) => setMobile(e.target.value)}
-                    placeholder="Mobile number"
-                    className={`${fieldBase} ${fieldErrors.mobile ? "border-red-400 focus:border-red-400" : ""}`}
-                  />
-                  {fieldErrors.mobile && (
-                    <p className="mt-1.5 text-xs font-medium text-red-600">{fieldErrors.mobile}</p>
+                {verifiedPhone ? (
+                    <VerifiedPhoneField phone={verifiedPhone} onChange={onResetPhone ?? (() => {})} />
+                  ) : (
+                    <label className="block">
+                      <span className="mb-1.5 block text-xs font-semibold text-muted">Mobile Number</span>
+                      <input
+                        type="tel"
+                        required
+                        pattern="[0-9]{10}"
+                        value={mobile}
+                        onChange={(e) => setMobile(e.target.value)}
+                        placeholder="Mobile number"
+                        className={fieldBase}
+                      />
+                    </label>
                   )}
-                </label>
                 <label className="block">
                   <span className="mb-1.5 block text-xs font-semibold text-muted">Email</span>
                   <input
@@ -338,11 +425,8 @@ export default function TestDriveWizard() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@example.com"
-                    className={`${fieldBase} ${fieldErrors.email ? "border-red-400 focus:border-red-400" : ""}`}
+                    className={fieldBase}
                   />
-                  {fieldErrors.email && (
-                    <p className="mt-1.5 text-xs font-medium text-red-600">{fieldErrors.email}</p>
-                  )}
                 </label>
                 <label className="block">
                   <span className="mb-1.5 block text-xs font-semibold text-muted">Pincode</span>
@@ -354,11 +438,8 @@ export default function TestDriveWizard() {
                     value={pincode}
                     onChange={(e) => setPincode(e.target.value)}
                     placeholder="6-digit pincode"
-                    className={`${fieldBase} ${fieldErrors.pincode ? "border-red-400 focus:border-red-400" : ""}`}
+                    className={fieldBase}
                   />
-                  {fieldErrors.pincode && (
-                    <p className="mt-1.5 text-xs font-medium text-red-600">{fieldErrors.pincode}</p>
-                  )}
                 </label>
                 <label className="col-span-full block">
                   <span className="mb-1.5 block text-xs font-semibold text-muted">
@@ -376,36 +457,9 @@ export default function TestDriveWizard() {
             </Reveal>
           )}
 
-          {/* Nav buttons */}
-          <div className="mt-8 flex items-center justify-between gap-3">
-            <button
-              type="button"
-              onClick={goBack}
-              disabled={step === 1}
-              className="rounded border border-border px-6 py-3 text-sm font-semibold text-text transition-colors hover:bg-bg-2 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              Back
-            </button>
-            {step < 3 ? (
-              <button
-                type="button"
-                onClick={goNext}
-                className={`group inline-flex items-center gap-2 rounded bg-brand px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-brand-light ${
-                  !canProceed() ? "opacity-50" : ""
-                }`}
-              >
-                Next Step
-                <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </button>
-            ) : (
-              <button
-                type="submit"
-                className="rounded bg-brand px-8 py-3 text-sm font-semibold text-white transition-all hover:bg-brand-light"
-              >
-                Confirm Booking
-              </button>
-            )}
-          </div>
+          {/* Nav buttons — already shown inline above for the Car Selected /
+              More Options step-1 layout, so skip the duplicate here. */}
+          {!(step === 1 && fromCarPage) && <div className="mt-8">{navButtons}</div>}
         </form>
       </div>
 
@@ -413,7 +467,7 @@ export default function TestDriveWizard() {
       {submitted && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
-          onClick={resetAll}
+          onClick={dismissConfirmation}
         >
           <div
             role="dialog"
@@ -423,7 +477,7 @@ export default function TestDriveWizard() {
           >
             <button
               aria-label="Close"
-              onClick={resetAll}
+              onClick={dismissConfirmation}
               className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full text-muted transition-colors hover:bg-bg-2"
             >
               <X className="h-5 w-5" />

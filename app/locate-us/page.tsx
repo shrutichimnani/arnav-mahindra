@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import LocateUs from "@/components/LocateUs";
 import Reveal from "@/components/Reveal";
-import { aboutHeroImage, SITE_URL } from "@/lib/data";
+import { locateHeroImage, SITE_URL } from "@/lib/data";
 import { DEALER_ID } from "@/lib/schema";
 
 const title = "Locate Us | Mahindra Modi Showrooms & Service Centres";
@@ -63,7 +63,7 @@ export default function LocateUsPage() {
       <main style={{ marginTop: "60px" }}>
         <section className="relative h-[260px] w-full overflow-hidden bg-brand-deep sm:h-[320px]">
           <Image
-            src={aboutHeroImage}
+            src={locateHeroImage}
             alt="Mahindra Modi locations"
             fill
             priority

@@ -1,11 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    scrollRestoration: true,
+  },
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "imgd.aeplcdn.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.openai.com",
       },
       {
         protocol: "https",

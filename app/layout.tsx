@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { Inter, Sora } from "next/font/google";
+import { Inter, Sora, Lato, Georama } from "next/font/google";
 import "./globals.css";
 import { SITE_URL } from "@/lib/data";
 import JsonLd from "@/components/JsonLd";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
+import TestDriveModalProvider from "@/components/TestDriveModalProvider";
+import PhoneVerificationProvider from "@/components/PhoneVerificationProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -15,6 +17,24 @@ const sora = Sora({
   variable: "--font-sora",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+/* Site-wide body/heading fonts, matching auto.mahindra.com (Lato body
+   copy, Georama headings). Inter/Sora above are kept loaded and applied
+   only to the main menu and the logo lockup, which stay on their
+   original fonts per that exception. */
+const lato = Lato({
+  variable: "--font-lato",
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  display: "swap",
+});
+
+const georama = Georama({
+  variable: "--font-georama",
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
   display: "swap",
 });
 
@@ -65,9 +85,8 @@ export const metadata: Metadata = {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
       { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-      { url: "/favicon.ico" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   manifest: "/site.webmanifest",
 };
@@ -78,11 +97,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-IN" className={`${inter.variable} ${sora.variable}`}>
+    <html lang="en-IN" className={`${inter.variable} ${sora.variable} ${lato.variable} ${georama.variable}`}>
       <body className="min-h-screen antialiased">
         <JsonLd />
-        {children}
-        <WhatsAppWidget />
+        <PhoneVerificationProvider>
+          <TestDriveModalProvider>
+            {children}
+            <WhatsAppWidget />
+          </TestDriveModalProvider>
+        </PhoneVerificationProvider>
       </body>
     </html>
   );

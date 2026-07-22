@@ -6,10 +6,12 @@ import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import { nav } from "@/lib/data";
 import { Phone, Menu, X } from "./icons";
+import { useTestDriveModal } from "./TestDriveModalProvider";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const openTestDrive = useTestDriveModal();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -24,6 +26,7 @@ export default function Navbar() {
   }, [open]);
 
   const pathname = usePathname();
+  const isCarDetail = pathname.startsWith("/cars/") && pathname !== "/cars";
 
   // Clicking a link whose target is the current page does nothing by default;
   // detect that and scroll back to the top instead.
@@ -47,7 +50,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 bg-white transition-shadow duration-300 ${
-        scrolled ? "shadow-[0_1px_0_0_#e2e6ec,0_4px_16px_0_rgba(200,16,46,0.07)]" : "shadow-[0_1px_0_0_#e2e6ec]"
+        scrolled ? "shadow-[0_1px_0_0_#e2e6ec,0_4px_16px_0_rgba(0,0,0,0.07)]" : "shadow-[0_1px_0_0_#e2e6ec]"
       }`}
     >
       {/* Main nav */}
@@ -55,13 +58,13 @@ export default function Navbar() {
         <Logo />
 
         {/* Desktop links */}
-        <ul className="hidden items-center gap-0.5 lg:flex">
+        <ul className="hidden items-center gap-0.5 xl:flex">
           {nav.links.map((l) => (
             <li key={l.href}>
               <Link
                 href={l.href}
                 onClick={(e) => onNavClick(e, l.href)}
-                className={`relative rounded px-4 py-2 text-sm font-medium transition-colors ${
+                className={`relative whitespace-nowrap rounded px-3 py-2 text-sm font-medium transition-colors ${
                   isActive(l.href)
                     ? "text-brand"
                     : "text-muted hover:bg-bg-2 hover:text-brand"
@@ -75,16 +78,19 @@ export default function Navbar() {
 
         {/* Right cluster */}
         <div className="flex items-center gap-2">
-          <Link
-            href="/book-a-test-drive"
-            className="hidden rounded bg-brand px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-brand-light sm:inline-block"
-          >
-            Book a Test Drive
-          </Link>
+          {!isCarDetail && (
+            <button
+              type="button"
+              onClick={() => openTestDrive()}
+              className="hidden whitespace-nowrap rounded bg-brand px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-brand-light sm:inline-block"
+            >
+              Book a Test Drive
+            </button>
+          )}
           <button
             aria-label="Open menu"
             onClick={() => setOpen(true)}
-            className="grid h-9 w-9 place-items-center rounded border border-border bg-bg-2 text-text lg:hidden"
+            className="grid h-9 w-9 place-items-center rounded border border-border bg-bg-2 text-text xl:hidden"
           >
             <Menu className="h-5 w-5" />
           </button>
@@ -133,13 +139,18 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <Link
-            href="/book-a-test-drive"
-            onClick={() => setOpen(false)}
-            className="mt-4 rounded bg-brand px-5 py-3.5 text-center text-sm font-semibold text-white"
-          >
-            Book a Test Drive
-          </Link>
+          {!isCarDetail && (
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                openTestDrive();
+              }}
+              className="mt-4 rounded bg-brand px-5 py-3.5 text-center text-sm font-semibold text-white"
+            >
+              Book a Test Drive
+            </button>
+          )}
           <a
             href={`tel:${nav.phone.replace(/\s/g, "")}`}
             className="mt-2 flex items-center justify-center gap-2 rounded border border-border px-5 py-3.5 text-sm font-semibold text-brand"

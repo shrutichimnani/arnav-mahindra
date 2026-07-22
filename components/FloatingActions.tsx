@@ -3,15 +3,17 @@
 import { useState } from "react";
 import { company, nav } from "@/lib/data";
 import { Calendar, WhatsApp, Phone, ChevronRight, ChevronLeft } from "./icons";
+import { useTestDriveModal } from "./TestDriveModalProvider";
 
 const actions = [
-  { label: "Book a\nTest Drive", href: "/book-a-test-drive", Icon: Calendar },
-  { label: "WhatsApp", href: `https://wa.me/${company.whatsappE164.replace("+", "")}?text=${encodeURIComponent("Hello.")}`, Icon: WhatsApp },
-  { label: "Call Us", href: `tel:${nav.phone.replace(/\s/g, "")}`, Icon: Phone },
+  { label: "Book a\nTest Drive", href: "/book-a-test-drive", Icon: Calendar, isTestDrive: true },
+  { label: "WhatsApp", href: `https://wa.me/${company.whatsappE164.replace("+", "")}?text=${encodeURIComponent("Hello.")}`, Icon: WhatsApp, isTestDrive: false },
+  { label: "Call Us", href: `tel:${nav.phone.replace(/\s/g, "")}`, Icon: Phone, isTestDrive: false },
 ];
 
 export default function FloatingActions() {
   const [isOpen, setIsOpen] = useState(true);
+  const openTestDrive = useTestDriveModal();
 
   return (
     <div
@@ -37,33 +39,54 @@ export default function FloatingActions() {
 
       {/* Action Tiles */}
       <div className="flex flex-col shadow-2xl">
-        {actions.map(({ label, href, Icon }, i) => (
-          <a
-            key={label}
-            href={href}
-            aria-label={label}
-            {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            className={`group flex items-center bg-brand text-white transition-colors hover:bg-brand-light ${
-              i === 0 ? "rounded-tl-lg" : ""
-            } ${i === actions.length - 1 ? "rounded-bl-lg" : ""}`}
-          >
-            {/* Hover label */}
-            <span className="pointer-events-none absolute right-[calc(100%+8px)] whitespace-nowrap rounded border border-border bg-white px-3 py-1.5 text-xs font-semibold text-brand opacity-0 shadow-md transition-all group-hover:-translate-x-1 group-hover:opacity-100">
-              {label.replace("\n", " ")}
-            </span>
-            {/* Icon tile */}
-            <span className="flex h-[56px] w-14 flex-col items-center justify-center gap-0.5 border-b border-white/20 last:border-0">
-              <Icon className="h-5 w-5" />
-              <span className="text-center text-[8px] font-semibold leading-tight opacity-90">
-                {label.split("\n").map((line, idx) => (
-                  <span key={idx} className="block">
-                    {line}
-                  </span>
-                ))}
+        {actions.map(({ label, href, Icon, isTestDrive }, i) => {
+          const cls = `group flex items-center bg-brand text-white transition-colors hover:bg-brand-light ${
+            i === 0 ? "rounded-tl-lg" : ""
+          } ${i === actions.length - 1 ? "rounded-bl-lg" : ""}`;
+          const inner = (
+            <>
+              {/* Hover label */}
+              <span className="pointer-events-none absolute right-[calc(100%+8px)] whitespace-nowrap rounded border border-border bg-white px-3 py-1.5 text-xs font-semibold text-brand opacity-0 shadow-md transition-all group-hover:-translate-x-1 group-hover:opacity-100">
+                {label.replace("\n", " ")}
               </span>
-            </span>
-          </a>
-        ))}
+              {/* Icon tile */}
+              <span className="flex h-[56px] w-14 flex-col items-center justify-center gap-0.5 border-b border-white/20 last:border-0">
+                <Icon className="h-5 w-5" />
+                <span className="text-center text-[8px] font-semibold leading-tight opacity-90">
+                  {label.split("\n").map((line, idx) => (
+                    <span key={idx} className="block">
+                      {line}
+                    </span>
+                  ))}
+                </span>
+              </span>
+            </>
+          );
+          if (isTestDrive) {
+            return (
+              <button
+                key={label}
+                type="button"
+                aria-label={label.replace("\n", " ")}
+                onClick={() => openTestDrive()}
+                className={cls}
+              >
+                {inner}
+              </button>
+            );
+          }
+          return (
+            <a
+              key={label}
+              href={href}
+              aria-label={label.replace("\n", " ")}
+              {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className={cls}
+            >
+              {inner}
+            </a>
+          );
+        })}
       </div>
     </div>
   );

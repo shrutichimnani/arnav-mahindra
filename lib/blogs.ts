@@ -49,6 +49,7 @@ export type BlogPost = {
   alt: string;
   content: string[];
   featured?: boolean;
+  imagePosition?: string;
 };
 
 const scorpioN = car("Scorpio-N");
@@ -144,8 +145,9 @@ export const blogPosts: BlogPost[] = [
     readTime: "4 min read",
     date: "08 Jul 2026",
     image:
-      "https://images.unsplash.com/photo-1632733711679-529326f6dc12?auto=format&fit=crop&w=1200&q=80",
-    alt: "Technician working under the hood of a car",
+      "https://bunny-wp-pullzone-cghvklkcns.b-cdn.net/wp-content/uploads/2026/04/Sewri-workshop-image.png",
+    alt: "Mahindra service centre bay with car undergoing maintenance",
+    imagePosition: "object-[25%_center] scale-110",
     content: [
       `Most Mahindra owners default to "whenever the reminder sticker says so," which is a reasonable rule of thumb, but it helps to know what is actually happening at each interval and why skipping one can cost more later.`,
       `The first service, typically around 1,000 to 1,500 km, is mostly a checkup: tightening any fittings that settled in after delivery and confirming there are no early defects. From there, most Mahindra models follow a service rhythm of roughly every 10,000 km or 12 months, whichever comes first, covering an oil and filter change, brake inspection, and a full multi-point check.`,

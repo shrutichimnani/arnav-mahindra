@@ -35,7 +35,7 @@ export default function Services() {
             const Icon = iconMap[s.icon as IconName];
             return (
               <Reveal key={s.title} delay={i * 110} variant="scale-up">
-                <div className="group flex h-full flex-col items-center gap-3 rounded-lg border border-border bg-white p-6 text-center transition-[transform,box-shadow] duration-700 ease-out will-change-transform hover:-translate-y-1 hover:shadow-[0_8px_30px_0_rgba(200,16,46,0.12)]">
+                <div className="group flex h-full flex-col items-center gap-3 rounded-lg border border-border bg-white p-6 text-center shadow-[0_2px_12px_0_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
                   <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand/10 text-brand transition-colors duration-700">
                     <Icon className="h-6 w-6" />
                   </span>

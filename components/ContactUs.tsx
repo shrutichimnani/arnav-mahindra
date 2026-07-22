@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { company } from "@/lib/data";
 import { Check, Clock, Mail, Phone, WhatsApp } from "./icons";
 import Reveal from "./Reveal";
+import OtpGate, { VerifiedPhoneField } from "./OtpGate";
 
 const fieldBase =
   "w-full rounded border border-border bg-white px-4 py-3 text-sm text-text outline-none transition-colors placeholder:text-faint focus:border-brand focus:ring-2 focus:ring-brand/10";
@@ -100,7 +101,7 @@ export default function ContactUs() {
           <Reveal
             delay={120}
             variant="slide-left"
-            className="rounded-lg border border-border bg-white p-6 shadow-[0_4px_32px_0_rgba(200,16,46,0.06)] sm:p-8"
+            className="rounded-lg border border-border bg-white p-6 shadow-[0_4px_32px_0_rgba(0,0,0,0.06)] sm:p-8"
           >
             <h3 className="font-display text-lg font-bold text-text">
               Send Us a Message
@@ -124,56 +125,54 @@ export default function ContactUs() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={onSubmit} className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold text-muted">Your Name</span>
-                  <input type="text" required placeholder="Your name" className={fieldBase} />
-                </label>
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold text-muted">Mobile Number</span>
-                  <input
-                    type="tel"
-                    required
-                    pattern="[0-9]{10}"
-                    placeholder="Mobile number"
-                    className={fieldBase}
-                  />
-                </label>
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold text-muted">Your Email</span>
-                  <input type="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Enter a valid email with a domain (e.g. name@example.com)" placeholder="you@example.com" className={fieldBase} />
-                </label>
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold text-muted">Pincode</span>
-                  <input
-                    type="text"
-                    required
-                    inputMode="numeric"
-                    pattern="[0-9]{6}"
-                    placeholder="e.g. 400604"
-                    className={fieldBase}
-                  />
-                </label>
-                <label className="col-span-full block">
-                  <span className="mb-1.5 block text-xs font-semibold text-muted">Subject</span>
-                  <input type="text" required placeholder="How can we help?" className={fieldBase} />
-                </label>
-                <label className="col-span-full block">
-                  <span className="mb-1.5 block text-xs font-semibold text-muted">Your Message</span>
-                  <textarea
-                    required
-                    rows={5}
-                    placeholder="Tell us more..."
-                    className={`${fieldBase} resize-none`}
-                  />
-                </label>
-                <button
-                  type="submit"
-                  className="col-span-full mt-1 rounded bg-brand py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light"
+              <div className="mt-5">
+                <OtpGate
                 >
-                  Send Message
-                </button>
-              </form>
+                  {({ phone, onResetPhone }) => (
+                    <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <label className="block">
+                        <span className="mb-1.5 block text-xs font-semibold text-muted">Your Name</span>
+                        <input type="text" required placeholder="Your name" className={fieldBase} />
+                      </label>
+                      <VerifiedPhoneField phone={phone} onChange={onResetPhone} />
+                      <label className="block">
+                        <span className="mb-1.5 block text-xs font-semibold text-muted">Your Email</span>
+                        <input type="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Enter a valid email with a domain (e.g. name@example.com)" placeholder="you@example.com" className={fieldBase} />
+                      </label>
+                      <label className="block">
+                        <span className="mb-1.5 block text-xs font-semibold text-muted">Pincode</span>
+                        <input
+                          type="text"
+                          required
+                          inputMode="numeric"
+                          pattern="[0-9]{6}"
+                          placeholder="e.g. 400604"
+                          className={fieldBase}
+                        />
+                      </label>
+                      <label className="col-span-full block">
+                        <span className="mb-1.5 block text-xs font-semibold text-muted">Subject</span>
+                        <input type="text" required placeholder="How can we help?" className={fieldBase} />
+                      </label>
+                      <label className="col-span-full block">
+                        <span className="mb-1.5 block text-xs font-semibold text-muted">Your Message</span>
+                        <textarea
+                          required
+                          rows={5}
+                          placeholder="Tell us more..."
+                          className={`${fieldBase} resize-none`}
+                        />
+                      </label>
+                      <button
+                        type="submit"
+                        className="col-span-full mt-1 rounded bg-brand py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light"
+                      >
+                        Send Message
+                      </button>
+                    </form>
+                  )}
+                </OtpGate>
+              </div>
             )}
           </Reveal>
         </div>

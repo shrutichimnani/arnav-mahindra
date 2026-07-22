@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import { popularCars, nav, company } from "@/lib/data";
+import { TestDriveTrigger } from "./TestDriveModalProvider";
 import {
   MapPin,
   Phone,
@@ -26,10 +27,7 @@ const quickLinks = [
 
 const serviceLinks = [
   { label: "Book a Service", href: "/locate-service-centre#book-service" },
-  { label: "Service Packages", href: "/locate-service-centre" },
-  { label: "Genuine Parts", href: "/locate-service-centre" },
-  { label: "Roadside Assistance", href: "/locate-service-centre" },
-  { label: "Extended Warranty", href: "/locate-service-centre" },
+  { label: "Locate a Service Centre", href: "/locate-service-centre#service-centres" },
 ];
 
 const socials = [
@@ -74,12 +72,21 @@ export default function Footer() {
             <ul className="mt-4 space-y-3">
               {quickLinks.map((l) => (
                 <li key={l.label}>
-                  <Link
-                    href={l.href}
-                    className="text-sm text-white/60 transition-colors hover:text-white"
-                  >
-                    {l.label}
-                  </Link>
+                  {l.href === "/book-a-test-drive" ? (
+                    <TestDriveTrigger
+                      variant="link"
+                      className="text-sm text-white/60 transition-colors hover:text-white"
+                    >
+                      {l.label}
+                    </TestDriveTrigger>
+                  ) : (
+                    <Link
+                      href={l.href}
+                      className="text-sm text-white/60 transition-colors hover:text-white"
+                    >
+                      {l.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

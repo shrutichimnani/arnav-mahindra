@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { cars, formatINR, type CarCategory } from "@/lib/data";
-import { ArrowRight } from "./icons";
 import Reveal from "./Reveal";
 
 const categories: ("All" | CarCategory)[] = [
@@ -18,8 +17,17 @@ const categories: ("All" | CarCategory)[] = [
 
 export default function CarsGrid() {
   const [category, setCategory] = useState<"All" | CarCategory>("All");
-  const filtered =
+  const categoryFiltered =
     category === "All" ? cars : cars.filter((c) => c.category === category);
+
+  const filtered = useMemo(() => {
+    const arr = [...categoryFiltered];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }, [categoryFiltered]);
 
   return (
     <section className="bg-white py-10 lg:py-14">
@@ -45,14 +53,17 @@ export default function CarsGrid() {
             const displayName = "Mahindra " + car.name;
             return (
               <Reveal key={car.slug} delay={(i % 3) * 90} variant="fade-up">
-                <article className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-white shadow-[0_2px_12px_0_rgba(200,16,46,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(200,16,46,0.12)]">
-                  <div className="relative flex h-44 items-center justify-center bg-bg-2 p-6">
+                <Link
+                  href={`/cars/${car.slug}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-white shadow-[0_2px_12px_0_rgba(0,0,0,0.06)] transition-all duration-500 ease-in-out hover:scale-[1.02] hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]"
+                >
+                  <div className="relative flex h-52 items-center justify-center overflow-hidden bg-bg-2 p-6">
                     <Image
                       src={car.image}
                       alt={car.alt}
                       width={400}
                       height={150}
-                      className="h-auto w-full object-contain drop-shadow-lg transition-transform duration-500 group-hover:scale-105"
+                      className="max-h-full w-auto max-w-full object-contain drop-shadow-lg transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                   <div className="flex flex-1 flex-col p-5">
@@ -75,15 +86,8 @@ export default function CarsGrid() {
                       )}
                     </p>
                     <p className="mt-1 text-xs text-faint">{car.fuel}</p>
-                    <Link
-                      href={`/cars/${car.slug}`}
-                      className="group/link mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand transition-colors hover:text-brand-light"
-                    >
-                      Explore
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover/link:translate-x-0.5" />
-                    </Link>
                   </div>
-                </article>
+                </Link>
               </Reveal>
             );
           })}

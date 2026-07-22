@@ -107,7 +107,7 @@ export default function Testimonials() {
           {testimonials.map((t) => (
             <figure
               key={t.name}
-              className="flex w-[85vw] shrink-0 snap-start flex-col rounded-lg border border-border bg-white p-6 shadow-[0_2px_16px_0_rgba(200,16,46,0.07)] transition-shadow hover:shadow-[0_4px_24px_0_rgba(200,16,46,0.12)] sm:w-[360px]"
+              className="flex w-[85vw] shrink-0 snap-start flex-col rounded-lg border border-border bg-white p-6 shadow-[0_2px_16px_0_rgba(0,0,0,0.07)] transition-shadow hover:shadow-[0_4px_24px_0_rgba(0,0,0,0.12)] sm:w-[360px]"
             >
               <div className="flex gap-1">
                 {Array.from({ length: t.rating }).map((_, i) => (

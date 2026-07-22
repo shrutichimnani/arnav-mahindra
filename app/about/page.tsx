@@ -7,6 +7,7 @@ import FloatingActions from "@/components/FloatingActions";
 import Reveal from "@/components/Reveal";
 import FAQ from "@/components/FAQ";
 import { ArrowRight, Check } from "@/components/icons";
+import { TestDriveTrigger } from "@/components/TestDriveModalProvider";
 import {
   company,
   groupInfo,
@@ -206,7 +207,7 @@ export default function AboutPage() {
                   key={v.title}
                   delay={i * 100}
                   variant="scale-up"
-                  className="rounded-lg border border-border bg-white p-6 text-center transition-[transform,box-shadow] duration-700 ease-out hover:-translate-y-1 hover:shadow-[0_8px_30px_0_rgba(200,16,46,0.12)]"
+                  className="rounded-lg border border-border bg-white p-6 text-center transition-[transform,box-shadow] duration-700 ease-out hover:-translate-y-1 hover:shadow-[0_8px_30px_0_rgba(0,0,0,0.12)]"
                 >
                   <h3 className="text-sm font-semibold text-text">{v.title}</h3>
                   <p className="mt-2 text-xs leading-relaxed text-muted">
@@ -277,13 +278,13 @@ export default function AboutPage() {
               showroom and service centre.
             </p>
             <div className="mt-2 flex flex-wrap justify-center gap-3">
-              <Link
-                href="/#test-drive"
+              <TestDriveTrigger
+                variant="button"
                 className="group inline-flex items-center gap-2 rounded bg-brand px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-brand-light"
               >
                 Book a Test Drive
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
+              </TestDriveTrigger>
               <Link
                 href="/locate-us"
                 className="inline-flex items-center gap-2 rounded border border-brand px-6 py-3 text-sm font-semibold text-brand transition-all hover:bg-brand hover:text-white"

@@ -28,11 +28,13 @@ export default function Logo({ className = "", dark = false }: { className?: str
         />
       </svg>
       <span className={`h-6 w-px shrink-0 sm:h-7 ${dark ? "bg-white/25" : "bg-border"}`} />
-      <span className="leading-none">
-        <span className={`block font-display text-sm font-extrabold tracking-tight ${dark ? "text-white" : "text-brand"}`}>
+      {/* Kept on the original logo font (Sora/Inter), not the site-wide
+          Lato/Georama swap. */}
+      <span className="font-menu leading-none">
+        <span className={`block whitespace-nowrap font-logo text-sm font-extrabold tracking-tight ${dark ? "text-white" : "text-brand"}`}>
           MAHINDRA MODI
         </span>
-        <span className={`block text-[9px] font-medium uppercase tracking-[0.2em] ${dark ? "text-white/60" : "text-muted"}`}>
+        <span className={`block whitespace-nowrap text-[9px] font-medium uppercase tracking-[0.2em] ${dark ? "text-white/60" : "text-muted"}`}>
           A Unit of Arnav Automobiles Pvt Ltd.
         </span>
       </span>

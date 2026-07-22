@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { cars, formatINR, type CarCategory } from "@/lib/data";
 import { ChevronLeft, ChevronRight } from "./icons";
 import Reveal from "./Reveal";
@@ -23,8 +23,20 @@ export default function FeaturedVehicles() {
   const stageRef = useRef<HTMLDivElement>(null);
   const [stageWidth, setStageWidth] = useState(1000);
 
-  const filtered =
-    category === "All" ? cars : cars.filter((c) => c.category === category);
+  const categoryFiltered = useMemo(
+    () => (category === "All" ? cars : cars.filter((c) => c.category === category)),
+    [category],
+  );
+
+  const filtered = useMemo(() => {
+    const arr = [...categoryFiltered];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }, [categoryFiltered]);
+
   const active = filtered[index] ?? filtered[0];
 
   const selectCategory = (nextCategory: "All" | CarCategory) => {

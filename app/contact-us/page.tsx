@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import ContactUs from "@/components/ContactUs";
 import Reveal from "@/components/Reveal";
-import { aboutHeroImage, company, SITE_URL } from "@/lib/data";
+import { contactHeroImage, company, SITE_URL } from "@/lib/data";
 import { DEALER_ID } from "@/lib/schema";
 
 const title = "Contact Us | Mahindra Modi";
@@ -63,7 +63,7 @@ export default function ContactUsPage() {
       <main style={{ marginTop: "60px" }}>
         <section className="relative h-[240px] w-full overflow-hidden bg-brand-deep sm:h-[300px]">
           <Image
-            src={aboutHeroImage}
+            src={contactHeroImage}
             alt="Mahindra Modi showroom"
             fill
             priority

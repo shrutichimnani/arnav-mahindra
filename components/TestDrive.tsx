@@ -5,6 +5,7 @@ import Image from "next/image";
 import { carModels, cityOptions, testDriveImage } from "@/lib/data";
 import { Calendar, Check, ChevronDown } from "./icons";
 import Reveal from "./Reveal";
+import OtpGate, { VerifiedPhoneField } from "./OtpGate";
 
 const fieldBase =
   "w-full rounded border border-border bg-white px-4 py-3 text-sm text-text outline-none transition-colors placeholder:text-faint focus:border-brand focus:ring-2 focus:ring-brand/10";
@@ -59,14 +60,19 @@ export default function TestDrive() {
   const [submitted, setSubmitted] = useState(false);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const minDate = new Date().toISOString().slice(0, 10);
+  // Today's date is blocked: the earliest selectable date is tomorrow, so a
+  // test drive can never be booked for the same day.
+  const today = new Date().toISOString().slice(0, 10);
+  const minDate = new Date(Date.now() + 24 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10);
 
   const availableTimeSlots = useMemo(() => {
-    if (!date || date !== minDate) return timeSlots;
+    if (!date || date !== today) return timeSlots;
     const now = new Date();
     const currentHour = now.getHours() + now.getMinutes() / 60;
     return timeSlots.filter((s) => s.end > currentHour);
-  }, [date, minDate]);
+  }, [date, today]);
 
   const effectiveTime = availableTimeSlots.some((s) => s.label === time)
     ? time
@@ -80,7 +86,7 @@ export default function TestDrive() {
   return (
     <section id="test-drive" className="scroll-mt-24 bg-white py-14 lg:py-20 overflow-hidden">
       <div className="container-px mx-auto max-w-[1400px]">
-        <div className="overflow-hidden rounded-lg border border-border shadow-[0_4px_32px_0_rgba(200,16,46,0.08)] lg:grid lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="overflow-hidden rounded-lg border border-border shadow-[0_4px_32px_0_rgba(0,0,0,0.08)] lg:grid lg:grid-cols-[0.9fr_1.1fr]">
           {/* Visual side */}
           <Reveal variant="slide-right" className="relative min-h-[280px] overflow-hidden lg:min-h-full">
             <Image
@@ -126,112 +132,108 @@ export default function TestDrive() {
                 </button>
               </div>
             ) : (
-              <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <SelectField
-                  label="Select Car Model"
-                  placeholder="Select Car Model"
-                  options={carModels}
-                />
-                <SelectField
-                  label="Select Location"
-                  placeholder="Select Location"
-                  options={cityOptions}
-                />
-
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold text-muted">Your Name</span>
-                  <input type="text" required placeholder="Your name" className={fieldBase} />
-                </label>
-
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold text-muted">Mobile Number</span>
-                  <input
-                    type="tel"
-                    required
-                    pattern="[0-9]{10}"
-                    placeholder="Mobile number"
-                    className={fieldBase}
-                  />
-                </label>
-
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold text-muted">Email</span>
-                  <input
-                    type="email"
-                    required
-                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-                    title="Enter a valid email with a domain (e.g. name@example.com)"
-                    placeholder="you@example.com"
-                    className={fieldBase}
-                  />
-                </label>
-
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold text-muted">Pincode</span>
-                  <input
-                    type="text"
-                    required
-                    inputMode="numeric"
-                    pattern="[0-9]{6}"
-                    placeholder="6-digit pincode"
-                    className={fieldBase}
-                  />
-                </label>
-
-                <label className="col-span-full block">
-                  <span className="mb-1.5 block text-xs font-semibold text-muted">
-                    Address <span className="font-normal text-faint">(optional)</span>
-                  </span>
-                  <input
-                    type="text"
-                    placeholder="House no., street, area"
-                    className={fieldBase}
-                  />
-                </label>
-
-                <label className="block">
-                  <span className="mb-1.5 block text-xs font-semibold text-muted">Preferred Date</span>
-                  <div className="relative">
-                    <input
-                      type="date"
-                      required
-                      min={minDate}
-                      value={date}
-                      onChange={(e) => setDate(e.target.value)}
-                      suppressHydrationWarning
-                      className={`${fieldBase} pr-10 ${date ? "" : "text-transparent"}`}
+              <OtpGate
+              >
+                {({ phone, onResetPhone }) => (
+                  <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <SelectField
+                      label="Select Car Model"
+                      placeholder="Select Car Model"
+                      options={carModels}
                     />
-                    <Calendar className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
-                  </div>
-                </label>
+                    <SelectField
+                      label="Select Location"
+                      placeholder="Select Location"
+                      options={cityOptions}
+                    />
 
-                <SelectField
-                  label="Preferred Time"
-                  placeholder={
-                    date && availableTimeSlots.length === 0
-                      ? "No slots left today"
-                      : "Select time"
-                  }
-                  options={availableTimeSlots.map((s) => s.label)}
-                  value={effectiveTime}
-                  onChange={setTime}
-                />
+                    <label className="block">
+                      <span className="mb-1.5 block text-xs font-semibold text-muted">Your Name</span>
+                      <input type="text" required placeholder="Your name" className={fieldBase} />
+                    </label>
 
-                <button
-                  type="submit"
-                  className="col-span-full mt-2 rounded bg-brand py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light"
-                >
-                  Book My Test Drive
-                </button>
-                <p className="col-span-full text-center text-xs text-faint">
-                  By submitting, you agree to be contacted by Mahindra Modi about
-                  your test drive request. See our{" "}
-                  <a href="#" className="font-medium text-brand hover:underline">
-                    Privacy Policy
-                  </a>
-                  .
-                </p>
-              </form>
+                    <VerifiedPhoneField phone={phone} onChange={onResetPhone} />
+
+                    <label className="block">
+                      <span className="mb-1.5 block text-xs font-semibold text-muted">Email</span>
+                      <input
+                        type="email"
+                        required
+                        pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                        title="Enter a valid email with a domain (e.g. name@example.com)"
+                        placeholder="you@example.com"
+                        className={fieldBase}
+                      />
+                    </label>
+
+                    <label className="block">
+                      <span className="mb-1.5 block text-xs font-semibold text-muted">Pincode</span>
+                      <input
+                        type="text"
+                        required
+                        inputMode="numeric"
+                        pattern="[0-9]{6}"
+                        placeholder="6-digit pincode"
+                        className={fieldBase}
+                      />
+                    </label>
+
+                    <label className="col-span-full block">
+                      <span className="mb-1.5 block text-xs font-semibold text-muted">
+                        Address <span className="font-normal text-faint">(optional)</span>
+                      </span>
+                      <input
+                        type="text"
+                        placeholder="House no., street, area"
+                        className={fieldBase}
+                      />
+                    </label>
+
+                    <label className="block">
+                      <span className="mb-1.5 block text-xs font-semibold text-muted">Preferred Date</span>
+                      <div className="relative">
+                        <input
+                          type="date"
+                          required
+                          min={minDate}
+                          value={date}
+                          onChange={(e) => setDate(e.target.value)}
+                          suppressHydrationWarning
+                          className={`${fieldBase} pr-10 ${date ? "" : "text-transparent"}`}
+                        />
+                        <Calendar className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" />
+                      </div>
+                    </label>
+
+                    <SelectField
+                      label="Preferred Time"
+                      placeholder={
+                        date && availableTimeSlots.length === 0
+                          ? "No slots left today"
+                          : "Select time"
+                      }
+                      options={availableTimeSlots.map((s) => s.label)}
+                      value={effectiveTime}
+                      onChange={setTime}
+                    />
+
+                    <button
+                      type="submit"
+                      className="col-span-full mt-2 rounded bg-brand py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light"
+                    >
+                      Book My Test Drive
+                    </button>
+                    <p className="col-span-full text-center text-xs text-faint">
+                      By submitting, you agree to be contacted by Mahindra Modi about
+                      your test drive request. See our{" "}
+                      <a href="#" className="font-medium text-brand hover:underline">
+                        Privacy Policy
+                      </a>
+                      .
+                    </p>
+                  </form>
+                )}
+              </OtpGate>
             )}
           </Reveal>
         </div>

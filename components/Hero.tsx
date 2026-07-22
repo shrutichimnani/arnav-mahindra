@@ -32,7 +32,7 @@ export default function Hero() {
           the headline/graphics baked into the photo, so each slide is shown
           clean and clickable, with only a slim progress bar and minimal
           arrow controls overlaid. */}
-      <div className="relative h-[280px] w-full sm:h-[380px] lg:h-[480px] xl:h-[540px]">
+      <div className="relative h-[calc(100dvh-60px)] w-full">
         {heroSlides.map((slide, i) => (
           <Link
             key={slide.model + i}
@@ -58,23 +58,21 @@ export default function Hero() {
           Thane and Navi Mumbai | Mahindra Modi
         </h1>
 
-        {/* Minimal arrow controls, bottom-right */}
-        <div className="absolute bottom-4 right-4 z-10 flex items-center gap-5 sm:bottom-6 sm:right-6">
-          <button
-            aria-label="Previous slide"
-            onClick={() => go(-1)}
-            className="text-white/80 transition-colors hover:text-white"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-          <button
-            aria-label="Next slide"
-            onClick={() => go(1)}
-            className="text-white/80 transition-colors hover:text-white"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </button>
-        </div>
+        {/* Arrow controls — left and right edges, vertically centred */}
+        <button
+          aria-label="Previous slide"
+          onClick={() => go(-1)}
+          className="absolute left-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-2 text-white/80 backdrop-blur transition-colors hover:bg-white/30 hover:text-white sm:left-6"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+        <button
+          aria-label="Next slide"
+          onClick={() => go(1)}
+          className="absolute right-4 top-1/2 z-10 -translate-y-1/2 rounded-full bg-white/20 p-2 text-white/80 backdrop-blur transition-colors hover:bg-white/30 hover:text-white sm:right-6"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
 
         {/* Slim progress bar, bottom-left */}
         <div className="absolute bottom-4 left-4 z-10 h-[3px] w-32 overflow-hidden rounded-full bg-white/30 sm:bottom-6 sm:left-6 sm:w-48">

@@ -1,14 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Car } from "@/lib/data";
 import { company, formatINR } from "@/lib/data";
 import { getCarBrochure, getCarDetail, getCarGallery } from "@/lib/car-details";
 import type { CarDetail } from "@/lib/data";
-import { ArrowRight, Check, ChevronDown, Download, RotateCw } from "./icons";
+import { ArrowRight, Check, ChevronDown, Download } from "./icons";
 import Reveal from "./Reveal";
+import { useTestDriveModal } from "./TestDriveModalProvider";
 
 type DetailListProps = {
   id: string;
@@ -26,7 +27,7 @@ function DetailList({ id, title, eyebrow, items, tone = "white" }: DetailListPro
         <h2 className="mt-2 font-display text-2xl font-bold text-text sm:text-3xl">{title}</h2>
         <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
-            <li key={item} className="flex gap-3 rounded-lg border border-border bg-white p-4 text-sm leading-relaxed text-text shadow-[0_2px_12px_0_rgba(200,16,46,0.05)]">
+            <li key={item} className="flex gap-3 rounded-lg border border-border bg-white p-4 text-sm leading-relaxed text-text shadow-[0_2px_12px_0_rgba(0,0,0,0.05)]">
               <Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
               <span>{item}</span>
             </li>
@@ -40,12 +41,15 @@ function DetailList({ id, title, eyebrow, items, tone = "white" }: DetailListPro
 export default function CarDetailClient({ car }: { car: Car }) {
   // car.colors[0] is always the colour shown on the listing card — see the
   // ordering note above the `cars` array in lib/data.ts.
+  const openTestDrive = useTestDriveModal();
   const [colorIndex, setColorIndex] = useState(0);
   const gallery = getCarGallery(car);
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const [stickyCtaVisible, setStickyCtaVisible] = useState(false);
   const color = car.colors[colorIndex];
-  const heroImage = color.image.replace(/_0\.png$/, "_6.png");
+  const heroImage = car.image;
   const detail = getCarDetail(car);
   const brochureUrl = getCarBrochure(car);
   const displayName = `Mahindra ${car.name}`;
@@ -74,6 +78,17 @@ export default function CarDetailClient({ car }: { car: Car }) {
     return () => window.clearTimeout(timeoutId);
   }, [car.colors]);
 
+  useEffect(() => {
+    const onScroll = () => {
+      if (ctaRef.current) {
+        const rect = ctaRef.current.getBoundingClientRect();
+        setStickyCtaVisible(rect.bottom < 0);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <>
       <section className="bg-white pb-8 pt-8 lg:pb-12 lg:pt-12">
@@ -90,7 +105,7 @@ export default function CarDetailClient({ car }: { car: Car }) {
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
             {/* LEFT: colour-switchable hero + inline gallery + brochure */}
             <Reveal variant="slide-right">
-              <div className="relative flex h-[300px] items-center justify-center overflow-hidden rounded-lg bg-gradient-to-b from-bg-3 to-bg-2 sm:h-[380px] lg:h-[440px]">
+              <div className="relative flex h-[230px] items-center justify-center overflow-hidden rounded-lg bg-gradient-to-b from-bg-3 to-bg-2 sm:h-[285px] lg:h-[330px]">
                 <Image
                   key={heroImage}
                   src={heroImage}
@@ -98,28 +113,12 @@ export default function CarDetailClient({ car }: { car: Car }) {
                   width={1000}
                   height={440}
                   priority
-                  className="h-auto w-[92%] object-contain drop-shadow-2xl"
+                  className="h-full w-full object-contain drop-shadow-2xl"
                 />
                 {/* Colour name badge on the hero image */}
                 <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-semibold text-text shadow-sm backdrop-blur">
                   {color.name}
                 </span>
-
-                {/* Official Mahindra 360° exterior/interior viewer — only
-                    shown for models that actually have one. Opens on
-                    Mahindra's own site in a new tab; their CSP blocks
-                    embedding it directly on third-party pages. */}
-                {car.view360Url && (
-                  <a
-                    href={car.view360Url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-brand px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-brand-light"
-                  >
-                    <RotateCw className="h-3.5 w-3.5" />
-                    360° View
-                  </a>
-                )}
               </div>
 
               {/* Colour switcher — controls ONLY the hero above */}
@@ -253,10 +252,10 @@ export default function CarDetailClient({ car }: { car: Car }) {
               </div>
 
               {/* CTAs — brochure up near the hero */}
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="/book-a-test-drive" className="group inline-flex items-center gap-2 rounded bg-brand px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light">
+              <div ref={ctaRef} className="mt-6 flex flex-wrap gap-3">
+                <button type="button" onClick={() => openTestDrive({ carSlug: car.slug })} className="group inline-flex items-center gap-2 rounded bg-brand px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light">
                   Book a Test Drive <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </Link>
+                </button>
                 <Link href="/contact-us" className="inline-flex items-center gap-2 rounded border border-brand px-6 py-3.5 text-sm font-semibold text-brand transition-all hover:bg-brand hover:text-white">
                   Get a Variant Quote
                 </Link>
@@ -278,8 +277,23 @@ export default function CarDetailClient({ car }: { car: Car }) {
       </section>
 
       <nav aria-label="Car detail sections" className="sticky top-[60px] z-20 border-y border-border bg-white/95 backdrop-blur">
-        <div className="container-px mx-auto flex max-w-[1400px] gap-1 overflow-x-auto py-2">
-          {navigation.map(([id, label]) => <a key={id} href={`#${id}`} className="shrink-0 rounded px-3 py-2 text-xs font-semibold text-muted transition-colors hover:bg-bg-2 hover:text-brand">{label}</a>)}
+        <div className="container-px mx-auto flex max-w-[1400px] items-center gap-1 overflow-x-auto py-2">
+          <div className="flex flex-1 gap-1">
+            {navigation.map(([id, label]) => <a key={id} href={`#${id}`} className="shrink-0 rounded px-3 py-2 text-xs font-semibold text-muted transition-colors hover:bg-bg-2 hover:text-brand">{label}</a>)}
+          </div>
+          <div className={`hidden shrink-0 items-center gap-2 lg:flex ${stickyCtaVisible ? "" : "invisible pointer-events-none"}`}>
+            <button type="button" onClick={() => openTestDrive({ carSlug: car.slug })} className="whitespace-nowrap rounded bg-brand px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-brand-light">
+              Book a Test Drive
+            </button>
+            <Link href="/contact-us" className="whitespace-nowrap rounded border border-brand px-3 py-1.5 text-xs font-semibold text-brand transition-colors hover:bg-brand hover:text-white">
+              Get a Variant Quote
+            </Link>
+            {brochureUrl && (
+              <a href={brochureUrl} target="_blank" rel="noreferrer" className="whitespace-nowrap rounded border border-border bg-bg-2 px-3 py-1.5 text-xs font-semibold text-text transition-colors hover:border-brand hover:text-brand">
+                Download Brochure
+              </a>
+            )}
+          </div>
         </div>
       </nav>
 
@@ -341,7 +355,7 @@ export default function CarDetailClient({ car }: { car: Car }) {
               ["Infotainment & technology", detail.infotainment],
               ["Comfort & convenience", detail.comfort],
               ["Performance", detail.performance],
-            ].map(([title, items]) => <article key={title as string} className="rounded-lg border border-border bg-white p-5 shadow-[0_2px_12px_0_rgba(200,16,46,0.05)]"><h3 className="font-display text-base font-bold text-text">{title}</h3><ul className="mt-4 space-y-3">{(items as string[]).map((item) => <li key={item} className="flex gap-2 text-sm leading-relaxed text-muted"><Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />{item}</li>)}</ul></article>)}
+            ].map(([title, items]) => <article key={title as string} className="rounded-lg border border-border bg-white p-5 shadow-[0_2px_12px_0_rgba(0,0,0,0.05)]"><h3 className="font-display text-base font-bold text-text">{title}</h3><ul className="mt-4 space-y-3">{(items as string[]).map((item) => <li key={item} className="flex gap-2 text-sm leading-relaxed text-muted"><Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />{item}</li>)}</ul></article>)}
           </div>
         </div>
       </section>
@@ -361,7 +375,7 @@ export default function CarDetailClient({ car }: { car: Car }) {
       <section id="variants" className="scroll-mt-28 bg-white py-12 lg:py-16">
         <div className="container-px mx-auto grid max-w-[1400px] gap-5 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="rounded-lg border border-border bg-bg-2 p-6 sm:p-8"><p className="text-xs font-semibold uppercase tracking-wider text-brand">Variants and colours</p><h2 className="mt-2 font-display text-2xl font-bold text-text">Choose the right specification, not just the right price.</h2><ul className="mt-5 space-y-3">{detail.variants.map((variant) => <li key={variant} className="flex gap-2 text-sm leading-relaxed text-text"><Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />{variant}</li>)}</ul><p className="mt-6 text-xs leading-relaxed text-muted">Available colours: {car.colors.map((item) => item.name).join(", ")}. Paint availability is subject to the selected variant and current stock.</p></div>
-          <aside className="rounded-lg bg-brand p-6 text-white sm:p-8"><p className="text-xs font-semibold uppercase tracking-wider text-white/60">Ownership confidence</p><h2 className="mt-2 font-display text-2xl font-bold">Warranty and next steps</h2><p className="mt-4 text-sm leading-relaxed text-white/75">{detail.warranty}</p><div className="mt-5 flex flex-col items-start gap-3"><a href={detail.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80">View Mahindra&apos;s current model information</a>{brochureUrl && <a href={brochureUrl} target="_blank" rel="noreferrer" className="inline-flex text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80">Download official brochure (PDF)</a>}</div><div className="mt-7 space-y-3"><Link href="/book-a-test-drive" className="group flex items-center justify-center gap-2 rounded bg-white px-5 py-3 text-sm font-semibold text-brand transition-colors hover:bg-white/90">Book a Test Drive <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" /></Link><Link href="/locate-service-centre#book-service" className="flex items-center justify-center rounded border border-white/35 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10">Already own one? Book service</Link></div></aside>
+          <aside className="rounded-lg bg-brand p-6 text-white sm:p-8"><p className="text-xs font-semibold uppercase tracking-wider text-white/60">Ownership confidence</p><h2 className="mt-2 font-display text-2xl font-bold">Warranty and next steps</h2><p className="mt-4 text-sm leading-relaxed text-white/75">{detail.warranty}</p><div className="mt-5 flex flex-col items-start gap-3"><a href={detail.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80">View Mahindra&apos;s current model information</a>{brochureUrl && <a href={brochureUrl} target="_blank" rel="noreferrer" className="inline-flex text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80">Download official brochure (PDF)</a>}</div><div className="mt-7 space-y-3"><button type="button" onClick={() => openTestDrive({ carSlug: car.slug })} className="group flex w-full items-center justify-center gap-2 rounded bg-white px-5 py-3 text-sm font-semibold text-brand transition-colors hover:bg-white/90">Book a Test Drive <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" /></button><Link href="/locate-service-centre#book-service" className="flex items-center justify-center rounded border border-white/35 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10">Already own one? Book service</Link></div></aside>
         </div>
       </section>
 

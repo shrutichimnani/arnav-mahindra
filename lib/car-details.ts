@@ -843,17 +843,19 @@ const modelFeatureGallery: Record<string, GalleryImage[]> = {
     { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/Bolero-Neo/10767/1761635514742/front-armrest-185.jpg", alt: "Bolero Neo front armrest", label: "Front armrest", kind: "cabin" },
   ],
   "xuv-7xo": [
-    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV700/10794/1762509966753/front-left-side-47.jpg", alt: "XUV 7XO, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
-    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV700/10794/1762509966753/front-right-view-120.jpg", alt: "XUV 7XO, side profile", label: "Side profile", kind: "styling" },
-    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV700/10794/1762509966753/rear-left-view-121.jpg", alt: "XUV 7XO, rear three-quarter", label: "Rear three-quarter", kind: "styling" },
-    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV700/10794/1762509966753/rear-view-119.jpg", alt: "XUV 7XO, rear view", label: "Rear view", kind: "styling" },
-    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV700/10794/1762510135403/dashboard-59.jpg", alt: "XUV 7XO dashboard", label: "Dashboard", kind: "cabin" },
-    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV700/10794/1762510135403/steering-wheel-54.jpg", alt: "XUV 7XO steering wheel", label: "Steering wheel", kind: "cabin" },
-    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV700/10794/1762510135403/instrument-cluster-62.jpg", alt: "XUV 7XO instrument cluster", label: "Instrument cluster", kind: "cabin" },
-    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV700/10794/1762510135403/gear-shifter-87.jpg", alt: "XUV 7XO gear shifter", label: "Gear shifter", kind: "cabin" },
-    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV700/10794/1762510135403/infotainment-stytem-57.jpg", alt: "XUV 7XO infotainment system", label: "Infotainment", kind: "cabin" },
-    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV700/10794/1762510135403/passenger-view-56.jpg", alt: "XUV 7XO cabin view", label: "Cabin view", kind: "cabin" },
-    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV700/10794/1762510234945/knob-selector-184.jpg", alt: "XUV 7XO drive-mode selector", label: "Drive-mode selector", kind: "cabin" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV-7XO/13188/1778660966146/front-left-side-47.jpg", alt: "XUV 7XO front three-quarter", label: "Front three-quarter" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV-7XO/13186/1778657295075/front-view-118.jpg", alt: "XUV 7XO front view", label: "Front view" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV-7XO/13186/1778657295075/rear-view-119.jpg", alt: "XUV 7XO rear view", label: "Rear view" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV-7XO/13186/1778657295075/side-view-(left)-90.jpg", alt: "XUV 7XO side profile", label: "Side profile" },
+    { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/XUV-7XO/13186/1778657295075/wheel-42.jpg", alt: "XUV 7XO alloy wheel", label: "Alloy wheel" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-7XO/13187/1778657029458/dashboard-59.jpg", alt: "XUV 7XO dashboard", label: "Dashboard" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-7XO/13187/1778657029458/steering-wheel-54.jpg", alt: "XUV 7XO steering wheel", label: "Steering wheel" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-7XO/13187/1778657029458/instrument-cluster-62.jpg", alt: "XUV 7XO instrument cluster", label: "Instrument cluster" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-7XO/13188/1778657115578/infotainment-system-main-menu-183.jpg", alt: "XUV 7XO infotainment system", label: "Infotainment" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-7XO/13187/1778657029458/center-console-55.jpg", alt: "XUV 7XO center console", label: "Center console" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-7XO/13188/1778657115578/rear-seats-with-arm-rest-193.jpg", alt: "XUV 7XO rear seats", label: "Rear seats" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-7XO/13187/1778657029458/sun-roof-moon-roof-81.jpg", alt: "XUV 7XO panoramic sunroof", label: "Sunroof" },
+    { src: "https://stimg.cardekho.com/images/carinteriorimages/930x620/Mahindra/XUV-7XO/13188/1778657115578/boot-space-with-third-row-folded-279.jpg", alt: "XUV 7XO boot space", label: "Boot space" },
   ],
   marazzo: [
     { src: "https://stimg.cardekho.com/images/carexteriorimages/930x620/Mahindra/Marazzo/10757/1758198958040/front-left-side-47.jpg", alt: "Marazzo, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
@@ -927,7 +929,24 @@ const modelFeatureGallery: Record<string, GalleryImage[]> = {
    so this map stays empty and getCarBrochure() returns undefined —
    CarDetailClient already renders the "Download Brochure" button
    conditionally and hides it cleanly when this happens. */
-const brochurePathBySlug: Record<string, string> = {};
+const brochurePathBySlug: Record<string, string> = {
+  "xuv-7xo": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw5ba5f731/XUV-7XO/brochures/XUV-7XO-Brochure.pdf",
+  "thar-roxx": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw1e1f0b3f/thar-roxx/THAR-ROXX-Brochure-20-April-26.pdf",
+  "thar": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dwd39c2522/brochure/Thar-Brochure-2025-NEW.pdf",
+  "scorpio-n": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw648313f2/SCN/Scorpio-Big-Daddy_Horizontal-Brochure-0807.pdf",
+  "xuv-3xo": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw54d8b67d/X3XO/XUV_3XO_Brochure.pdf",
+  "scorpio-classic": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw50e4041a/SCRC/brochure/Scorpio-Classic-Accessories-Brochure.pdf",
+  "bolero": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw5e3dbfce/Bolero/brochure/Bolero-Accessories-brochure.pdf",
+  "bolero-neo": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dwc3956d51/NEO/Bolero-Neo-Accessories-brochure.pdf",
+  "bolero-neo-plus": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dwa63dc1a3/NEOP/pdfs/Bolero-Neo-Plus.pdf",
+  "xuv400": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw4dc915da/mahindraelectricimages/images/xuv400images/XUV400ProRangeBrochure.pdf",
+  "marazzo": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dwa00130f0/Marazzo/Marazzo_Brochure.pdf",
+  "xuv3xo-ev": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw485a2dcf/X3XO/29-06-MM-3XO-EV-BROCHURE_R3.pdf",
+  "xev-9e": "https://www.mahindraelectricsuv.com/on/demandware.static/-/Library-Sites-eSUVSharedLibrary/default/dweb0d1969/MXV9/XEV9e_BROCHURE_R1_20260428.pdf",
+  "be-6": "https://www.mahindraelectricsuv.com/on/demandware.static/-/Library-Sites-eSUVSharedLibrary/default/MBE6/BE-6-Brochure-V29.pdf",
+  "bolero-maxx-pik-up": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw55120724/Pik-up/Pikup-brochure-PDF.pdf",
+  "maxx-city-cng": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw9d5e36d0/MAXX/AUTO-BOLERO-SM-A4-CITY-8-PG-BROCHURE-R1-FOR-WEB.pdf",
+};
 
 export function getCarBrochure(car: Car): string | undefined {
   return brochurePathBySlug[car.slug];

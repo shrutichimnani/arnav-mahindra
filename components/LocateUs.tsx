@@ -69,7 +69,7 @@ export default function LocateUs() {
         <div className="mt-8 grid gap-6 lg:grid-cols-[0.82fr_1.18fr]">
           <Reveal
             variant="slide-right"
-            className="overflow-hidden rounded-[1.5rem] border border-border bg-white shadow-[0_10px_40px_0_rgba(200,16,46,0.08)]"
+            className="overflow-hidden rounded-[1.5rem] border border-border bg-white shadow-[0_10px_40px_0_rgba(0,0,0,0.08)]"
           >
             <div className="border-b border-border bg-bg-2 p-5 sm:p-6">
               <p className="text-xs font-semibold uppercase tracking-wider text-brand">
@@ -94,8 +94,8 @@ export default function LocateUs() {
                     onClick={() => setSelectedName(location.name)}
                     className={`w-full rounded-2xl border p-4 text-left transition-all ${
                       active
-                        ? "border-brand bg-brand text-white shadow-[0_10px_30px_0_rgba(200,16,46,0.18)]"
-                        : "border-border bg-white hover:border-brand/40 hover:shadow-[0_8px_24px_0_rgba(200,16,46,0.08)]"
+                        ? "border-brand bg-brand text-white shadow-[0_10px_30px_0_rgba(0,0,0,0.18)]"
+                        : "border-border bg-white hover:border-brand/40 hover:shadow-[0_8px_24px_0_rgba(0,0,0,0.08)]"
                     }`}
                   >
                     <div className="flex items-start justify-between gap-3">
@@ -136,7 +136,7 @@ export default function LocateUs() {
           <Reveal
             delay={140}
             variant="slide-left"
-            className="overflow-hidden rounded-[1.5rem] border border-border bg-white shadow-[0_10px_40px_0_rgba(200,16,46,0.08)]"
+            className="overflow-hidden rounded-[1.5rem] border border-border bg-white shadow-[0_10px_40px_0_rgba(0,0,0,0.08)]"
           >
             <div className="relative h-[320px] border-b border-border bg-bg-2 sm:h-[420px]">
               <iframe

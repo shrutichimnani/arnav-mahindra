@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { company, cars } from "@/lib/data";
+import { company } from "@/lib/data";
 import Reveal from "./Reveal";
+import { TestDriveTrigger } from "./TestDriveModalProvider";
 
 /* ============================================================
    Homepage SEO & AEO content blocks.
@@ -90,24 +91,18 @@ export default function HomeSeoContent() {
               As an authorised Mahindra dealership, Mahindra Modi stocks the
               complete Mahindra range: lifestyle off-roaders, compact and
               mid-size SUVs, a spacious MPV, commercial pickups and fully
-              electric SUVs. Explore each category below or compare{" "}
-              <Link
-                href="/cars"
-                className="font-semibold text-brand underline underline-offset-4 hover:text-brand-light"
-              >
-                all Mahindra models
-              </Link>{" "}
-              side by side.
+              electric SUVs. Discover{" "}
+              <Link href="/cars" className="font-semibold text-text underline underline-offset-2 hover:text-brand transition-colors">
+                Mahindra&apos;s complete range
+              </Link>
+              , organised by category for easy browsing.
             </p>
           </Reveal>
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {lineages.map((group, i) => (
               <Reveal key={group.name} delay={i * 90} variant="fade-up">
-                <Link
-                  href={group.href}
-                  className="group flex h-full flex-col rounded-lg border border-border bg-white p-6 shadow-[0_2px_12px_0_rgba(200,16,46,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(200,16,46,0.12)]"
-                >
+                <div className="flex h-full flex-col rounded-lg border border-border bg-white p-6 shadow-[0_2px_12px_0_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
                   <h3 className="font-display text-lg font-bold text-text">
                     {group.name}
                   </h3>
@@ -117,7 +112,7 @@ export default function HomeSeoContent() {
                   <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-brand">
                     {group.models.join(" · ")}
                   </p>
-                </Link>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -149,12 +144,12 @@ export default function HomeSeoContent() {
               </p>
             </div>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link
-                href="/book-a-test-drive"
+              <TestDriveTrigger
+                variant="button"
                 className="btn-primary"
               >
                 Book a Test Drive
-              </Link>
+              </TestDriveTrigger>
               <Link href="/about" className="btn-outline">
                 About Mahindra Modi
               </Link>
@@ -204,7 +199,7 @@ export default function HomeSeoContent() {
           <ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {buyingSteps.map((item, i) => (
               <Reveal as="li" key={item.step} delay={i * 90} variant="fade-up">
-                <div className="flex h-full flex-col rounded-lg border border-border bg-white p-6">
+                <div className="flex h-full flex-col rounded-lg border border-border bg-white p-6 shadow-[0_2px_12px_0_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
                   <span className="font-display text-3xl font-bold text-brand/20">
                     {item.step}
                   </span>
@@ -258,72 +253,6 @@ export default function HomeSeoContent() {
         </div>
       </section>
 
-      {/* AEO definitional paragraph + popular models */}
-      <section className="bg-bg-2 py-14 lg:py-20">
-        <div className="container-px mx-auto max-w-[1100px]">
-          <Reveal>
-            <h2 className="font-display text-2xl font-bold leading-tight tracking-tight text-text sm:text-3xl">
-              Frequently compared Mahindra models at Mahindra Modi
-            </h2>
-            <div className="mt-5 space-y-4 text-sm leading-relaxed text-muted sm:text-base">
-              <p>
-                The <strong className="text-text">Mahindra Thar Roxx</strong>{" "}
-                is a spacious 5-door take on the legendary Thar, prized for
-                its 4x4 capability, ADAS suite and dual-tone cabin. The{" "}
-                <strong className="text-text">Mahindra XUV 7XO</strong> is the
-                brand&apos;s flagship SUV with a segment-leading feature list,
-                while the <strong className="text-text">Mahindra Scorpio-N</strong>{" "}
-                brings commanding road presence and available all-wheel
-                drive.
-              </p>
-              <p>
-                City-first buyers often choose the compact{" "}
-                <strong className="text-text">Mahindra XUV 3XO</strong> for
-                its segment-first ADAS, while off-road purists gravitate to
-                the classic <strong className="text-text">Mahindra Thar</strong>.
-                For electric buyers, the{" "}
-                <strong className="text-text">Mahindra XUV400</strong> and
-                the new <strong className="text-text">Mahindra BE 6</strong>{" "}
-                offer strong performance and genuine everyday range.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="mt-8 flex flex-wrap gap-2">
-            {cars
-              .filter((c) =>
-                ["Thar Roxx", "XUV 7XO", "Scorpio-N", "XUV 3XO", "Thar", "XUV400", "BE 6"].includes(
-                  c.name,
-                ),
-              )
-              .map((car) => (
-                <Link
-                  key={car.slug}
-                  href={`/cars/${car.slug}`}
-                  className="rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-text transition-colors hover:border-brand hover:text-brand"
-                >
-                  Mahindra {car.name}
-                </Link>
-              ))}
-          </div>
-
-          <Reveal>
-            <p className="mt-10 border-t border-border pt-8 text-sm leading-relaxed text-muted">
-              <strong className="text-text">Areas we serve:</strong>{" "}
-              {company.areasServed.join(", ")}. Visit any of our showrooms
-              and service centres, or call{" "}
-              <a
-                href={`tel:${company.phone.replace(/\s/g, "")}`}
-                className="font-semibold text-brand underline underline-offset-4 hover:text-brand-light"
-              >
-                {company.phone}
-              </a>{" "}
-              to speak with our sales and service teams. Showrooms are open{" "}
-              {company.hours}.
-            </p>
-          </Reveal>
-        </div>
-      </section>
     </>
   );
 }

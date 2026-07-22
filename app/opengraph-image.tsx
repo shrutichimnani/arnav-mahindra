@@ -17,7 +17,7 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "linear-gradient(135deg, #1a1a1a 0%, #8c0018 55%, #c8102e 100%)",
+          background: "linear-gradient(135deg, #000000 0%, #1a1a1a 55%, #333333 100%)",
           padding: "72px",
           fontFamily: "sans-serif",
         }}
@@ -32,7 +32,7 @@ export default function OpengraphImage() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#c8102e",
+              color: "#000000",
               fontSize: 30,
               fontWeight: 800,
             }}
@@ -48,7 +48,7 @@ export default function OpengraphImage() {
                 fontSize: 14,
                 letterSpacing: 2,
                 textTransform: "uppercase",
-                color: "#f5c6cf",
+                color: "#cccccc",
               }}
             >
               A Unit of Arnav Automobiles Pvt Ltd.
@@ -60,12 +60,12 @@ export default function OpengraphImage() {
           <span style={{ fontSize: 62, fontWeight: 800, lineHeight: 1.05, maxWidth: 900 }}>
             New Mahindra Cars, Test Drives &amp; Service
           </span>
-          <span style={{ fontSize: 34, color: "#f5c6cf", marginTop: 12 }}>
+          <span style={{ fontSize: 34, color: "#cccccc", marginTop: 12 }}>
             Authorised Mahindra dealer across Thane &amp; Navi Mumbai
           </span>
         </div>
 
-        <div style={{ display: "flex", gap: 40, color: "#f9dde2", fontSize: 24 }}>
+        <div style={{ display: "flex", gap: 40, color: "#d9d9d9", fontSize: 24 }}>
           <span>10,000+ cars sold</span>
           <span>97% customer satisfaction</span>
           <span>Thar Roxx · XUV 7XO · Scorpio-N</span>
