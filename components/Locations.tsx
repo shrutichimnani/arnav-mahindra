@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { locations, type Location } from "@/lib/data";
-import { MapPin, Phone, ArrowRight, ChevronLeft, ChevronRight } from "./icons";
+import { MapPin, Phone, ArrowRight } from "./icons";
 import Reveal from "./Reveal";
 
 const tabs: { label: string; type: Location["type"] }[] = [
@@ -20,14 +20,6 @@ export default function Locations() {
   useEffect(() => {
     scrollRef.current?.scrollTo({ left: 0 });
   }, [tab]);
-
-  const scroll = (dir: "left" | "right") => {
-    const track = scrollRef.current;
-    if (!track) return;
-    const card = track.children[0] as HTMLElement | undefined;
-    const step = (card?.offsetWidth ?? 280) + 16; // card + gap
-    track.scrollBy({ left: dir === "left" ? -step : step, behavior: "smooth" });
-  };
 
   return (
     <section id="locations" className="scroll-mt-24 bg-brand py-14 lg:py-20">
@@ -46,27 +38,11 @@ export default function Locations() {
           <div className="flex shrink-0 items-center gap-3">
             <Link
               href="/locate-us"
-              className="group hidden items-center gap-2 rounded border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-white/20 sm:inline-flex"
+              className="group hidden items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-brand shadow-md transition-all hover:bg-bg-2 sm:inline-flex"
             >
-              View All Locations
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              View on Map
+              <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
             </Link>
-            <div className="flex gap-2">
-              <button
-                aria-label="Previous location"
-                onClick={() => scroll("left")}
-                className="grid h-10 w-10 place-items-center rounded border border-white/25 bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                aria-label="Next location"
-                onClick={() => scroll("right")}
-                className="grid h-10 w-10 place-items-center rounded border border-white/25 bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
           </div>
         </Reveal>
 
@@ -137,10 +113,10 @@ export default function Locations() {
         {/* Mobile CTA */}
         <Link
           href="/locate-us"
-          className="group mt-6 inline-flex items-center gap-2 rounded border border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur transition-all hover:bg-white/20 sm:hidden"
+          className="group mt-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-brand shadow-md transition-all hover:bg-bg-2 sm:hidden"
         >
-          View All Locations
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+          View on Map
+          <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
         </Link>
       </div>
     </section>

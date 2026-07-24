@@ -95,7 +95,7 @@ export default function FeaturedVehicles() {
                 type="button"
                 onClick={() => selectCategory(cat)}
                 aria-pressed={category === cat}
-                className={`shrink-0 border-b-2 px-3 py-2 text-sm font-semibold transition-colors sm:px-4 ${
+                className={`cursor-pointer shrink-0 border-b-2 px-3 py-2 text-sm font-semibold transition-colors sm:px-4 ${
                   category === cat
                     ? "border-brand text-brand"
                     : "border-transparent text-muted hover:text-text"

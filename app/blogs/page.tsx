@@ -24,7 +24,7 @@ export default function BlogsPage() {
         {/* HERO SECTION */}
         <section className="relative w-full h-[320px] lg:h-[420px] overflow-hidden bg-brand-deep">
           <img
-            src="https://images.openai.com/static-rsc-4/2-rneBaVaVsIBFdEGXpmmGoOWdSfa4cb4XyyJnVgUVTYwQTwwcJkIb2TLd7RidKxoGLJcDoErq49htcIjIzdrHjUua1RyHGMc-z6LSCeLNiqHI6X3kZaC04GX5IlWh30tKIL_r__g9I8OF7eR6oEPkfsnkAAUsb4V8-zAL9i-44nLdlQ6O2wIhk0AxZDFCqP?purpose=fullsize"
+            src="/images/blogs/blogs-hero.webp"
             alt="Mahindra SUV on a road trip"
             className="absolute inset-0 w-full h-full object-cover object-[70%_center] scale-110"
           />
@@ -54,7 +54,7 @@ export default function BlogsPage() {
           {/* CTA BOTTOM BANNER */}
           <section className="mt-20 relative overflow-hidden rounded-2xl bg-[#0a0a0a] px-6 py-12 text-center md:px-12 md:py-16 shadow-xl">
             <div className="absolute inset-0 z-0 opacity-40">
-              <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80" alt="" className="w-full h-full object-cover" />
+              <img src="/images/blogs/blogs-cta-banner.webp" alt="" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/40" />
             </div>
 
@@ -67,7 +67,7 @@ export default function BlogsPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <TestDriveTrigger variant="button" className="w-full sm:w-auto rounded-md bg-brand px-8 py-3.5 text-sm font-bold text-white transition-colors hover:bg-brand-light">
+                <TestDriveTrigger source="blog_listing" variant="button" className="w-full sm:w-auto rounded-md bg-brand px-8 py-3.5 text-sm font-bold text-white transition-colors hover:bg-brand-light">
                   Book a Test Drive
                 </TestDriveTrigger>
                 <Link href="/contact-us" className="w-full sm:w-auto rounded-md border border-white/30 bg-black/40 px-8 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white hover:text-black">

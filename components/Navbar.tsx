@@ -81,8 +81,8 @@ export default function Navbar() {
           {!isCarDetail && (
             <button
               type="button"
-              onClick={() => openTestDrive()}
-              className="hidden whitespace-nowrap rounded bg-brand px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-brand-light sm:inline-block"
+              onClick={() => openTestDrive({ source: "navbar" })}
+              className="hidden cursor-pointer whitespace-nowrap rounded bg-brand px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-brand-light sm:inline-block"
             >
               Book a Test Drive
             </button>
@@ -144,9 +144,9 @@ export default function Navbar() {
               type="button"
               onClick={() => {
                 setOpen(false);
-                openTestDrive();
+                openTestDrive({ source: "navbar" });
               }}
-              className="mt-4 rounded bg-brand px-5 py-3.5 text-center text-sm font-semibold text-white"
+              className="mt-4 cursor-pointer rounded bg-brand px-5 py-3.5 text-center text-sm font-semibold text-white"
             >
               Book a Test Drive
             </button>

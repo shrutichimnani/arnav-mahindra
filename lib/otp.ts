@@ -55,8 +55,7 @@ export const resendCooldownSeconds = () => OTP_RESEND_COOLDOWN_S;
 /* India: 10 digits, first digit 6-9. */
 export const normalizePhone = (raw: string): NormalizedPhone | null => {
   const digits = (raw ?? "").replace(/\D/g, "");
-  const ten = digits.length === 10 ? digits : digits.replace(/^91/, "");
-  return /^[6-9]\d{9}$/.test(ten) ? ten : null;
+  return digits.length >= 8 && digits.length <= 15 ? digits : null;
 };
 
 export const formatPhoneE164 = (phone: NormalizedPhone) => `+91${phone}`;

@@ -1,6 +1,6 @@
 import { company } from "@/lib/data";
 
-const PREFILLED_MESSAGE = "Hello.";
+const PREFILLED_MESSAGE = "Hi, I want to book a test drive.";
 
 export default function WhatsAppWidget() {
   const href = `https://wa.me/${company.whatsappE164.replace("+", "")}?text=${encodeURIComponent(PREFILLED_MESSAGE)}`;

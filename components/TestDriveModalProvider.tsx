@@ -3,7 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import TestDriveModal from "./TestDriveModal";
 
-type OpenFn = (opts?: { carSlug?: string }) => void;
+type OpenFn = (opts?: { carSlug?: string; source?: string }) => void;
 
 const TestDriveModalContext = createContext<OpenFn | null>(null);
 
@@ -18,17 +18,19 @@ export function useTestDriveModal() {
 export default function TestDriveModalProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const [carSlug, setCarSlug] = useState<string | undefined>(undefined);
+  const [modalSource, setModalSource] = useState<string | undefined>(undefined);
   const scrollY = useRef(0);
 
   const openTestDrive = useCallback<OpenFn>((opts) => {
     scrollY.current = window.scrollY;
     setCarSlug(opts?.carSlug);
+    setModalSource(opts?.source);
     setOpen(true);
   }, []);
 
   const close = useCallback(() => {
     setOpen(false);
-    setTimeout(() => setCarSlug(undefined), 200);
+    setTimeout(() => { setCarSlug(undefined); setModalSource(undefined); }, 200);
     window.scrollTo(0, scrollY.current);
   }, []);
 
@@ -44,7 +46,7 @@ export default function TestDriveModalProvider({ children }: { children: ReactNo
   return (
     <TestDriveModalContext.Provider value={value}>
       {children}
-      {open && <TestDriveModal carSlug={carSlug} onClose={close} />}
+      {open && <TestDriveModal carSlug={carSlug} source={modalSource} onClose={close} />}
     </TestDriveModalContext.Provider>
   );
 }
@@ -56,11 +58,13 @@ export default function TestDriveModalProvider({ children }: { children: ReactNo
    detail page CTAs use this to pre-select the model in the modal). */
 export function TestDriveTrigger({
   carSlug,
+  source,
   className,
   children,
   variant = "button",
 }: {
   carSlug?: string;
+  source?: string;
   className?: string;
   children: ReactNode;
   variant?: "button" | "link";
@@ -68,6 +72,7 @@ export function TestDriveTrigger({
   return (
     <OpenHandler
       carSlug={carSlug}
+      source={source}
       className={className}
       variant={variant}
       children={children}
@@ -79,11 +84,13 @@ export function TestDriveTrigger({
    though <TestDriveTrigger> is imported into server components. */
 function OpenHandler({
   carSlug,
+  source,
   className,
   children,
   variant,
 }: {
   carSlug?: string;
+  source?: string;
   className?: string;
   children: ReactNode;
   variant: "button" | "link";
@@ -98,7 +105,7 @@ function OpenHandler({
   return (
     <button
       type="button"
-      onClick={() => openTestDrive({ carSlug })}
+      onClick={() => openTestDrive({ carSlug, source })}
       className={`${reset} ${className ?? ""}`}
       data-variant={variant}
     >

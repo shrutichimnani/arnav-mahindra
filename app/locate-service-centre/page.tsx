@@ -109,6 +109,177 @@ export default function LocateServiceCentrePage() {
         </section>
 
         <ServiceBooking />
+
+        {/* Genuine Parts */}
+        <section id="genuine-parts" className="scroll-mt-24 bg-white py-14 lg:py-20">
+          <div className="container-px mx-auto max-w-[1180px]">
+            <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+              <Reveal variant="slide-right">
+                <p className="text-xs font-semibold uppercase tracking-wider text-brand">Genuine Parts</p>
+                <h2 className="mt-2 font-display text-2xl font-bold text-text sm:text-3xl">
+                  Genuine Mahindra Parts &amp; Accessories
+                </h2>
+                <p className="mt-4 leading-relaxed text-muted">
+                  Every Mahindra Modi service centre uses only genuine OEM parts sourced directly
+                  from Mahindra &amp; Mahindra. Counterfeit parts may look similar but compromise
+                  safety, performance and longevity. Our genuine parts come with manufacturer
+                  warranty and are precision-engineered for your specific model.
+                </p>
+                <ul className="mt-5 space-y-3">
+                  {[
+                    "100% OEM parts with manufacturer warranty",
+                    "Trained technicians for precise fitment",
+                    "Wide inventory, no long waiting periods",
+                    "Quality checks at every stage",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2.5 text-sm text-muted">
+                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+              <Reveal variant="slide-left" className="relative h-64 overflow-hidden rounded-lg bg-bg-2 lg:h-80">
+                <Image
+                  src="/images/locate-us/service-workshop.webp"
+                  alt="Mahindra Modi service centre workshop"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* Roadside Assistance */}
+        <section id="roadside-assistance" className="scroll-mt-24 bg-brand py-14 lg:py-20">
+          <div className="container-px mx-auto max-w-[1180px]">
+            <Reveal className="mx-auto mb-10 max-w-xl text-center">
+              <p className="text-xs font-semibold uppercase tracking-wider text-white/60">Roadside Assistance</p>
+              <h2 className="mt-2 font-display text-2xl font-bold text-white sm:text-3xl">
+                24x7 Roadside Assistance
+              </h2>
+              <p className="mt-3 text-sm text-white/70">
+                Breakdowns don&apos;t follow a schedule, and neither do we. Mahindra Modi&apos;s
+                roadside assistance is available round-the-clock to get you back on the road
+                quickly and safely.
+              </p>
+            </Reveal>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                { title: "Flat Tyre", desc: "On-the-spot puncture repair and tyre change by trained technicians." },
+                { title: "Battery Jump-Start", desc: "Dead battery? We'll jump-start it or fit a replacement on site." },
+                { title: "Emergency Fuel", desc: "Ran out of fuel? We'll deliver enough to get you to the nearest pump." },
+                { title: "Towing Service", desc: "Vehicle recovery and towing to the nearest authorised service centre." },
+                { title: "Key Lockout", desc: "Locked your keys inside? We'll help you regain access without damage." },
+                { title: "On-Site Minor Repairs", desc: "Quick fixes for minor mechanical issues right where you are." },
+              ].map((card, i) => (
+                <Reveal key={card.title} delay={i * 80} variant="fade-up">
+                  <div className="h-full rounded-lg border border-white/20 bg-white/10 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:bg-white/15 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
+                    <h3 className="font-display text-base font-bold text-white">{card.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-white/70">{card.desc}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Extended Warranty */}
+        <section id="extended-warranty" className="scroll-mt-24 bg-white py-14 lg:py-20">
+          <div className="container-px mx-auto max-w-[1180px]">
+            <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+              <Reveal variant="slide-right" className="relative h-64 overflow-hidden rounded-lg bg-bg-2 lg:h-80 lg:order-1">
+                <Image
+                  src="/images/locate-us/service-workshop-team.webp"
+                  alt="Mahindra Modi workshop team"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              </Reveal>
+              <Reveal variant="slide-left" className="lg:order-2">
+                <p className="text-xs font-semibold uppercase tracking-wider text-brand">Extended Warranty</p>
+                <h2 className="mt-2 font-display text-2xl font-bold text-text sm:text-3xl">
+                  Extended Warranty Plans
+                </h2>
+                <p className="mt-4 leading-relaxed text-muted">
+                  Protect your Mahindra beyond the standard warranty with our extended coverage
+                  plans. An extended warranty shields you from unexpected repair costs on engine,
+                  transmission, electricals and more, giving you complete peace of mind for
+                  years to come.
+                </p>
+                <ul className="mt-5 space-y-3">
+                  {[
+                    "Coverage for major mechanical and electrical components",
+                    "Flexible plans up to 5 years or 1,00,000 km",
+                    "Cashless repairs at any authorised Mahindra service centre",
+                    "Transferable warranty, adds resale value",
+                    "Zero depreciation add-on available",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2.5 text-sm text-muted">
+                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* Scheduled Maintenance */}
+        <section id="scheduled-maintenance" className="scroll-mt-24 bg-bg-2 py-14 lg:py-20">
+          <div className="container-px mx-auto max-w-[1180px]">
+            <Reveal className="mx-auto mb-12 max-w-xl text-center">
+              <p className="text-xs font-semibold uppercase tracking-wider text-brand">Scheduled Maintenance</p>
+              <h2 className="mt-2 font-display text-2xl font-bold text-text sm:text-3xl">
+                Scheduled Maintenance Packages
+              </h2>
+              <p className="mt-3 text-sm text-muted">
+                Regular maintenance is the key to your vehicle&apos;s long-term reliability and
+                performance. Our packages follow Mahindra&apos;s recommended service intervals,
+                performed by factory-trained technicians.
+              </p>
+            </Reveal>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  step: "01",
+                  title: "10,000 km Service",
+                  items: ["Engine oil & filter change", "Fluid level top-up", "Brake inspection", "Tyre rotation & alignment", "Battery health check"],
+                },
+                {
+                  step: "02",
+                  title: "20,000 km Service",
+                  items: ["Air & AC filter replacement", "Fuel filter change", "Brake pad assessment", "Suspension check", "Comprehensive 40-point inspection"],
+                },
+                {
+                  step: "03",
+                  title: "40,000 km Service",
+                  items: ["Coolant flush & replacement", "Transmission fluid change", "Spark plug replacement", "Drive belt inspection", "Full electrical system check"],
+                },
+              ].map((pkg, i) => (
+                <Reveal key={pkg.step} delay={i * 100} variant="fade-up">
+                  <div className="h-full rounded-lg border border-border bg-white p-6 shadow-[0_2px_12px_0_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
+                    <span className="text-3xl font-bold text-brand/20">{pkg.step}</span>
+                    <h3 className="mt-2 font-display text-lg font-bold text-text">{pkg.title}</h3>
+                    <ul className="mt-4 space-y-2">
+                      {pkg.items.map((item) => (
+                        <li key={item} className="flex items-start gap-2 text-sm text-muted">
+                          <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-brand/50" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <ServiceCentres />
       </main>
       <Footer />

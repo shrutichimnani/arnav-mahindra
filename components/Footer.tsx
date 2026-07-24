@@ -9,7 +9,6 @@ import {
   Clock,
   Facebook,
   Instagram,
-  Twitter,
   LinkedIn,
   YouTube,
 } from "./icons";
@@ -21,21 +20,24 @@ const quickLinks = [
   { label: "Service", href: "/locate-service-centre" },
   { label: "Locate Us", href: "/locate-us" },
   { label: "Book a Test Drive", href: "/book-a-test-drive" },
-  { label: "Blogs", href: "/#blogs" },
+  { label: "Blogs", href: "/blogs" },
   { label: "Contact Us", href: "/contact-us" },
 ];
 
 const serviceLinks = [
   { label: "Book a Service", href: "/locate-service-centre#book-service" },
+  { label: "Genuine Parts", href: "/locate-service-centre#genuine-parts" },
+  { label: "Roadside Assistance", href: "/locate-service-centre#roadside-assistance" },
+  { label: "Extended Warranty", href: "/locate-service-centre#extended-warranty" },
+  { label: "Scheduled Maintenance", href: "/locate-service-centre#scheduled-maintenance" },
   { label: "Locate a Service Centre", href: "/locate-service-centre#service-centres" },
 ];
 
 const socials = [
-  { Icon: Facebook, label: "Facebook" },
-  { Icon: Instagram, label: "Instagram" },
-  { Icon: Twitter, label: "Twitter" },
-  { Icon: YouTube, label: "YouTube" },
-  { Icon: LinkedIn, label: "LinkedIn" },
+  { Icon: Facebook, label: "Facebook", href: "https://www.facebook.com/profile.php?id=61550056716631" },
+  { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/arnavautomobiles/" },
+  { Icon: YouTube, label: "YouTube", href: "https://www.youtube.com/@MahindraModi-1" },
+  { Icon: LinkedIn, label: "LinkedIn", href: "https://www.linkedin.com/company/modimahindra/" },
 ];
 
 export default function Footer() {
@@ -53,10 +55,12 @@ export default function Footer() {
               Navi Mumbai and Mumbai.
             </p>
             <div className="mt-6 flex gap-2.5">
-              {socials.map(({ Icon, label }) => (
+              {socials.map(({ Icon, label, href }) => (
                 <a
                   key={label}
-                  href="#"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={`Follow Mahindra Modi on ${label}`}
                   className="grid h-9 w-9 place-items-center rounded border border-white/15 text-white/60 transition-all hover:border-white/40 hover:text-white"
                 >
@@ -74,6 +78,7 @@ export default function Footer() {
                 <li key={l.label}>
                   {l.href === "/book-a-test-drive" ? (
                     <TestDriveTrigger
+                      source="footer"
                       variant="link"
                       className="text-sm text-white/60 transition-colors hover:text-white"
                     >
@@ -167,8 +172,8 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-between gap-3 pt-8 text-xs text-white/40 sm:flex-row">
           <p>© {new Date().getFullYear()} Mahindra Modi. All Rights Reserved.</p>
           <div className="flex gap-6">
-            <a href="#" className="transition-colors hover:text-white">Privacy Policy</a>
-            <a href="#" className="transition-colors hover:text-white">Terms &amp; Conditions</a>
+            <Link href="/privacy-policy" className="transition-colors hover:text-white">Privacy Policy</Link>
+            <Link href="/terms-and-conditions" className="transition-colors hover:text-white">Terms &amp; Conditions</Link>
           </div>
         </div>
       </div>

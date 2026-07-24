@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+import { submitToSheet } from "@/lib/sheets";
 
 /* ============================================================
    Persists a phone number that the visitor has OTP-verified, for
@@ -17,10 +18,11 @@ import { createContext, useCallback, useContext, useEffect, useState, type React
    ============================================================ */
 
 const STORAGE_KEY = "mm_verified_phone";
+const SOURCE_KEY = "mm_verification_source";
 
 type PhoneVerificationContextValue = {
   verifiedPhone: string | null;
-  setVerifiedPhone: (phone: string) => void;
+  setVerifiedPhone: (phone: string, source?: string) => void;
   clearVerifiedPhone: () => void;
 };
 
@@ -43,7 +45,7 @@ export default function PhoneVerificationProvider({ children }: { children: Reac
   useEffect(() => {
     try {
       const stored = sessionStorage.getItem(STORAGE_KEY);
-      if (stored && /^[6-9]\d{9}$/.test(stored)) {
+      if (stored && /^\+?\d{8,15}$/.test(stored)) {
         setVerifiedPhoneState(stored);
       }
     } catch {
@@ -52,13 +54,19 @@ export default function PhoneVerificationProvider({ children }: { children: Reac
     }
   }, []);
 
-  const setVerifiedPhone = useCallback((phone: string) => {
+  const setVerifiedPhone = useCallback((phone: string, source?: string) => {
     setVerifiedPhoneState(phone);
     try {
       sessionStorage.setItem(STORAGE_KEY, phone);
+      if (source) sessionStorage.setItem(SOURCE_KEY, source);
     } catch {
       // ignore
     }
+    submitToSheet({
+      formType: "phoneVerification",
+      phonenumber: phone,
+      formsource: source ?? "",
+    });
   }, []);
 
   const clearVerifiedPhone = useCallback(() => {

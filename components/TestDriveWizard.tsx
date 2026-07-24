@@ -7,6 +7,7 @@ import { cars, cityOptions, locations, type Car } from "@/lib/data";
 import { Calendar, Check, ChevronDown, ChevronRight, X } from "./icons";
 import Reveal from "./Reveal";
 import { VerifiedPhoneField } from "./OtpGate";
+import { submitToSheet } from "@/lib/sheets";
 
 const fieldBase =
   "w-full rounded border border-border bg-white px-4 py-3 text-sm text-text outline-none transition-colors placeholder:text-faint focus:border-brand focus:ring-2 focus:ring-brand/10";
@@ -54,6 +55,8 @@ export default function TestDriveWizard({
   const [email, setEmail] = useState("");
   const [pincode, setPincode] = useState("");
   const [address, setAddress] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
 
   // Today's date is blocked: the earliest selectable date is tomorrow, so a
   // test drive can never be booked for the same day.
@@ -168,22 +171,39 @@ export default function TestDriveWizard({
       ) : (
         <button
           type="submit"
-          className="rounded bg-brand px-8 py-3 text-sm font-semibold text-white transition-all hover:bg-brand-light"
+          disabled={!canProceed() || sending}
+          className="rounded bg-brand px-8 py-3 text-sm font-semibold text-white transition-all hover:bg-brand-light disabled:opacity-50"
         >
-          Confirm Booking
+          {sending ? "Booking..." : "Confirm Booking"}
         </button>
       )}
     </div>
   );
 
   const onSubmit = (e: FormEvent) => {
-    // Step 3's "Confirm Booking" is a real type="submit" button, so the
-    // browser's own required/pattern validation runs first and shows its
-    // native "please fill out this field" popup — only on an actual submit
-    // attempt — if anything mandatory is missing or invalid. This handler
-    // only ever runs once that native check has already passed.
     e.preventDefault();
-    setSubmitted(true);
+    if (!canProceed()) {
+      setAttempted(true);
+      return;
+    }
+    setSending(true);
+    setSendError("");
+    submitToSheet({
+      formType: "testDrive",
+      carmodel: selectedCar ? selectedCar.name : "",
+      location: city,
+      preferreddate: date,
+      preferredtime: time,
+      name,
+      phone: mobile,
+      email,
+      pincode,
+      address,
+    }).then((r) => {
+      setSending(false);
+      if (r.ok) setSubmitted(true);
+      else setSendError(r.error);
+    });
   };
 
   const resetAll = () => {
@@ -457,6 +477,9 @@ export default function TestDriveWizard({
             </Reveal>
           )}
 
+          {sendError && (
+            <p className="mt-4 text-center text-sm font-medium text-red-600">{sendError}</p>
+          )}
           {/* Nav buttons — already shown inline above for the Car Selected /
               More Options step-1 layout, so skip the duplicate here. */}
           {!(step === 1 && fromCarPage) && <div className="mt-8">{navButtons}</div>}

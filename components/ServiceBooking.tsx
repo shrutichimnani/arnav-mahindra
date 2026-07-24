@@ -5,6 +5,7 @@ import { carModels, serviceCentres } from "@/lib/data";
 import { Calendar, Check, ChevronDown } from "./icons";
 import Reveal from "./Reveal";
 import OtpGate, { VerifiedPhoneField } from "./OtpGate";
+import { submitToSheet } from "@/lib/sheets";
 
 const fieldBase =
   "w-full rounded border border-border bg-white px-4 py-3 text-sm text-text outline-none transition-colors placeholder:text-faint focus:border-brand focus:ring-2 focus:ring-brand/10";
@@ -25,12 +26,14 @@ function SelectField({
   placeholder,
   value,
   onChange,
+  name,
 }: {
   label: string;
   options: string[];
   placeholder: string;
   value?: string;
   onChange?: (v: string) => void;
+  name?: string;
 }) {
   const controlled = value !== undefined;
   return (
@@ -38,6 +41,7 @@ function SelectField({
       <span className="mb-1.5 block text-xs font-semibold text-muted">{label}</span>
       <div className="relative">
         <select
+          name={name}
           {...(controlled
             ? { value, onChange: (e: ChangeEvent<HTMLSelectElement>) => onChange?.(e.target.value) }
             : { defaultValue: "" })}
@@ -84,9 +88,33 @@ export default function ServiceBooking() {
     ? time
     : "";
 
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    const model = selectedModel === "Other" ? customModel : selectedModel;
+    setSending(true);
+    setSendError("");
+    submitToSheet({
+      formType: "service",
+      carmodel: model,
+      servicecentre: String(fd.get("servicecentre") ?? ""),
+      servicetype: String(fd.get("servicetype") ?? ""),
+      name: String(fd.get("name") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      registrationnumber: String(fd.get("registrationnumber") ?? ""),
+      preferreddate: date,
+      preferredtime: effectiveTime,
+      pickupdrop: String(fd.get("pickupdrop") === "on" ? "Yes" : "No"),
+    }).then((r) => {
+      setSending(false);
+      if (r.ok) setSubmitted(true);
+      else setSendError(r.error);
+    });
   };
 
   return (
@@ -126,6 +154,8 @@ export default function ServiceBooking() {
             </div>
           ) : (
             <OtpGate
+              source="service_booking_form"
+              heroImage={{ src: "/about/showroom-dusk.jpg", alt: "Mahindra Modi showroom at dusk" }}
             >
               {({ phone, onResetPhone }) => (
                 <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -146,24 +176,27 @@ export default function ServiceBooking() {
                     label="Select Service Centre"
                     placeholder="Select Service Centre"
                     options={serviceCentreOptions}
+                    name="servicecentre"
                   />
 
                   <SelectField
                     label="Type of Service"
                     placeholder="Select Type of Service"
                     options={serviceTypes}
+                    name="servicetype"
                   />
 
                   <label className="block">
                     <span className="mb-1.5 block text-xs font-semibold text-muted">Your Name</span>
-                    <input type="text" required placeholder="Your name" className={fieldBase} />
+                    <input name="name" type="text" required placeholder="Your name" className={fieldBase} />
                   </label>
 
                   <VerifiedPhoneField phone={phone} onChange={onResetPhone} />
+                  <input type="hidden" name="phone" value={phone} />
 
                   <label className="block">
                     <span className="mb-1.5 block text-xs font-semibold text-muted">Email</span>
-                    <input type="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Enter a valid email with a domain (e.g. name@example.com)" placeholder="you@example.com" className={fieldBase} />
+                    <input name="email" type="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Enter a valid email with a domain (e.g. name@example.com)" placeholder="you@example.com" className={fieldBase} />
                   </label>
 
                   <label className="block">
@@ -172,6 +205,7 @@ export default function ServiceBooking() {
                       <span className="font-normal text-faint">(optional)</span>
                     </span>
                     <input
+                      name="registrationnumber"
                       type="text"
                       maxLength={12}
                       placeholder="e.g. MH04AB1234"
@@ -210,21 +244,27 @@ export default function ServiceBooking() {
                   <label className="col-span-full flex items-center gap-2.5 rounded border border-border bg-white px-4 py-3">
                     <input
                       type="checkbox"
+                      name="pickupdrop"
                       className="h-4 w-4 shrink-0 rounded border-border text-brand accent-brand focus:ring-2 focus:ring-brand/10"
                     />
                     <span className="text-sm text-text">Pick-up &amp; Drop required</span>
                   </label>
 
+                  {sendError && (
+                    <p className="col-span-full text-sm font-medium text-red-600">{sendError}</p>
+                  )}
+
                   <button
                     type="submit"
-                    className="col-span-full mt-2 rounded bg-brand py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light"
+                    disabled={sending}
+                    className="col-span-full mt-2 rounded bg-brand py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light disabled:opacity-50"
                   >
-                    Book My Service
+                    {sending ? "Booking..." : "Book My Service"}
                   </button>
                   <p className="col-span-full text-center text-xs text-faint">
                     By submitting, you agree to be contacted by Mahindra Modi about
                     your service request. See our{" "}
-                    <a href="#" className="font-medium text-brand hover:underline">
+                    <a href="/privacy-policy" className="font-medium text-brand hover:underline">
                       Privacy Policy
                     </a>
                     .

@@ -9,7 +9,10 @@ import TestDriveWizard from "./TestDriveWizard";
    (Server Component) page can just render <TestDriveBookingSection />. */
 export default function TestDriveBookingSection({ initialCarSlug }: { initialCarSlug?: string }) {
   return (
-    <OtpGate>
+    <OtpGate
+      source="test_drive_page"
+      heroImage={{ src: "/about/showroom-dusk.jpg", alt: "Mahindra Modi showroom at dusk" }}
+    >
       {({ phone, onResetPhone }) => (
         <div>
           <div className="mb-6 max-w-3xl rounded-lg border border-brand/20 bg-brand/5 p-4">

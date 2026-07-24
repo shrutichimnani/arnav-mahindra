@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
-import { ArrowRight, Check, ChevronLeft, Clock } from "./icons";
+import { ArrowRight, Check, ChevronDown, ChevronLeft, Clock, Phone } from "./icons";
+import { countryCodes, type CountryCode } from "@/lib/countryCodes";
 import { usePhoneVerification } from "./PhoneVerificationProvider";
 
 /* ---- Gate API -----------------------------------------------------------
@@ -15,19 +17,35 @@ import { usePhoneVerification } from "./PhoneVerificationProvider";
    opening another form — or reopening the same one later — skips the
    OTP step entirely. "Change number" clears it and re-verifies.
    ----------------------------------------------------------------------- */
+
 export default function OtpGate({
   children,
+  source,
+  heroImage,
 }: {
   children: (props: { phone: string; onResetPhone: () => void }) => ReactNode;
+  source?: string;
+  // Optional image shown alongside the phone/OTP card, for call sites
+  // (e.g. the test-drive modal) that want it. Omitted everywhere else so
+  // narrower embeds (contact form, sidebar cards) are unaffected.
+  heroImage?: { src: string; alt: string };
 }) {
   const { verifiedPhone, setVerifiedPhone, clearVerifiedPhone } = usePhoneVerification();
 
   const [stage, setStage] = useState<"phone" | "otp">("phone");
+  // Keyed by ISO code, not dial code — several countries share a dial code
+  // (e.g. +1 for the US, Canada, and Caribbean nations), so the dial code
+  // alone can't uniquely identify the selected option.
+  const [countryIso, setCountryIso] = useState("IN");
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
   const [resendIn, setResendIn] = useState(0);
+  const [agreed, setAgreed] = useState(false);
+
+  const activeCountry = countryCodes.find((c) => c.iso === countryIso) ?? countryCodes[0];
+  const countryCode = activeCountry.code;
 
   // Resend countdown ticker.
   useEffect(() => {
@@ -35,6 +53,19 @@ export default function OtpGate({
     const t = setTimeout(() => setResendIn((s) => s - 1), 1000);
     return () => clearTimeout(t);
   }, [resendIn]);
+
+  // When the verified phone is cleared (user clicks "Change"), reset to
+  // the phone-input stage instead of showing the OTP form.
+  useEffect(() => {
+    if (!verifiedPhone) {
+      setStage("phone");
+      setCountryIso("IN");
+      setPhone("");
+      setCode("");
+      setError("");
+      setAgreed(false);
+    }
+  }, [verifiedPhone]);
 
   const sendOtp = async (target?: string) => {
     const number = target ?? phone;
@@ -44,7 +75,7 @@ export default function OtpGate({
       const res = await fetch("/api/otp/send", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ phone: number }),
+        body: JSON.stringify({ phone: countryCode + number }),
       });
       const data = await res.json();
       if (!data.ok) {
@@ -63,8 +94,16 @@ export default function OtpGate({
 
   const onPhoneSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!/^[6-9]\d{9}$/.test(phone)) {
-      setError("Enter a valid 10-digit mobile number.");
+    if (!agreed) {
+      setError("Please agree to the Terms & Conditions and Privacy Policy.");
+      return;
+    }
+    if (!/^\d+$/.test(phone) || phone.length < activeCountry.min || phone.length > activeCountry.max) {
+      setError(
+        activeCountry.min === activeCountry.max
+          ? `Enter a valid ${activeCountry.max}-digit mobile number.`
+          : `Enter a valid ${activeCountry.min}-${activeCountry.max} digit mobile number.`,
+      );
       return;
     }
     const ok = await sendOtp(phone);
@@ -75,9 +114,8 @@ export default function OtpGate({
     }
   };
 
-  const onOtpSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (!/^\d{4}$/.test(code)) {
+  const verifyOtp = async (otpCode: string) => {
+    if (!/^\d{4}$/.test(otpCode)) {
       setError("Enter the 4-digit code.");
       return;
     }
@@ -87,7 +125,7 @@ export default function OtpGate({
       const res = await fetch("/api/otp/verify", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ phone, code }),
+        body: JSON.stringify({ phone: countryCode + phone, code: otpCode }),
       });
       const data = await res.json();
       if (!data.ok) {
@@ -96,12 +134,17 @@ export default function OtpGate({
       }
       // Persist the verified number for the whole session so every
       // other form (and re-opening this one) skips the OTP step.
-      setVerifiedPhone(phone);
+      setVerifiedPhone(countryCode + phone, source);
     } catch {
       setError("Network error. Please try again.");
     } finally {
       setBusy(false);
     }
+  };
+
+  const onOtpSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    verifyOtp(code);
   };
 
   // Pass-through: a session-verified number skips the OTP UI entirely.
@@ -113,42 +156,96 @@ export default function OtpGate({
   }
 
   return (
-    <div className="mx-auto w-full max-w-md rounded-lg border border-border bg-white p-6 shadow-[0_4px_32px_0_rgba(0,0,0,0.08)] sm:p-8">
+    <div
+      className={`mx-auto w-full overflow-hidden rounded-lg border border-border bg-white shadow-[0_4px_32px_0_rgba(0,0,0,0.08)] ${
+        heroImage ? "max-w-2xl sm:grid sm:grid-cols-[0.85fr_1.15fr]" : "max-w-md"
+      }`}
+    >
+      {heroImage && (
+        <div className="relative hidden min-h-[280px] sm:block">
+          <img src={heroImage.src} alt={heroImage.alt} className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+        </div>
+      )}
+      <div className="p-6 sm:p-8">
       {stage === "phone" && (
         <form onSubmit={onPhoneSubmit}>
-          <label className="block">
-            <span className="mb-1.5 block text-xs font-semibold text-muted">Mobile Number</span>
-            <div className="flex">
-              <span className="inline-flex shrink-0 items-center rounded-l border border-r-0 border-border bg-bg-2 px-3 text-sm font-semibold text-text">
-                +91
-              </span>
+          <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand/10 text-brand">
+            <Phone className="h-6 w-6" />
+          </div>
+          <h3 className="mt-4 text-center font-display text-xl font-bold text-text">
+            Verify Your Phone
+          </h3>
+          <p className="mx-auto mt-1.5 max-w-xs text-center text-sm text-muted">
+            Enter your phone number to get started.
+          </p>
+
+          <label className="mt-6 block">
+            <div
+              className={`flex items-center rounded-full border bg-bg-2 transition-colors focus-within:bg-white focus-within:ring-2 focus-within:ring-brand/10 ${
+                error ? "border-red-400 focus-within:border-red-400" : "border-border focus-within:border-brand"
+              }`}
+            >
+              <CountryPicker
+                value={activeCountry}
+                onChange={(c) => {
+                  setCountryIso(c.iso);
+                  setPhone("");
+                  setError("");
+                }}
+              />
+              <span className="shrink-0 pr-2 text-sm font-semibold text-text">{activeCountry.code}</span>
+              <span className="h-6 w-px shrink-0 bg-border" />
               <input
                 type="tel"
                 inputMode="numeric"
-                autoFocus
                 autoComplete="tel-national"
                 value={phone}
                 onChange={(e) => {
-                  setPhone(e.target.value.replace(/\D/g, "").slice(0, 10));
+                  setPhone(e.target.value.replace(/\D/g, "").slice(0, activeCountry.max));
                   setError("");
                 }}
-                placeholder="10-digit mobile number"
-                className={`w-full rounded-r border px-4 py-3 text-sm text-text outline-none transition-colors placeholder:text-faint focus:ring-2 focus:ring-brand/10 ${
-                  error ? "border-red-400 focus:border-red-400" : "border-border focus:border-brand"
-                }`}
+                placeholder={
+                  activeCountry.min === activeCountry.max
+                    ? `${activeCountry.max}-digit mobile number`
+                    : `${activeCountry.min}-${activeCountry.max} digit mobile number`
+                }
+                className="w-full border-0 bg-transparent py-3.5 pl-3 pr-5 text-sm text-text outline-none placeholder:text-faint"
               />
             </div>
           </label>
 
           {error && <p className="mt-2 text-xs font-medium text-red-600">{error}</p>}
 
+          <label className="mt-4 flex items-start gap-2.5">
+            <input
+              type="checkbox"
+              checked={agreed}
+              onChange={(e) => setAgreed(e.target.checked)}
+              className="mt-0.5 h-4 w-4 shrink-0 rounded border-border accent-brand"
+            />
+            <span className="text-[11px] leading-relaxed text-faint">
+              I agree to the{" "}
+              <Link href="/terms-and-conditions" target="_blank" className="font-medium text-brand underline hover:text-brand-light">
+                Terms &amp; Conditions
+              </Link>{" "}
+              and{" "}
+              <Link href="/privacy-policy" target="_blank" className="font-medium text-brand underline hover:text-brand-light">
+                Privacy Policy
+              </Link>
+            </span>
+          </label>
+
           <button
             type="submit"
-            disabled={busy || phone.length !== 10}
-            className="group mt-5 flex w-full items-center justify-center gap-2 rounded bg-brand px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-brand-light disabled:opacity-50"
+            disabled={busy || phone.length < activeCountry.min || phone.length > activeCountry.max}
+            className={`mt-5 flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white transition-all ${
+              agreed
+                ? "bg-brand hover:bg-brand-light"
+                : "bg-brand-light/50"
+            } disabled:opacity-50`}
           >
             {busy ? "Sending..." : "Send OTP"}
-            {!busy && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />}
           </button>
           <p className="mt-3 text-center text-[11px] leading-relaxed text-faint">
             By continuing you agree to be contacted by Mahindra Modi about your request.
@@ -170,12 +267,15 @@ export default function OtpGate({
             <ChevronLeft className="h-3.5 w-3.5" />
             Change number
           </button>
-          <h3 className="font-display text-lg font-bold text-text">Enter the code</h3>
-          <p className="mt-1.5 text-sm text-muted">
-            Sent to <span className="font-semibold text-text">+91 {phone}</span>
+          <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-brand/10 text-brand">
+            <Phone className="h-6 w-6" />
+          </div>
+          <h3 className="mt-4 text-center font-display text-xl font-bold text-text">Enter the Code</h3>
+          <p className="mx-auto mt-1.5 max-w-xs text-center text-sm text-muted">
+            Sent to <span className="font-semibold text-text">{countryCode} {phone}</span>
           </p>
 
-          <OtpInput value={code} onChange={(v) => { setCode(v); setError(""); }} />
+          <OtpInput value={code} onChange={(v) => { setCode(v); setError(""); }} onComplete={verifyOtp} />
 
           {error && <p className="mt-2 text-xs font-medium text-red-600">{error}</p>}
 
@@ -198,18 +298,114 @@ export default function OtpGate({
           <button
             type="submit"
             disabled={busy || code.length !== 4}
-            className="mt-5 flex w-full items-center justify-center gap-2 rounded bg-brand px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-brand-light disabled:opacity-50"
+            className="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light disabled:opacity-50"
           >
             {busy ? "Verifying..." : "Verify & Continue"}
           </button>
         </form>
+      )}
+      </div>
+    </div>
+  );
+}
+
+/* Flag emoji don't render as pictures on Windows (Chrome/Edge show the
+   bare two-letter code instead, e.g. "IN") because Windows' system font
+   has no color flag glyphs. A real flag image is the only way to show an
+   actual flag reliably across every OS. */
+function FlagImg({ iso, name }: { iso: string; name: string }) {
+  return (
+    <img
+      src={`https://flagcdn.com/24x18/${iso.toLowerCase()}.png`}
+      srcSet={`https://flagcdn.com/48x36/${iso.toLowerCase()}.png 2x`}
+      alt={`${name} flag`}
+      width={20}
+      height={15}
+      className="inline-block shrink-0 rounded-[2px] object-cover"
+    />
+  );
+}
+
+/* Compact flag + chevron trigger that opens a searchable-by-scroll list of
+   every country. A native <select> can't show just the flag in its closed
+   state (the browser always renders the full selected option text), so this
+   is a small custom dropdown instead, to match the flag-only trigger design. */
+function CountryPicker({ value, onChange }: { value: CountryCode; onChange: (c: CountryCode) => void }) {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const rootRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    setQuery("");
+    // Focus the search box as soon as the panel mounts, so typing works
+    // immediately without an extra click.
+    searchRef.current?.focus();
+    const onClickOutside = (e: MouseEvent) => {
+      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, [open]);
+
+  const q = query.trim().toLowerCase().replace(/^\+/, "");
+  const filtered = q
+    ? countryCodes.filter((c) => c.name.toLowerCase().includes(q) || c.code.replace("+", "").startsWith(q))
+    : countryCodes;
+
+  return (
+    <div ref={rootRef} className="relative shrink-0">
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-label={`Country code: ${value.name} ${value.code}`}
+        aria-expanded={open}
+        className="flex items-center gap-1 py-3 pl-3 pr-2 text-base"
+      >
+        <FlagImg iso={value.iso} name={value.name} />
+        <ChevronDown className="h-3 w-3 text-faint" />
+      </button>
+      {open && (
+        <div className="absolute left-0 top-full z-20 mt-1 w-64 overflow-hidden rounded border border-border bg-white shadow-[0_8px_30px_0_rgba(0,0,0,0.12)]">
+          <input
+            ref={searchRef}
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search country or code"
+            className="w-full border-b border-border px-3 py-2 text-sm text-text outline-none placeholder:text-faint"
+          />
+          <div className="max-h-56 overflow-y-auto py-1">
+            {filtered.length === 0 && (
+              <p className="px-3 py-2 text-sm text-muted">No match found.</p>
+            )}
+            {filtered.map((c) => (
+              <button
+                key={c.iso}
+                type="button"
+                onClick={() => {
+                  onChange(c);
+                  setOpen(false);
+                }}
+                className={`flex w-full items-center gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-bg-2 ${
+                  c.iso === value.iso ? "bg-bg-2 font-semibold text-brand" : "text-text"
+                }`}
+              >
+                <FlagImg iso={c.iso} name={c.name} />
+                <span className="w-12 shrink-0 text-muted">{c.code}</span>
+                <span className="truncate">{c.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );
 }
 
 /* Four-box OTP input. One underlying value string, visually split. */
-function OtpInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+function OtpInput({ value, onChange, onComplete }: { value: string; onChange: (v: string) => void; onComplete?: (code: string) => void }) {
   const refs = useRef<(HTMLInputElement | null)[]>([]);
   const digits = value.padEnd(4, " ").slice(0, 4).split("");
 
@@ -220,6 +416,7 @@ function OtpInput({ value, onChange }: { value: string; onChange: (v: string) =>
     const joined = arr.join("").replace(/\s/g, "");
     onChange(joined.slice(0, 4));
     if (clean && i < 3) refs.current[i + 1]?.focus();
+    if (joined.length === 4) onComplete?.(joined);
   };
 
   const onKey = (i: number, e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -234,6 +431,7 @@ function OtpInput({ value, onChange }: { value: string; onChange: (v: string) =>
       e.preventDefault();
       onChange(text);
       refs.current[Math.min(text.length, 3)]?.focus();
+      if (text.length === 4) onComplete?.(text);
     }
   };
 
@@ -270,7 +468,7 @@ export function VerifiedPhoneField({ phone, onChange }: { phone: string; onChang
           <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-green-100 text-green-600">
             <Check className="h-3.5 w-3.5" />
           </span>
-          +91 {phone}
+          {phone}
         </span>
         <button
           type="button"

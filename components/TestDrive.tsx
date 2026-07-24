@@ -3,6 +3,7 @@
 import { useMemo, useState, type ChangeEvent, type FormEvent } from "react";
 import Image from "next/image";
 import { carModels, cityOptions, testDriveImage } from "@/lib/data";
+import { submitToSheet } from "@/lib/sheets";
 import { Calendar, Check, ChevronDown } from "./icons";
 import Reveal from "./Reveal";
 import OtpGate, { VerifiedPhoneField } from "./OtpGate";
@@ -58,6 +59,10 @@ function SelectField({
 
 export default function TestDrive() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
+  const [carModel, setCarModel] = useState("");
+  const [location, setLocation] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   // Today's date is blocked: the earliest selectable date is tomorrow, so a
@@ -78,9 +83,28 @@ export default function TestDrive() {
     ? time
     : "";
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = (phone: string) => (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    setSending(true);
+    setSendError("");
+    submitToSheet({
+      formType: "testDrive",
+      carmodel: carModel,
+      location: location,
+      name: String(fd.get("name") ?? ""),
+      phone,
+      email: String(fd.get("email") ?? ""),
+      pincode: String(fd.get("pincode") ?? ""),
+      address: String(fd.get("address") ?? ""),
+      preferreddate: date,
+      preferredtime: effectiveTime,
+    }).then((r) => {
+      setSending(false);
+      if (r.ok) setSubmitted(true);
+      else setSendError(r.error);
+    });
   };
 
   return (
@@ -132,24 +156,28 @@ export default function TestDrive() {
                 </button>
               </div>
             ) : (
-              <OtpGate
+              <OtpGate source="test_drive_section"
               >
                 {({ phone, onResetPhone }) => (
-                  <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <form onSubmit={onSubmit(phone)} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <SelectField
                       label="Select Car Model"
                       placeholder="Select Car Model"
                       options={carModels}
+                      value={carModel}
+                      onChange={setCarModel}
                     />
                     <SelectField
                       label="Select Location"
                       placeholder="Select Location"
                       options={cityOptions}
+                      value={location}
+                      onChange={setLocation}
                     />
 
                     <label className="block">
                       <span className="mb-1.5 block text-xs font-semibold text-muted">Your Name</span>
-                      <input type="text" required placeholder="Your name" className={fieldBase} />
+                      <input name="name" type="text" required placeholder="Your name" className={fieldBase} />
                     </label>
 
                     <VerifiedPhoneField phone={phone} onChange={onResetPhone} />
@@ -157,6 +185,7 @@ export default function TestDrive() {
                     <label className="block">
                       <span className="mb-1.5 block text-xs font-semibold text-muted">Email</span>
                       <input
+                        name="email"
                         type="email"
                         required
                         pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
@@ -169,6 +198,7 @@ export default function TestDrive() {
                     <label className="block">
                       <span className="mb-1.5 block text-xs font-semibold text-muted">Pincode</span>
                       <input
+                        name="pincode"
                         type="text"
                         required
                         inputMode="numeric"
@@ -183,6 +213,7 @@ export default function TestDrive() {
                         Address <span className="font-normal text-faint">(optional)</span>
                       </span>
                       <input
+                        name="address"
                         type="text"
                         placeholder="House no., street, area"
                         className={fieldBase}
@@ -217,18 +248,23 @@ export default function TestDrive() {
                       onChange={setTime}
                     />
 
+                    {sendError && (
+                      <p className="col-span-full text-xs font-medium text-red-600">{sendError}</p>
+                    )}
+
                     <button
                       type="submit"
-                      className="col-span-full mt-2 rounded bg-brand py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light"
+                      disabled={sending}
+                      className="col-span-full mt-2 rounded bg-brand py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light disabled:opacity-50"
                     >
-                      Book My Test Drive
+                      {sending ? "Submitting..." : "Book My Test Drive"}
                     </button>
                     <p className="col-span-full text-center text-xs text-faint">
                       By submitting, you agree to be contacted by Mahindra Modi about
                       your test drive request. See our{" "}
-                      <a href="#" className="font-medium text-brand hover:underline">
-                        Privacy Policy
-                      </a>
+                    <a href="/privacy-policy" className="font-medium text-brand hover:underline">
+                      Privacy Policy
+                    </a>
                       .
                     </p>
                   </form>

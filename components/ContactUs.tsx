@@ -5,16 +5,35 @@ import { company } from "@/lib/data";
 import { Check, Clock, Mail, Phone, WhatsApp } from "./icons";
 import Reveal from "./Reveal";
 import OtpGate, { VerifiedPhoneField } from "./OtpGate";
+import { submitToSheet } from "@/lib/sheets";
 
 const fieldBase =
   "w-full rounded border border-border bg-white px-4 py-3 text-sm text-text outline-none transition-colors placeholder:text-faint focus:border-brand focus:ring-2 focus:ring-brand/10";
 
 export default function ContactUs() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    setSending(true);
+    setSendError("");
+    submitToSheet({
+      formType: "contactUs",
+      name: String(fd.get("name") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
+      email: String(fd.get("email") ?? ""),
+      pincode: String(fd.get("pincode") ?? ""),
+      subject: String(fd.get("subject") ?? ""),
+      message: String(fd.get("message") ?? ""),
+    }).then((r) => {
+      setSending(false);
+      if (r.ok) setSubmitted(true);
+      else setSendError(r.error);
+    });
   };
 
   return (
@@ -32,7 +51,7 @@ export default function ContactUs() {
           </p>
         </Reveal>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
           <Reveal variant="slide-right" className="rounded-lg border border-border bg-bg-2 p-6 sm:p-8">
             <h3 className="font-display text-lg font-bold text-text">
               Contact Information
@@ -63,7 +82,7 @@ export default function ContactUs() {
                 <div>
                   <p className="text-xs font-medium text-muted">WhatsApp</p>
                   <a
-                    href={`https://wa.me/${company.whatsappE164.replace("+", "")}?text=${encodeURIComponent("Hello.")}`}
+                      href={`https://wa.me/${company.whatsappE164.replace("+", "")}?text=${encodeURIComponent("Hi, I want to book a test drive.")}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm font-semibold text-text transition-colors hover:text-brand"
@@ -127,21 +146,25 @@ export default function ContactUs() {
             ) : (
               <div className="mt-5">
                 <OtpGate
+                  source="contact_us_form"
+                  heroImage={{ src: "/about/showroom-dusk.jpg", alt: "Mahindra Modi showroom at dusk" }}
                 >
                   {({ phone, onResetPhone }) => (
                     <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <label className="block">
                         <span className="mb-1.5 block text-xs font-semibold text-muted">Your Name</span>
-                        <input type="text" required placeholder="Your name" className={fieldBase} />
+                        <input name="name" type="text" required placeholder="Your name" className={fieldBase} />
                       </label>
                       <VerifiedPhoneField phone={phone} onChange={onResetPhone} />
+                      <input type="hidden" name="phone" value={phone} />
                       <label className="block">
                         <span className="mb-1.5 block text-xs font-semibold text-muted">Your Email</span>
-                        <input type="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Enter a valid email with a domain (e.g. name@example.com)" placeholder="you@example.com" className={fieldBase} />
+                        <input name="email" type="email" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Enter a valid email with a domain (e.g. name@example.com)" placeholder="you@example.com" className={fieldBase} />
                       </label>
                       <label className="block">
                         <span className="mb-1.5 block text-xs font-semibold text-muted">Pincode</span>
                         <input
+                          name="pincode"
                           type="text"
                           required
                           inputMode="numeric"
@@ -152,22 +175,27 @@ export default function ContactUs() {
                       </label>
                       <label className="col-span-full block">
                         <span className="mb-1.5 block text-xs font-semibold text-muted">Subject</span>
-                        <input type="text" required placeholder="How can we help?" className={fieldBase} />
+                        <input name="subject" type="text" required placeholder="How can we help?" className={fieldBase} />
                       </label>
                       <label className="col-span-full block">
                         <span className="mb-1.5 block text-xs font-semibold text-muted">Your Message</span>
                         <textarea
+                          name="message"
                           required
                           rows={5}
                           placeholder="Tell us more..."
                           className={`${fieldBase} resize-none`}
                         />
                       </label>
+                      {sendError && (
+                        <p className="col-span-full text-sm font-medium text-red-600">{sendError}</p>
+                      )}
                       <button
                         type="submit"
-                        className="col-span-full mt-1 rounded bg-brand py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light"
+                        disabled={sending}
+                        className="col-span-full mt-1 rounded bg-brand py-3.5 text-sm font-semibold text-white transition-all hover:bg-brand-light disabled:opacity-50"
                       >
-                        Send Message
+                        {sending ? "Sending..." : "Send Message"}
                       </button>
                     </form>
                   )}

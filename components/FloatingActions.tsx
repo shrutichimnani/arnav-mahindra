@@ -7,7 +7,7 @@ import { useTestDriveModal } from "./TestDriveModalProvider";
 
 const actions = [
   { label: "Book a\nTest Drive", href: "/book-a-test-drive", Icon: Calendar, isTestDrive: true },
-  { label: "WhatsApp", href: `https://wa.me/${company.whatsappE164.replace("+", "")}?text=${encodeURIComponent("Hello.")}`, Icon: WhatsApp, isTestDrive: false },
+  { label: "WhatsApp", href: `https://wa.me/${company.whatsappE164.replace("+", "")}?text=${encodeURIComponent("Hi, I want to book a test drive.")}`, Icon: WhatsApp, isTestDrive: false },
   { label: "Call Us", href: `tel:${nav.phone.replace(/\s/g, "")}`, Icon: Phone, isTestDrive: false },
 ];
 
@@ -68,7 +68,7 @@ export default function FloatingActions() {
                 key={label}
                 type="button"
                 aria-label={label.replace("\n", " ")}
-                onClick={() => openTestDrive()}
+                onClick={() => openTestDrive({ source: "floating_action" })}
                 className={cls}
               >
                 {inner}

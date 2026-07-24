@@ -14,21 +14,6 @@
 const stock = (id: string, w = 800) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
-/* Real Mahindra product photography, sourced directly from
-   auto.mahindra.com's Demandware/Salesforce Commerce Cloud image CDN
-   (dw/image/v2/BKRC_PRD/.../Sites-mahindra-product-catalog/...). Every
-   URL below was fetched and confirmed to be a real, live image path on
-   auto.mahindra.com during this build. */
-const mahindra = (path: string) => `https://auto.mahindra.com${path}`;
-
-/* Real full-bleed campaign banners (1920x829), pulled directly from the
-   homepage hero carousel on auto.mahindra.com. These already carry the
-   marketing headline/graphics baked into the photo itself, so the hero
-   component shows them clean with no separate text overlay — matching
-   the source site's own treatment exactly. */
-const campaignBanner = (path: string) =>
-  `https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/${path}`;
-
 /* Indian numbering (lakh/crore) grouping, e.g. 1090700 -> "10,90,700". */
 export const formatINR = (n: number) => `₹${n.toLocaleString("en-IN")}`;
 
@@ -93,9 +78,9 @@ export const nav = {
    gautammodigroup.com. Mahindra & Mahindra Ltd brand facts sourced
    from Mahindra's own public "About Us" / corporate history pages. */
 export const aboutHeroImage = stock("photo-1560179707-f14e90ef3623", 1600);
-export const contactHeroImage = "https://images.openai.com/static-rsc-4/F6mmuHO8pR2ZvITPmHE6WTwy5CJkRdbfTYOF1rrLfsO9AHPBLe5Sl3Kcna93SD-mwT2YRzoFFuPxQuCU8idLMy2P-PVlK5LW_Blvn8cRfTu9YaINq7a19W70B4r3i-mCRaKIVEsOra14tXN3Qea1Uy7KFthSBgeJlRWc29mYGPdAXdZq8wWg9iSWrN3qQimW?purpose=fullsize";
-export const locateHeroImage = "https://images.openai.com/static-rsc-4/kgkFakE6WkrnihH4GLV-V194T5ssFKa-gZBuZaaIytuK6oTIBFIogvOo38RppSKOB47heF2AWTV_A5Xkbt7d_Cin2baS9tH9bdqWk8ArhLaYPDEgjjBUwLfDcXCZjWpndzTk9CiUNjXq-gy6pHGK5RXjCTzxLqOoOVHWCVQWe7pISyochzidbjYYCCr1sd7F?purpose=fullsize";
-export const aboutCultureImage = "https://bunny-wp-pullzone-cghvklkcns.b-cdn.net/wp-content/uploads/2026/05/GNP01423.JPG-2048x1365.jpeg";
+export const contactHeroImage = "/images/contact/contact-hero.webp";
+export const locateHeroImage = "/images/locate-us/locate-hero.webp";
+export const aboutCultureImage = "/about/team-culture.webp";
 /* Real photo of the Mahindra Modi Thane showroom at dusk, sourced from the
    dealership's own Justdial listing (its catalogue photos, uploaded by the
    business itself). Used only for the About Us page hero. */
@@ -195,43 +180,43 @@ export type Slide = {
 export const heroSlides: Slide[] = [
   {
     model: "Mahindra XUV 3XO",
-    image: campaignBanner("dw94c80559/X3XO/Adventure-Website-Banner-D.jpg.jpeg"),
+    image: "/images/home/hero-xuv3xo-adventure.jpg",
     alt: "Mahindra XUV 3XO campaign banner, official homepage creative",
     href: "/cars/xuv-3xo",
   },
   {
     model: "Mahindra XUV 7XO",
-    image: campaignBanner("dw0b3c978d/XUV-7XO/images/desktop/Desktop-Banner-Milestone-20k.jpeg"),
+    image: "/images/home/hero-xuv7xo-milestone.jpg",
     alt: "Mahindra XUV 7XO milestone campaign banner, official homepage creative",
     href: "/cars/xuv-7xo",
   },
   {
     model: "Mahindra XUV 7XO",
-    image: campaignBanner("dwe3d9c4de/XUV-7XO/images/desktop/BookingOpenBanner_desktop.jpg"),
+    image: "/images/home/hero-xuv7xo-booking.jpg",
     alt: "Mahindra XUV 7XO bookings-open campaign banner, official homepage creative",
     href: "/cars/xuv-7xo",
   },
   {
     model: "Mahindra XUV 3XO",
-    image: campaignBanner("dw645d5f33/homepage/3XO-GST-Desktop-banner-1920x829_.jpg"),
+    image: "/images/home/hero-xuv3xo-gst.jpg",
     alt: "Mahindra XUV 3XO GST-benefit campaign banner, official homepage creative",
     href: "/cars/xuv-3xo",
   },
   {
     model: "Mahindra Adventure",
-    image: campaignBanner("dw95680b82/homepage/1920x829-explorewebsite.jpg"),
+    image: "/images/home/hero-adventure-explore.jpg",
     alt: "Mahindra Adventure campaign banner, official homepage creative",
     href: "/cars/thar-roxx",
   },
   {
     model: "Mahindra XUV 3XO",
-    image: campaignBanner("dw8b17cac5/X3XO/XUV3XO-Website-Banner-02.jpg"),
+    image: "/images/home/hero-xuv3xo-banner.jpg",
     alt: "Mahindra XUV 3XO campaign banner, official homepage creative",
     href: "/cars/xuv-3xo",
   },
   {
     model: "Mahindra BE 6 / XEV 9e",
-    image: campaignBanner("dw87734469/Freedom/F-NU_KV_1920x829_Desktop_Banner_01.png"),
+    image: "/images/home/hero-be6-freedom.png",
     alt: "Mahindra BE range \"Freedom\" campaign banner, official homepage creative",
     href: "/cars/be-6",
   },
@@ -306,17 +291,17 @@ export const cars: Car[] = [
     fuel: "Petrol · Diesel",
     blurb: "The legendary Thar, stretched into a spacious 5-door SUV without losing its off-road soul.",
     cta: "Explore the Thar Roxx",
-    image: mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwa4de1cb1/images/TH5D/large/Thar_Roxx_602x339.png"),
+    image: "/cars/thar-roxx.png",
     alt: "Mahindra Thar Roxx 5-door SUV, official product shot",
     colors: [
-      { name: "Tango Red", hex: "#c20d0e", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw88fba8e2/images/TH5D/hires/AX7L_TangoRed_1366x443.png") },
-      { name: "Deep Forest", hex: "#282d22", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw2e020505/images/TH5D/hires/AX7L_DeepForest_1366x443.png") },
-      { name: "Burnt Sienna", hex: "#45241a", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwe5fbea3d/images/TH5D/hires/AX7L_BurntSienna_1366x443.png") },
-      { name: "Nebula Blue", hex: "#07132a", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw80789913/images/TH5D/hires/AX7L_NebulaBlue_1366x443.png") },
-      { name: "Battleship Grey", hex: "#768390", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw365b0853/images/TH5D/hires/AX7L_BattleshipGrey_1366x443.png") },
-      { name: "Stealth Black", hex: "#060505", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw703e2a53/images/TH5D/hires/AX7L_StealthBlack_1366x443.png") },
-      { name: "Citrine Yellow", hex: "#baa21b", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwb224ce64/images/TH5D/hires/AX7_StarEdn_1366x443_CitrineYellow.png") },
-      { name: "Everest White", hex: "#cfcdcd", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw6571f9e8/images/TH5D/hires/AX7L_EverestWhite_1366x443.png") },
+      { name: "Tango Red", hex: "#c20d0e", image: "/images/cars/colors/AX7L_TangoRed.png" },
+      { name: "Deep Forest", hex: "#282d22", image: "/images/cars/colors/AX7L_DeepForest.png" },
+      { name: "Burnt Sienna", hex: "#45241a", image: "/images/cars/colors/AX7L_BurntSienna.png" },
+      { name: "Nebula Blue", hex: "#07132a", image: "/images/cars/colors/AX7L_NebulaBlue.png" },
+      { name: "Battleship Grey", hex: "#768390", image: "/images/cars/colors/AX7L_BattleshipGrey.png" },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/AX7L_StealthBlack.png" },
+      { name: "Citrine Yellow", hex: "#baa21b", image: "/images/cars/colors/AX7_StarEdn_CitrineYellow.png" },
+      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/AX7L_EverestWhite.png" },
     ],
     seating: "5",
     mileage: "Up to 15.4 kmpl (diesel AT)",
@@ -340,17 +325,17 @@ export const cars: Car[] = [
     fuel: "Petrol · Diesel",
     blurb: "Mahindra's bold compact SUV, successor to the XUV300, with segment-leading ADAS and a sunroof.",
     cta: "Explore the XUV 3XO",
-    image: mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwc4930484/images/X3XO/large/S220_602x339.png"),
+    image: "/cars/xuv-3xo.png",
     alt: "Mahindra XUV 3XO compact SUV, official product shot",
     colors: [
-      { name: "Citrine Yellow", hex: "#baa21b", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw0d6dd80c/images/X3XO/hires/AX5L_CitrineYellow_1366x443.png") },
-      { name: "Dune Beige", hex: "#907b61", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw7b9a007e/images/X3XO/hires/AX5L_DuneBeige_1366x443.png") },
-      { name: "Deep Forest", hex: "#282d22", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw06c3ccc1/images/X3XO/hires/AX5L_DeepForest_1366x443.png") },
-      { name: "Galaxy Grey", hex: "#575a63", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwa7da6b81/images/X3XO/hires/AX5L_GalaxyGrey_1366x443.png") },
-      { name: "Nebula Blue", hex: "#07132a", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw2a7d82dd/images/X3XO/hires/AX5L_NebulaBlue_1366x443.png") },
-      { name: "Tango Red", hex: "#970211", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw4f41d370/images/X3XO/hires/AX5L_TangoRed_1366x443.png") },
-      { name: "Everest White", hex: "#cfcdcd", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw1b03c2ed/images/X3XO/hires/AX5L_EverestWhite_1366x443.png") },
-      { name: "Stealth Black", hex: "#060505", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw77b8d021/images/X3XO/hires/AX7L_StealthBlack_GG_1366x443.png") },
+      { name: "Citrine Yellow", hex: "#baa21b", image: "/images/cars/colors/AX5L_CitrineYellow.png" },
+      { name: "Dune Beige", hex: "#907b61", image: "/images/cars/colors/AX5L_DuneBeige.png" },
+      { name: "Deep Forest", hex: "#282d22", image: "/images/cars/colors/AX5L_DeepForest.png" },
+      { name: "Galaxy Grey", hex: "#575a63", image: "/images/cars/colors/AX5L_GalaxyGrey.png" },
+      { name: "Nebula Blue", hex: "#07132a", image: "/images/cars/colors/AX5L_NebulaBlue.png" },
+      { name: "Tango Red", hex: "#970211", image: "/images/cars/colors/AX5L_TangoRed.png" },
+      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/AX5L_EverestWhite.png" },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/AX7L_StealthBlack_GG.png" },
     ],
     seating: "5",
     mileage: "Up to 20.6 kmpl (petrol)",
@@ -377,12 +362,12 @@ export const cars: Car[] = [
     image: "/cars/thar-arnav-transparent.png",
     alt: "Mahindra Thar off-road SUV, dealer product shot",
     colors: [
-      { name: "Tango Red", hex: "#970211", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw76e19b28/images/THRN/hires/Thar_LXT_TangoRed_1366x443.png") },
-      { name: "Deep Forest", hex: "#282d22", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwcd7ecc85/images/THRN/hires/Thar_LX_DeepForest_1366x443.png") },
-      { name: "Galaxy Grey", hex: "#575a63", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwab841fec/images/THRN/hires/Thar_LX_GalaxyGrey_1366x443.png") },
-      { name: "Battleship Grey", hex: "#768390", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw70ac4a24/images/THRN/hires/Thar_LXT_BattleshipGrey_1366x443.png") },
-      { name: "Stealth Black", hex: "#060505", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw76e63b95/images/THRN/hires/Thar_LXT_StealthBlack_1366x443.png") },
-      { name: "Everest White", hex: "#cfcdcd", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw68963132/images/THRN/hires/Thar_LXT_EverestWhite_1366x443.png") },
+      { name: "Tango Red", hex: "#970211", image: "/images/cars/colors/Thar_LXT_TangoRed.png" },
+      { name: "Deep Forest", hex: "#282d22", image: "/images/cars/colors/Thar_LX_DeepForest.png" },
+      { name: "Galaxy Grey", hex: "#575a63", image: "/images/cars/colors/Thar_LX_GalaxyGrey.png" },
+      { name: "Battleship Grey", hex: "#768390", image: "/images/cars/colors/Thar_LXT_BattleshipGrey.png" },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/Thar_LXT_StealthBlack.png" },
+      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/Thar_LXT_EverestWhite.png" },
     ],
     seating: "4",
     mileage: "Up to 15.2 kmpl (diesel manual)",
@@ -406,14 +391,14 @@ export const cars: Car[] = [
     fuel: "Petrol · Diesel",
     blurb: "Big Daddy is back: a commanding new-generation SUV with a muscular design and modern tech.",
     cta: "Explore the Scorpio-N",
-    image: mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw14737114/images/SCN/large/ScorpioN_602x339.png"),
+    image: "/cars/scorpio-n.png",
     alt: "Mahindra Scorpio-N mid-size SUV, official product shot",
     colors: [
-      { name: "Deep Forest", hex: "#282d22", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw2122aa6b/images/SCN/hires/Z8_DeepForest_1366x443.png") },
-      { name: "Stealth Black", hex: "#060505", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwd657fcab/images/SCN/hires/Z8_NapoliBlack_1366x443.png") },
-      { name: "Everest White", hex: "#bab9b9", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw9eb0fee1/images/SCN/hires/Z8_EverestWhite_1366x443.png") },
-      { name: "Valyrian Silver", hex: "#7d8088", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwb2d5ba35/images/SCN/hires/Z8_DazzlingSIlver_1366x443.png") },
-      { name: "Midnight Black", hex: "#171f3c", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwcf2fdc79/images/SCN/hires/Z8_MidnightBlack_1366x443.png") },
+      { name: "Deep Forest", hex: "#282d22", image: "/images/cars/colors/Z8_DeepForest.png" },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/Z8_NapoliBlack.png" },
+      { name: "Everest White", hex: "#bab9b9", image: "/images/cars/colors/Z8_EverestWhite.png" },
+      { name: "Valyrian Silver", hex: "#7d8088", image: "/images/cars/colors/Z8_DazzlingSIlver.png" },
+      { name: "Midnight Black", hex: "#171f3c", image: "/images/cars/colors/Z8_MidnightBlack.png" },
     ],
     seating: "7",
     mileage: "Up to 16.7 kmpl (diesel manual)",
@@ -440,10 +425,10 @@ export const cars: Car[] = [
     image: "/cars/scorpio-classic-fixed.png",
     alt: "Mahindra Scorpio Classic SUV, official product shot",
     colors: [
-      { name: "Galaxy Grey", hex: "#575a63", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw8a0e9f57/images/SCRC/hires/S11_GalaxyGrey_1366x443.png") },
-      { name: "Diamond White", hex: "#ffffff", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw224ea0b6/images/SCRC/hires/S11_EverestWhite_1366x443.png") },
-      { name: "Stealth Black", hex: "#060505", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw723b4af1/images/SCRC/hires/S11_StealthBlack_1366x443.png") },
-      { name: "Everest White", hex: "#cfcdcd", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw224ea0b6/images/SCRC/hires/S11_EverestWhite_1366x443.png") },
+      { name: "Galaxy Grey", hex: "#575a63", image: "/images/cars/colors/S11_GalaxyGrey.png" },
+      { name: "Diamond White", hex: "#ffffff", image: "/images/cars/colors/S11_EverestWhite.png" },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/S11_StealthBlack.png" },
+      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/S11_EverestWhite.png" },
     ],
     seating: "7 / 9",
     mileage: "Up to 15.4 kmpl",
@@ -470,13 +455,13 @@ export const cars: Car[] = [
     image: "/cars/xuv7xo.png",
     alt: "Mahindra XUV 7XO flagship SUV, official product shot",
     colors: [
-      { name: "Ruby Velvet", hex: "#2d0406", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw536c3d34/images/X7XO/hires/AX7L_1366x443_RubyVelvet.png") },
-      { name: "Everest White", hex: "#bab9b9", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw4c3f1b83/images/X7XO/hires/AX7L_1366x443_EverestWhite.png") },
-      { name: "Nebula Blue", hex: "#0A161F", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwc336e24d/images/X7XO/hires/AX7L_1366x443_NebulaBlue.png") },
-      { name: "Midnight Black", hex: "#171f3c", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw8c867731/images/X7XO/hires/AX7L_1366x443_MidNightBlack.png") },
-      { name: "Desert Myst", hex: "#ded6ce", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwcfcf0938/images/X7XO/hires/AX7L_1366x443_DesertMyst.png") },
-      { name: "Galaxy Grey", hex: "#575a63", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw5090da23/images/X7XO/hires/AX7L_1366x443_GalaxyGrey.png") },
-      { name: "Stealth Black", hex: "#060505", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw840db8e9/images/X7XO/hires/AX7L_1366x443_StealthBlack.png") },
+      { name: "Ruby Velvet", hex: "#2d0406", image: "/images/cars/colors/AX7L_RubyVelvet.png" },
+      { name: "Everest White", hex: "#bab9b9", image: "/images/cars/colors/AX7L_EverestWhite.png" },
+      { name: "Nebula Blue", hex: "#0A161F", image: "/images/cars/colors/AX7L_NebulaBlue.png" },
+      { name: "Midnight Black", hex: "#171f3c", image: "/images/cars/colors/AX7L_MidNightBlack.png" },
+      { name: "Desert Myst", hex: "#ded6ce", image: "/images/cars/colors/AX7L_DesertMyst.png" },
+      { name: "Galaxy Grey", hex: "#575a63", image: "/images/cars/colors/AX7L_GalaxyGrey.png" },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/AX7L_StealthBlack.png" },
     ],
     seating: "5 / 7",
     mileage: "Up to 17 kmpl (petrol) / 18.3 kmpl (diesel)",
@@ -503,7 +488,7 @@ export const cars: Car[] = [
     image: "/cars/marazzo-arnav.webp",
     alt: "Mahindra Marazzo MPV, dealer product shot",
     colors: [
-      { name: "Everest White", hex: "#cfcdcd", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw624c0294/images/MRZO/large/marazzo_1_white_900x439.png") },
+      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/marazzo_1_white_900x439.png" },
     ],
     seating: "6 / 7 / 8",
     mileage: "Up to 17.6 kmpl",
@@ -527,13 +512,13 @@ export const cars: Car[] = [
     fuel: "Diesel",
     blurb: "Decades of rugged reliability, high ground clearance and unmatched go-anywhere capability.",
     cta: "Explore the Bolero",
-    image: mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw2de0a99b/images/BOL/large/BoleroClassic_602x339.png"),
+    image: "/cars/bolero.png",
     alt: "Mahindra Bolero SUV, official product shot",
     colors: [
-      { name: "Stealth Black", hex: "#060505", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw9bf83765/images/BOL/hires/B8_Stealth_Black_1366x443.png") },
-      { name: "Diamond White", hex: "#e3dfd0", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwef286e0f/images/BOL/hires/B8_Diamond_White_1366x443.png") },
-      { name: "Dsat Silver", hex: "#4e4e51", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw8e8775f8/images/BOL/hires/B8_Dsat_Silver_1366x443.png") },
-      { name: "Rockey Beige", hex: "#242612", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw8944ff50/images/BOL/hires/B8_Rockey_Beige_1366x443.png") },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/B8_Stealth_Black.png" },
+      { name: "Diamond White", hex: "#e3dfd0", image: "/images/cars/colors/B8_Diamond_White.png" },
+      { name: "Dsat Silver", hex: "#4e4e51", image: "/images/cars/colors/B8_Dsat_Silver.png" },
+      { name: "Rockey Beige", hex: "#242612", image: "/images/cars/colors/B8_Rockey_Beige.png" },
     ],
     seating: "7",
     mileage: "Up to 17 kmpl",
@@ -560,13 +545,13 @@ export const cars: Car[] = [
     image: "/cars/bolero-neo-fixed.png",
     alt: "Mahindra Bolero Neo compact SUV, official product shot",
     colors: [
-      { name: "Jeans Blue DT", hex: "#071f35", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw58759e71/images/NEO/hires/N11_Jeans_Blue_1366x443.png") },
-      { name: "Stealth Black", hex: "#060505", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw43729440/images/NEO/hires/N11_Stealth_Black_1366x443.png") },
-      { name: "Rockey Beige", hex: "#242612", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwea5a7ad0/images/NEO/hires/N10_Opt_Rocky_Beige.png") },
-      { name: "Pearl White", hex: "#b0a9a4", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw3a9400c0/images/NEO/hires/N11_Everest_White_1366x443.png") },
-      { name: "Diamond White", hex: "#e3dfd0", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw3a9400c0/images/NEO/hires/N11_Everest_White_1366x443.png") },
-      { name: "Pearl White DT", hex: "#cfcdcd", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw3a9400c0/images/NEO/hires/N11_Everest_White_1366x443.png") },
-      { name: "Jeans Blue", hex: "#071f35", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw5770d0c0/images/NEO/hires/N10_Opt_Jeans_Blue.png") },
+      { name: "Jeans Blue DT", hex: "#071f35", image: "/images/cars/colors/N11_Jeans_Blue.png" },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/N11_Stealth_Black.png" },
+      { name: "Rockey Beige", hex: "#242612", image: "/images/cars/colors/N10_Opt_Rocky_Beige.png" },
+      { name: "Pearl White", hex: "#b0a9a4", image: "/images/cars/colors/N11_Everest_White.png" },
+      { name: "Diamond White", hex: "#e3dfd0", image: "/images/cars/colors/N11_Everest_White.png" },
+      { name: "Pearl White DT", hex: "#cfcdcd", image: "/images/cars/colors/N11_Everest_White.png" },
+      { name: "Jeans Blue", hex: "#071f35", image: "/images/cars/colors/N10_Opt_Jeans_Blue.png" },
     ],
     seating: "7",
     mileage: "Up to 17.5 kmpl",
@@ -593,9 +578,9 @@ export const cars: Car[] = [
     image: "/cars/bolero-neo-plus-fixed.png",
     alt: "Mahindra Bolero Neo Plus 9-seater SUV, official product shot",
     colors: [
-      { name: "Dsat Silver", hex: "#4e4e51", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw9a84dc83/images/NEOP/hires/P10_MajesticSilver_1366x443.png") },
-      { name: "Diamond White", hex: "#e3dfd0", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwc69e00d8/images/NEOP/hires/P10_DiamondWhite_1366x443.png") },
-      { name: "Napoli Black", hex: "#242424", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw87aaac3e/images/NEOP/hires/P10_NapoliBlack_1366x443.png") },
+      { name: "Dsat Silver", hex: "#4e4e51", image: "/images/cars/colors/P10_MajesticSilver.png" },
+      { name: "Diamond White", hex: "#e3dfd0", image: "/images/cars/colors/P10_DiamondWhite.png" },
+      { name: "Napoli Black", hex: "#242424", image: "/images/cars/colors/P10_NapoliBlack.png" },
     ],
     seating: "9",
     mileage: "Up to 14 kmpl",
@@ -619,7 +604,7 @@ export const cars: Car[] = [
     fuel: "Electric",
     blurb: "Blistering acceleration, a long real-world range and Mahindra's familiar SUV comfort, now electric.",
     cta: "Explore the XUV400",
-    image: mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dweb7ab251/images/X400/large/XUV400_602x339.png"),
+    image: "/cars/xuv400.png",
     alt: "Mahindra XUV400 electric SUV, official product shot",
     /* XUV400's official page lists these colour names in its spec table, but
        unlike the other models its "colour experience" is a WebGL 3D viewer,
@@ -629,10 +614,10 @@ export const cars: Car[] = [
        auto.mahindra.com (Thar/XUV7XO/Scorpio-N above); the single shared
        image mirrors the source site's own lack of a per-colour photo. */
     colors: [
-      { name: "Stealth Black", hex: "#060505", image: mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dweb7ab251/images/X400/large/XUV400_602x339.png") },
-      { name: "Galaxy Grey", hex: "#575a63", image: mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dweb7ab251/images/X400/large/XUV400_602x339.png") },
-      { name: "Nebula Blue", hex: "#07132a", image: mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dweb7ab251/images/X400/large/XUV400_602x339.png") },
-      { name: "Everest White", hex: "#cfcdcd", image: mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dweb7ab251/images/X400/large/XUV400_602x339.png") },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/XUV400_602x339.png" },
+      { name: "Galaxy Grey", hex: "#575a63", image: "/images/cars/colors/XUV400_602x339.png" },
+      { name: "Nebula Blue", hex: "#07132a", image: "/images/cars/colors/XUV400_602x339.png" },
+      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/XUV400_602x339.png" },
     ],
     seating: "5",
     mileage: "Up to 456 km range per charge (MIDC, 39.4 kWh)",
@@ -660,14 +645,14 @@ export const cars: Car[] = [
     image: "/cars/xev9e-rubyvelvet-transparent.png",
     alt: "Mahindra XEV 9e electric SUV coupe in Ruby Velvet, product shot (CarDekho)",
     colors: [
-      { name: "Ruby Velvet", hex: "#2d0406", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dw89803c7f/images/XEV9E/m_hires_gallery/Ruby%20Velvet/1-1.jpg" },
-      { name: "Deep Forest", hex: "#282d22", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dw413d5f2a/images/XEV9E/m_hires_gallery/Deep%20Forest/205A1252.jpg" },
-      { name: "Desert Myst", hex: "#C0BEB7", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dwa725bb7e/images/XEV9E/m_hires_gallery/Desert%20Myst%20Gloss/205A1271.jpg" },
-      { name: "Tango Red", hex: "#970211", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dw615d5b6c/images/XEV9E/m_hires_gallery/Tango%20Red/1-1.jpg" },
-      { name: "Everest White", hex: "#cfcdcd", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dw39f02b90/images/XEV9E/m_hires_gallery/Everest%20White%20Gloss/1-1.jpg" },
-      { name: "Stealth Black", hex: "#060505", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dwfa8d64e6/images/XEV9E/m_hires_gallery/Stealth%20Black/205A0780.jpg" },
-      { name: "Nebula Blue", hex: "#07132a", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dwe87fcc7e/images/XEV9E/m_hires_gallery/Nebula%20Blue/205A0825.jpg" },
-      { name: "Desert Myst Satin", hex: "#C0BEB7", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dw69a1ac2b/images/CINE-LUXE/hires/Desert_Myst_Matte_1366x600.png" },
+      { name: "Ruby Velvet", hex: "#2d0406", image: "/images/cars/colors/XEV9E_RubyVelvet.jpg" },
+      { name: "Deep Forest", hex: "#282d22", image: "/images/cars/colors/XEV9E_DeepForest.jpg" },
+      { name: "Desert Myst", hex: "#C0BEB7", image: "/images/cars/colors/XEV9E_DesertMyst.jpg" },
+      { name: "Tango Red", hex: "#970211", image: "/images/cars/colors/XEV9E_TangoRed.jpg" },
+      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/XEV9E_EverestWhite.jpg" },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/XEV9E_StealthBlack.jpg" },
+      { name: "Nebula Blue", hex: "#07132a", image: "/images/cars/colors/XEV9E_NebulaBlue.jpg" },
+      { name: "Desert Myst Satin", hex: "#C0BEB7", image: "/images/cars/colors/XEV9E_DesertMystSatin.png" },
     ],
     seating: "5",
     mileage: "Up to 656 km range per charge (claimed, long-range battery)",
@@ -695,14 +680,14 @@ export const cars: Car[] = [
     image: "/cars/be6-everest-white.png",
     alt: "Mahindra BE 6 electric SUV coupe in Everest White, official product image",
     colors: [
-      { name: "Everest White", hex: "#cfcdcd", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dwb5cf69b8/images/BE6/m_hires_gallery/Everest%20White%20-%20Gloss/205A1064.jpg" },
-      { name: "Firestorm Orange", hex: "#F2745E", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dw56364db8/images/BE6/m_hires_gallery/Firestrom%20Orange/1.jpg" },
-      { name: "Desert Myst", hex: "#C0BEB7", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dwc14fc1c7/images/BE6/m_hires_gallery/Desert%20Myst%20-%20Gloss/1739270871509.jpg" },
-      { name: "Desert Myst Satin", hex: "#C0BEB7", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dwe945155b/images/BE6/m_hires_gallery/Desert%20Myst%20-%20Satin/205A1173.jpg" },
-      { name: "Tango Red", hex: "#970211", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dw4c801fa2/images/BE6/m_hires_gallery/Tango%20Red/205A1298.jpg" },
-      { name: "Everest White Satin", hex: "#cfcdcd", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dwa62aab68/images/BE6/m_hires_gallery/Everest%20White%20-%20Satin/205A1373.jpg" },
-      { name: "Stealth Black", hex: "#060505", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dw6052aec8/images/BE6/m_hires_gallery/Stealth%20Black/205A1333-2.jpg" },
-      { name: "Deep Forest", hex: "#282d22", image: "https://www.mahindraelectricsuv.com/on/demandware.static/-/Sites-esuv-product-catalog/default/dwec8dd633/images/BE6/m_hires_gallery/Deep%20Forest/205A1127.jpg" },
+      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/BE6_EverestWhite.jpg" },
+      { name: "Firestorm Orange", hex: "#F2745E", image: "/images/cars/colors/BE6_FirestormOrange.jpg" },
+      { name: "Desert Myst", hex: "#C0BEB7", image: "/images/cars/colors/BE6_DesertMyst.jpg" },
+      { name: "Desert Myst Satin", hex: "#C0BEB7", image: "/images/cars/colors/BE6_DesertMystSatin.jpg" },
+      { name: "Tango Red", hex: "#970211", image: "/images/cars/colors/BE6_TangoRed.jpg" },
+      { name: "Everest White Satin", hex: "#cfcdcd", image: "/images/cars/colors/BE6_EverestWhiteSatin.jpg" },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/BE6_StealthBlack.jpg" },
+      { name: "Deep Forest", hex: "#282d22", image: "/images/cars/colors/BE6_DeepForest.jpg" },
     ],
     seating: "5",
     mileage: "Up to 682 km range per charge (claimed, long-range battery)",
@@ -732,7 +717,7 @@ export const cars: Car[] = [
        model (no separate "Bolero Maxx Pik-up" product exists on
        auto.mahindra.com), and that model is offered in one colour only. */
     colors: [
-      { name: "White", hex: "#e3dfd0", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw43b21d88/images/PUP/hires/26_01_PIK-UP_Desktop%20_1366x443_OUTDOOR.png") },
+      { name: "White", hex: "#e3dfd0", image: "/images/cars/colors/26_01_PIK-UP_Desktop-_OUTDOOR.png" },
     ],
     seating: "2 / 3",
     mileage: "Up to 17 kmpl",
@@ -784,13 +769,13 @@ export const cars: Car[] = [
     fuel: "Petrol · CNG",
     blurb: "A factory-fitted CNG pickup built for operators who want lower running costs on every trip.",
     cta: "Explore the Maxx City CNG",
-    image: mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw318e4450/images/MAXX/large/MAXX.png"),
+    image: "/cars/maxx-city-cng.png",
     alt: "Mahindra Maxx City CNG pickup, official product shot",
     /* Official model is "Bolero MaXX City"; CNG is a fuelType variant of the
        same product, not a separate colour-branded model, and it's offered
        in one colour only. */
     colors: [
-      { name: "White", hex: "#e3dfd0", image: mahindra("/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw9b809732/images/MAXX/hires/Gallery%20and%20colour_Studio%201366x443.png") },
+      { name: "White", hex: "#e3dfd0", image: "/images/cars/colors/Gallery-and-colour_Studio-1366x443.png" },
     ],
     seating: "2 / 3",
     mileage: "Up to 14.5 km/kg (CNG)",
@@ -905,56 +890,56 @@ export const testimonials: Testimonial[] = [
     role: "Scorpio-N owner",
     rating: 5,
     text: "The team walked me through every variant without any pressure. Delivery was on time and the car was spotless.",
-    avatar: stock("photo-1500648767791-00dcc994a43e", 200),
+    avatar: "/images/testimonials/rahul-mehta.jpg",
   },
   {
     name: "Sneha Iyer",
     role: "XUV 3XO owner",
     rating: 5,
     text: "Booking to delivery was smooth and completely transparent. The finance desk got me a rate I did not expect.",
-    avatar: stock("photo-1494790108377-be9c29b29330", 200),
+    avatar: "/images/testimonials/sneha-iyer.jpg",
   },
   {
     name: "Amit Verma",
     role: "XUV 7XO owner",
     rating: 5,
     text: "Service here is genuinely a step above. They explained the work, shared photos and stuck to the estimate.",
-    avatar: stock("photo-1507003211169-0a1dd7228f2d", 200),
+    avatar: "/images/testimonials/amit-verma.jpg",
   },
   {
     name: "Priya Nair",
     role: "Thar owner",
     rating: 5,
     text: "As a first-time SUV buyer I had endless questions. They were patient and helped me pick the right variant for my budget.",
-    avatar: stock("photo-1438761681033-6461ffad8d80", 200),
+    avatar: "/images/testimonials/priya-nair.jpg",
   },
   {
     name: "Karan Malhotra",
     role: "Thar Roxx owner, Thane",
     rating: 5,
     text: "The Thar Roxx handover was flawless. Great attention to detail and no last-minute surprises on the on-road price.",
-    avatar: stock("photo-1506794778202-cad84cf45f1d", 200),
+    avatar: "/images/testimonials/karan-malhotra.jpg",
   },
   {
     name: "Deepa Rao",
     role: "Bolero owner, Thane",
     rating: 5,
     text: "Serviced my Bolero at the Wagle Estate centre. Quick, courteous, and the free pickup and drop saved me a whole day.",
-    avatar: stock("photo-1544005313-94ddf0286df2", 200),
+    avatar: "/images/testimonials/deepa-rao.jpg",
   },
   {
     name: "Farhan Shaikh",
     role: "XUV 7XO owner, Navi Mumbai",
     rating: 5,
     text: "Booked from the Airoli showroom. They were upfront about the waiting period and kept me updated the whole way.",
-    avatar: stock("photo-1633332755192-727a05c4013d", 200),
+    avatar: "/images/testimonials/farhan-shaikh.jpg",
   },
   {
     name: "Anjali Desai",
     role: "XUV400 owner, Mumbai",
     rating: 5,
     text: "Loved how patient they were with a first-time EV buyer. The charging and finance options were explained clearly, no jargon.",
-    avatar: stock("photo-1580489944761-15a19d654956", 200),
+    avatar: "/images/testimonials/anjali-desai.jpg",
   },
 ];
 
@@ -1009,28 +994,28 @@ export const blogs: Blog[] = [
     date: "24 Jun 2026",
     category: "Models",
     title: "Thar Roxx vs Thar: which one should you actually buy?",
-    image: mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwa4de1cb1/images/TH5D/large/Thar_Roxx_602x339.png"),
+    image: "/images/cars/colors/Thar_Roxx_602x339.png",
     alt: "Mahindra Thar Roxx exterior styling",
   },
   {
     date: "18 Jun 2026",
     category: "Ownership",
     title: "Why the XUV 7XO is the family road-trip SUV to beat",
-    image: mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw3a9ff783/images/X7XO/large/AX7L_602x339_RubyVelvet.png"),
+    image: "/images/cars/colors/AX7L_602x339_RubyVelvet.png",
     alt: "Mahindra XUV 7XO on a family road trip",
   },
   {
     date: "09 Jun 2026",
     category: "Service",
     title: "5 Monsoon Car-Care Tips Every Mahindra Owner Should Know",
-    image: mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw14737114/images/SCN/large/ScorpioN_602x339.png"),
+    image: "/images/cars/colors/ScorpioN_602x339.png",
     alt: "Mahindra Scorpio-N SUV in the monsoon, car-care tips",
   },
   {
     date: "02 Jun 2026",
     category: "Finance",
     title: "Car Loan or Lease in 2026: Which Actually Saves You More?",
-    image: mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwc4930484/images/X3XO/large/S220_602x339.png"),
+    image: "/images/cars/colors/S220_602x339.png",
     alt: "Mahindra XUV 3XO parked outdoors",
   },
 ];
@@ -1043,6 +1028,15 @@ export type Location = {
   phone: string;
   image: string;
   mapsUrl: string;
+  // Google's feature ID (ftid) for the exact place, resolved from mapsUrl.
+  // Passing this to the map embed makes its own "Open in maps" link deep-link
+  // to this precise place instead of falling back to a text search.
+  ftid: string;
+  // Exact coordinates, resolved from mapsUrl. Querying the map embed by
+  // coordinates (rather than name/address text) guarantees a pin drops
+  // exactly on the place instead of Google's best-guess text match.
+  lat: number;
+  lng: number;
 };
 
 /* Real Mahindra Modi outlets, sourced from the parent Gautam Modi Group's
@@ -1055,8 +1049,11 @@ export const locations: Location[] = [
     city: "Thane",
     address: "Survey No 412, Ashar Compound, Rd No 27, Wagle Industrial Estate, Thane West, Maharashtra 400604",
     phone: "84699 89900",
-    image: "https://bunny-wp-pullzone-cghvklkcns.b-cdn.net/wp-content/uploads/2026/02/Mahindra-thane-showoom-scaled.jpeg",
+    image: "/images/locate-us/thane-showroom.webp",
     mapsUrl: "https://maps.app.goo.gl/hV126JsMg6duaCmE9",
+    ftid: "0x3be7b9b401811351:0xcbb5fcaac0213170",
+    lat: 19.1944532,
+    lng: 72.946498,
   },
   {
     name: "Mahindra - Airoli Showroom",
@@ -1064,8 +1061,11 @@ export const locations: Location[] = [
     city: "Navi Mumbai",
     address: "Hissa No 1, Akshar Green World, Shop 27A 27B, Gate 242, Thane Belapur Rd, Airoli, Maharashtra 400708",
     phone: "82387 85050",
-    image: "https://bunny-wp-pullzone-cghvklkcns.b-cdn.net/wp-content/uploads/2026/03/mahindra-airoli-showroom.jpeg",
+    image: "/images/locate-us/airoli-showroom.webp",
     mapsUrl: "https://maps.app.goo.gl/LgYCDcro2fgQ7zceA",
+    ftid: "0x3be7bfb7133a6f61:0x955ceba73006b316",
+    lat: 19.1842157,
+    lng: 72.9930943,
   },
   {
     name: "Mahindra - South Mumbai",
@@ -1073,8 +1073,11 @@ export const locations: Location[] = [
     city: "Mumbai",
     address: "Unit 48, 69 Atria - The Millennium Mall, Dr Annie Besant Rd, Lotus Colony, Worli, Mumbai, Maharashtra 400018",
     phone: "84699 89900",
-    image: "https://bunny-wp-pullzone-cghvklkcns.b-cdn.net/wp-content/uploads/2026/04/Untitled-design-31.png",
+    image: "/images/locate-us/south-mumbai-showroom.webp",
     mapsUrl: "https://maps.app.goo.gl/rAW8jjtkcfj6HXZNA",
+    ftid: "0x3be7ce8641a673a7:0x2e73544bb5657fff",
+    lat: 18.9912457,
+    lng: 72.8144358,
   },
   {
     name: "Mahindra - Charkop Service Centre",
@@ -1082,8 +1085,11 @@ export const locations: Location[] = [
     city: "Mumbai",
     address: "Plot 95/96, Mahatma Gandhi Rd, Hindustan Naka, Charkop Industrial Estate, Kandivali West, Mumbai, Maharashtra 400067",
     phone: "84699 89900",
-    image: "https://bunny-wp-pullzone-cghvklkcns.b-cdn.net/wp-content/uploads/2026/03/charkop-_1_.png-scaled.jpg",
+    image: "/images/locate-us/charkop-service.webp",
     mapsUrl: "https://maps.app.goo.gl/cgV166Va4iuyVuky7",
+    ftid: "0x3be7b75555bdaf83:0xed5e86c80f211998",
+    lat: 19.2093452,
+    lng: 72.8298505,
   },
   {
     name: "Mahindra - Sewri Service Center",
@@ -1091,8 +1097,11 @@ export const locations: Location[] = [
     city: "Mumbai",
     address: "Sewree Fort, Best Saparia Sub Station, Sewri - Chembur Rd, BPCL Complex, Sewri, Mumbai, Maharashtra 400015",
     phone: "84699 89900",
-    image: "https://bunny-wp-pullzone-cghvklkcns.b-cdn.net/wp-content/uploads/2026/04/Sewri-workshop-image.png",
+    image: "/images/blogs/sewri-workshop.png",
     mapsUrl: "https://maps.app.goo.gl/GbXbyiRbsUHrxUr58",
+    ftid: "0x3be7cf1a54cf9235:0x42a17a954159a947",
+    lat: 19.0024134,
+    lng: 72.8608805,
   },
 ];
 
@@ -1103,8 +1112,8 @@ export const popularCars = popularNames
   .map((n) => cars.find((c) => c.name === n))
   .filter((c): c is Car => Boolean(c));
 
-export const testDriveImage = mahindra("/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw14737114/images/SCN/large/ScorpioN_602x339.png");
-export const serviceHeroImage = "https://bunny-wp-pullzone-cghvklkcns.b-cdn.net/wp-content/uploads/2026/03/charkop-_1_.png-2048x1365.jpg";
+export const testDriveImage = "/images/home/test-drive-interior.jpg";
+export const serviceHeroImage = "/images/service/service-hero.webp";
 export const carModels = cars.map((c) => c.name);
 export const cityOptions = ["Thane", "Navi Mumbai", "Mumbai"];
 export const serviceCentres = locations.filter((l) => l.type === "Service Centre");

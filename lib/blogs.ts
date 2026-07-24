@@ -73,7 +73,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min read",
     date: "15 Jul 2026",
     image:
-      "https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw3a9ff783/images/X7XO/large/AX7L_602x339_RubyVelvet.png",
+      "/images/cars/colors/AX7L_602x339_RubyVelvet.png",
     alt: "Mahindra XUV 7XO on a highway",
     featured: true,
     content: [
@@ -92,7 +92,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min read",
     date: "12 Jul 2026",
     image:
-      "https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw14737114/images/SCN/large/ScorpioN_602x339.png",
+      "/images/cars/colors/ScorpioN_602x339.png",
     alt: "Mahindra Scorpio-N parked at dusk",
     content: [
       `On paper the Scorpio-N and the XUV 7XO look like they compete directly: both are seven-seat capable, both come with a 2.0L turbo petrol and a 2.2L diesel, and both wear the Mahindra badge with pride. In practice they are built for different buyers.`,
@@ -110,7 +110,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "4 min read",
     date: "10 Jul 2026",
     image:
-      "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1200&q=80",
+      "/images/blogs/suv-maintenance-tips.jpg",
     alt: "Mechanic inspecting an SUV in a service bay",
     content: [
       `A Mahindra SUV is built to handle Indian roads for the long haul, but a few consistent habits make the difference between a car that feels new at 80,000 km and one that starts to feel tired at 40,000 km.`,
@@ -145,7 +145,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "4 min read",
     date: "08 Jul 2026",
     image:
-      "https://bunny-wp-pullzone-cghvklkcns.b-cdn.net/wp-content/uploads/2026/04/Sewri-workshop-image.png",
+      "/images/blogs/sewri-workshop.png",
     alt: "Mahindra service centre bay with car undergoing maintenance",
     imagePosition: "object-[25%_center] scale-110",
     content: [
@@ -164,7 +164,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min read",
     date: "07 Jul 2026",
     image:
-      "https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dweb7ab251/images/X400/large/XUV400_602x339.png",
+      "/images/cars/colors/XUV400_602x339.png",
     alt: "Mahindra XUV400 electric SUV",
     content: [
       `Mahindra now offers three distinct electric SUVs, each aimed at a different buyer, and it is worth understanding the differences before choosing one over a petrol or diesel model.`,
@@ -183,8 +183,8 @@ export const blogPosts: BlogPost[] = [
     readTime: "3 min read",
     date: "05 Jul 2026",
     image:
-      "https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=1200&q=80",
-    alt: "New cars lined up at a festive dealership event",
+      "/images/blogs/festive-offers.jpg",
+    alt: "A salesperson handing over a car key to a new buyer",
     content: [
       `This month brings some of the strongest combined offers we have run all year across the Mahindra range at Mahindra Modi, and they can be stacked depending on your purchase.`,
       `A cash discount of up to ₹50,000 is available on select models booked this season, on top of an exchange bonus of up to ₹40,000 when you trade in your current car, new or used, any make. Corporate and fleet buyers get an additional ₹40,000 corporate benefit on eligible purchases.`,
@@ -201,8 +201,8 @@ export const blogPosts: BlogPost[] = [
     readTime: "4 min read",
     date: "18 Jun 2026",
     image:
-      "https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw3a9ff783/images/X7XO/large/AX7L_602x339_RubyVelvet.png",
-    alt: "Mahindra XUV 7XO on a family road trip",
+      "/images/blogs/family-road-trip.jpg",
+    alt: "An SUV driving on an open road toward misty mountains, family road trip",
     content: [
       `Long drives expose an SUV's weaknesses fast: a stiff ride wears everyone down by hour three, a cramped third row causes arguments, and a noisy cabin makes conversation exhausting. The XUV 7XO is built with exactly these problems in mind.`,
       `With seating for ${xuv7xo.seating.replace("/", " or ")} and ${xuv7xo.bootSpace.toLowerCase()}, it comfortably swallows luggage for a full family trip without folding seats down. Adaptive cruise control on ADAS-equipped trims takes the edge off long highway stretches, and the dual 10.25 inch screens keep the second row entertained without a separate tablet.`,
@@ -219,8 +219,8 @@ export const blogPosts: BlogPost[] = [
     readTime: "4 min read",
     date: "28 Jun 2026",
     image:
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
-    alt: "Close-up of an SUV interior with accessories fitted",
+      "/images/blogs/genuine-accessories.jpg",
+    alt: "Close-up of an SUV roof rack and rails accessory fitted",
     content: [
       `Every new Mahindra owner gets pitched an accessories list at delivery, and it is easy to either buy everything or dismiss all of it. Neither approach is right. A few genuine accessories genuinely pay for themselves.`,
       `All-weather rubber floor mats are close to essential in a country with a real monsoon: they protect the factory carpet from years of mud and water damage and are trivial to hose down. A boot liner does the same job for your cargo area if you carry gear, tools, or groceries regularly.`,
@@ -237,8 +237,8 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min read",
     date: "02 Jun 2026",
     image:
-      "https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwc4930484/images/X3XO/large/S220_602x339.png",
-    alt: "Mahindra XUV 3XO parked outdoors",
+      "/images/blogs/car-loan-lease.jpg",
+    alt: "Close-up of a hand signing a vehicle finance agreement",
     content: [
       `A car loan and a lease solve the same problem, getting you into a new Mahindra without paying the full price upfront, but they suit different financial situations and different ownership plans.`,
       `A loan builds equity. Once it is paid off, the car is fully yours, and you can keep driving it with no monthly payment, sell it, or hand it down. It is the better option if you plan to keep the car for 6 years or more, or if you drive high annual mileage where lease distance caps would hurt you.`,
@@ -255,7 +255,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min read",
     date: "24 Jun 2026",
     image:
-      "https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dwa4de1cb1/images/TH5D/large/Thar_Roxx_602x339.png",
+      "/images/cars/colors/Thar_Roxx_602x339.png",
     alt: "Mahindra Thar Roxx exterior styling",
     content: [
       `The Thar built a cult following as a raw, 3-door, go-anywhere off-roader, and the Thar Roxx exists because a lot of that same audience also wanted a back seat their friends could actually use. That is really the whole decision in one sentence.`,
@@ -273,8 +273,8 @@ export const blogPosts: BlogPost[] = [
     readTime: "4 min read",
     date: "09 Jun 2026",
     image:
-      "https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw14737114/images/SCN/large/ScorpioN_602x339.png",
-    alt: "Mahindra Scorpio-N SUV in the monsoon",
+      "/images/blogs/monsoon-car-care.jpg",
+    alt: "View through a rain-soaked windshield in heavy monsoon traffic",
     content: [
       `Mumbai and Thane monsoons are hard on cars, and most of the breakdowns we see in July and August trace back to a handful of avoidable issues. A short pre-monsoon check saves a lot of roadside stress.`,
       `First, check tyre tread depth. Worn tyres lose grip dramatically on wet roads, and this is the single biggest factor in monsoon accidents. Second, test your wiper blades before the first heavy downpour, not during it, since cracked rubber smears more than it clears.`,
@@ -291,8 +291,8 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min read",
     date: "07 Jul 2026",
     image:
-      "https://auto.mahindra.com/dw/image/v2/BKRC_PRD/on/demandware.static/-/Sites-mahindra-product-catalog/default/dw2de0a99b/images/BOL/large/BoleroClassic_602x339.png",
-    alt: "Mahindra Bolero SUV, price breakdown reference",
+      "/images/blogs/gst-on-road-price.jpg",
+    alt: "Calculator and paperwork laid out for a price breakdown",
     content: [
       `The ex-showroom price on a brochure is never what you actually pay, and the gap can catch first-time buyers off guard. Here is what actually sits between that number and your final on-road price.`,
       `Ex-showroom price already includes GST and the applicable compensation cess, both baked in at the factory level, so this is the base you negotiate from. On top of that comes RTO registration, which varies by state and by fuel type, and is typically the single largest add-on cost after the car itself.`,

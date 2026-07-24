@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { locations, type Location } from "@/lib/data";
-import { ArrowRight, MapPin, Phone } from "./icons";
+import { ArrowRight, ArrowUpRight, MapPin, Phone } from "./icons";
 import Reveal from "./Reveal";
 
 const tabs: { label: string; type: Location["type"] }[] = [
@@ -10,8 +10,16 @@ const tabs: { label: string; type: Location["type"] }[] = [
   { label: "Service Centres", type: "Service Centre" },
 ];
 
-const mapEmbedSrc = (address: string) =>
-  `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
+// Querying by name/address text is unreliable: Google sometimes resolves it
+// to an entirely different, more prominent nearby business (ftid gets
+// ignored by this legacy, keyless embed) or fails to resolve any business at
+// all. Querying by exact coordinates instead always drops the red pin in the
+// right spot. The tradeoff is that a bare coordinate query has no business
+// tied to it, so Google shows no default "Open in maps" pill and the pin's
+// info window fails to load — we render our own pill over the map for that
+// instead (see the overlay below), always pointing at the correct mapsUrl.
+const mapEmbedSrc = (lat: number, lng: number) =>
+  `https://www.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
 
 export default function LocateUs() {
   const [activeType, setActiveType] = useState<Location["type"]>("Showroom");
@@ -139,14 +147,35 @@ export default function LocateUs() {
             className="overflow-hidden rounded-[1.5rem] border border-border bg-white shadow-[0_10px_40px_0_rgba(0,0,0,0.08)]"
           >
             <div className="relative h-[320px] border-b border-border bg-bg-2 sm:h-[420px]">
+              {/* pointer-events-none: the pin has no business tied to it (see
+                  mapEmbedSrc above), so clicking it just pops up a broken
+                  "Place info couldn't load" box. Disabling pointer events on
+                  the iframe blocks that (and all other map interaction),
+                  leaving our own "Open in maps" pill below as the only way
+                  to interact with this preview. */}
               <iframe
                 key={selectedLocation.name}
-                src={mapEmbedSrc(selectedLocation.address)}
+                src={mapEmbedSrc(selectedLocation.lat, selectedLocation.lng)}
                 title={`Map for ${selectedLocation.name}`}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="absolute inset-0 h-full w-full border-0"
+                className="pointer-events-none absolute inset-0 h-full w-full border-0"
               />
+              {/* The coordinate-only embed above has no business tied to it,
+                  so Google renders no "Open in maps" pill of its own here.
+                  This is our own pill instead, always pointing at the exact
+                  mapsUrl so it matches "Get Directions" below. */}
+              <a
+                key={`${selectedLocation.name}-open-in-maps`}
+                href={selectedLocation.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Open ${selectedLocation.name} in Google Maps`}
+                className="absolute left-3 top-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-blue-700 shadow-md transition-colors hover:bg-bg-2"
+              >
+                Open in Maps
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/55 to-transparent" />
             </div>
 

@@ -54,7 +54,10 @@ export default function BlogsExplorer() {
 
       {/* FEATURED STORY — only shown for the unfiltered "All" view */}
       {category === "All" && (
-        <section className="mt-8 lg:mt-12 group relative w-full overflow-hidden rounded-2xl bg-black">
+        <Link
+          href={`/blogs/${featuredPost.slug}`}
+          className="mt-8 lg:mt-12 group relative block w-full overflow-hidden rounded-2xl bg-black"
+        >
           <div className="absolute inset-0 z-0">
             <img
               src={featuredPost.image}
@@ -75,12 +78,9 @@ export default function BlogsExplorer() {
               {featuredPost.excerpt}
             </p>
             <div className="flex flex-wrap items-center gap-6">
-              <Link
-                href={`/blogs/${featuredPost.slug}`}
-                className="rounded-md bg-brand px-6 py-3 text-sm font-bold text-white shadow-md transition-colors hover:bg-brand-light"
-              >
+              <span className="rounded-md bg-brand px-6 py-3 text-sm font-bold text-white shadow-md transition-colors group-hover:bg-brand-light">
                 Read More
-              </Link>
+              </span>
               <div className="flex items-center gap-4 text-xs font-medium text-white/70">
                 <span className="flex items-center gap-1">
                   <Clock className="h-4 w-4" />
@@ -93,7 +93,7 @@ export default function BlogsExplorer() {
               </div>
             </div>
           </div>
-        </section>
+        </Link>
       )}
 
       {/* LATEST ARTICLES */}

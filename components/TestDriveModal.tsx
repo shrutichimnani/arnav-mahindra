@@ -10,9 +10,11 @@ import TestDriveWizard from "./TestDriveWizard";
    verified phone locked in. */
 export default function TestDriveModal({
   carSlug,
+  source,
   onClose,
 }: {
   carSlug?: string;
+  source?: string;
   onClose: () => void;
 }) {
   // Escape to close.
@@ -46,6 +48,8 @@ export default function TestDriveModal({
 
         <div className="max-h-[calc(100vh-4rem)] overflow-y-auto p-6 sm:p-8">
           <OtpGate
+            source={source ?? "test_drive_popup"}
+            heroImage={{ src: "/about/showroom-dusk.jpg", alt: "Mahindra Modi showroom at dusk" }}
           >
             {({ phone, onResetPhone }) => (
               <div>

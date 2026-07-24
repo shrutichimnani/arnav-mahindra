@@ -279,6 +279,7 @@ export default function AboutPage() {
             </p>
             <div className="mt-2 flex flex-wrap justify-center gap-3">
               <TestDriveTrigger
+                source="about_page"
                 variant="button"
                 className="group inline-flex items-center gap-2 rounded bg-brand px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-brand-light"
               >

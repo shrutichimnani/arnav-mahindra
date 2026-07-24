@@ -90,6 +90,18 @@ body {
   overflow-x: hidden;
 }
 
+a,
+button,
+summary,
+select,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+[role="button"],
+[tabindex]:not([tabindex="-1"]) {
+  cursor: pointer !important;
+}
+
 ::selection {
   background: var(--brand);
   color: #fff;
