@@ -6,6 +6,7 @@ import JsonLd from "@/components/JsonLd";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 import TestDriveModalProvider from "@/components/TestDriveModalProvider";
 import PhoneVerificationProvider from "@/components/PhoneVerificationProvider";
+import UtmCapture from "@/components/UtmCapture";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -104,6 +105,7 @@ export default function RootLayout({
           <TestDriveModalProvider>
             {children}
             <WhatsAppWidget />
+            <UtmCapture />
           </TestDriveModalProvider>
         </PhoneVerificationProvider>
       </body>
