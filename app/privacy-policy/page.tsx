@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import Reveal from "@/components/Reveal";
+import BackLink from "@/components/BackLink";
 import { SITE_URL } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy",
+  title: "Privacy Policy | Mahindra Modi",
   description: "Privacy Policy for Mahindra Modi - Arnav Automobiles Pvt Ltd.",
   alternates: { canonical: "/privacy-policy" },
 };
@@ -20,12 +20,7 @@ export default function PrivacyPolicyPage() {
       <main style={{ marginTop: "60px" }}>
         <section className="bg-bg-2 py-10 lg:py-14">
           <div className="container-px mx-auto max-w-[800px]">
-            <Link
-              href="/"
-              className="mb-6 inline-flex w-fit items-center gap-1 text-xs font-semibold text-muted hover:text-text transition-colors"
-            >
-              &larr; Back
-            </Link>
+            <BackLink />
             <Reveal>
               <p className="text-xs font-semibold uppercase tracking-wider text-brand">
                 Legal
@@ -122,6 +117,28 @@ export default function PrivacyPolicyPage() {
               If you have any questions about this Privacy Policy, please contact us
               at our showroom in Thane or through the Contact Us page on
               our website.
+            </p>
+
+            <h2 className="font-display text-lg font-bold text-text">
+              9. Communications and NDNC Consent
+            </h2>
+            <p>
+              By sharing your contact details (mobile number, email, etc.) through
+              any form, enquiry, test drive booking, or service request on this
+              website, you expressly consent to receive communication from Mahindra
+              Modi / Arnav Automobiles Pvt Ltd via call, SMS, WhatsApp, email, or
+              other electronic means regarding our products, services, offers, and
+              transactional updates.
+            </p>
+            <p>
+              We respect the National Do Not Call (NDNC) registry and TRAI
+              regulations. Your information is not shared with any third party for
+              telemarketing purposes. If at any time you wish to stop receiving
+              promotional communications from us, you may opt out by replying
+              &ldquo;STOP&rdquo; to any SMS, using the unsubscribe link in our
+              emails, or by contacting our showroom directly. We will process
+              your opt-out request within a reasonable timeframe as prescribed
+              under applicable regulations.
             </p>
 
             <p className="mt-10 text-xs text-faint">

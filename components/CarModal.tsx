@@ -50,6 +50,7 @@ export default function CarModal({
           <Image
             src={car.image}
             alt={car.alt}
+            title={`Mahindra ${car.name}`}
             width={800}
             height={295}
             className="h-auto w-[85%] object-contain drop-shadow-xl"

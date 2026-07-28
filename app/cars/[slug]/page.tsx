@@ -107,17 +107,37 @@ export default async function CarDetailPage({
         "@type": "FAQPage",
         "@id": `${SITE_URL}/cars/${car.slug}#faq`,
         mainEntity: [
-          `What is the price of the ${displayName} in Mumbai?`,
-          `How many variants does the ${displayName} offer?`,
-          `What engine and mileage does the ${displayName} deliver?`,
-          `What are the key features of the ${displayName}?`,
-          `How safe is the ${displayName}?`,
-          `Where can I test drive the ${displayName}?`,
-        ].map((question) => ({
-          "@type": "Question",
-          name: question,
-          acceptedAnswer: { "@type": "Answer", text: `See the ${displayName} FAQs section on this page for the full answer.` },
-        })),
+          {
+            "@type": "Question",
+            name: `What is the price of the ${displayName} in Mumbai?`,
+            acceptedAnswer: { "@type": "Answer", text: car.priceOnRequest ? `The ${displayName} price is available on request. Contact Mahindra Modi in Thane for the latest on-road price in Mumbai, Navi Mumbai and surrounding areas.` : `The ${displayName} starts at ${formatINR(car.priceINR)} ex-showroom. Visit Mahindra Modi in Thane for the exact on-road price in Mumbai including RTO, insurance and registration.` },
+          },
+          {
+            "@type": "Question",
+            name: `How many variants does the ${displayName} offer?`,
+            acceptedAnswer: { "@type": "Answer", text: `The ${displayName} is available in multiple variants across petrol and diesel engine options, with manual and automatic transmissions. Browse the full variant list and features on this page, or contact Mahindra Modi to compare trims.` },
+          },
+          {
+            "@type": "Question",
+            name: `What engine and mileage does the ${displayName} deliver?`,
+            acceptedAnswer: { "@type": "Answer", text: `The ${displayName} comes with a ${car.engine} engine. Fuel efficiency varies by variant and driving conditions. Check the specifications section on this page for detailed mileage figures, or speak with a Mahindra Modi advisor.` },
+          },
+          {
+            "@type": "Question",
+            name: `What are the key features of the ${displayName}?`,
+            acceptedAnswer: { "@type": "Answer", text: `The ${displayName} features include a touchscreen infotainment system, connected car technology, premium upholstery, automatic climate control, push-button start, multi-drive modes and advanced safety equipment. Browse the full feature breakdown on this page.` },
+          },
+          {
+            "@type": "Question",
+            name: `How safe is the ${displayName}?`,
+            acceptedAnswer: { "@type": "Answer", text: `The ${displayName} offers comprehensive safety with multiple airbags, ABS with EBD, electronic stability control, hill-hold assist, ISOFIX child-seat anchors, a 360-degree camera on select variants and a reinforced body structure.` },
+          },
+          {
+            "@type": "Question",
+            name: `Where can I test drive the ${displayName}?`,
+            acceptedAnswer: { "@type": "Answer", text: `You can book a ${displayName} test drive at Mahindra Modi in Thane. Choose a showroom visit or doorstep test drive across Thane, Navi Mumbai and Mumbai. Book online or call us directly to schedule your preferred time slot.` },
+          },
+        ],
       },
     ],
   };

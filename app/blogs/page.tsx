@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { company } from "@/lib/data";
+import Image from "next/image";
+import { company, SITE_URL } from "@/lib/data";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
@@ -9,28 +11,71 @@ import { TestDriveTrigger } from "@/components/TestDriveModalProvider";
 import Reveal from "@/components/Reveal";
 import RestoreScroll from "@/components/RestoreScroll";
 
-export const metadata = {
-  title: "Blogs | Mahindra Modi",
-  description: "Your destination for the latest Mahindra news, expert reviews, buying guides, ownership tips and more.",
+const title = "Mahindra SUV Blogs: Reviews, Buying Guides & Ownership Tips | Mahindra Modi";
+const description = "Expert Mahindra reviews, car buying guides, ownership tips and the latest SUV news from Mahindra Modi, your authorised dealer in Thane, Navi Mumbai and Mumbai.";
+
+export const metadata: Metadata = {
+  title,
+  description,
+  alternates: { canonical: "/blogs" },
+  openGraph: {
+    type: "website",
+    title,
+    description,
+    url: `${SITE_URL}/blogs`,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
+};
+
+const blogPageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": `${SITE_URL}/blogs#webpage`,
+      url: `${SITE_URL}/blogs`,
+      name: "Mahindra Modi Blogs",
+      description,
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: "Blogs", item: `${SITE_URL}/blogs` },
+      ],
+    },
+  ],
 };
 
 export default function BlogsPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPageSchema).replace(/</g, "\\u003c") }}
+      />
       <Navbar />
       <FloatingActions />
       <main className="min-h-screen bg-white pb-20" style={{ marginTop: "60px" }}>
         <RestoreScroll />
         {/* HERO SECTION */}
         <section className="relative w-full h-[320px] lg:h-[420px] overflow-hidden bg-brand-deep">
-          <img
+          <Image
             src="/images/blogs/blogs-hero.webp"
             alt="Mahindra SUV on a road trip"
-            className="absolute inset-0 w-full h-full object-cover object-[70%_center] scale-110"
+            title="Mahindra SUV on a road trip"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[70%_25%] sm:object-[70%_30%] lg:object-[70%_center]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
 
-          <div className="container-px absolute inset-x-0 bottom-10 mx-auto max-w-[1400px]">
+          <div className="hero-safe absolute inset-x-0 bottom-0 mx-auto max-w-[1400px]">
             <Reveal>
               <p className="text-sm font-semibold uppercase tracking-wider text-white/70">
                 Blogs
@@ -54,7 +99,7 @@ export default function BlogsPage() {
           {/* CTA BOTTOM BANNER */}
           <section className="mt-20 relative overflow-hidden rounded-2xl bg-[#0a0a0a] px-6 py-12 text-center md:px-12 md:py-16 shadow-xl">
             <div className="absolute inset-0 z-0 opacity-40">
-              <img src="/images/blogs/blogs-cta-banner.webp" alt="" className="w-full h-full object-cover" />
+              <Image src="/images/blogs/blogs-cta-banner.webp" alt="" title="" fill sizes="100vw" className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/40" />
             </div>
 

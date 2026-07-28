@@ -16,26 +16,52 @@ const categories: ("All" | CarCategory)[] = [
   "Commercial",
 ];
 
+// Cache lives on `window` so it survives HMR module re-evaluation in dev mode,
+// SPA navigation (e.g. car detail page -> back), but resets on a hard refresh.
+// Per-category keys mean switching tabs generates a fresh shuffle on first
+// visit to that category, but returns the saved order on back-navigation.
+function getShuffleCache(): Map<string, typeof cars> {
+  if (typeof window === "undefined") return new Map();
+  const key = "__mahindra_featured_vehicles_shuffle__";
+  if (!(window as any)[key]) (window as any)[key] = new Map();
+  return (window as any)[key];
+}
+
 export default function FeaturedVehicles() {
   const [category, setCategory] = useState<"All" | CarCategory>("All");
   const [index, setIndex] = useState(0);
   const [hasNavigated, setHasNavigated] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const [stageWidth, setStageWidth] = useState(1000);
+  const dragR = useRef({ startX: 0, moved: false, active: false });
+  const preventClickR = useRef(false);
+  const wheelAccR = useRef(0);
+  const wheelTimerR = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const categoryFiltered = useMemo(
     () => (category === "All" ? cars : cars.filter((c) => c.category === category)),
     [category],
   );
 
-  const filtered = useMemo(() => {
+  const cacheKey = category;
+
+  const [filtered, setFiltered] = useState(() => {
+    const cached = getShuffleCache().get(cacheKey);
+    if (cached) return cached;
+    return categoryFiltered;
+  });
+
+  useEffect(() => {
+    const cache = getShuffleCache();
+    if (cache.has(cacheKey)) return;
     const arr = [...categoryFiltered];
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
-    return arr;
-  }, [categoryFiltered]);
+    cache.set(cacheKey, arr);
+    setFiltered(arr);
+  }, [categoryFiltered, cacheKey]);
 
   const active = filtered[index] ?? filtered[0];
 
@@ -57,6 +83,32 @@ export default function FeaturedVehicles() {
     return () => ro.disconnect();
   }, []);
 
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      if (dragR.current.active) return;
+      e.preventDefault();
+      wheelAccR.current += e.deltaX;
+      if (Math.abs(wheelAccR.current) > 50) {
+        advance(wheelAccR.current > 0 ? 1 : -1);
+        wheelAccR.current = 0;
+        if (wheelTimerR.current) clearTimeout(wheelTimerR.current);
+        return;
+      }
+      if (wheelTimerR.current) clearTimeout(wheelTimerR.current);
+      wheelTimerR.current = setTimeout(() => {
+        wheelAccR.current = 0;
+      }, 150);
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+      if (wheelTimerR.current) clearTimeout(wheelTimerR.current);
+    };
+  }, []);
+
   const len = filtered.length;
   const canGoBack = hasNavigated && len > 1;
   const canGoForward = len > 1;
@@ -64,6 +116,40 @@ export default function FeaturedVehicles() {
     if (len < 2 || (dir < 0 && !hasNavigated)) return;
     setHasNavigated(true);
     setIndex((i) => (i + dir + len) % len);
+  };
+
+  const cooldownR = useRef(0);
+  const advance = (dir: number) => {
+    const now = Date.now();
+    if (now - cooldownR.current < 550) return;
+    cooldownR.current = now;
+    goRef.current(dir);
+  };
+
+  const SWIPE_THRESHOLD = 50;
+  const goRef = useRef(go);
+  goRef.current = go;
+
+  const handleDragStart = (clientX: number) => {
+    dragR.current = { startX: clientX, moved: false, active: true };
+    wheelAccR.current = 0;
+  };
+
+  const handleDragMove = (clientX: number) => {
+    if (!dragR.current.active) return;
+    if (Math.abs(clientX - dragR.current.startX) > 8) {
+      dragR.current.moved = true;
+      preventClickR.current = true;
+    }
+  };
+
+  const handleDragEnd = (clientX: number) => {
+    if (!dragR.current.active) return;
+    dragR.current.active = false;
+    if (!dragR.current.moved) return;
+    const delta = clientX - dragR.current.startX;
+    if (Math.abs(delta) < SWIPE_THRESHOLD) return;
+    advance(delta > 0 ? -1 : 1);
   };
 
   // Step distance and scale/opacity falloff are proportional to the stage's
@@ -81,7 +167,7 @@ export default function FeaturedVehicles() {
   return (
     <section
       id="cars"
-      className="scroll-mt-24 overflow-hidden bg-white py-12 lg:py-16"
+      className="scroll-mt-24 bg-white py-12 lg:py-16"
     >
       <div className="container-px mx-auto max-w-[1400px]">
         {/* Category tabs. relative z-30 keeps the tabs above the absolutely
@@ -110,7 +196,17 @@ export default function FeaturedVehicles() {
         {/* Coverflow stage */}
         <div
           ref={stageRef}
-          className="relative mt-4 h-[300px] select-none sm:h-[360px] lg:h-[400px]"
+          onTouchStart={(e) => { e.preventDefault(); handleDragStart(e.touches[0].clientX); }}
+          onTouchMove={(e) => {
+            handleDragMove(e.touches[0].clientX);
+            if (dragR.current.active) e.preventDefault();
+          }}
+          onTouchEnd={(e) => handleDragEnd(e.changedTouches[0].clientX)}
+          onMouseDown={(e) => { e.preventDefault(); handleDragStart(e.clientX); }}
+          onMouseMove={(e) => handleDragMove(e.clientX)}
+          onMouseUp={(e) => handleDragEnd(e.clientX)}
+          onMouseLeave={() => { dragR.current.active = false; }}
+          className="relative mt-4 h-[300px] select-none overflow-hidden sm:h-[360px] lg:h-[400px]"
         >
           <button
             aria-label="Previous car"
@@ -147,6 +243,7 @@ export default function FeaturedVehicles() {
               <div
                 key={car.name}
                 onClick={() => {
+                  if (preventClickR.current) { preventClickR.current = false; return; }
                   if (offset !== 0) {
                     setHasNavigated(true);
                     setIndex(i);
@@ -170,6 +267,7 @@ export default function FeaturedVehicles() {
                     <Image
                       src={car.image}
                       alt={car.alt}
+                      title={`Mahindra ${car.name}`}
                       width={800}
                       height={295}
                       priority
@@ -180,6 +278,7 @@ export default function FeaturedVehicles() {
                   <Image
                     src={car.image}
                     alt={car.alt}
+                    title={`Mahindra ${car.name}`}
                     width={800}
                     height={295}
                     priority={false}

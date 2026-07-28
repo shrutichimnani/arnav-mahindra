@@ -148,6 +148,7 @@ export default function ContactUs() {
                 <OtpGate
                   source="contact_us_form"
                   heroImage={{ src: "/about/showroom-dusk.jpg", alt: "Mahindra Modi showroom at dusk" }}
+                  frameless
                 >
                   {({ phone, onResetPhone }) => (
                     <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">

@@ -62,7 +62,7 @@ export const nav = {
   phone: company.phone,
   location: "Thane",
   links: [
-    { label: "Home", href: "/#home" },
+    { label: "Home", href: "/" },
     { label: "About Us", href: "/about" },
     { label: "Find a Car", href: "/cars" },
     { label: "Service", href: "/locate-service-centre" },
@@ -172,6 +172,33 @@ export type Slide = {
   image: string;
   alt: string;
   href: string;
+  /** Portrait mobile version of `image`, built by scripts/build-mobile-hero-crops.js:
+      the headline band and the car band are each cropped from the source
+      banner and stacked vertically, so phones get both the text and the
+      car — the way auto.mahindra.com's own hand-made portrait creative
+      reads — instead of one flat crop of the landscape banner losing
+      one or the other. Regenerate with `node scripts/build-mobile-hero-crops.js`
+      after editing the crop rects in that file. */
+  // Optional: some slides have no usable mobile composite (the build
+  // script's crop rects clipped a headline or the disclaimer text for
+  // that particular banner) — omit both fields for those and Hero.tsx
+  // falls back to the same object-cover treatment used on tablet/desktop
+  // instead of showing a broken crop.
+  mobileImage?: string;
+  /** width/height of mobileImage (logged by the build script). Each
+      composite ends up a different shape depending on how much of the
+      source banner its text/car bands needed, so Hero.tsx sizes the
+      mobile hero to this ratio per slide instead of forcing every slide
+      into one fixed box — which would just crop these composites the
+      same way the flat single-image crop did. */
+  mobileAspect?: number;
+  // Horizontal object-position (0-100) for the desktop `image` when it's
+  // cover-cropped at tablet/desktop widths. The banners aren't framed with
+  // their headline centred — some skew left, some right — so a single
+  // "center" anchor clips the headline or disclaimer text off one edge
+  // once the box is narrower than the source banner. Defaults to 50
+  // (center) when omitted. Tuned by eye against each source image.
+  heroFocusX?: number;
 };
 
 /* Real hero campaign banners, pulled directly from the live homepage
@@ -183,42 +210,61 @@ export const heroSlides: Slide[] = [
     image: "/images/home/hero-xuv3xo-adventure.jpg",
     alt: "Mahindra XUV 3XO campaign banner, official homepage creative",
     href: "/cars/xuv-3xo",
+    // No mobileImage: the build script's crop clips the "BORN" headline
+    // at the left edge on this banner — falls back to object-cover.
+    heroFocusX: 80,
   },
   {
     model: "Mahindra XUV 7XO",
     image: "/images/home/hero-xuv7xo-milestone.jpg",
     alt: "Mahindra XUV 7XO milestone campaign banner, official homepage creative",
     href: "/cars/xuv-7xo",
+    // No mobileImage: the build script's crop clips the "Thank you"
+    // disclaimer at the left edge and has a visible seam between the
+    // headline/car bands on this banner — falls back to object-cover.
   },
   {
     model: "Mahindra XUV 7XO",
     image: "/images/home/hero-xuv7xo-booking.jpg",
     alt: "Mahindra XUV 7XO bookings-open campaign banner, official homepage creative",
     href: "/cars/xuv-7xo",
+    mobileImage: "/images/home/mobile/hero-xuv7xo-booking-mobile.jpg",
+    mobileAspect: 1080 / 775,
   },
   {
     model: "Mahindra XUV 3XO",
     image: "/images/home/hero-xuv3xo-gst.jpg",
     alt: "Mahindra XUV 3XO GST-benefit campaign banner, official homepage creative",
     href: "/cars/xuv-3xo",
+    mobileImage: "/images/home/mobile/hero-xuv3xo-gst-mobile.jpg",
+    mobileAspect: 1080 / 1030,
+    heroFocusX: 88,
   },
   {
     model: "Mahindra Adventure",
     image: "/images/home/hero-adventure-explore.jpg",
     alt: "Mahindra Adventure campaign banner, official homepage creative",
     href: "/cars/thar-roxx",
+    mobileImage: "/images/home/mobile/hero-adventure-explore-mobile.jpg",
+    mobileAspect: 1080 / 1461,
+    heroFocusX: 22,
   },
   {
     model: "Mahindra XUV 3XO",
     image: "/images/home/hero-xuv3xo-banner.jpg",
     alt: "Mahindra XUV 3XO campaign banner, official homepage creative",
     href: "/cars/xuv-3xo",
+    mobileImage: "/images/home/mobile/hero-xuv3xo-banner-mobile.jpg",
+    mobileAspect: 1080 / 1054,
+    heroFocusX: 25,
   },
   {
     model: "Mahindra BE 6 / XEV 9e",
     image: "/images/home/hero-be6-freedom.png",
     alt: "Mahindra BE range \"Freedom\" campaign banner, official homepage creative",
     href: "/cars/be-6",
+    mobileImage: "/images/home/mobile/hero-be6-freedom-mobile.jpg",
+    mobileAspect: 1080 / 1621,
   },
 ];
 
@@ -487,8 +533,11 @@ export const cars: Car[] = [
     cta: "Explore the Marazzo",
     image: "/cars/marazzo-arnav.webp",
     alt: "Mahindra Marazzo MPV, dealer product shot",
+    // Uses the same studio cutout as the listing card (`image` above) —
+    // same fix as Bolero Maxx Pik-Up / Maxx City CNG: the detail page's
+    // hero should match the card instead of a different studio crop.
     colors: [
-      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/marazzo_1_white_900x439.png" },
+      { name: "Everest White", hex: "#cfcdcd", image: "/cars/marazzo-arnav.webp" },
     ],
     seating: "6 / 7 / 8",
     mileage: "Up to 17.6 kmpl",
@@ -606,18 +655,21 @@ export const cars: Car[] = [
     cta: "Explore the XUV400",
     image: "/cars/xuv400.png",
     alt: "Mahindra XUV400 electric SUV, official product shot",
-    /* XUV400's official page lists these colour names in its spec table, but
-       unlike the other models its "colour experience" is a WebGL 3D viewer,
-       not swap-on-click photos — no per-colour hex or image exists in its
-       page at all. The hex values below are Mahindra's own values for these
-       exact same paint names, confirmed from other current-lineup models on
-       auto.mahindra.com (Thar/XUV7XO/Scorpio-N above); the single shared
-       image mirrors the source site's own lack of a per-colour photo. */
+    // Real per-colour photos (base/single-tone variant), downloaded from
+    // auto.mahindra.com/suv/xuv400/X400.html#variants and stored locally
+    // under public/images/cars/colors/ — previously all four swatches
+    // pointed at the same generic shot, so switching colour never changed
+    // the photo. "Stealth Black" is renamed to "Napoli Black": Mahindra's
+    // own site doesn't sell a solid "Stealth Black" for this model, only a
+    // dualtone; Napoli Black is the real solid-black paint name and photo.
+    // Nebula Blue is listed first — it's the closest match to the blue
+    // dualtone shot used as the listing-card image (`image` above), and
+    // colors[0] is the colour the detail page opens on by default.
     colors: [
-      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/XUV400_602x339.png" },
-      { name: "Galaxy Grey", hex: "#575a63", image: "/images/cars/colors/XUV400_602x339.png" },
-      { name: "Nebula Blue", hex: "#07132a", image: "/images/cars/colors/XUV400_602x339.png" },
-      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/XUV400_602x339.png" },
+      { name: "Nebula Blue", hex: "#07132a", image: "/images/cars/colors/XUV400_NebulaBlue.png" },
+      { name: "Napoli Black", hex: "#0a0a0a", image: "/images/cars/colors/XUV400_NapoliBlack.webp" },
+      { name: "Galaxy Grey", hex: "#575a63", image: "/images/cars/colors/XUV400_GalaxyGrey.webp" },
+      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/XUV400_EverestWhite.webp" },
     ],
     seating: "5",
     mileage: "Up to 456 km range per charge (MIDC, 39.4 kWh)",
@@ -644,15 +696,19 @@ export const cars: Car[] = [
     cta: "Explore the XEV 9e",
     image: "/cars/xev9e-rubyvelvet-transparent.png",
     alt: "Mahindra XEV 9e electric SUV coupe in Ruby Velvet, product shot (CarDekho)",
+    // Real per-colour photos, downloaded from Mahindra's own XEV 9e
+    // configurator (mahindraelectricsuv.com/own-online/variant-selection?pid=MXV9)
+    // and stored locally — replaces the previous set of colour images.
+    // "Desert Myst Satin" is dropped: the real configurator only offers 7
+    // colours for this model, and that one wasn't among them.
     colors: [
-      { name: "Ruby Velvet", hex: "#2d0406", image: "/images/cars/colors/XEV9E_RubyVelvet.jpg" },
-      { name: "Deep Forest", hex: "#282d22", image: "/images/cars/colors/XEV9E_DeepForest.jpg" },
-      { name: "Desert Myst", hex: "#C0BEB7", image: "/images/cars/colors/XEV9E_DesertMyst.jpg" },
-      { name: "Tango Red", hex: "#970211", image: "/images/cars/colors/XEV9E_TangoRed.jpg" },
-      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/XEV9E_EverestWhite.jpg" },
-      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/XEV9E_StealthBlack.jpg" },
-      { name: "Nebula Blue", hex: "#07132a", image: "/images/cars/colors/XEV9E_NebulaBlue.jpg" },
-      { name: "Desert Myst Satin", hex: "#C0BEB7", image: "/images/cars/colors/XEV9E_DesertMystSatin.png" },
+      { name: "Ruby Velvet", hex: "#2d0406", image: "/images/cars/colors/XEV9E_RubyVelvet.png" },
+      { name: "Deep Forest", hex: "#282d22", image: "/images/cars/colors/XEV9E_DeepForest.png" },
+      { name: "Desert Myst", hex: "#C0BEB7", image: "/images/cars/colors/XEV9E_DesertMyst.png" },
+      { name: "Tango Red", hex: "#970211", image: "/images/cars/colors/XEV9E_TangoRed.png" },
+      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/XEV9E_EverestWhite.png" },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/XEV9E_StealthBlack.png" },
+      { name: "Nebula Blue", hex: "#07132a", image: "/images/cars/colors/XEV9E_NebulaBlue.png" },
     ],
     seating: "5",
     mileage: "Up to 656 km range per charge (claimed, long-range battery)",
@@ -679,15 +735,18 @@ export const cars: Car[] = [
     cta: "Explore the BE 6",
     image: "/cars/be6-everest-white.png",
     alt: "Mahindra BE 6 electric SUV coupe in Everest White, official product image",
+    // Real per-colour photos, downloaded from Mahindra's own BE 6
+    // configurator (mahindraelectricsuv.com/own-online/variant-selection?pid=MBE6)
+    // and stored locally — replaces the previous set of colour images.
     colors: [
-      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/BE6_EverestWhite.jpg" },
-      { name: "Firestorm Orange", hex: "#F2745E", image: "/images/cars/colors/BE6_FirestormOrange.jpg" },
-      { name: "Desert Myst", hex: "#C0BEB7", image: "/images/cars/colors/BE6_DesertMyst.jpg" },
-      { name: "Desert Myst Satin", hex: "#C0BEB7", image: "/images/cars/colors/BE6_DesertMystSatin.jpg" },
-      { name: "Tango Red", hex: "#970211", image: "/images/cars/colors/BE6_TangoRed.jpg" },
-      { name: "Everest White Satin", hex: "#cfcdcd", image: "/images/cars/colors/BE6_EverestWhiteSatin.jpg" },
-      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/BE6_StealthBlack.jpg" },
-      { name: "Deep Forest", hex: "#282d22", image: "/images/cars/colors/BE6_DeepForest.jpg" },
+      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/BE6_EverestWhite.png" },
+      { name: "Firestorm Orange", hex: "#F2745E", image: "/images/cars/colors/BE6_FirestormOrange.png" },
+      { name: "Desert Myst", hex: "#C0BEB7", image: "/images/cars/colors/BE6_DesertMyst.png" },
+      { name: "Desert Myst Satin", hex: "#C0BEB7", image: "/images/cars/colors/BE6_DesertMystSatin.png" },
+      { name: "Tango Red", hex: "#970211", image: "/images/cars/colors/BE6_TangoRed.png" },
+      { name: "Everest White Satin", hex: "#cfcdcd", image: "/images/cars/colors/BE6_EverestWhiteSatin.png" },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/BE6_StealthBlack.png" },
+      { name: "Deep Forest", hex: "#282d22", image: "/images/cars/colors/BE6_DeepForest.png" },
     ],
     seating: "5",
     mileage: "Up to 682 km range per charge (claimed, long-range battery)",
@@ -715,9 +774,12 @@ export const cars: Car[] = [
     alt: "Mahindra Bolero Maxx Pik-Up pickup truck, official image from Arnav Automobiles",
     /* Mahindra's official pickup line only lists a single "Bolero Pik-up"
        model (no separate "Bolero Maxx Pik-up" product exists on
-       auto.mahindra.com), and that model is offered in one colour only. */
+       auto.mahindra.com), and that model is offered in one colour only.
+       Uses the same studio cutout as the listing card (`image` above) —
+       the outdoor lifestyle shot this pointed to previously didn't match
+       the card and looked out of place as the detail page's hero. */
     colors: [
-      { name: "White", hex: "#e3dfd0", image: "/images/cars/colors/26_01_PIK-UP_Desktop-_OUTDOOR.png" },
+      { name: "White", hex: "#e3dfd0", image: "/cars/bolero-maxx-pikup.webp" },
     ],
     seating: "2 / 3",
     mileage: "Up to 17 kmpl",
@@ -773,9 +835,11 @@ export const cars: Car[] = [
     alt: "Mahindra Maxx City CNG pickup, official product shot",
     /* Official model is "Bolero MaXX City"; CNG is a fuelType variant of the
        same product, not a separate colour-branded model, and it's offered
-       in one colour only. */
+       in one colour only. Uses the same studio cutout as the listing card
+       (`image` above) — same fix as Bolero Maxx Pik-Up: the detail page's
+       hero should match the card, not a different studio/gallery crop. */
     colors: [
-      { name: "White", hex: "#e3dfd0", image: "/images/cars/colors/Gallery-and-colour_Studio-1366x443.png" },
+      { name: "White", hex: "#e3dfd0", image: "/cars/maxx-city-cng.png" },
     ],
     seating: "2 / 3",
     mileage: "Up to 14.5 km/kg (CNG)",

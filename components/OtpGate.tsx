@@ -22,6 +22,8 @@ export default function OtpGate({
   children,
   source,
   heroImage,
+  onPolicyNavigate,
+  frameless,
 }: {
   children: (props: { phone: string; onResetPhone: () => void }) => ReactNode;
   source?: string;
@@ -29,13 +31,37 @@ export default function OtpGate({
   // (e.g. the test-drive modal) that want it. Omitted everywhere else so
   // narrower embeds (contact form, sidebar cards) are unaffected.
   heroImage?: { src: string; alt: string };
+  // Called before a same-tab navigation to the Terms / Privacy pages. Only
+  // the modal passes this (to close itself first) — without it the modal
+  // would stay mounted on top of the destination page. Inline forms leave
+  // it unset; they unmount on navigation, so no close is needed.
+  onPolicyNavigate?: () => void;
+  // Set by call sites that already render their own border/shadow frame
+  // directly around this component (e.g. the test-drive modal dialog, or a
+  // bordered card that wraps nothing else). Without this, those sites end
+  // up with two concentric borders/shadows — this component's own plus the
+  // wrapper's — which reads as a stray outline around the whole popup.
+  frameless?: boolean;
 }) {
   const { verifiedPhone, setVerifiedPhone, clearVerifiedPhone } = usePhoneVerification();
 
+  // Persist the in-progress phone-verification form across a same-tab detour
+  // to the Terms / Privacy pages (which now open in this tab). Without this,
+  // navigating away unmounts the form and back returns to an empty phone
+  // step. sessionStorage mirrors the verified-phone pattern (per tab, gone
+  // on close) — the form is restored exactly as the visitor left it.
+  //
+  // IMPORTANT: sessionStorage is NOT read during render — doing so causes a
+  // hydration mismatch (server always sees null, client may have a stored
+  // value). Instead, the persisted state is read in a useEffect after mount.
+  const FORM_STATE_KEY = "mm_otp_form";
+  type PersistedForm = Pick<
+    { stage: "phone" | "otp"; countryIso: string; phone: string; agreed: boolean },
+    "stage" | "countryIso" | "phone" | "agreed"
+  >;
+
+  const hydratedRef = useRef(false);
   const [stage, setStage] = useState<"phone" | "otp">("phone");
-  // Keyed by ISO code, not dial code — several countries share a dial code
-  // (e.g. +1 for the US, Canada, and Caribbean nations), so the dial code
-  // alone can't uniquely identify the selected option.
   const [countryIso, setCountryIso] = useState("IN");
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
@@ -43,6 +69,37 @@ export default function OtpGate({
   const [busy, setBusy] = useState(false);
   const [resendIn, setResendIn] = useState(0);
   const [agreed, setAgreed] = useState(false);
+
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(FORM_STATE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw) as PersistedForm;
+        if (parsed.stage) setStage(parsed.stage);
+        if (parsed.countryIso) setCountryIso(parsed.countryIso);
+        if (parsed.phone) setPhone(parsed.phone);
+        if (typeof parsed.agreed === "boolean") setAgreed(parsed.agreed);
+      }
+    } catch { /* ignore */ }
+    hydratedRef.current = true;
+  }, []);
+
+  // Write the restorable fields to sessionStorage whenever they change, so a
+  // same-tab navigation away (and back) restores the form intact. Guarded by
+  // a ref — on mount the read effect restores persisted values first and
+  // flips the ref; until then, writing would blindly overwrite any saved
+  // progress with fresh defaults.
+  useEffect(() => {
+    if (!hydratedRef.current) return;
+    try {
+      sessionStorage.setItem(
+        FORM_STATE_KEY,
+        JSON.stringify({ stage, countryIso, phone, agreed } satisfies PersistedForm),
+      );
+    } catch {
+      // sessionStorage may be unavailable (private mode, etc.) — ignore.
+    }
+  }, [stage, countryIso, phone, agreed]);
 
   const activeCountry = countryCodes.find((c) => c.iso === countryIso) ?? countryCodes[0];
   const countryCode = activeCountry.code;
@@ -157,13 +214,18 @@ export default function OtpGate({
 
   return (
     <div
-      className={`mx-auto w-full overflow-hidden rounded-lg border border-border bg-white shadow-[0_4px_32px_0_rgba(0,0,0,0.08)] ${
-        heroImage ? "max-w-2xl sm:grid sm:grid-cols-[0.85fr_1.15fr]" : "max-w-md"
-      }`}
+      className={`mx-auto w-full overflow-hidden rounded-lg bg-white ${
+        frameless ? "" : "border border-border shadow-[0_4px_32px_0_rgba(0,0,0,0.08)]"
+      } ${heroImage ? "max-w-2xl sm:grid sm:grid-cols-[0.85fr_1.15fr]" : "max-w-md"}`}
     >
       {heroImage && (
         <div className="relative hidden min-h-[280px] sm:block">
-          <img src={heroImage.src} alt={heroImage.alt} className="absolute inset-0 h-full w-full object-cover" />
+          <img
+            src={heroImage.src}
+            alt={heroImage.alt}
+            title={heroImage.alt}
+            className="absolute inset-0 h-full w-full object-cover object-[30%_42%]"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
         </div>
       )}
@@ -226,11 +288,19 @@ export default function OtpGate({
             />
             <span className="text-[11px] leading-relaxed text-faint">
               I agree to the{" "}
-              <Link href="/terms-and-conditions" target="_blank" className="font-medium text-brand underline hover:text-brand-light">
+              <Link
+                href="/terms-and-conditions"
+                onClick={() => onPolicyNavigate?.()}
+                className="font-medium text-brand underline hover:text-brand-light"
+              >
                 Terms &amp; Conditions
               </Link>{" "}
               and{" "}
-              <Link href="/privacy-policy" target="_blank" className="font-medium text-brand underline hover:text-brand-light">
+              <Link
+                href="/privacy-policy"
+                onClick={() => onPolicyNavigate?.()}
+                className="font-medium text-brand underline hover:text-brand-light"
+              >
                 Privacy Policy
               </Link>
             </span>
@@ -319,6 +389,7 @@ function FlagImg({ iso, name }: { iso: string; name: string }) {
       src={`https://flagcdn.com/24x18/${iso.toLowerCase()}.png`}
       srcSet={`https://flagcdn.com/48x36/${iso.toLowerCase()}.png 2x`}
       alt={`${name} flag`}
+      title={`${name}`}
       width={20}
       height={15}
       className="inline-block shrink-0 rounded-[2px] object-cover"

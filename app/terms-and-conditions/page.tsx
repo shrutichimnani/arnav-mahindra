@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import Reveal from "@/components/Reveal";
+import BackLink from "@/components/BackLink";
 import { SITE_URL } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions",
+  title: "Terms & Conditions | Mahindra Modi",
   description: "Terms and Conditions for Mahindra Modi - Arnav Automobiles Pvt Ltd.",
   alternates: { canonical: "/terms-and-conditions" },
 };
@@ -20,12 +20,7 @@ export default function TermsPage() {
       <main style={{ marginTop: "60px" }}>
         <section className="bg-bg-2 py-10 lg:py-14">
           <div className="container-px mx-auto max-w-[800px]">
-            <Link
-              href="/"
-              className="mb-6 inline-flex w-fit items-center gap-1 text-xs font-semibold text-muted hover:text-text transition-colors"
-            >
-              &larr; Back
-            </Link>
+            <BackLink />
             <Reveal>
               <p className="text-xs font-semibold uppercase tracking-wider text-brand">
                 Legal

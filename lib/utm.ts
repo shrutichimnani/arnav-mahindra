@@ -22,6 +22,8 @@ export const UTM_FIELDS = [
   "utm_term",
   "utm_content",
   "utm_id",
+  "gclid",
+  "fbclid",
 ] as const;
 
 export type UtmField = (typeof UTM_FIELDS)[number];
@@ -94,5 +96,7 @@ export function getUtmPayloadFields(): Record<UtmField, string> {
     utm_term: stored.utm_term ?? "",
     utm_content: stored.utm_content ?? "",
     utm_id: stored.utm_id ?? "",
+    gclid: stored.gclid ?? "",
+    fbclid: stored.fbclid ?? "",
   };
 }

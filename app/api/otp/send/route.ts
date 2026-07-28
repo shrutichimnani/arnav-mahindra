@@ -19,9 +19,8 @@ export async function POST(req: Request) {
 
   const result = await issueOtp(phone);
   if (!result.ok) {
-    return NextResponse.json(result, { status: 429 });
+    // 429 = rate limited; 502 = WhatsApp upstream failure; 400 otherwise.
+    return NextResponse.json(result, { status: result.status ?? 400 });
   }
-  // devCode is only present in simulated mode (no SMS provider key set),
-  // and is used by the UI to display the code for testing.
   return NextResponse.json(result);
 }

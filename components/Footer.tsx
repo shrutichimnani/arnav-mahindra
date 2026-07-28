@@ -14,7 +14,7 @@ import {
 } from "./icons";
 
 const quickLinks = [
-  { label: "Home", href: "/#home" },
+  { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
   { label: "Cars", href: "/cars" },
   { label: "Service", href: "/locate-service-centre" },

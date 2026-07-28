@@ -75,12 +75,13 @@ export default function Locations() {
               key={loc.name}
               delay={(i % 4) * 70}
               variant="slide-left"
-              className="w-[240px] shrink-0 snap-start sm:w-[260px]"
+              className="w-[min(240px,75vw)] shrink-0 snap-start sm:w-[260px]"
             >
               <article className="group relative flex h-64 flex-col justify-end overflow-hidden rounded-lg">
                 <Image
                   src={loc.image}
                   alt={`${loc.name} ${loc.type} in ${loc.city}`}
+                  title={`${loc.name} ${loc.type}`}
                   fill
                   sizes="260px"
                   className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"

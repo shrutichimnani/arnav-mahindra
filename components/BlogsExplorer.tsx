@@ -62,6 +62,7 @@ export default function BlogsExplorer() {
             <img
               src={featuredPost.image}
               alt={featuredPost.alt}
+              title={featuredPost.title}
               className="h-full w-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent md:bg-gradient-to-r md:from-black/90 md:via-black/50" />
@@ -123,6 +124,7 @@ export default function BlogsExplorer() {
                   <img
                     src={post.image}
                     alt={post.alt}
+                    title={post.title}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>

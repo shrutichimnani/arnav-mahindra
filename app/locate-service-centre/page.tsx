@@ -85,13 +85,14 @@ export default function LocateServiceCentrePage() {
           <Image
             src={serviceHeroImage}
             alt="Mahindra service centre bay"
+            title="Mahindra Service Centre"
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            className="object-cover object-[center_25%] sm:object-[center_30%] lg:object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-          <div className="container-px absolute inset-x-0 bottom-10 mx-auto max-w-[1400px]">
+          <div className="hero-safe absolute inset-x-0 bottom-0 mx-auto max-w-[1400px]">
             <Reveal>
               <p className="text-sm font-semibold uppercase tracking-wider text-white/70">
                 Service
@@ -143,6 +144,7 @@ export default function LocateServiceCentrePage() {
                 <Image
                   src="/images/locate-us/service-workshop.webp"
                   alt="Mahindra Modi service centre workshop"
+                  title="Mahindra Modi service centre workshop"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
@@ -194,6 +196,7 @@ export default function LocateServiceCentrePage() {
                 <Image
                   src="/images/locate-us/service-workshop-team.webp"
                   alt="Mahindra Modi workshop team"
+                  title="Mahindra Modi workshop team"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"

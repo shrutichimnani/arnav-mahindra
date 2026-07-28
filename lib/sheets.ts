@@ -1,16 +1,18 @@
 import { getUtmPayloadFields } from "@/lib/utm";
+import { insertLeadToDb } from "@/lib/leads";
 
 const SHEET_SCRIPT_URL = process.env.NEXT_PUBLIC_SHEET_SCRIPT_URL ?? "";
 
 export async function submitToSheet(payload: Record<string, string>) {
-  // Attach the visitor's captured UTM params to every form submission
-  // (phoneVerification, contactUs, service, testDrive). They are read
-  // fresh from localStorage here, so any values captured before this
-  // call — even from an earlier page visit — are included. Existing
-  // payload keys are preserved; UTM fields are only added when absent
-  // so a caller passing its own UTM value still wins.
   const utm = getUtmPayloadFields();
   const fullPayload: Record<string, string> = { ...utm, ...payload };
+
+  // Fire the Supabase insert in parallel with Google Sheets — both
+  // destinations get the same data. The Supabase call is fire-and-forget;
+  // its success or failure never affects the user-facing result.
+  const formType = payload.formType ?? "";
+  insertLeadToDb(formType, fullPayload);
+
   try {
     const res = await fetch(SHEET_SCRIPT_URL, {
       method: "POST",

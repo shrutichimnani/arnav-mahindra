@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const result = verifyOtp(phone, code);
+  const result = await verifyOtp(phone, code);
   if (!result.ok) {
     return NextResponse.json(result, { status: 400 });
   }

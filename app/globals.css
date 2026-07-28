@@ -81,13 +81,13 @@
 html {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans), system-ui, sans-serif;
-  overflow-x: hidden;
 }
 
 a,
@@ -134,6 +134,24 @@ input[type="reset"],
   }
   @media (min-width: 1024px) {
     padding-inline: 3rem;
+  }
+}
+
+/* Hero title-safe zone: keeps overlaid headline/CTA copy clear of every
+   edge (including notches/rounded corners) and off the image's own
+   baked-in focal point, across phone/tablet/desktop. Scales its bottom
+   clearance with viewport height so short landscape-phone heroes don't
+   crush the copy against the bottom edge. */
+@utility hero-safe {
+  padding-inline: 1.25rem;
+  padding-bottom: max(1.5rem, 4dvh);
+  @media (min-width: 640px) {
+    padding-inline: 2rem;
+    padding-bottom: max(2rem, 5dvh);
+  }
+  @media (min-width: 1024px) {
+    padding-inline: 3rem;
+    padding-bottom: max(2.5rem, 6dvh);
   }
 }
 
@@ -253,10 +271,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   transform: none;
 }
 .reveal-slide-left {
-  transform: translateX(40px);
+  transform: translateX(16px);
+}
+@media (min-width: 640px) {
+  .reveal-slide-left {
+    transform: translateX(40px);
+  }
 }
 .reveal-slide-right {
-  transform: translateX(-40px);
+  transform: translateX(-16px);
+}
+@media (min-width: 640px) {
+  .reveal-slide-right {
+    transform: translateX(-40px);
+  }
 }
 .reveal-scale-up {
   transform: scale(0.97) translateY(14px);

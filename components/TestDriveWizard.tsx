@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { cars, cityOptions, locations, type Car } from "@/lib/data";
+import { cars, cityOptions, company, locations, type Car } from "@/lib/data";
 import { Calendar, Check, ChevronDown, ChevronRight, X } from "./icons";
 import Reveal from "./Reveal";
 import { VerifiedPhoneField } from "./OtpGate";
@@ -84,7 +84,11 @@ export default function TestDriveWizard({
   }, [date, today]);
 
   const isValidEmail = /^\S+@\S+\.\S+$/.test(email);
-  const isValidMobile = /^[0-9]{10}$/.test(mobile);
+  // When arriving via the OTP gate, `mobile` is seeded from `verifiedPhone`,
+  // which is stored with its country-code prefix (e.g. "+919876543210") —
+  // that never matches a plain 10-digit check, so validate against the raw
+  // input only when there's no OTP-verified phone to trust instead.
+  const isValidMobile = verifiedPhone ? true : /^[0-9]{10}$/.test(mobile);
   const isValidPincode = /^[0-9]{6}$/.test(pincode);
 
   const canProceed = () => {
@@ -131,7 +135,11 @@ export default function TestDriveWizard({
     <button
       type="button"
       key={car.slug}
-      onClick={() => setCarSlug(car.slug)}
+      onClick={() => {
+        setCarSlug(car.slug);
+        setStep(2);
+        setAttempted(false);
+      }}
       className={`flex flex-col items-center justify-center gap-2 rounded-lg border-2 p-4 text-center transition-all ${
         selected ? "border-brand bg-brand/5" : "border-border hover:border-muted"
       }`}
@@ -139,6 +147,7 @@ export default function TestDriveWizard({
       <Image
         src={car.image}
         alt={car.alt}
+        title={`Mahindra ${car.name}`}
         width={140}
         height={60}
         className="h-10 w-full object-contain"
@@ -509,14 +518,34 @@ export default function TestDriveWizard({
               <Check className="h-8 w-8" />
             </span>
             <h3 className="mt-6 font-display text-2xl font-bold text-text">
-              Test drive booked!
+              Thank you for your interest!
             </h3>
-            <p className="mt-2 text-muted">
-              Thank you, {name}. A Mahindra Modi representative will call you at{" "}
-              {mobile} shortly to confirm your{" "}
-              {selectedCar ? `Mahindra ${selectedCar.name}` : ""} test drive on{" "}
-              {date} ({time}) at {city}.
-            </p>
+            <div className="mt-3 space-y-3 text-sm leading-relaxed text-muted">
+              <p>
+                We thank you for showing an interest in test driving of Mahindra{" "}
+                <span className="font-semibold text-text">{selectedCar?.name}</span>.
+              </p>
+              <p>
+                We assure you our representative will contact you shortly.
+              </p>
+              <p className="text-xs text-faint">
+                Note: This is not the Test Drive confirmation, we shall check the schedule
+                and confirm the vehicle availability.
+              </p>
+              <p>We appreciate your time and patience.</p>
+              <p>
+                For any further details you may contact us on{" "}
+                <a
+                  href={`https://wa.me/${company.whatsappE164.replace("+", "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-brand hover:underline"
+                >
+                  {company.whatsapp}
+                </a>
+                .
+              </p>
+            </div>
             <button
               onClick={resetAll}
               className="mt-6 rounded border border-border px-6 py-3 text-sm font-semibold text-text transition-colors hover:bg-bg-3"

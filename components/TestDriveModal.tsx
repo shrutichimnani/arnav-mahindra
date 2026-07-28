@@ -12,10 +12,14 @@ export default function TestDriveModal({
   carSlug,
   source,
   onClose,
+  onPolicyNavigate,
 }: {
   carSlug?: string;
   source?: string;
   onClose: () => void;
+  // Hide (not close) the modal when opening a policy page from inside it,
+  // so the form state survives and reappears on back-navigation.
+  onPolicyNavigate?: () => void;
 }) {
   // Escape to close.
   useEffect(() => {
@@ -50,6 +54,8 @@ export default function TestDriveModal({
           <OtpGate
             source={source ?? "test_drive_popup"}
             heroImage={{ src: "/about/showroom-dusk.jpg", alt: "Mahindra Modi showroom at dusk" }}
+            onPolicyNavigate={onPolicyNavigate}
+            frameless
           >
             {({ phone, onResetPhone }) => (
               <div>

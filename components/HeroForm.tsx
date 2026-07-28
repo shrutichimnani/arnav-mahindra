@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { carModels, cityOptions } from "@/lib/data";
+import { carModels, cityOptions, company } from "@/lib/data";
 import { Check, ChevronDown, Calendar, ArrowRight, ArrowLeft } from "./icons";
 
 const fieldBase =
@@ -36,7 +36,32 @@ export default function HeroForm() {
           <Check className="h-6 w-6" />
         </span>
         <h3 className="mt-4 font-display text-lg font-bold text-text">Booking received!</h3>
-        <p className="mt-2 text-xs text-muted">We&apos;ll call shortly to confirm your preferred car, time and location.</p>
+        <div className="mt-2 space-y-2 text-xs leading-relaxed text-muted">
+          <p>
+            We thank you for showing an interest in test driving of Mahindra{" "}
+            <span className="font-semibold text-text">{model}</span>.
+          </p>
+          <p>
+            We assure you our representative will contact you shortly.
+          </p>
+          <p className="text-faint">
+            Note: This is not the Test Drive confirmation, we shall check the schedule
+            and confirm the vehicle availability.
+          </p>
+          <p>We appreciate your time and patience.</p>
+          <p>
+            For any further details you may contact us on{" "}
+            <a
+              href={`https://wa.me/${company.whatsappE164.replace("+", "")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-brand hover:underline"
+            >
+              {company.whatsapp}
+            </a>
+            .
+          </p>
+        </div>
         <button
           onClick={() => {
             setSubmitted(false);

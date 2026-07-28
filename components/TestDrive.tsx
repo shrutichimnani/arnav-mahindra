@@ -2,7 +2,7 @@
 
 import { useMemo, useState, type ChangeEvent, type FormEvent } from "react";
 import Image from "next/image";
-import { carModels, cityOptions, testDriveImage } from "@/lib/data";
+import { carModels, cityOptions, company, testDriveImage } from "@/lib/data";
 import { submitToSheet } from "@/lib/sheets";
 import { Calendar, Check, ChevronDown } from "./icons";
 import Reveal from "./Reveal";
@@ -83,9 +83,39 @@ export default function TestDrive() {
     ? time
     : "";
 
+  const [validationError, setValidationError] = useState("");
+
   const onSubmit = (phone: string) => (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
+    setValidationError("");
+
+    if (!carModel) {
+      setValidationError("Please select a car model.");
+      return;
+    }
+    if (!location) {
+      setValidationError("Please select your location.");
+      return;
+    }
+    if (!date) {
+      setValidationError("Please choose a preferred date.");
+      return;
+    }
+    if (!effectiveTime) {
+      setValidationError("Please select a preferred time slot.");
+      return;
+    }
+
+    // Let the browser also check native field validity (email format,
+    // pincode pattern, required text fields, etc.) and collect its message
+    // if it fails — but proceed past it so the user sees at least the
+    // select-level guidance above first.
+    if (!form.checkValidity()) {
+      setValidationError("Please check all required fields before booking.");
+      return;
+    }
+
     const fd = new FormData(form);
     setSending(true);
     setSendError("");
@@ -116,6 +146,7 @@ export default function TestDrive() {
             <Image
               src={testDriveImage}
               alt="Mahindra SUV interior and dashboard"
+              title="Mahindra SUV interior and dashboard"
               fill
               sizes="(max-width: 1024px) 100vw, 45vw"
               className="object-cover"
@@ -136,7 +167,7 @@ export default function TestDrive() {
           </Reveal>
 
           {/* Form side */}
-          <Reveal delay={200} variant="slide-left" className="bg-bg-2 p-8 sm:p-10 lg:p-12">
+          <Reveal delay={200} variant="slide-left" className="bg-white p-8 sm:p-10 lg:p-12">
             {submitted ? (
               <div className="flex h-full flex-col items-center justify-center py-10 text-center">
                 <span className="grid h-16 w-16 place-items-center rounded-full bg-brand/10 text-brand">
@@ -145,9 +176,32 @@ export default function TestDrive() {
                 <h3 className="mt-6 font-display text-2xl font-bold text-text">
                   Booking received!
                 </h3>
-                <p className="mt-2 max-w-sm text-muted">
-                  Thank you. A Mahindra Modi representative will call you shortly to confirm your test drive.
-                </p>
+                <div className="mt-3 max-w-sm space-y-3 text-sm leading-relaxed text-muted">
+                  <p>
+                    We thank you for showing an interest in test driving of Mahindra{" "}
+                    <span className="font-semibold text-text">{carModel}</span>.
+                  </p>
+                  <p>
+                    We assure you our representative will contact you shortly.
+                  </p>
+                  <p className="text-xs text-faint">
+                    Note: This is not the Test Drive confirmation, we shall check the schedule
+                    and confirm the vehicle availability.
+                  </p>
+                  <p>We appreciate your time and patience.</p>
+                  <p>
+                    For any further details you may contact us on{" "}
+                    <a
+                      href={`https://wa.me/${company.whatsappE164.replace("+", "")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-brand hover:underline"
+                    >
+                      {company.whatsapp}
+                    </a>
+                    .
+                  </p>
+                </div>
                 <button
                   onClick={() => setSubmitted(false)}
                   className="mt-6 rounded border border-border px-6 py-3 text-sm font-semibold text-text transition-colors hover:bg-bg-3"
@@ -156,8 +210,7 @@ export default function TestDrive() {
                 </button>
               </div>
             ) : (
-              <OtpGate source="test_drive_section"
-              >
+              <OtpGate source="test_drive_section" frameless>
                 {({ phone, onResetPhone }) => (
                   <form onSubmit={onSubmit(phone)} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <SelectField
@@ -248,6 +301,9 @@ export default function TestDrive() {
                       onChange={setTime}
                     />
 
+                    {validationError && (
+                      <p className="col-span-full text-xs font-semibold text-red-600">{validationError}</p>
+                    )}
                     {sendError && (
                       <p className="col-span-full text-xs font-medium text-red-600">{sendError}</p>
                     )}

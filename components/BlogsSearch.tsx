@@ -104,6 +104,7 @@ export default function BlogsSearch() {
                       <img
                         src={post.image}
                         alt={post.alt}
+                        title={post.title}
                         className="h-12 w-16 shrink-0 rounded-lg object-cover"
                       />
                       <span className="min-w-0">

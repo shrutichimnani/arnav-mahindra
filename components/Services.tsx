@@ -30,11 +30,11 @@ export default function Services() {
         </Reveal>
 
         {/* Icon strip */}
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="flex flex-wrap justify-center gap-6">
           {services.map((s, i) => {
             const Icon = iconMap[s.icon as IconName];
             return (
-              <Reveal key={s.title} delay={i * 110} variant="scale-up">
+              <Reveal key={s.title} delay={i * 110} variant="scale-up" className="w-[calc(50%-12px)] sm:w-[calc(33.333%-16px)] lg:w-[calc(20%-19.2px)]">
                 <div className="group flex h-full flex-col items-center gap-3 rounded-lg border border-border bg-white p-6 text-center shadow-[0_2px_12px_0_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
                   <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand/10 text-brand transition-colors duration-700">
                     <Icon className="h-6 w-6" />

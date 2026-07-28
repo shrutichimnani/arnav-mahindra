@@ -65,13 +65,14 @@ export default function LocateUsPage() {
           <Image
             src={locateHeroImage}
             alt="Mahindra Modi locations"
+            title="Mahindra Modi locations"
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            className="object-cover object-[center_25%] sm:object-[center_30%] lg:object-center"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-          <div className="container-px absolute inset-x-0 bottom-10 mx-auto max-w-[1400px]">
+          <div className="hero-safe absolute inset-x-0 bottom-0 mx-auto max-w-[1400px]">
             <Reveal>
               <p className="text-sm font-semibold uppercase tracking-wider text-white/70">
                 Locate Us

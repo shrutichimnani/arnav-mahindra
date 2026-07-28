@@ -133,7 +133,7 @@ export default function ServiceBooking() {
           </p>
         </Reveal>
 
-        <Reveal delay={150} className="mx-auto max-w-3xl rounded-lg border border-border bg-bg-2 p-8 shadow-[0_4px_32px_0_rgba(0,0,0,0.08)] sm:p-10">
+        <Reveal delay={150} className="mx-auto max-w-3xl rounded-lg border border-border bg-white p-8 shadow-[0_4px_32px_0_rgba(0,0,0,0.08)] sm:p-10">
           {submitted ? (
             <div className="flex flex-col items-center justify-center py-10 text-center">
               <span className="grid h-16 w-16 place-items-center rounded-full bg-brand/10 text-brand">
@@ -156,6 +156,7 @@ export default function ServiceBooking() {
             <OtpGate
               source="service_booking_form"
               heroImage={{ src: "/about/showroom-dusk.jpg", alt: "Mahindra Modi showroom at dusk" }}
+              frameless
             >
               {({ phone, onResetPhone }) => (
                 <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">

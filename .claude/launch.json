@@ -5,7 +5,7 @@
       "name": "hyundai-dev",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "cwd": "C:/Users/Shruti Chimnani/OneDrive/Desktop/arnav automobile/hyundai-website-latest",
+      "cwd": "C:/Users/Shruti Chimnani/ARNAV MAIN/mahindra-modi",
       "port": 3000,
       "autoPort": true
     }

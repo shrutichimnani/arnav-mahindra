@@ -6,6 +6,7 @@ import JsonLd from "@/components/JsonLd";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
 import TestDriveModalProvider from "@/components/TestDriveModalProvider";
 import PhoneVerificationProvider from "@/components/PhoneVerificationProvider";
+import MobileBottomBar from "@/components/MobileBottomBar";
 import UtmCapture from "@/components/UtmCapture";
 
 const inter = Inter({
@@ -41,10 +42,9 @@ const georama = Georama({
 
 const title = "New Mahindra Cars, Test Drives & Authorised Service in Thane | Mahindra Modi";
 const description =
-  "Compare new Mahindra cars, variants, colours and prices at Mahindra Modi. Book a test drive, request a transparent quote or schedule authorised Mahindra service across Thane, Navi Mumbai and Mumbai.";
+  "Compare new Mahindra cars, book a test drive, or schedule authorised service at Mahindra Modi in Thane, Navi Mumbai and Mumbai.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
   title: {
     default: title,
     template: "%s | Mahindra Modi",
@@ -92,6 +92,11 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -99,12 +104,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-IN" className={`${inter.variable} ${sora.variable} ${lato.variable} ${georama.variable}`}>
-      <body className="min-h-screen antialiased">
+      <body className="min-h-screen antialiased pb-16 md:pb-0">
         <JsonLd />
         <PhoneVerificationProvider>
           <TestDriveModalProvider>
             {children}
             <WhatsAppWidget />
+            <MobileBottomBar />
             <UtmCapture />
           </TestDriveModalProvider>
         </PhoneVerificationProvider>

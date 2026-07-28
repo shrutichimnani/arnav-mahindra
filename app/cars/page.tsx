@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -89,7 +90,11 @@ export default function CarsPage() {
           </div>
         </section>
 
-        <CarsGrid />
+        {/* Suspense boundary required because CarsGrid reads useSearchParams
+            to drive its category filter from the URL. */}
+        <Suspense>
+          <CarsGrid />
+        </Suspense>
 
         <section className="bg-brand py-12 lg:py-16">
           <div className="container-px mx-auto flex max-w-[1400px] flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">

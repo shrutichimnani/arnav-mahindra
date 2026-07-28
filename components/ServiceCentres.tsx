@@ -1,22 +1,32 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { serviceCentres } from "@/lib/data";
-import { MapPin, Phone } from "./icons";
+import { MapPin, Phone, ArrowRight } from "./icons";
 import Reveal from "./Reveal";
 
 export default function ServiceCentres() {
   return (
     <section id="service-centres" className="scroll-mt-24 bg-brand py-14 lg:py-20">
       <div className="container-px mx-auto max-w-[1400px]">
-        <Reveal className="mb-10 max-w-xl">
-          <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">
-            Locate a Service Centre
-          </h2>
-          <p className="mt-2 text-sm text-white/70">
-            {serviceCentres.length} authorised Mahindra Modi service centre
-            across Thane, serving Thane, Navi Mumbai and Mumbai.
-          </p>
+        <Reveal className="mb-10 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+          <div className="max-w-xl">
+            <h2 className="font-display text-2xl font-bold text-white sm:text-3xl">
+              Locate a Service Centre
+            </h2>
+            <p className="mt-2 text-sm text-white/70">
+              {serviceCentres.length} authorised Mahindra Modi service centre
+              across Thane, serving Thane, Navi Mumbai and Mumbai.
+            </p>
+          </div>
+          <Link
+            href="/locate-us"
+            className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-brand shadow-md transition-all hover:bg-bg-2"
+          >
+            View on Map
+            <ArrowRight className="h-4 w-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
+          </Link>
         </Reveal>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -27,6 +37,7 @@ export default function ServiceCentres() {
                   <Image
                     src={loc.image}
                     alt={`${loc.name} service centre in ${loc.city}`}
+                    title={`${loc.name} Service Centre`}
                     fill
                     sizes="(max-width: 640px) 100vw, 33vw"
                     className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"

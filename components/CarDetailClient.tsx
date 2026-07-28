@@ -8,6 +8,7 @@ import { company, formatINR } from "@/lib/data";
 import { getCarBrochure, getCarDetail, getCarGallery } from "@/lib/car-details";
 import type { CarDetail } from "@/lib/data";
 import { ArrowRight, Check, ChevronDown, Download } from "./icons";
+import BackLink from "./BackLink";
 import Reveal from "./Reveal";
 import { useTestDriveModal } from "./TestDriveModalProvider";
 
@@ -49,7 +50,9 @@ export default function CarDetailClient({ car }: { car: Car }) {
   const ctaRef = useRef<HTMLDivElement>(null);
   const [stickyCtaVisible, setStickyCtaVisible] = useState(false);
   const color = car.colors[colorIndex];
-  const heroImage = car.image;
+  // The hero reflects the selected paint — each CarColor carries its own
+  // image. (The static car.image is only used on the listing card.)
+  const heroImage = color.image;
   const detail = getCarDetail(car);
   const brochureUrl = getCarBrochure(car);
   const displayName = `Mahindra ${car.name}`;
@@ -94,6 +97,7 @@ export default function CarDetailClient({ car }: { car: Car }) {
       <section className="bg-white pb-8 pt-8 lg:pb-12 lg:pt-12">
         <div className="container-px mx-auto max-w-[1400px]">
           {/* Breadcrumb */}
+          <BackLink />
           <nav aria-label="Breadcrumb" className="mb-4 flex flex-wrap items-center gap-1.5 text-xs text-muted">
             <Link href="/" className="hover:text-brand">Home</Link>
             <span className="text-faint">/</span>
@@ -110,6 +114,7 @@ export default function CarDetailClient({ car }: { car: Car }) {
                   key={heroImage}
                   src={heroImage}
                   alt={`${displayName} in ${color.name}, front three-quarter view`}
+                  title={`${displayName} in ${color.name}`}
                   width={1000}
                   height={440}
                   priority
@@ -182,6 +187,7 @@ export default function CarDetailClient({ car }: { car: Car }) {
                         <Image
                           src={image.src}
                           alt={image.alt}
+                          title={image.alt}
                           fill
                           sizes="(max-width: 640px) 50vw, 33vw"
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
@@ -330,13 +336,13 @@ export default function CarDetailClient({ car }: { car: Car }) {
           </div>
           <div className="mt-7 grid gap-4 lg:grid-cols-[1.6fr_0.9fr]">
             <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden rounded-lg bg-bg-2 p-6 sm:min-h-[440px]">
-              <Image src={gallery[galleryIndex].src} alt={gallery[galleryIndex].alt} width={1200} height={675} sizes="(max-width: 1024px) 100vw, 65vw" className="h-auto w-full object-contain" />
+              <Image src={gallery[galleryIndex].src} alt={gallery[galleryIndex].alt} title={gallery[galleryIndex].alt} width={1200} height={675} sizes="(max-width: 1024px) 100vw, 65vw" className="h-auto w-full object-contain" />
               <span className="absolute bottom-4 left-4 rounded bg-brand px-3 py-1.5 text-xs font-semibold text-white">{gallery[galleryIndex].label}</span>
               <span className="absolute bottom-4 right-4 rounded bg-white/90 px-3 py-1.5 text-xs font-medium text-text">{galleryIndex + 1} / {gallery.length}</span>
             </div>
             <div className="grid max-h-[440px] auto-rows-min grid-cols-2 gap-3 overflow-y-auto pr-1 sm:grid-cols-3 lg:grid-cols-2">
               {gallery.map((image, index) => <button key={image.src} type="button" onClick={() => setGalleryIndex(index)} aria-pressed={index === galleryIndex} className={`group overflow-hidden rounded-lg border bg-bg-2 text-left transition-all ${index === galleryIndex ? "border-brand ring-2 ring-brand/15" : "border-border hover:border-brand"}`}>
-                <Image src={image.src} alt={image.label} width={360} height={200} sizes="(max-width: 640px) 50vw, 240px" className="h-24 w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105" />
+                <Image src={image.src} alt={image.label} title={image.label} width={360} height={200} sizes="(max-width: 640px) 50vw, 240px" className="h-24 w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105" />
                 <span className="block border-t border-border bg-white px-2.5 py-2 text-xs font-medium text-text">{image.label}</span>
               </button>)}
             </div>
@@ -407,6 +413,7 @@ export default function CarDetailClient({ car }: { car: Car }) {
                 <Image
                   src={gallery[galleryIndex]?.src || ''}
                   alt={gallery[galleryIndex]?.alt || ''}
+                  title={gallery[galleryIndex]?.alt || ''}
                   fill
                   className="object-contain"
                   priority
@@ -439,6 +446,7 @@ export default function CarDetailClient({ car }: { car: Car }) {
                     <Image
                       src={img.src}
                       alt={img.alt}
+                      title={img.alt}
                       fill
                       sizes="200px"
                       className="object-cover transition-transform duration-300 group-hover:scale-105"

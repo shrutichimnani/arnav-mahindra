@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import { cars, formatINR, type CarCategory } from "@/lib/data";
 import Reveal from "./Reveal";
 
@@ -15,19 +16,58 @@ const categories: ("All" | CarCategory)[] = [
   "Commercial",
 ];
 
-export default function CarsGrid() {
-  const [category, setCategory] = useState<"All" | CarCategory>("All");
-  const categoryFiltered =
-    category === "All" ? cars : cars.filter((c) => c.category === category);
+const categorySet = new Set<string>(categories);
 
-  const filtered = useMemo(() => {
-    const arr = [...categoryFiltered];
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
+function getShuffleCache(): Map<string, typeof cars> {
+  if (typeof window === "undefined") return new Map();
+  const key = "__mahindra_cars_grid_shuffle__";
+  if (!(window as any)[key]) (window as any)[key] = new Map();
+  return (window as any)[key];
+}
+
+export default function CarsGrid() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const rawCategory = searchParams.get("category");
+  const category: "All" | CarCategory = (
+    rawCategory && categorySet.has(rawCategory) ? rawCategory : "All"
+  ) as "All" | CarCategory;
+
+  const setCategory = (next: "All" | CarCategory) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (next === "All") params.delete("category");
+    else params.set("category", next);
+    const qs = params.toString();
+    router.push(qs ? `/cars?${qs}` : "/cars", { scroll: false });
+  };
+
+  const categoryFiltered = useMemo(
+    () => (category === "All" ? cars : cars.filter((c) => c.category === category)),
+    [category],
+  );
+
+  const cacheKey = category;
+
+  const [filtered, setFiltered] = useState(() => {
+    const cached = getShuffleCache().get(cacheKey);
+    if (cached) return cached;
+    return categoryFiltered;
+  });
+
+  useEffect(() => {
+    const cache = getShuffleCache();
+    let arr = cache.get(cacheKey);
+    if (!arr) {
+      arr = [...categoryFiltered];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      cache.set(cacheKey, arr);
     }
-    return arr;
-  }, [categoryFiltered]);
+    setFiltered(arr);
+  }, [categoryFiltered, cacheKey]);
 
   return (
     <section className="bg-white py-10 lg:py-14">
@@ -61,6 +101,7 @@ export default function CarsGrid() {
                     <Image
                       src={car.image}
                       alt={car.alt}
+                      title={`Mahindra ${car.name}`}
                       width={400}
                       height={150}
                       className="max-h-full w-auto max-w-full object-contain drop-shadow-lg transition-transform duration-500 group-hover:scale-105"

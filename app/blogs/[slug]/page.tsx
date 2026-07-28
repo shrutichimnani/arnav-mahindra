@@ -115,6 +115,7 @@ export default async function BlogPostPage({
             <img
               src={post.image}
               alt={post.alt}
+              title={post.title}
               className={`aspect-[16/9] w-full object-cover ${post.imagePosition ?? "object-center"}`}
             />
           </div>
@@ -151,6 +152,7 @@ export default async function BlogPostPage({
                     <img
                       src={r.image}
                       alt={r.alt}
+                      title={r.title}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
@@ -179,7 +181,7 @@ export default async function BlogPostPage({
                 Our experts are here to help you find the perfect SUV tailored to your lifestyle and budget.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <TestDriveTrigger source="blog_post" variant="button" className="w-full sm:w-auto rounded-md bg-brand px-8 py-3.5 text-sm font-bold text-white transition-colors hover:bg-brand-light">
+                <TestDriveTrigger source="blog_post" variant="button" className="w-full sm:w-auto rounded-md border border-white/30 bg-brand px-8 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white hover:text-black">
                   Book a Test Drive
                 </TestDriveTrigger>
                 <Link href="/contact-us" className="w-full sm:w-auto rounded-md border border-white/30 bg-black/40 px-8 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white hover:text-black">

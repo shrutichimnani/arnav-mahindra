@@ -6,14 +6,14 @@
    standard dealer-site branding practice. */
 import Link from "next/link";
 
-export default function Logo({ className = "", dark = false }: { className?: string; dark?: boolean }) {
+export default function Logo({ className = "", dark = false, showSubtitle = true }: { className?: string; dark?: boolean; showSubtitle?: boolean }) {
   return (
-    <Link href="/#home" className={`group flex items-center gap-3 ${className}`}>
+    <Link href="/" className={`group flex items-center gap-3 ${className}`}>
       <svg
         viewBox="0 0 131 18"
         role="img"
         aria-label="Mahindra"
-        className={`h-6 w-auto shrink-0 sm:h-7 ${dark ? "text-white" : "text-brand"}`}
+        className={`${showSubtitle ? "h-6 sm:h-7" : "h-6 sm:h-7 -translate-y-1 sm:-translate-y-1.5"} w-auto shrink-0 ${dark ? "text-white" : "text-brand"}`}
         fill="currentColor"
       >
         <path
@@ -34,9 +34,11 @@ export default function Logo({ className = "", dark = false }: { className?: str
         <span className={`block whitespace-nowrap font-logo text-sm font-extrabold tracking-tight ${dark ? "text-white" : "text-brand"}`}>
           MAHINDRA MODI
         </span>
-        <span className={`block whitespace-nowrap text-[9px] font-medium uppercase tracking-[0.2em] ${dark ? "text-white/60" : "text-muted"}`}>
-          A Unit of Arnav Automobiles Pvt Ltd.
-        </span>
+        {showSubtitle && (
+          <span className={`block whitespace-nowrap text-[9px] font-medium uppercase tracking-[0.2em] ${dark ? "text-white/60" : "text-muted"}`}>
+            A Unit of Arnav Automobiles Pvt Ltd.
+          </span>
+        )}
       </span>
     </Link>
   );
