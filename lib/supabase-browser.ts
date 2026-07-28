@@ -29,5 +29,16 @@ declare global {
   var __supabaseBrowserClient: SupabaseClient | undefined;
 }
 
-export const supabaseBrowser: SupabaseClient =
-  globalThis.__supabaseBrowserClient ?? (globalThis.__supabaseBrowserClient = buildBrowserClient());
+// Built lazily, on first actual use — not at module-import time. lib/leads.ts
+// guards every call site with a try/catch specifically to degrade gracefully
+// when this isn't configured, but that guard only works if constructing the
+// client is deferred to when it's actually called; an eager throw here would
+// instead blow up at import time, before that try/catch ever runs.
+export const supabaseBrowser: SupabaseClient = new Proxy({} as SupabaseClient, {
+  get(_target, prop, receiver) {
+    const client =
+      globalThis.__supabaseBrowserClient ??
+      (globalThis.__supabaseBrowserClient = buildBrowserClient());
+    return Reflect.get(client, prop, receiver);
+  },
+});

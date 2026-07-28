@@ -35,5 +35,19 @@ declare global {
   var __supabaseClient: SupabaseClient | undefined;
 }
 
-export const supabase: SupabaseClient =
-  globalThis.__supabaseClient ?? (globalThis.__supabaseClient = buildClient());
+// Built lazily, on first actual use, NOT at module-import time. Next.js
+// evaluates this module while statically "collecting page data" for the
+// OTP API routes during `next build` — if the env vars aren't set at
+// build time (e.g. they're only configured as runtime env vars in
+// Netlify, not build-time ones), an eager `buildClient()` call here
+// throws during the build itself and fails the deploy, even though the
+// vars are perfectly fine at request time. A Proxy defers the throw (and
+// the client construction) until a route handler actually calls
+// `supabase.from(...)`.
+export const supabase: SupabaseClient = new Proxy({} as SupabaseClient, {
+  get(_target, prop, receiver) {
+    const client =
+      globalThis.__supabaseClient ?? (globalThis.__supabaseClient = buildClient());
+    return Reflect.get(client, prop, receiver);
+  },
+});
