@@ -2,5 +2,15 @@
   command = "npm run build"
   publish = ".next"
 
+  # These are NEXT_PUBLIC_* vars — by design they get inlined into the
+  # client-side JS bundle so the browser can call these endpoints (sheet
+  # submission, Supabase anon client). Netlify's secret scanner otherwise
+  # fails the build treating that expected inlining as a leak. The actual
+  # secrets (SUPABASE_SERVICE_ROLE_KEY, WHATSAPP_API_KEY, etc.) are never
+  # NEXT_PUBLIC_-prefixed and stay server-only, so they're not exempted
+  # here and would still correctly fail the scan if ever leaked.
+  [build.environment]
+    SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SHEET_SCRIPT_URL,NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY"
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"
