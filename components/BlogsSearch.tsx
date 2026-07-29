@@ -29,6 +29,14 @@ export default function BlogsSearch() {
 
   useEffect(() => setMounted(true), []);
 
+  // A pending blur callback retains this component after a route change.
+  // Clear it when the search unmounts so it cannot update stale state.
+  useEffect(() => {
+    return () => {
+      if (blurTimeout.current) clearTimeout(blurTimeout.current);
+    };
+  }, []);
+
   // The hero section clips overflow for its background image, so an
   // absolutely positioned dropdown inside it gets cut off. Portal the
   // dropdown to <body> instead and track the input's own position with
@@ -55,10 +63,17 @@ export default function BlogsSearch() {
   // link registers, since blur fires first. Delaying the close lets the
   // click go through; a click or focus back on the input cancels it.
   const scheduleClose = () => {
-    blurTimeout.current = setTimeout(() => setOpen(false), 150);
+    if (blurTimeout.current) clearTimeout(blurTimeout.current);
+    blurTimeout.current = setTimeout(() => {
+      setOpen(false);
+      blurTimeout.current = null;
+    }, 150);
   };
   const cancelClose = () => {
-    if (blurTimeout.current) clearTimeout(blurTimeout.current);
+    if (blurTimeout.current) {
+      clearTimeout(blurTimeout.current);
+      blurTimeout.current = null;
+    }
   };
 
   return (

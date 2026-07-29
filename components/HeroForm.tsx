@@ -35,7 +35,7 @@ export default function HeroForm() {
         <span className="grid h-12 w-12 place-items-center rounded-full bg-brand/10 text-brand">
           <Check className="h-6 w-6" />
         </span>
-        <h3 className="mt-4 font-display text-lg font-bold text-text">Booking received!</h3>
+        <h3 className="mt-4 font-display text-lg font-bold text-text">Thank you for your interest!</h3>
         <div className="mt-2 space-y-2 text-xs leading-relaxed text-muted">
           <p>
             We thank you for showing an interest in test driving of Mahindra{" "}

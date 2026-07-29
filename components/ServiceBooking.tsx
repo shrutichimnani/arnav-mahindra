@@ -202,12 +202,12 @@ export default function ServiceBooking() {
 
                   <label className="block">
                     <span className="mb-1.5 block text-xs font-semibold text-muted">
-                      Registration Number{" "}
-                      <span className="font-normal text-faint">(optional)</span>
+                      Registration Number
                     </span>
                     <input
                       name="registrationnumber"
                       type="text"
+                      required
                       maxLength={12}
                       placeholder="e.g. MH04AB1234"
                       className={fieldBase}

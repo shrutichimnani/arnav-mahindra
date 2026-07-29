@@ -174,7 +174,7 @@ export default function TestDrive() {
                   <Check className="h-8 w-8" />
                 </span>
                 <h3 className="mt-6 font-display text-2xl font-bold text-text">
-                  Booking received!
+                  Thank you for your interest!
                 </h3>
                 <div className="mt-3 max-w-sm space-y-3 text-sm leading-relaxed text-muted">
                   <p>

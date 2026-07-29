@@ -28,9 +28,14 @@ export default function TestDriveModalProvider({ children }: { children: ReactNo
   const [carSlug, setCarSlug] = useState<string | undefined>(undefined);
   const [modalSource, setModalSource] = useState<string | undefined>(undefined);
   const scrollY = useRef(0);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
 
   const openTestDrive = useCallback<OpenFn>((opts) => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current);
+      closeTimer.current = null;
+    }
     scrollY.current = window.scrollY;
     setCarSlug(opts?.carSlug);
     setModalSource(opts?.source);
@@ -41,8 +46,19 @@ export default function TestDriveModalProvider({ children }: { children: ReactNo
   const close = useCallback(() => {
     setOpen(false);
     setHidden(false);
-    setTimeout(() => { setCarSlug(undefined); setModalSource(undefined); }, 200);
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => {
+      setCarSlug(undefined);
+      setModalSource(undefined);
+      closeTimer.current = null;
+    }, 200);
     window.scrollTo(0, scrollY.current);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (closeTimer.current) clearTimeout(closeTimer.current);
+    };
   }, []);
 
   // Hide the modal (keep it mounted, state intact) when the visitor opens a

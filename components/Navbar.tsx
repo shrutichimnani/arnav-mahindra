@@ -204,15 +204,15 @@ export default function Navbar() {
         />
         <div
           className={`absolute right-0 top-0 flex h-full w-[82%] max-w-sm flex-col gap-1 border-l border-border bg-white p-6 shadow-2xl transition-transform duration-300 ${
-            open ? "translate-x-0" : "translate-x-full"
+            open ? "[transform:translateX(0)]" : "[transform:translateX(100%)]"
           }`}
         >
-          <div className="mb-6 flex items-center justify-between">
-            <Logo showSubtitle={false} />
+          <div className="mb-6 flex shrink-0 items-center justify-between">
+            <Logo showSubtitle={false} showIcon={false} />
             <button
               aria-label="Close menu"
               onClick={() => setOpen(false)}
-              className="grid h-9 w-9 place-items-center rounded border border-border bg-bg-2 text-text"
+              className="grid h-9 w-9 shrink-0 place-items-center rounded border border-border bg-bg-2 text-text"
             >
               <X className="h-5 w-5" />
             </button>

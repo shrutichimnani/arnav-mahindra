@@ -112,7 +112,7 @@ export default function BlogsPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <TestDriveTrigger source="blog_listing" variant="button" className="w-full sm:w-auto rounded-md bg-brand px-8 py-3.5 text-sm font-bold text-white transition-colors hover:bg-brand-light">
+                <TestDriveTrigger source="blog_listing" variant="button" className="w-full sm:w-auto rounded-md border border-white/30 bg-black/40 px-8 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white hover:text-black">
                   Book a Test Drive
                 </TestDriveTrigger>
                 <Link href="/contact-us" className="w-full sm:w-auto rounded-md border border-white/30 bg-black/40 px-8 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white hover:text-black">

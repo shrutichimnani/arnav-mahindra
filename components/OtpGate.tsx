@@ -69,6 +69,13 @@ export default function OtpGate({
   const [busy, setBusy] = useState(false);
   const [resendIn, setResendIn] = useState(0);
   const [agreed, setAgreed] = useState(false);
+  const activeRequest = useRef<AbortController | null>(null);
+
+  // Cancel in-flight requests when this form goes away. Their response
+  // handlers would otherwise keep the unmounted form alive until completion.
+  useEffect(() => {
+    return () => activeRequest.current?.abort();
+  }, []);
 
   useEffect(() => {
     try {
@@ -126,6 +133,9 @@ export default function OtpGate({
 
   const sendOtp = async (target?: string) => {
     const number = target ?? phone;
+    activeRequest.current?.abort();
+    const controller = new AbortController();
+    activeRequest.current = controller;
     setBusy(true);
     setError("");
     try {
@@ -133,8 +143,10 @@ export default function OtpGate({
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ phone: countryCode + number }),
+        signal: controller.signal,
       });
       const data = await res.json();
+      if (controller.signal.aborted) return false;
       if (!data.ok) {
         setError(data.error ?? "Could not send code. Try again.");
         return false;
@@ -142,10 +154,14 @@ export default function OtpGate({
       setResendIn(30);
       return true;
     } catch {
+      if (controller.signal.aborted) return false;
       setError("Network error. Please try again.");
       return false;
     } finally {
-      setBusy(false);
+      if (activeRequest.current === controller) {
+        activeRequest.current = null;
+        if (!controller.signal.aborted) setBusy(false);
+      }
     }
   };
 
@@ -176,6 +192,9 @@ export default function OtpGate({
       setError("Enter the 4-digit code.");
       return;
     }
+    activeRequest.current?.abort();
+    const controller = new AbortController();
+    activeRequest.current = controller;
     setBusy(true);
     setError("");
     try {
@@ -183,8 +202,10 @@ export default function OtpGate({
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ phone: countryCode + phone, code: otpCode }),
+        signal: controller.signal,
       });
       const data = await res.json();
+      if (controller.signal.aborted) return;
       if (!data.ok) {
         setError(data.error ?? "Verification failed.");
         return;
@@ -193,9 +214,13 @@ export default function OtpGate({
       // other form (and re-opening this one) skips the OTP step.
       setVerifiedPhone(countryCode + phone, source);
     } catch {
+      if (controller.signal.aborted) return;
       setError("Network error. Please try again.");
     } finally {
-      setBusy(false);
+      if (activeRequest.current === controller) {
+        activeRequest.current = null;
+        if (!controller.signal.aborted) setBusy(false);
+      }
     }
   };
 
