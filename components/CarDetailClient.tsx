@@ -7,7 +7,7 @@ import type { Car } from "@/lib/data";
 import { company, formatINR } from "@/lib/data";
 import { getCarBrochure, getCarDetail, getCarGallery } from "@/lib/car-details";
 import type { CarDetail } from "@/lib/data";
-import { ArrowRight, Check, ChevronDown, Download } from "./icons";
+import { ArrowRight, Check, ChevronDown, Download, X } from "./icons";
 import BackLink from "./BackLink";
 import Reveal from "./Reveal";
 import { useTestDriveModal } from "./TestDriveModalProvider";
@@ -476,6 +476,9 @@ function CarFaq({
   detail: CarDetail;
   brochureUrl?: string;
 }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
+
   const faqs = [
     {
       q: `What is the price of the ${displayName} in Thane?`,
@@ -513,15 +516,36 @@ function CarFaq({
           Frequently asked questions about the {displayName}
         </h2>
         <div className="mt-7 space-y-3">
-          {faqs.map((item) => (
-            <details key={item.q} className="group rounded-lg border border-border bg-white p-5">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-text">
-                {item.q}
-                <ChevronDown className="h-5 w-5 shrink-0 text-muted transition-transform group-open:rotate-180" />
-              </summary>
-              <p className="mt-3 text-sm leading-relaxed text-muted">{item.a}</p>
-            </details>
-          ))}
+          {faqs.map((item, i) => {
+            const isOpen = openIndex === i;
+            return (
+              <button
+                key={item.q}
+                onClick={() => toggle(i)}
+                className="w-full rounded-lg border border-border bg-white p-5 text-left"
+              >
+                <span className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-text">
+                  {item.q}
+                  <span className="shrink-0">
+                    {isOpen ? (
+                      <X className="h-4 w-4 text-brand" />
+                    ) : (
+                      <ChevronDown className="h-5 w-5 text-muted" />
+                    )}
+                  </span>
+                </span>
+                <div
+                  className={`grid transition-all duration-300 ease-in-out ${
+                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <p className="pt-3 text-sm leading-relaxed text-muted">{item.a}</p>
+                  </div>
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
     </section>
