@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "standalone",
   allowedDevOrigins: ["10.5.50.63"], // 
   experimental: {
     scrollRestoration: true,
