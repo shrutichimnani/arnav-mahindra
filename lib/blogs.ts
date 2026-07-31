@@ -189,7 +189,7 @@ export const blogPosts: BlogPost[] = [
       `This month brings some of the strongest combined offers we have run all year across the Mahindra range at Mahindra Modi, and they can be stacked depending on your purchase.`,
       `A cash discount of up to ₹50,000 is available on select models booked this season, on top of an exchange bonus of up to ₹40,000 when you trade in your current car, new or used, any make. Corporate and fleet buyers get an additional ₹40,000 corporate benefit on eligible purchases.`,
       `These offers apply across the SUV range, including the Thar Roxx, Scorpio-N, and XUV 3XO, and our finance desk can combine them with a bank loan for a lower effective on-road price than the sticker suggests.`,
-      `Offers are time-bound and variant-specific, so the fastest way to know exactly what applies to the model you want is to call 84699 89900 or visit our Thane or Airoli showroom this week.`,
+      `Offers are time-bound and variant-specific, so the fastest way to know exactly what applies to the model you want is to call 84699 89900 or 82387 85050, or visit our Thane or Airoli showroom this week.`,
     ],
   },
   {

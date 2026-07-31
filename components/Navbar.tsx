@@ -259,6 +259,13 @@ export default function Navbar() {
           >
             <Phone className="h-4 w-4" /> {nav.phone}
           </a>
+          <a
+            href={`tel:${nav.phoneSecondary.replace(/\s/g, "")}`}
+            tabIndex={open ? undefined : -1}
+            className="mt-2 flex items-center justify-center gap-2 rounded border border-border px-5 py-3.5 text-sm font-semibold text-brand"
+          >
+            <Phone className="h-4 w-4" /> {nav.phoneSecondary}
+          </a>
         </div>
       </div>
     </header>

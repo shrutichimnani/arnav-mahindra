@@ -144,12 +144,21 @@ export default function Footer() {
               </li>
               <li className="flex gap-3">
                 <Phone className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />
-                <a
-                  href={`tel:${nav.phone.replace(/\s/g, "")}`}
-                  className="transition-colors hover:text-white"
-                >
-                  {nav.phone}
-                </a>
+                <span className="flex flex-wrap gap-x-1.5">
+                  <a
+                    href={`tel:${nav.phone.replace(/\s/g, "")}`}
+                    className="transition-colors hover:text-white"
+                  >
+                    {nav.phone}
+                  </a>
+                  <span aria-hidden>/</span>
+                  <a
+                    href={`tel:${nav.phoneSecondary.replace(/\s/g, "")}`}
+                    className="transition-colors hover:text-white"
+                  >
+                    {nav.phoneSecondary}
+                  </a>
+                </span>
               </li>
               <li className="flex gap-3">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />

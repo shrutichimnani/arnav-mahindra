@@ -98,13 +98,26 @@ export default function Locations() {
                     <MapPin className="mt-0.5 h-3 w-3 shrink-0 text-white/60" />
                     <span>{loc.city}</span>
                   </p>
-                  <a
-                    href={`tel:${loc.phone.replace(/[^0-9+]/g, "")}`}
-                    className="mt-1.5 flex items-center gap-1 text-[11px] font-medium text-white/90 transition-colors hover:text-white"
-                  >
-                    <Phone className="h-3 w-3 shrink-0 text-white/60" />
-                    {loc.phone}
-                  </a>
+                  <div className="mt-1.5 flex flex-wrap items-center gap-x-1 gap-y-0.5">
+                    <a
+                      href={`tel:${loc.phone.replace(/[^0-9+]/g, "")}`}
+                      className="flex items-center gap-1 text-[11px] font-medium text-white/90 transition-colors hover:text-white"
+                    >
+                      <Phone className="h-3 w-3 shrink-0 text-white/60" />
+                      {loc.phone}
+                    </a>
+                    {loc.phoneSecondary && (
+                      <>
+                        <span aria-hidden className="text-[11px] text-white/60">/</span>
+                        <a
+                          href={`tel:${loc.phoneSecondary.replace(/[^0-9+]/g, "")}`}
+                          className="text-[11px] font-medium text-white/90 transition-colors hover:text-white"
+                        >
+                          {loc.phoneSecondary}
+                        </a>
+                      </>
+                    )}
+                  </div>
                 </div>
               </article>
             </Reveal>

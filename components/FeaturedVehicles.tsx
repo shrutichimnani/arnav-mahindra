@@ -52,16 +52,20 @@ export default function FeaturedVehicles() {
   });
 
   useEffect(() => {
-    const cache = getShuffleCache();
-    if (cache.has(cacheKey)) return;
-    const arr = [...categoryFiltered];
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    cache.set(cacheKey, arr);
-    setFiltered(arr);
-  }, [categoryFiltered, cacheKey]);
+  const cache = getShuffleCache();
+  const cached = cache.get(cacheKey);
+  if (cached) {
+    setFiltered(cached);
+    return;
+  }
+  const arr = [...categoryFiltered];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  cache.set(cacheKey, arr);
+  setFiltered(arr);
+}, [categoryFiltered, cacheKey]);
 
   const active = filtered[index] ?? filtered[0];
 

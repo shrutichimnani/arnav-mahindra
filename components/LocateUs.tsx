@@ -131,9 +131,17 @@ export default function LocateUs() {
                       <MapPin className={`mt-0.5 h-4 w-4 shrink-0 ${active ? "text-white/70" : "text-faint"}`} />
                       <span>{location.address}</span>
                     </p>
-                    <div className={`mt-4 flex items-center gap-2 text-sm font-semibold ${active ? "text-white" : "text-brand"}`}>
-                      <Phone className="h-4 w-4" />
-                      {location.phone}
+                    <div className={`mt-4 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm font-semibold ${active ? "text-white" : "text-brand"}`}>
+                      <span className="flex items-center gap-2">
+                        <Phone className="h-4 w-4" />
+                        {location.phone}
+                      </span>
+                      {location.phoneSecondary && (
+                        <>
+                          <span aria-hidden className="opacity-60">/</span>
+                          <span>{location.phoneSecondary}</span>
+                        </>
+                      )}
                     </div>
                   </button>
                 );
@@ -219,13 +227,26 @@ export default function LocateUs() {
                   <p className="text-xs font-semibold uppercase tracking-wider text-brand">
                     Contact
                   </p>
-                  <a
-                    href={`tel:${selectedLocation.phone.replace(/[^0-9+]/g, "")}`}
-                    className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-text transition-colors hover:text-brand"
-                  >
-                    <Phone className="h-4 w-4 text-brand" />
-                    {selectedLocation.phone}
-                  </a>
+                  <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <a
+                      href={`tel:${selectedLocation.phone.replace(/[^0-9+]/g, "")}`}
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-text transition-colors hover:text-brand"
+                    >
+                      <Phone className="h-4 w-4 text-brand" />
+                      {selectedLocation.phone}
+                    </a>
+                    {selectedLocation.phoneSecondary && (
+                      <>
+                        <span aria-hidden className="text-sm font-semibold text-muted">/</span>
+                        <a
+                          href={`tel:${selectedLocation.phoneSecondary.replace(/[^0-9+]/g, "")}`}
+                          className="text-sm font-semibold text-text transition-colors hover:text-brand"
+                        >
+                          {selectedLocation.phoneSecondary}
+                        </a>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

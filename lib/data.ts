@@ -60,6 +60,7 @@ export const company = {
 
 export const nav = {
   phone: company.phone,
+  phoneSecondary: company.phoneSecondary,
   location: "Thane",
   links: [
     { label: "Home", href: "/" },
@@ -1011,7 +1012,7 @@ export const faqData = [
   {
     question: "How do I book a test drive at Mahindra Modi?",
     answer:
-      "You can book a test drive online using the form on this page, or by calling us on 84699 89900. Once you share your details, our team will confirm your preferred date, time and location, at our showroom or your home.",
+      "You can book a test drive online using the form on this page, or by calling us on 84699 89900 or 82387 85050. Once you share your details, our team will confirm your preferred date, time and location, at our showroom or your home.",
   },
   {
     question: "Do you offer car finance and exchange?",
@@ -1090,6 +1091,10 @@ export type Location = {
   city: string;
   address: string;
   phone: string;
+  // Present for outlets that share the group's second helpline number
+  // alongside their own. Airoli has its own distinct number, so it's the
+  // only location without this.
+  phoneSecondary?: string;
   image: string;
   mapsUrl: string;
   // Google's feature ID (ftid) for the exact place, resolved from mapsUrl.
@@ -1113,6 +1118,7 @@ export const locations: Location[] = [
     city: "Thane",
     address: "Survey No 412, Ashar Compound, Rd No 27, Wagle Industrial Estate, Thane West, Maharashtra 400604",
     phone: "84699 89900",
+    phoneSecondary: "82387 85050",
     image: "/images/locate-us/thane-showroom.webp",
     mapsUrl: "https://maps.app.goo.gl/hV126JsMg6duaCmE9",
     ftid: "0x3be7b9b401811351:0xcbb5fcaac0213170",
@@ -1124,7 +1130,8 @@ export const locations: Location[] = [
     type: "Showroom",
     city: "Navi Mumbai",
     address: "Hissa No 1, Akshar Green World, Shop 27A 27B, Gate 242, Thane Belapur Rd, Airoli, Maharashtra 400708",
-    phone: "82387 85050",
+    phone: "84699 89900",
+    phoneSecondary: "82387 85050",
     image: "/images/locate-us/airoli-showroom.webp",
     mapsUrl: "https://maps.app.goo.gl/LgYCDcro2fgQ7zceA",
     ftid: "0x3be7bfb7133a6f61:0x955ceba73006b316",
@@ -1137,6 +1144,7 @@ export const locations: Location[] = [
     city: "Mumbai",
     address: "Unit 48, 69 Atria - The Millennium Mall, Dr Annie Besant Rd, Lotus Colony, Worli, Mumbai, Maharashtra 400018",
     phone: "84699 89900",
+    phoneSecondary: "82387 85050",
     image: "/images/locate-us/south-mumbai-showroom.webp",
     mapsUrl: "https://maps.app.goo.gl/rAW8jjtkcfj6HXZNA",
     ftid: "0x3be7ce8641a673a7:0x2e73544bb5657fff",
@@ -1149,6 +1157,7 @@ export const locations: Location[] = [
     city: "Mumbai",
     address: "Plot 95/96, Mahatma Gandhi Rd, Hindustan Naka, Charkop Industrial Estate, Kandivali West, Mumbai, Maharashtra 400067",
     phone: "84699 89900",
+    phoneSecondary: "82387 85050",
     image: "/images/locate-us/charkop-service.webp",
     mapsUrl: "https://maps.app.goo.gl/cgV166Va4iuyVuky7",
     ftid: "0x3be7b75555bdaf83:0xed5e86c80f211998",
@@ -1161,6 +1170,7 @@ export const locations: Location[] = [
     city: "Mumbai",
     address: "Sewree Fort, Best Saparia Sub Station, Sewri - Chembur Rd, BPCL Complex, Sewri, Mumbai, Maharashtra 400015",
     phone: "84699 89900",
+    phoneSecondary: "82387 85050",
     image: "/images/blogs/sewri-workshop.png",
     mapsUrl: "https://maps.app.goo.gl/GbXbyiRbsUHrxUr58",
     ftid: "0x3be7cf1a54cf9235:0x42a17a954159a947",

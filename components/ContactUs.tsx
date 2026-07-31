@@ -67,12 +67,21 @@ export default function ContactUs() {
                 </span>
                 <div>
                   <p className="text-xs font-medium text-muted">Call Us</p>
-                  <a
-                    href={`tel:${company.phoneE164}`}
-                    className="text-sm font-semibold text-text transition-colors hover:text-brand"
-                  >
-                    {company.phone}
-                  </a>
+                  <div className="flex flex-wrap gap-x-1.5">
+                    <a
+                      href={`tel:${company.phoneE164}`}
+                      className="text-sm font-semibold text-text transition-colors hover:text-brand"
+                    >
+                      {company.phone}
+                    </a>
+                    <span aria-hidden className="text-sm font-semibold text-muted">/</span>
+                    <a
+                      href={`tel:${company.phoneSecondaryE164}`}
+                      className="text-sm font-semibold text-text transition-colors hover:text-brand"
+                    >
+                      {company.phoneSecondary}
+                    </a>
+                  </div>
                 </div>
               </li>
               <li className="flex items-start gap-3">

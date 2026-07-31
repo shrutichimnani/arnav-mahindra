@@ -52,13 +52,26 @@ export default function ServiceCentres() {
                     <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-white/60" />
                     <span>{loc.address}</span>
                   </p>
-                  <a
-                    href={`tel:${loc.phone.replace(/[^0-9+]/g, "")}`}
-                    className="mt-1 flex items-center gap-1.5 text-xs font-medium text-white/90 transition-colors hover:text-white"
-                  >
-                    <Phone className="h-3.5 w-3.5 shrink-0 text-white/60" />
-                    {loc.phone}
-                  </a>
+                  <div className="mt-1 flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+                    <a
+                      href={`tel:${loc.phone.replace(/[^0-9+]/g, "")}`}
+                      className="flex items-center gap-1.5 text-xs font-medium text-white/90 transition-colors hover:text-white"
+                    >
+                      <Phone className="h-3.5 w-3.5 shrink-0 text-white/60" />
+                      {loc.phone}
+                    </a>
+                    {loc.phoneSecondary && (
+                      <>
+                        <span aria-hidden className="text-xs text-white/60">/</span>
+                        <a
+                          href={`tel:${loc.phoneSecondary.replace(/[^0-9+]/g, "")}`}
+                          className="text-xs font-medium text-white/90 transition-colors hover:text-white"
+                        >
+                          {loc.phoneSecondary}
+                        </a>
+                      </>
+                    )}
+                  </div>
                 </div>
               </article>
             </Reveal>
