@@ -148,6 +148,7 @@ export default function TestDrive() {
               alt="Mahindra SUV interior and dashboard"
               title="Mahindra SUV interior and dashboard"
               fill
+              priority
               sizes="(max-width: 1024px) 100vw, 45vw"
               className="object-cover"
             />

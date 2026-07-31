@@ -9,7 +9,19 @@ import { SITE_URL } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Terms & Conditions | Mahindra Modi",
   description: "Terms and Conditions for Mahindra Modi - Arnav Automobiles Pvt Ltd.",
-  alternates: { canonical: "/terms-and-conditions" },
+    alternates: { canonical: `${SITE_URL}/terms-and-conditions` },
+  openGraph: {
+    title: "Terms & Conditions | Mahindra Modi",
+    description: "Terms and Conditions for Mahindra Modi - Arnav Automobiles Pvt Ltd.",
+    url: `${SITE_URL}/terms-and-conditions`,
+    siteName: "Mahindra Modi",
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary",
+    title: "Terms & Conditions | Mahindra Modi",
+    description: "Terms and Conditions for Mahindra Modi - Arnav Automobiles Pvt Ltd.",
+  },
 };
 
 export default function TermsPage() {
@@ -17,7 +29,7 @@ export default function TermsPage() {
     <>
       <Navbar />
       <FloatingActions />
-      <main style={{ marginTop: "60px" }}>
+      <main className="main-offset">
         <section className="bg-bg-2 py-10 lg:py-14">
           <div className="container-px mx-auto max-w-[800px]">
             <BackLink />

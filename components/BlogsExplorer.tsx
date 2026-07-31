@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { blogFilters, featuredPost, latestPosts, type BlogCategory } from "@/lib/blogs";
 import { Clock, Calendar } from "./icons";
 
@@ -59,11 +60,13 @@ export default function BlogsExplorer() {
           className="mt-8 lg:mt-12 group relative block w-full overflow-hidden rounded-2xl bg-black"
         >
           <div className="absolute inset-0 z-0">
-            <img
+            <Image
               src={featuredPost.image}
               alt={featuredPost.alt}
               title={featuredPost.title}
-              className="h-full w-full object-cover opacity-60 transition-transform duration-700 group-hover:scale-105"
+              fill
+              sizes="(max-width: 1024px) 100vw, 66vw"
+              className="object-cover opacity-60 transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent md:bg-gradient-to-r md:from-black/90 md:via-black/50" />
           </div>
@@ -121,11 +124,13 @@ export default function BlogsExplorer() {
                 className="group flex flex-col rounded-xl border border-border bg-white overflow-hidden shadow-sm hover:shadow-md transition-all"
               >
                 <div className="relative aspect-[16/9] w-full overflow-hidden bg-bg-2">
-                  <img
+                  <Image
                     src={post.image}
                     alt={post.alt}
                     title={post.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-5">

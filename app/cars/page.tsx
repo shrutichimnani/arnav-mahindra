@@ -17,7 +17,7 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/cars" },
+    alternates: { canonical: `${SITE_URL}/cars` },
   openGraph: {
     type: "website",
     title,
@@ -71,7 +71,7 @@ export default function CarsPage() {
       />
       <Navbar />
       <FloatingActions />
-      <main style={{ marginTop: "60px" }}>
+      <main className="main-offset">
         <section className="bg-bg-2 py-10 lg:py-14">
           <div className="container-px mx-auto max-w-[1400px]">
             <Reveal>

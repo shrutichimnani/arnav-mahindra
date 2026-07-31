@@ -117,9 +117,13 @@ export async function insertLeadToDb(
       .insert({ ...row, created_at: new Date().toISOString() });
 
     if (error) {
-      console.error(`[leads] Supabase insert into "${table}" failed:`, error.message);
+      if (process.env.NODE_ENV !== "production") {
+        console.error(`[leads] Supabase insert into "${table}" failed:`, error.message);
+      }
     }
   } catch (err) {
-    console.error(`[leads] Supabase insert into "${table}" failed:`, err);
+    if (process.env.NODE_ENV !== "production") {
+      console.error(`[leads] Supabase insert into "${table}" failed:`, err);
+    }
   }
 }

@@ -102,7 +102,7 @@ export default function HomeSeoContent() {
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {lineages.map((group, i) => (
               <Reveal key={group.name} delay={i * 90} variant="fade-up">
-                <div className="flex h-full flex-col rounded-lg border border-border bg-white p-6 shadow-[0_2px_12px_0_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
+                <div className="flex h-full flex-col rounded-lg border border-border bg-white p-6 shadow-[0_2px_12px_0_rgba(0,0,0,0.05)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
                   <h3 className="font-display text-lg font-bold text-text">
                     {group.name}
                   </h3>
@@ -200,7 +200,7 @@ export default function HomeSeoContent() {
           <ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {buyingSteps.map((item, i) => (
               <Reveal as="li" key={item.step} delay={i * 90} variant="fade-up">
-                <div className="flex h-full flex-col rounded-lg border border-border bg-white p-6 shadow-[0_2px_12px_0_rgba(0,0,0,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
+                <div className="flex h-full flex-col rounded-lg border border-border bg-white p-6 shadow-[0_2px_12px_0_rgba(0,0,0,0.05)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
                   <span className="font-display text-3xl font-bold text-brand/20">
                     {item.step}
                   </span>

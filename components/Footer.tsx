@@ -48,7 +48,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 border-b border-white/10 pb-10 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1.4fr]">
           {/* Brand column */}
           <div className="col-span-2 lg:col-span-1">
-            <Logo dark />
+            <Logo dark compactOnMobile />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/60">
               Mahindra Modi is an authorised Mahindra dealership offering new
               car sales, servicing and genuine Mahindra parts across Thane,
@@ -136,14 +136,14 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-white">Contact Us</h4>
             <ul className="mt-4 space-y-4 text-sm text-white/60">
               <li className="flex gap-3">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />
                 <span>
                   Mahindra Modi, RD Ashar Compound, Road No 27, Wagle Ind.
                   Estate, Thane West, Maharashtra 400604
                 </span>
               </li>
               <li className="flex gap-3">
-                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
+                <Phone className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />
                 <a
                   href={`tel:${nav.phone.replace(/\s/g, "")}`}
                   className="transition-colors hover:text-white"
@@ -152,7 +152,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="flex gap-3">
-                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
+                <Mail className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />
                 <a
                   href={`mailto:${company.email}`}
                   className="transition-colors hover:text-white"
@@ -161,7 +161,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="flex gap-3">
-                <Clock className="mt-0.5 h-4 w-4 shrink-0 text-white/40" />
+                <Clock className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />
                 <span>{company.hours}</span>
               </li>
             </ul>
@@ -169,7 +169,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col items-center justify-between gap-3 pt-8 text-xs text-white/40 sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-3 pt-8 text-xs text-white/60 sm:flex-row">
           <p>© {new Date().getFullYear()} Mahindra Modi. All Rights Reserved.</p>
           <div className="flex gap-6">
             <Link href="/privacy-policy" className="transition-colors hover:text-white">Privacy Policy</Link>

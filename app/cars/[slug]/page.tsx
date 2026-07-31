@@ -33,13 +33,13 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: { canonical: `/cars/${car.slug}` },
+    alternates: { canonical: `${SITE_URL}/cars/${car.slug}` },
     openGraph: {
       type: "website",
       title,
       description,
       url: `${SITE_URL}/cars/${car.slug}`,
-      images: [car.image],
+      images: [{ url: car.image, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
@@ -150,7 +150,7 @@ export default async function CarDetailPage({
       />
       <Navbar />
       <FloatingActions />
-      <main style={{ marginTop: "60px" }}>
+      <main className="main-offset">
         <CarDetailClient car={car} />
       </main>
       <Footer />

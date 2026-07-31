@@ -842,6 +842,18 @@ const modelFeatureGallery: Record<string, GalleryImage[]> = {
     { src: "/images/cars/gallery/bolero-neo/bolero-neo-10-center-console-55.webp", alt: "Bolero Neo centre console", label: "Centre console", kind: "cabin" },
     { src: "/images/cars/gallery/bolero-neo/bolero-neo-11-front-armrest-185.webp", alt: "Bolero Neo front armrest", label: "Front armrest", kind: "cabin" },
   ],
+  "bolero-neo-plus": [
+    { src: "/images/cars/gallery/bolero-neo-plus/bolero-neo-plus-01-front-left-side-47.webp", alt: "Bolero Neo Plus, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-neo-plus/bolero-neo-plus-02-grille-97.webp", alt: "Bolero Neo Plus, front grille styling", label: "Grille styling", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-neo-plus/bolero-neo-plus-03-wheel-42.webp", alt: "Bolero Neo Plus, alloy wheel design", label: "Wheel design", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-neo-plus/bolero-neo-plus-04-front-fog-lamp-41.webp", alt: "Bolero Neo Plus, front fog lamp", label: "Front fog lamp", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-neo-plus/bolero-neo-plus-05-body-shell-164.webp", alt: "Bolero Neo Plus body shell", label: "Body shell", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-neo-plus/bolero-neo-plus-06-mahindra-badging-165.webp", alt: "Bolero Neo Plus Mahindra badging", label: "Mahindra badging", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-neo-plus/bolero-neo-plus-07-dashboard-59.webp", alt: "Bolero Neo Plus dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "/images/cars/gallery/bolero-neo-plus/bolero-neo-plus-08-door-view-of-driver-seat-51.webp", alt: "Bolero Neo Plus driver seat", label: "Driver seat", kind: "cabin" },
+    { src: "/images/cars/gallery/bolero-neo-plus/bolero-neo-plus-09-seats-aerial-view-53.webp", alt: "Bolero Neo Plus seats", label: "Seats", kind: "cabin" },
+    { src: "/images/cars/gallery/bolero-neo-plus/bolero-neo-plus-10-airbags-94.webp", alt: "Bolero Neo Plus airbags", label: "Airbags", kind: "cabin" },
+  ],
   "xuv-7xo": [
     { src: "/images/cars/gallery/xuv-7xo/xuv-7xo-01-front-left-side-47.webp", alt: "XUV 7XO front three-quarter", label: "Front three-quarter" },
     { src: "/images/cars/gallery/xuv-7xo/xuv-7xo-02-front-view-118.webp", alt: "XUV 7XO front view", label: "Front view" },

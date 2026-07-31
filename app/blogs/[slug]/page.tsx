@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
-import { Clock, Calendar } from "@/components/icons";
+import { Clock, Calendar, ArrowLeft } from "@/components/icons";
 import { blogPosts, getPostBySlug } from "@/lib/blogs";
 import { company, SITE_URL } from "@/lib/data";
 import { TestDriveTrigger } from "@/components/TestDriveModalProvider";
@@ -25,7 +26,7 @@ export async function generateMetadata({
   return {
     title: `${post.title} | Mahindra Modi Blog`,
     description: post.excerpt,
-    alternates: { canonical: `/blogs/${post.slug}` },
+    alternates: { canonical: `${SITE_URL}/blogs/${post.slug}` },
     openGraph: {
       type: "article",
       title: post.title,
@@ -84,7 +85,7 @@ export default async function BlogPostPage({
       />
       <Navbar />
       <FloatingActions />
-      <main className="min-h-screen pb-20" style={{ marginTop: "60px" }}>
+      <main className="min-h-screen pb-20 main-offset">
         {/* TWO-TONE HERO + IMAGE */}
         <section className="relative w-full bg-bg-2 pb-44 pt-12 lg:pb-60 lg:pt-16">
           <div className="container-px mx-auto max-w-[840px]">
@@ -93,7 +94,8 @@ export default async function BlogPostPage({
               scroll={false}
               className="mb-6 inline-flex w-fit items-center gap-1 text-xs font-semibold text-muted hover:text-text transition-colors"
             >
-              &larr; Back to Blogs
+              <ArrowLeft className="h-3.5 w-3.5" />
+              <span>Back to Blogs</span>
             </Link>
             <h1 className="font-display text-3xl font-bold leading-tight text-text md:text-4xl lg:text-5xl text-balance">
               {post.title}
@@ -112,11 +114,14 @@ export default async function BlogPostPage({
 
           {/* Image straddling both colour bands */}
           <div className="absolute bottom-0 left-1/2 w-[90%] max-w-[760px] -translate-x-1/2 translate-y-1/2 overflow-hidden rounded-xl shadow-lg">
-            <img
+            <Image
               src={post.image}
               alt={post.alt}
               title={post.title}
-              className={`aspect-[16/9] w-full object-cover ${post.imagePosition ?? "object-center"}`}
+              width={760}
+              height={428}
+              className={`h-auto w-full object-cover ${post.imagePosition ?? "object-center"}`}
+              priority
             />
           </div>
         </section>
@@ -138,9 +143,9 @@ export default async function BlogPostPage({
         {/* RELATED ARTICLES */}
         {related.length > 0 && (
           <section className="container-px mx-auto max-w-[1200px] mt-16 lg:mt-20">
-            <h3 className="mb-6 border-b border-border pb-4 font-display text-xl font-bold text-text">
+            <h2 className="mb-6 border-b border-border pb-4 font-display text-xl font-bold text-text">
               More in {post.category}
-            </h3>
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {related.map((r) => (
                 <Link
@@ -149,11 +154,13 @@ export default async function BlogPostPage({
                   className="group flex flex-col rounded-xl border border-border bg-white overflow-hidden shadow-sm hover:shadow-md transition-all"
                 >
                   <div className="relative aspect-[16/9] w-full overflow-hidden bg-bg-2">
-                    <img
+                    <Image
                       src={r.image}
                       alt={r.alt}
                       title={r.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                   <div className="flex flex-1 flex-col p-4">
@@ -172,7 +179,7 @@ export default async function BlogPostPage({
 
         {/* CTA BANNER */}
         <section className="container-px mx-auto max-w-[1200px] mt-16 lg:mt-20">
-          <div className="relative overflow-hidden rounded-2xl bg-[#0a0a0a] px-6 py-12 text-center md:px-12 md:py-16 shadow-xl">
+          <div className="relative overflow-hidden rounded-2xl bg-brand-deep px-6 py-12 text-center md:px-12 md:py-16 shadow-xl">
             <div className="relative z-10 max-w-3xl mx-auto">
               <h3 className="mb-3 font-display text-2xl font-bold text-white md:text-3xl">
                 Need Help Choosing the Right Mahindra?

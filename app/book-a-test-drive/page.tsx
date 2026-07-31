@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import Reveal from "@/components/Reveal";
 import TestDriveBookingSection from "@/components/TestDriveBookingSection";
-import { SITE_URL } from "@/lib/data";
+import { SITE_URL, testDriveImage } from "@/lib/data";
 import { DEALER_ID } from "@/lib/schema";
 
 const title = "Book a Mahindra Test Drive in Thane | Mahindra Modi";
@@ -14,17 +14,19 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/book-a-test-drive" },
+    alternates: { canonical: `${SITE_URL}/book-a-test-drive` },
   openGraph: {
     type: "website",
     title,
     description,
     url: `${SITE_URL}/book-a-test-drive`,
+    images: [{ url: testDriveImage, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
+    images: [{ url: testDriveImage, width: 1200, height: 630 }],
   },
 };
 
@@ -69,7 +71,7 @@ export default async function BookTestDrivePage({
       />
       <Navbar />
       <FloatingActions />
-      <main style={{ marginTop: "60px" }}>
+      <main className="main-offset">
         <section className="bg-bg-2 py-10 lg:py-14">
           <div className="container-px mx-auto max-w-[1400px]">
             <Reveal className="mx-auto max-w-xl text-center">

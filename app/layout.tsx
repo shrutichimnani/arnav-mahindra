@@ -45,6 +45,11 @@ const description =
   "Compare new Mahindra cars, book a test drive, or schedule authorised service at Mahindra Modi in Thane, Navi Mumbai and Mumbai.";
 
 export const metadata: Metadata = {
+  // SITE_URL already resolves NEXT_PUBLIC_SITE_URL with a production
+  // fallback (see lib/data.ts) — reusing it here keeps metadataBase in
+  // sync with the canonical/OG url below instead of duplicating the
+  // env-var lookup with a different (localhost) fallback.
+  metadataBase: new URL(SITE_URL),
   title: {
     default: title,
     template: "%s | Mahindra Modi",
@@ -63,7 +68,7 @@ export const metadata: Metadata = {
     "Mahindra XUV 3XO",
     "authorised Mahindra dealer Navi Mumbai",
   ],
-  alternates: { canonical: "/" },
+  alternates: { canonical: SITE_URL },
   robots: {
     index: true,
     follow: true,

@@ -510,7 +510,7 @@ export default function TestDriveWizard({
             <button
               aria-label="Close"
               onClick={dismissConfirmation}
-              className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full text-muted transition-colors hover:bg-bg-2"
+              className="absolute right-4 top-4 grid h-11 w-11 place-items-center rounded-full text-muted transition-colors hover:bg-bg-2"
             >
               <X className="h-5 w-5" />
             </button>

@@ -21,11 +21,14 @@ export default function HeroForm() {
     setSubmitted(true);
   };
 
+  const [stepError, setStepError] = useState("");
+
   const handleNext = () => {
     if (!name || !mobile || !model) {
-      alert("Please fill in all fields to continue.");
+      setStepError("Please fill in all fields to continue.");
       return;
     }
+    setStepError("");
     setStep(2);
   };
 
@@ -138,6 +141,9 @@ export default function HeroForm() {
               Next
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </button>
+            {stepError && (
+              <p className="mt-1.5 text-[11px] text-red-600">{stepError}</p>
+            )}
             <p className="text-center text-[11px] text-faint">
               No obligation. Takes less than 30 seconds.
             </p>

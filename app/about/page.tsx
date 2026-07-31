@@ -26,17 +26,19 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/about" },
+    alternates: { canonical: `${SITE_URL}/about` },
   openGraph: {
     type: "website",
     title,
     description,
     url: `${SITE_URL}/about`,
+    images: [{ url: aboutPageHeroImage, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
+    images: [{ url: aboutPageHeroImage, width: 1200, height: 630 }],
   },
 };
 
@@ -97,7 +99,7 @@ export default function AboutPage() {
       />
       <Navbar />
       <FloatingActions />
-      <main style={{ marginTop: "60px" }}>
+      <main className="main-offset">
         {/* Hero */}
         <section className="relative h-[320px] w-full overflow-hidden bg-brand-deep sm:h-[380px]">
           <Image

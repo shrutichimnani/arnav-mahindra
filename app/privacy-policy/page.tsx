@@ -9,7 +9,19 @@ import { SITE_URL } from "@/lib/data";
 export const metadata: Metadata = {
   title: "Privacy Policy | Mahindra Modi",
   description: "Privacy Policy for Mahindra Modi - Arnav Automobiles Pvt Ltd.",
-  alternates: { canonical: "/privacy-policy" },
+    alternates: { canonical: `${SITE_URL}/privacy-policy` },
+  openGraph: {
+    title: "Privacy Policy | Mahindra Modi",
+    description: "Privacy Policy for Mahindra Modi - Arnav Automobiles Pvt Ltd.",
+    url: `${SITE_URL}/privacy-policy`,
+    siteName: "Mahindra Modi",
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary",
+    title: "Privacy Policy | Mahindra Modi",
+    description: "Privacy Policy for Mahindra Modi - Arnav Automobiles Pvt Ltd.",
+  },
 };
 
 export default function PrivacyPolicyPage() {
@@ -17,7 +29,7 @@ export default function PrivacyPolicyPage() {
     <>
       <Navbar />
       <FloatingActions />
-      <main style={{ marginTop: "60px" }}>
+      <main className="main-offset">
         <section className="bg-bg-2 py-10 lg:py-14">
           <div className="container-px mx-auto max-w-[800px]">
             <BackLink />

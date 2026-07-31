@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import Image from "next/image";
 import { blogPosts } from "@/lib/blogs";
 import { Search } from "./icons";
 
@@ -116,10 +117,12 @@ export default function BlogsSearch() {
                       href={`/blogs/${post.slug}`}
                       className="flex items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-bg-2"
                     >
-                      <img
+                      <Image
                         src={post.image}
                         alt={post.alt}
                         title={post.title}
+                        width={64}
+                        height={48}
                         className="h-12 w-16 shrink-0 rounded-lg object-cover"
                       />
                       <span className="min-w-0">

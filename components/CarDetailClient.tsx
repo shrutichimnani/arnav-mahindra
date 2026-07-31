@@ -48,7 +48,10 @@ export default function CarDetailClient({ car }: { car: Car }) {
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const subNavRef = useRef<HTMLElement>(null);
   const [stickyCtaVisible, setStickyCtaVisible] = useState(false);
+  const [subNavPinned, setSubNavPinned] = useState(false);
+  const subNavOffsetRef = useRef(0);
   const color = car.colors[colorIndex];
   // The hero reflects the selected paint — each CarColor carries its own
   // image. (The static car.image is only used on the listing card.)
@@ -82,11 +85,18 @@ export default function CarDetailClient({ car }: { car: Car }) {
   }, [car.colors]);
 
   useEffect(() => {
+    if (subNavRef.current) {
+      subNavOffsetRef.current = subNavRef.current.getBoundingClientRect().top + window.scrollY;
+    }
+  }, []);
+
+  useEffect(() => {
     const onScroll = () => {
       if (ctaRef.current) {
         const rect = ctaRef.current.getBoundingClientRect();
         setStickyCtaVisible(rect.bottom < 0);
       }
+      setSubNavPinned(window.scrollY + 60 >= subNavOffsetRef.current);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -269,7 +279,7 @@ export default function CarDetailClient({ car }: { car: Car }) {
                   <a
                     href={brochureUrl}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded border border-border bg-bg-2 px-6 py-3.5 text-sm font-semibold text-text transition-all hover:border-brand hover:text-brand"
                   >
                     <Download className="h-4 w-4" />
@@ -282,26 +292,35 @@ export default function CarDetailClient({ car }: { car: Car }) {
         </div>
       </section>
 
-      <nav aria-label="Car detail sections" className="sticky top-[60px] z-20 border-y border-border bg-white/95 backdrop-blur">
-        <div className="container-px mx-auto flex max-w-[1400px] items-center gap-1 overflow-x-auto py-2">
-          <div className="flex flex-1 gap-1">
-            {navigation.map(([id, label]) => <a key={id} href={`#${id}`} className="shrink-0 rounded px-3 py-2 text-xs font-semibold text-muted transition-colors hover:bg-bg-2 hover:text-brand">{label}</a>)}
+      <nav
+        ref={subNavRef}
+        aria-label="Car detail sections"
+        className={`z-30 border-y border-border bg-white/95 backdrop-blur ${
+          subNavPinned
+            ? "fixed top-[60px] inset-x-0"
+            : ""
+        }`}
+      >
+        <div className="container-px mx-auto flex max-w-[1400px] items-center gap-3 overflow-x-auto py-3">
+          <div className="flex flex-1 gap-2">
+            {navigation.map(([id, label]) => <a key={id} href={`#${id}`} className="shrink-0 rounded px-4 py-2.5 text-sm font-semibold text-muted transition-colors hover:bg-bg-2 hover:text-brand">{label}</a>)}
           </div>
           <div className={`hidden shrink-0 items-center gap-2 lg:flex ${stickyCtaVisible ? "" : "invisible pointer-events-none"}`}>
-            <button type="button" onClick={() => openTestDrive({ carSlug: car.slug, source: `test_drive_${car.slug.replace(/-/g, "_")}` })} className="whitespace-nowrap rounded bg-brand px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-brand-light">
+            <button type="button" onClick={() => openTestDrive({ carSlug: car.slug, source: `test_drive_${car.slug.replace(/-/g, "_")}` })} className="whitespace-nowrap rounded bg-brand px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-light">
               Book a Test Drive
             </button>
-            <Link href="/contact-us" className="whitespace-nowrap rounded border border-brand px-3 py-1.5 text-xs font-semibold text-brand transition-colors hover:bg-brand hover:text-white">
+            <Link href="/contact-us" className="whitespace-nowrap rounded border border-brand px-4 py-2 text-sm font-semibold text-brand transition-colors hover:bg-brand hover:text-white">
               Get a Variant Quote
             </Link>
             {brochureUrl && (
-              <a href={brochureUrl} target="_blank" rel="noreferrer" className="whitespace-nowrap rounded border border-border bg-bg-2 px-3 py-1.5 text-xs font-semibold text-text transition-colors hover:border-brand hover:text-brand">
+              <a href={brochureUrl} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap rounded border border-border bg-bg-2 px-4 py-2 text-sm font-semibold text-text transition-colors hover:border-brand hover:text-brand">
                 Download Brochure
               </a>
             )}
           </div>
         </div>
       </nav>
+      {subNavPinned && <div aria-hidden="true" className="border-y border-transparent"><div className="container-px mx-auto flex max-w-[1400px] items-center gap-3 overflow-x-auto py-3"><div className="flex flex-1 gap-2">&nbsp;</div></div></div>}
 
       <section id="overview" className="scroll-mt-28 bg-bg-2 py-12 lg:py-16">
         <div className="container-px mx-auto grid max-w-[1400px] gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
@@ -381,7 +400,7 @@ export default function CarDetailClient({ car }: { car: Car }) {
       <section id="variants" className="scroll-mt-28 bg-white py-12 lg:py-16">
         <div className="container-px mx-auto grid max-w-[1400px] gap-5 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="rounded-lg border border-border bg-bg-2 p-6 sm:p-8"><p className="text-xs font-semibold uppercase tracking-wider text-brand">Variants and colours</p><h2 className="mt-2 font-display text-2xl font-bold text-text">Choose the right specification, not just the right price.</h2><ul className="mt-5 space-y-3">{detail.variants.map((variant) => <li key={variant} className="flex gap-2 text-sm leading-relaxed text-text"><Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />{variant}</li>)}</ul><p className="mt-6 text-xs leading-relaxed text-muted">Available colours: {car.colors.map((item) => item.name).join(", ")}. Paint availability is subject to the selected variant and current stock.</p></div>
-          <aside className="rounded-lg bg-brand p-6 text-white sm:p-8"><p className="text-xs font-semibold uppercase tracking-wider text-white/60">Ownership confidence</p><h2 className="mt-2 font-display text-2xl font-bold">Warranty and next steps</h2><p className="mt-4 text-sm leading-relaxed text-white/75">{detail.warranty}</p><div className="mt-5 flex flex-col items-start gap-3"><a href={detail.sourceUrl} target="_blank" rel="noreferrer" className="inline-flex text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80">View Mahindra&apos;s current model information</a>{brochureUrl && <a href={brochureUrl} target="_blank" rel="noreferrer" className="inline-flex text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80">Download official brochure (PDF)</a>}</div><div className="mt-7 space-y-3"><button type="button" onClick={() => openTestDrive({ carSlug: car.slug, source: `test_drive_${car.slug.replace(/-/g, "_")}` })} className="group flex w-full items-center justify-center gap-2 rounded bg-white px-5 py-3 text-sm font-semibold text-brand transition-colors hover:bg-white/90">Book a Test Drive <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" /></button><Link href="/locate-service-centre#book-service" className="flex items-center justify-center rounded border border-white/35 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10">Already own one? Book service</Link></div></aside>
+          <aside className="rounded-lg bg-brand p-6 text-white sm:p-8"><p className="text-xs font-semibold uppercase tracking-wider text-white/60">Ownership confidence</p><h2 className="mt-2 font-display text-2xl font-bold">Warranty and next steps</h2><p className="mt-4 text-sm leading-relaxed text-white/75">{detail.warranty}</p><div className="mt-5 flex flex-col items-start gap-3"><a href={detail.sourceUrl} target="_blank" rel="noopener noreferrer" className="inline-flex text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80">View Mahindra&apos;s current model information</a>{brochureUrl && <a href={brochureUrl} target="_blank" rel="noopener noreferrer" className="inline-flex text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80">Download official brochure (PDF)</a>}</div><div className="mt-7 space-y-3"><button type="button" onClick={() => openTestDrive({ carSlug: car.slug, source: `test_drive_${car.slug.replace(/-/g, "_")}` })} className="group flex w-full items-center justify-center gap-2 rounded bg-white px-5 py-3 text-sm font-semibold text-brand transition-colors hover:bg-white/90">Book a Test Drive <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" /></button><Link href="/locate-service-centre#book-service" className="flex items-center justify-center rounded border border-white/35 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10">Already own one? Book service</Link></div></aside>
         </div>
       </section>
 
@@ -398,7 +417,7 @@ export default function CarDetailClient({ car }: { car: Car }) {
             </h2>
             <button
               onClick={() => setIsGalleryModalOpen(false)}
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-bg-3 text-muted transition-colors hover:bg-border hover:text-text"
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-bg-3 text-muted transition-colors hover:bg-border hover:text-text"
               aria-label="Close gallery"
             >
               ✕
@@ -518,10 +537,13 @@ function CarFaq({
         <div className="mt-7 space-y-3">
           {faqs.map((item, i) => {
             const isOpen = openIndex === i;
+            const panelId = `car-faq-panel-${i}`;
             return (
               <button
                 key={item.q}
                 onClick={() => toggle(i)}
+                aria-expanded={isOpen}
+                aria-controls={panelId}
                 className="w-full rounded-lg border border-border bg-white p-5 text-left"
               >
                 <span className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold text-text">
@@ -535,6 +557,8 @@ function CarFaq({
                   </span>
                 </span>
                 <div
+                  id={panelId}
+                  role="region"
                   className={`grid transition-all duration-300 ease-in-out ${
                     isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                   }`}

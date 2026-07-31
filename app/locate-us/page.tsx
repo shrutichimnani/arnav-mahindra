@@ -15,17 +15,19 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/locate-us" },
+    alternates: { canonical: `${SITE_URL}/locate-us` },
   openGraph: {
     type: "website",
     title,
     description,
     url: `${SITE_URL}/locate-us`,
+    images: [{ url: locateHeroImage, width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title,
     description,
+    images: [{ url: locateHeroImage, width: 1200, height: 630 }],
   },
 };
 
@@ -60,7 +62,7 @@ export default function LocateUsPage() {
       />
       <Navbar />
       <FloatingActions />
-      <main style={{ marginTop: "60px" }}>
+      <main className="main-offset">
         <section className="relative h-[260px] w-full overflow-hidden bg-brand-deep sm:h-[320px]">
           <Image
             src={locateHeroImage}

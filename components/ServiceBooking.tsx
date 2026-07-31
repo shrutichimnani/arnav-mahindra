@@ -155,7 +155,7 @@ export default function ServiceBooking() {
           ) : (
             <OtpGate
               source="service_booking_form"
-              heroImage={{ src: "/about/showroom-dusk.jpg", alt: "Mahindra Modi showroom at dusk" }}
+              heroImage={{ src: "/about/showroom-jdm.jpg", alt: "Mahindra Modi showroom at dusk" }}
               frameless
             >
               {({ phone, onResetPhone }) => (

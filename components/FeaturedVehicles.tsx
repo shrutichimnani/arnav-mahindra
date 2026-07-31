@@ -249,7 +249,7 @@ export default function FeaturedVehicles() {
                     setIndex(i);
                   }
                 }}
-                className="absolute left-1/2 top-1/2 flex h-full w-[70%] items-center justify-center transition-all duration-500 ease-out sm:w-[55%] lg:w-[46%]"
+                className="absolute left-1/2 top-1/2 flex h-full w-[70%] items-center justify-center transition-[transform,opacity] duration-500 ease-out sm:w-[55%] lg:w-[46%]"
                 style={{
                   transform: `translate(-50%, -50%) translateX(${translateX}px) scale(${scale})`,
                   opacity,

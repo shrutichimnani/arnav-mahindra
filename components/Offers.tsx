@@ -27,7 +27,7 @@ export default function Offers() {
             const Icon = iconMap[offer.icon as IconName];
             return (
               <Reveal key={offer.title} delay={i * 100} variant="slide-right">
-                <div className="group flex items-center gap-5 rounded-lg border border-white/15 bg-white/10 p-6 shadow-[0_2px_12px_0_rgba(0,0,0,0.05)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/15 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
+                <div className="group flex items-center gap-5 rounded-lg border border-white/15 bg-white/10 p-6 shadow-[0_2px_12px_0_rgba(0,0,0,0.05)] backdrop-blur transition-[transform,box-shadow,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/15 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
                   <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-white/15 text-white transition-colors group-hover:bg-white/25">
                     <Icon className="h-6 w-6" />
                   </span>

@@ -120,7 +120,7 @@ export default function ContactUs() {
           <Reveal
             delay={120}
             variant="slide-left"
-            className="rounded-lg border border-border bg-white p-6 shadow-[0_4px_32px_0_rgba(0,0,0,0.06)] sm:p-8"
+            className="relative overflow-hidden rounded-lg border border-border bg-white p-6 shadow-[0_4px_32px_0_rgba(0,0,0,0.06)] sm:p-8"
           >
             <h3 className="font-display text-lg font-bold text-text">
               Send Us a Message
@@ -147,7 +147,19 @@ export default function ContactUs() {
               <div className="mt-5">
                 <OtpGate
                   source="contact_us_form"
-                  heroImage={{ src: "/about/showroom-dusk.jpg", alt: "Mahindra Modi showroom at dusk" }}
+                  heroImage={{
+                    src: "/about/showroom-jdm.jpg",
+                    alt: "Mahindra Modi showroom at dusk",
+                    // This card is narrower than OtpGate's other placements
+                    // (test-drive modal, etc.), and the default 0.85fr
+                    // column cropped off the "mahindra" signage on the
+                    // storefront. Widen the column so more of the photo's
+                    // width is visible, and nudge the anchor right (which
+                    // pans the visible window right, i.e. the image reads
+                    // as shifted left) so the signage sits inside it.
+                    columnWidth: "0.85fr",
+                    objectPosition: "30% center",
+                  }}
                   frameless
                 >
                   {({ phone, onResetPhone }) => (

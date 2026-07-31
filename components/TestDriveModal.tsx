@@ -45,7 +45,7 @@ export default function TestDriveModal({
         <button
           aria-label="Close"
           onClick={onClose}
-          className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full text-muted transition-colors hover:bg-bg-2"
+          className="absolute right-3 top-3 z-10 grid h-11 w-11 place-items-center rounded-full text-muted transition-colors hover:bg-bg-2"
         >
           <X className="h-5 w-5" />
         </button>
@@ -53,7 +53,7 @@ export default function TestDriveModal({
         <div className="max-h-[calc(100vh-4rem)] overflow-y-auto p-6 sm:p-8">
           <OtpGate
             source={source ?? "test_drive_popup"}
-            heroImage={{ src: "/about/showroom-dusk.jpg", alt: "Mahindra Modi showroom at dusk" }}
+            heroImage={{ src: "/about/showroom-jdm.jpg", alt: "Mahindra Modi showroom at dusk" }}
             onPolicyNavigate={onPolicyNavigate}
             frameless
           >

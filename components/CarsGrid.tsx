@@ -72,12 +72,15 @@ export default function CarsGrid() {
   return (
     <section className="bg-white py-10 lg:py-14">
       <div className="container-px mx-auto max-w-[1400px]">
-        <Reveal className="flex flex-wrap gap-1 sm:gap-2">
+        <Reveal className="flex justify-center">
+          <div className="flex gap-1 overflow-x-auto sm:gap-2">
           {categories.map((cat) => (
             <button
               key={cat}
+              type="button"
               onClick={() => setCategory(cat)}
-              className={`cursor-pointer shrink-0 rounded border-b-2 px-3 py-2 text-sm font-semibold transition-colors sm:px-4 ${
+              aria-pressed={category === cat}
+              className={`cursor-pointer shrink-0 border-b-2 px-3 py-2 text-sm font-semibold transition-colors sm:px-4 ${
                 category === cat
                   ? "border-brand text-brand"
                   : "border-transparent text-muted hover:text-text"
@@ -86,6 +89,7 @@ export default function CarsGrid() {
               {cat}
             </button>
           ))}
+          </div>
         </Reveal>
 
         <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -95,7 +99,7 @@ export default function CarsGrid() {
               <Reveal key={car.slug} delay={(i % 3) * 90} variant="fade-up">
                 <Link
                   href={`/cars/${car.slug}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-white shadow-[0_2px_12px_0_rgba(0,0,0,0.06)] transition-all duration-500 ease-in-out hover:scale-[1.02] hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]"
+                  className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-white shadow-[0_2px_12px_0_rgba(0,0,0,0.06)] transition-[transform,box-shadow] duration-500 ease-in-out hover:scale-[1.02] hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]"
                 >
                   <div className="relative flex h-52 items-center justify-center overflow-hidden bg-bg-2 p-6">
                     <Image

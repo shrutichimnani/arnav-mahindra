@@ -17,7 +17,7 @@ const description = "Expert Mahindra reviews, car buying guides, ownership tips 
 export const metadata: Metadata = {
   title,
   description,
-  alternates: { canonical: "/blogs" },
+    alternates: { canonical: `${SITE_URL}/blogs` },
   openGraph: {
     type: "website",
     title,
@@ -60,7 +60,7 @@ export default function BlogsPage() {
       />
       <Navbar />
       <FloatingActions />
-      <main className="min-h-screen bg-white pb-20" style={{ marginTop: "60px" }}>
+      <main className="min-h-screen bg-white pb-20 main-offset">
         <RestoreScroll />
         {/* HERO SECTION */}
         <section className="relative w-full h-[320px] lg:h-[420px] overflow-hidden bg-brand-deep">
@@ -97,16 +97,16 @@ export default function BlogsPage() {
           <BlogsExplorer />
 
           {/* CTA BOTTOM BANNER */}
-          <section className="mt-20 relative overflow-hidden rounded-2xl bg-[#0a0a0a] px-6 py-12 text-center md:px-12 md:py-16 shadow-xl">
+          <section className="mt-20 relative overflow-hidden rounded-2xl bg-brand-deep px-6 py-12 text-center md:px-12 md:py-16 shadow-xl">
             <div className="absolute inset-0 z-0 opacity-40">
-              <Image src="/images/blogs/blogs-cta-banner.webp" alt="" title="" fill sizes="100vw" className="object-cover" />
+              <Image src="/images/blogs/blogs-cta-banner.webp" alt="Mahindra SUV on an open road" title="Book a test drive" fill sizes="100vw" className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-black/40" />
             </div>
 
             <div className="relative z-10 max-w-3xl mx-auto">
-              <h3 className="mb-3 font-display text-2xl font-bold text-white md:text-3xl lg:text-4xl">
+              <h2 className="mb-3 font-display text-2xl font-bold text-white md:text-3xl lg:text-4xl">
                 Need Help Choosing the Right Mahindra?
-              </h3>
+              </h2>
               <p className="mb-8 text-sm text-white/80 md:text-base max-w-lg mx-auto">
                 Our experts are here to help you find the perfect SUV tailored to your lifestyle and budget.
               </p>

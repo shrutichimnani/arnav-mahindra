@@ -56,8 +56,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative scroll-mt-24 overflow-hidden bg-brand-deep"
-      style={{ marginTop: "60px" }} /* offset for 2-row nav */
+      className="main-offset relative scroll-mt-24 overflow-hidden bg-brand-deep"
     >
       {/* Cinematic banner carousel, matching auto.mahindra.com's own hero
           treatment exactly: the official campaign creative already carries

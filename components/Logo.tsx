@@ -6,7 +6,30 @@
    standard dealer-site branding practice. */
 import Link from "next/link";
 
-export default function Logo({ className = "", dark = false, showSubtitle = true, showIcon = true }: { className?: string; dark?: boolean; showSubtitle?: boolean; showIcon?: boolean }) {
+export default function Logo({
+  className = "",
+  dark = false,
+  showSubtitle = true,
+  showIcon = true,
+  // The icon SVG's viewBox is very wide (131x18), so at its normal height
+  // it eats a lot of horizontal space — fine in the navbar (no subtitle
+  // to protect), but on narrow phones it can crowd out the footer's
+  // "A Unit of Arnav Automobiles Pvt Ltd." subtitle line and truncate it.
+  // Only shrink the icon on small screens (sm: reverts to full size) and
+  // only where a caller opts in, so the navbar is unaffected.
+  compactOnMobile = false,
+}: { className?: string; dark?: boolean; showSubtitle?: boolean; showIcon?: boolean; compactOnMobile?: boolean }) {
+  // Scale the whole lockup down together on mobile — icon, both text
+  // lines, and letter-spacing all shrink by roughly the same proportion
+  // (~75%) rather than just shrinking the icon, so it still reads as the
+  // same logo at a smaller size instead of a tiny icon next to
+  // full-size text. sm: reverts every one of these to the original
+  // size; verified to fit down to 360px width (a common Android
+  // minimum) without truncating.
+  const iconHeight = compactOnMobile ? "h-[18px] sm:h-7" : "h-6 sm:h-7";
+  const titleSize = compactOnMobile ? "text-[10.5px] sm:text-sm" : "text-sm";
+  const subtitleSize = compactOnMobile ? "text-[6.5px] sm:text-[9px]" : "text-[9px]";
+  const subtitleTracking = compactOnMobile ? "tracking-[0.12em] sm:tracking-[0.2em]" : "tracking-[0.2em]";
   return (
     <Link href="/" className={`group flex min-w-0 items-center gap-3 ${className}`}>
       {showIcon && (
@@ -15,7 +38,7 @@ export default function Logo({ className = "", dark = false, showSubtitle = true
             viewBox="0 0 131 18"
             role="img"
             aria-label="Mahindra"
-            className={`${showSubtitle ? "h-6 sm:h-7" : "h-6 sm:h-7 -translate-y-1 sm:-translate-y-1.5"} w-auto shrink-0 ${dark ? "text-white" : "text-brand"}`}
+            className={`${iconHeight} ${showSubtitle ? "" : "-translate-y-1 sm:-translate-y-1.5"} w-auto shrink-0 ${dark ? "text-white" : "text-brand"}`}
             fill="currentColor"
           >
             <path
@@ -29,17 +52,17 @@ export default function Logo({ className = "", dark = false, showSubtitle = true
               d="M128.05 2.35233H128.438C128.971 2.35233 129.331 2.45461 129.23 3.06826C129.144 3.57964 128.87 3.74035 128.525 3.74035H127.013C127.128 2.9952 127.171 2.35233 128.05 2.35233ZM113.553 0.569819H115.367C116.188 0.569819 116.576 0.905866 116.447 1.73868C116.303 2.68838 115.525 2.92215 114.69 2.92215H113.208L113.553 0.569819ZM114.575 3.40431L115.9 6.04885H116.864L115.41 3.30203C116.303 3.19975 117.066 2.93676 117.253 1.73868C117.397 0.745148 116.893 0 115.785 0H112.805C112.502 2.01628 112.2 4.03257 111.912 6.04885H112.776L113.165 3.41892H114.575V3.40431ZM124.883 1.88479L124.58 2.39616C124.076 2.39616 123.486 2.39616 122.982 2.39616C122.752 2.39616 122.45 2.41077 122.306 2.54227C122.162 2.65916 122.09 2.93676 122.147 3.1267C122.219 3.37508 122.522 3.44814 122.795 3.52119L124.148 3.84263C124.796 4.00335 125.156 4.42706 125.027 5.11377C124.883 5.87352 124.364 6.07807 123.659 6.07807H120.895L121.197 5.5667H123.054C123.573 5.5667 124.048 5.55209 124.163 4.93844C124.249 4.4855 123.774 4.32478 123.429 4.23712L122.09 3.91568C121.5 3.76958 121.168 3.3897 121.284 2.77604C121.413 2.07473 121.874 1.88479 122.522 1.88479H124.883ZM119.239 0.482154H120.103L120.017 1.00814L119.081 1.54874L119.239 0.482154ZM118.98 2.26467L119.916 1.72407L119.268 6.03424H118.419L118.98 2.26467ZM126.221 3.74035C126.063 4.83616 125.861 6.06346 127.459 6.06346H129.244L129.547 5.55209H127.978C126.826 5.55209 126.783 5.09915 126.927 4.19329H128.712C129.532 4.19329 129.907 4.00335 130.051 3.05365C130.18 2.27928 129.504 1.81173 128.769 1.81173H128.035C126.74 1.82634 126.408 2.65916 126.221 3.74035Z"
             />
           </svg>
-          <span className={`h-6 w-px shrink-0 sm:h-7 ${dark ? "bg-white/25" : "bg-border"}`} />
+          <span className={`${iconHeight} w-px shrink-0 ${dark ? "bg-white/25" : "bg-border"}`} />
         </>
       )}
       {/* Kept on the original logo font (Sora/Inter), not the site-wide
           Lato/Georama swap. */}
       <span className="min-w-0 font-menu leading-none">
-        <span className={`block truncate font-logo text-sm font-extrabold tracking-tight ${dark ? "text-white" : "text-brand"}`}>
+        <span className={`block truncate font-logo ${titleSize} font-extrabold tracking-tight ${dark ? "text-white" : "text-brand"}`}>
           MAHINDRA MODI
         </span>
         {showSubtitle && (
-          <span className={`block truncate text-[9px] font-medium uppercase tracking-[0.2em] ${dark ? "text-white/60" : "text-muted"}`}>
+          <span className={`block truncate ${subtitleSize} font-medium uppercase ${subtitleTracking} ${dark ? "text-white/60" : "text-muted"}`}>
             A Unit of Arnav Automobiles Pvt Ltd.
           </span>
         )}

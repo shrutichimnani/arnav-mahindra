@@ -184,7 +184,7 @@ export default function Navbar() {
           <button
             aria-label="Open menu"
             onClick={() => setOpen(true)}
-            className="grid h-9 w-9 place-items-center rounded border border-border bg-bg-2 text-text xl:hidden"
+            className="grid h-11 w-11 place-items-center rounded border border-border bg-bg-2 text-text xl:hidden"
           >
             <Menu className="h-5 w-5" />
           </button>
@@ -194,7 +194,12 @@ export default function Navbar() {
       {/* Mobile drawer */}
       <div
         className={`fixed inset-0 z-50 lg:hidden ${open ? "" : "pointer-events-none"}`}
-        aria-hidden={!open}
+        // `inert` (rather than aria-hidden) for the closed state: it both
+        // hides the drawer from assistive tech AND stops it (and any link
+        // inside it that still has keyboard focus from before it closed)
+        // from being focusable, so the browser never ends up with a
+        // focused descendant inside an aria-hidden ancestor.
+        inert={!open}
       >
         <div
           className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${
@@ -212,7 +217,7 @@ export default function Navbar() {
             <button
               aria-label="Close menu"
               onClick={() => setOpen(false)}
-              className="grid h-9 w-9 shrink-0 place-items-center rounded border border-border bg-bg-2 text-text"
+              className="grid h-11 w-11 shrink-0 place-items-center rounded border border-border bg-bg-2 text-text"
             >
               <X className="h-5 w-5" />
             </button>
@@ -222,23 +227,22 @@ export default function Navbar() {
             <Link
               key={l.href}
               href={l.href}
+              tabIndex={open ? undefined : -1}
               onClick={(e) => { onNavClick(e, l.href); setOpen(false); }}
-              className={`relative rounded px-4 py-3 text-base font-semibold transition-colors ${
+              className={`relative border-l-[3px] px-4 py-3 text-base font-semibold transition-colors ${
                 isActive(l.href)
-                  ? "text-brand"
-                  : "text-text hover:bg-bg-2 hover:text-brand"
+                  ? "!border-black bg-bg-2 text-text"
+                  : "!border-transparent text-text hover:bg-bg-2 hover:text-brand"
               }`}
             >
               {l.label}
-              {isActive(l.href) && (
-                <span className="absolute inset-x-4 bottom-1.5 h-[2px] rounded-full bg-brand" />
-              )}
             </Link>
           ))}
 
           {!isCarDetail && (
             <button
               type="button"
+              tabIndex={open ? undefined : -1}
               onClick={() => {
                 setOpen(false);
                 openTestDrive({ source: "navbar" });
@@ -250,6 +254,7 @@ export default function Navbar() {
           )}
           <a
             href={`tel:${nav.phone.replace(/\s/g, "")}`}
+            tabIndex={open ? undefined : -1}
             className="mt-2 flex items-center justify-center gap-2 rounded border border-border px-5 py-3.5 text-sm font-semibold text-brand"
           >
             <Phone className="h-4 w-4" /> {nav.phone}

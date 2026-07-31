@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { ArrowRight, Check, ChevronDown, ChevronLeft, Clock, Phone } from "./icons";
 import { countryCodes, type CountryCode } from "@/lib/countryCodes";
@@ -30,7 +31,22 @@ export default function OtpGate({
   // Optional image shown alongside the phone/OTP card, for call sites
   // (e.g. the test-drive modal) that want it. Omitted everywhere else so
   // narrower embeds (contact form, sidebar cards) are unaffected.
-  heroImage?: { src: string; alt: string };
+  heroImage?: {
+    src: string;
+    alt: string;
+    // Per-instance crop override. The image column's height is dictated by
+    // the form next to it, and object-cover scales the image to fill that
+    // height — so how much of the image's WIDTH ends up visible depends
+    // only on the column's width (wider column = more of the original
+    // photo visible, since the height-driven scale doesn't change). A
+    // narrow placement (e.g. the Contact Us card) can end up cropping off
+    // content like the "mahindra" wordmark; widen the column to reveal
+    // more of it rather than guessing a zoom/crop. Defaults to 0.85fr.
+    columnWidth?: string;
+    // Nudge which part of the image is anchored, on top of the width fix
+    // above. Defaults to "left center".
+    objectPosition?: string;
+  };
   // Called before a same-tab navigation to the Terms / Privacy pages. Only
   // the modal passes this (to close itself first) — without it the modal
   // would stay mounted on top of the destination page. Inline forms leave
@@ -241,15 +257,27 @@ export default function OtpGate({
     <div
       className={`mx-auto w-full overflow-hidden rounded-lg bg-white ${
         frameless ? "" : "border border-border shadow-[0_4px_32px_0_rgba(0,0,0,0.08)]"
-      } ${heroImage ? "max-w-2xl sm:grid sm:grid-cols-[0.85fr_1.15fr]" : "max-w-md"}`}
+      } ${heroImage ? "max-w-2xl sm:grid" : "max-w-md"}`}
+      style={
+        heroImage
+          ? { gridTemplateColumns: `${heroImage.columnWidth ?? "0.85fr"} 1.15fr` }
+          : undefined
+      }
     >
       {heroImage && (
         <div className="relative hidden min-h-[280px] sm:block">
-          <img
+          <Image
             src={heroImage.src}
             alt={heroImage.alt}
             title={heroImage.alt}
-            className="absolute inset-0 h-full w-full object-cover object-[30%_42%]"
+            fill
+            // Hidden below the sm breakpoint (640px). From there up, this
+            // column defaults to 0.85/(0.85+1.15) = 42.5% of the wrapper
+            // (capped at max-w-2xl/672px, i.e. ~286px once capped, or
+            // ~42vw before that) — wider if columnWidth overrides it.
+            sizes="(max-width: 639px) 0px, (min-width: 672px) 350px, 50vw"
+            className="object-cover"
+            style={{ objectPosition: heroImage.objectPosition ?? "left center" }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
         </div>
@@ -553,27 +581,86 @@ function OtpInput({ value, onChange, onComplete }: { value: string; onChange: (v
 }
 
 /* Small presentational helper for forms that want to show the locked
-   verified number with a "Change" affordance. Kept here so every form
-   renders the verified state identically. */
+   verified number with a "Change" affordance. Shows a confirmation
+   dialog before actually resetting, so users don't lose their verified
+   session by accident. Kept here so every form renders identically. */
 export function VerifiedPhoneField({ phone, onChange }: { phone: string; onChange: () => void }) {
+  const [showConfirm, setShowConfirm] = useState(false);
+
   return (
-    <label className="block">
-      <span className="mb-1.5 block text-xs font-semibold text-muted">Mobile Number</span>
-      <div className="flex items-center justify-between rounded border border-green-300 bg-green-50 px-4 py-3">
-        <span className="flex items-center gap-2 text-sm font-medium text-text">
-          <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-green-100 text-green-600">
-            <Check className="h-3.5 w-3.5" />
+    <>
+      <label className="block">
+        <span className="mb-1.5 block text-xs font-semibold text-muted">Mobile Number</span>
+        <div className="flex items-center justify-between rounded border border-green-300 bg-green-50 px-4 py-3">
+          <span className="flex items-center gap-2 text-sm font-medium text-text">
+            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-green-100 text-green-600">
+              <Check className="h-3.5 w-3.5" />
+            </span>
+            {phone}
           </span>
-          {phone}
-        </span>
-        <button
-          type="button"
-          onClick={onChange}
-          className="text-xs font-semibold text-brand transition-colors hover:text-brand-light"
+          <button
+            type="button"
+            onClick={() => setShowConfirm(true)}
+            className="text-xs font-semibold text-brand transition-colors hover:text-brand-light"
+          >
+            Change
+          </button>
+        </div>
+      </label>
+
+      {/* Confirmation modal */}
+      {showConfirm && (
+        <div
+          className="absolute inset-0 z-50 flex items-center justify-center p-4"
+          style={{ backgroundColor: "rgba(0,0,0,0.45)", backdropFilter: "blur(3px)" }}
         >
-          Change
-        </button>
-      </div>
-    </label>
+          <div
+            className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-[0_20px_60px_0_rgba(0,0,0,0.25)]"
+            style={{ animation: "otpConfirmPop 0.18s cubic-bezier(0.34,1.56,0.64,1) both" }}
+          >
+            {/* Warning icon */}
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-amber-50">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-amber-400">
+                <span className="text-lg font-bold leading-none text-amber-500">!</span>
+              </div>
+            </div>
+
+            <h3 className="mt-4 text-center font-display text-lg font-bold text-text">
+              Change Phone Number?
+            </h3>
+            <p className="mx-auto mt-2 max-w-[260px] text-center text-sm leading-relaxed text-muted">
+              If you change your phone number, you will need to re-verify the new number with a new OTP. Are you sure you want to proceed?
+            </p>
+
+            <div className="mt-6 flex gap-3">
+              <button
+                type="button"
+                onClick={() => setShowConfirm(false)}
+                className="flex-1 rounded-lg border border-border py-3 text-sm font-semibold text-text transition-colors hover:bg-bg-2"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowConfirm(false);
+                  onChange();
+                }}
+                className="flex-1 rounded-lg bg-brand py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-light"
+              >
+                Yes, Change
+              </button>
+            </div>
+          </div>
+
+          <style>{`
+            @keyframes otpConfirmPop {
+              from { opacity: 0; transform: scale(0.88); }
+              to   { opacity: 1; transform: scale(1); }
+            }
+          `}</style>
+        </div>
+      )}
+    </>
   );
 }

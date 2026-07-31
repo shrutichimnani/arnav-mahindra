@@ -11,7 +11,7 @@ export default function TestDriveBookingSection({ initialCarSlug }: { initialCar
   return (
     <OtpGate
       source="test_drive_page"
-      heroImage={{ src: "/about/showroom-dusk.jpg", alt: "Mahindra Modi showroom at dusk" }}
+      heroImage={{ src: "/about/showroom-jdm.jpg", alt: "Mahindra Modi showroom at dusk" }}
     >
       {({ phone, onResetPhone }) => (
         <div>

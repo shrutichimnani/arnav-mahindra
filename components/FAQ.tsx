@@ -52,10 +52,13 @@ export default function FAQ({
             <div className="border-t border-border">
               {data.map((faq, i) => {
                 const isOpen = openIndex === i;
+                const panelId = `faq-panel-${id}-${i}`;
                 return (
                   <div key={i} className="border-b border-border">
                     <button
                       onClick={() => toggle(i)}
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
                       className="flex w-full items-center justify-between gap-4 py-5 text-left"
                     >
                       <span
@@ -74,6 +77,9 @@ export default function FAQ({
                       </span>
                     </button>
                     <div
+                      id={panelId}
+                      role="region"
+                      aria-labelledby={undefined}
                       className={`grid transition-all duration-300 ease-in-out ${
                         isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                       }`}
