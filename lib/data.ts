@@ -29,8 +29,8 @@ export const company = {
   phoneE164: "+918469989900",
   phoneSecondary: "82387 85050",
   phoneSecondaryE164: "+918238785050",
-  whatsapp: "98929 29363",
-  whatsappE164: "+919892929363",
+  whatsapp: "77109 87252",
+  whatsappE164: "+917710987252",
   email: "info@arnavautomobiles.com",
   primaryAddress: {
     street: "Survey No 412, RD Ashar Compound, Road No 27, Wagle Ind. Estate",

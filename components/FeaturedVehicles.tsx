@@ -63,6 +63,15 @@ export default function FeaturedVehicles() {
     const j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
+  // In the "All" tab, the carousel should always open on an SUV; everything
+  // after that first slot stays in shuffled order.
+  if (cacheKey === "All") {
+    const suvIndex = arr.findIndex((c) => c.category === "SUV");
+    if (suvIndex > 0) {
+      const [suv] = arr.splice(suvIndex, 1);
+      arr.unshift(suv);
+    }
+  }
   cache.set(cacheKey, arr);
   setFiltered(arr);
 }, [categoryFiltered, cacheKey]);
