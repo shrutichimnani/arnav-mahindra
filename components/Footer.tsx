@@ -138,8 +138,8 @@ export default function Footer() {
               <li className="flex gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />
                 <span>
-                  Mahindra Modi, RD Ashar Compound, Road No 27, Wagle Ind.
-                  Estate, Thane West, Maharashtra 400604
+                  Survey No 412, RD, Ashar Compound, Rd Number 27, Wagle
+                  Industrial Estate, Thane West, Thane, Maharashtra 400604
                 </span>
               </li>
               <li className="flex gap-3">
