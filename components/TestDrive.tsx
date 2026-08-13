@@ -211,7 +211,12 @@ export default function TestDrive() {
                 </button>
               </div>
             ) : (
-              <OtpGate source="test_drive_section" frameless>
+              <OtpGate
+                source="test_drive_section"
+                frameless
+                phoneTitle="Verify to Book a Test Drive"
+                phoneSubtext="Enter your mobile number to continue."
+              >
                 {({ phone, onResetPhone }) => (
                   <form onSubmit={onSubmit(phone)} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <SelectField

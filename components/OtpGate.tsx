@@ -25,9 +25,16 @@ export default function OtpGate({
   heroImage,
   onPolicyNavigate,
   frameless,
+  phoneTitle,
+  phoneSubtext,
 }: {
   children: (props: { phone: string; onResetPhone: () => void }) => ReactNode;
   source?: string;
+  // Override the default heading / helper copy on the phone-verification
+  // step. Only set where a more specific call to action makes sense
+  // (e.g. the test-drive form); everything else keeps the generic text.
+  phoneTitle?: string;
+  phoneSubtext?: string;
   // Optional image shown alongside the phone/OTP card, for call sites
   // (e.g. the test-drive modal) that want it. Omitted everywhere else so
   // narrower embeds (contact form, sidebar cards) are unaffected.
@@ -289,10 +296,10 @@ export default function OtpGate({
             <Phone className="h-6 w-6" />
           </div>
           <h3 className="mt-4 text-center font-display text-xl font-bold text-text">
-            Verify Your Phone
+            {phoneTitle ?? "Verify Your Phone"}
           </h3>
-          <p className="mx-auto mt-1.5 max-w-xs text-center text-sm text-muted">
-            Enter your phone number to get started.
+          <p className="mx-auto mt-1.5 text-center text-sm text-muted">
+            {phoneSubtext ?? "Enter your phone number to get started."}
           </p>
 
           <label className="mt-6 block">

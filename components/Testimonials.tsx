@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { testimonials } from "@/lib/data";
 import { Star, ChevronLeft, ChevronRight } from "./icons";
@@ -184,14 +183,6 @@ export default function Testimonials() {
                 &ldquo;{t.text}&rdquo;
               </blockquote>
               <figcaption className="mt-5 flex items-center gap-4 border-t border-border pt-5">
-                <Image
-                  src={t.avatar}
-                  alt={t.name}
-                  title={t.name}
-                  width={44}
-                  height={44}
-                  className="h-11 w-11 rounded-full object-cover"
-                />
                 <div>
                   <p className="text-sm font-semibold text-text">{t.name}</p>
                   <p className="text-xs text-muted">{t.role}</p>

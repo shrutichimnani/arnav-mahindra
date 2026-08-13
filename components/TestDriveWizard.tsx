@@ -215,21 +215,6 @@ export default function TestDriveWizard({
     });
   };
 
-  const resetAll = () => {
-    setSubmitted(false);
-    setAttempted(false);
-    setStep(1);
-    setCarSlug(initialCarSlug ?? "");
-    setCity("");
-    setDate("");
-    setTime("");
-    setName("");
-    setMobile("");
-    setEmail("");
-    setPincode("");
-    setAddress("");
-  };
-
   const dismissConfirmation = () => {
     setSubmitted(false);
     if (inModal) onClose?.();
@@ -546,12 +531,6 @@ export default function TestDriveWizard({
                 .
               </p>
             </div>
-            <button
-              onClick={resetAll}
-              className="mt-6 rounded border border-border px-6 py-3 text-sm font-semibold text-text transition-colors hover:bg-bg-3"
-            >
-              Book another test drive
-            </button>
           </div>
         </div>
       )}

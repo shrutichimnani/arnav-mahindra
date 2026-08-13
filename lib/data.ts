@@ -40,8 +40,8 @@ export const company = {
     country: "IN",
   },
   // NOTE: confirm exact opening hours with the dealership before launch.
-  hours: "Mon to Sun, 9:00 AM to 8:00 PM",
-  hoursSpec: { days: "Mo-Su", opens: "09:00", closes: "20:00" },
+  hours: "Mon to Sun, 9:00 AM to 7:30 PM",
+  hoursSpec: { days: "Mo-Su", opens: "09:00", closes: "19:30" },
   areasServed: ["Thane", "Navi Mumbai", "Mumbai"],
   stats: {
     carsSold: "10,000+",
@@ -68,7 +68,6 @@ export const nav = {
     { label: "Find a Car", href: "/cars" },
     { label: "Service", href: "/locate-service-centre" },
     { label: "Locate Us", href: "/locate-us" },
-    { label: "Blogs", href: "/blogs" },
     { label: "Contact Us", href: "/contact-us" },
   ],
 };

@@ -121,8 +121,8 @@ export default function HomeSeoContent() {
 
       {/* Why buy from an authorised dealer */}
       <section className="bg-white py-14 lg:py-20">
-        <div className="container-px mx-auto grid max-w-[1400px] gap-10 lg:grid-cols-2 lg:items-center">
-          <Reveal variant="slide-right">
+        <div className="container-px mx-auto max-w-[1400px]">
+          <Reveal className="max-w-full">
             <span className="eyebrow mb-3 block">Why Mahindra Modi</span>
             <h2 className="font-display text-2xl font-bold leading-tight tracking-tight text-text sm:text-3xl lg:text-[2.25rem]">
               Your authorised Mahindra dealer across Thane and Navi Mumbai
@@ -136,9 +136,9 @@ export default function HomeSeoContent() {
                 manufacturer warranty and nationwide service network.
               </p>
               <p>
-                With over 10,000 new cars and 5,000 pre-owned cars delivered,
-                more than 150,000 services completed and a 97% customer
-                satisfaction score, our team brings decades of combined
+                With thousands of new and pre-owned cars delivered, countless
+                services completed and consistently high customer
+                satisfaction, our team brings decades of combined
                 Gautam Modi Group dealership experience to every test drive,
                 finance plan and service booking.
               </p>
@@ -157,29 +157,7 @@ export default function HomeSeoContent() {
             </div>
           </Reveal>
 
-          <Reveal delay={120} variant="slide-left">
-            <dl className="grid grid-cols-2 gap-4">
-              {[
-                ["10,000+", "New cars delivered"],
-                ["5,000+", "Pre-owned cars sold"],
-                ["150,000+", "Services completed"],
-                ["97%", "Customer satisfaction"],
-              ].map(([stat, label]) => (
-                <div
-                  key={label}
-                  className="rounded-lg border border-border bg-bg-2 p-6 text-center"
-                >
-                  <dt className="font-display text-3xl font-bold text-brand sm:text-4xl">
-                    {stat}
-                  </dt>
-                  <dd className="mt-1 text-xs font-medium text-muted sm:text-sm">
-                    {label}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </Reveal>
-        </div>
+          </div>
       </section>
 
       {/* How buying works */}
