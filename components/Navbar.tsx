@@ -213,7 +213,7 @@ export default function Navbar() {
           }`}
         >
           <div className="mb-6 flex shrink-0 items-center justify-between">
-            <Logo showSubtitle={false} showIcon={false} />
+            <Logo showSubtitle={false} />
             <button
               aria-label="Close menu"
               onClick={() => setOpen(false)}

@@ -523,7 +523,7 @@ function CarFaq({
     },
     {
       q: `Where can I test drive the ${displayName}?`,
-      a: `Book a test drive online or call Mahindra Modi on ${company.phone}. We have showrooms and service centres across ${company.areasServed.join(", ")}.${brochureUrl ? " You can also download the official brochure above." : ""}`,
+      a: `Book a test drive online or call Mahindra Modi on ${company.phone}. We have showrooms in Thane, Airoli and Worli, and service centres across ${company.areasServed.join(", ")}.${brochureUrl ? " You can also download the official brochure above." : ""}`,
     },
   ];
 

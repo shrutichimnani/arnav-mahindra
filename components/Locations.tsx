@@ -31,8 +31,11 @@ export default function Locations() {
               Find a Mahindra Modi {tab === "Showroom" ? "Showroom" : "Service Centre"} Near You
             </h2>
             <p className="mt-2 text-sm text-white/70">
-              {items.length} {tab === "Showroom" ? "showrooms" : "service centres"} across
-              Thane, Navi Mumbai and Mumbai.
+              {items.length}{" "}
+              {tab === "Showroom" ? "showrooms" : "service centres"} across{" "}
+              {tab === "Showroom"
+                ? "Thane, Airoli and Worli"
+                : "Thane, Navi Mumbai and Mumbai"}.
             </p>
           </div>
           <div className="flex shrink-0 items-center gap-3">

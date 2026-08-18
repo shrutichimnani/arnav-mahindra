@@ -10,7 +10,7 @@ import { DEALER_ID } from "@/lib/schema";
 
 const title = "Locate Us | Mahindra Modi Showrooms & Service Centres";
 const description =
-  "Find Mahindra Modi showrooms and service centres across Thane and Navi Mumbai. View each branch on the map and open Google Maps directions.";
+  "Find Mahindra Modi showrooms in Thane, Airoli and Worli, and service centres across Thane, Navi Mumbai and Mumbai. View each branch on the map and open Google Maps directions.";
 
 export const metadata: Metadata = {
   title,

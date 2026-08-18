@@ -21,7 +21,7 @@ import { DEALER_ID } from "@/lib/schema";
 
 const title = "About Mahindra Modi: Our Story, Values and Group";
 const description =
-  "Mahindra Modi is an authorised Mahindra dealership owned by the Gautam Modi Group, serving Thane, Navi Mumbai and Mumbai with 10,000+ cars sold and 97% customer satisfaction.";
+  "Mahindra Modi is an authorised Mahindra dealership owned by the Gautam Modi Group, serving Thane, Airoli and Worli with 10,000+ cars sold and 97% customer satisfaction.";
 
 export const metadata: Metadata = {
   title,
@@ -122,7 +122,7 @@ export default function AboutPage() {
               </h1>
               <p className="mt-3 max-w-xl text-sm text-white/80 sm:text-base">
                 An authorised Mahindra dealership from the Gautam Modi Group,
-                serving Thane and Navi Mumbai with genuine cars, honest service
+                serving Thane, Airoli and Worli with genuine cars, honest service
                 and a customer-first promise.
               </p>
             </Reveal>
@@ -279,7 +279,7 @@ export default function AboutPage() {
             </h2>
             <p className="max-w-md text-sm text-muted">
               Book a free test drive or find your nearest Mahindra Modi
-              showroom and service centre.
+              showroom.
             </p>
             <div className="mt-2 flex flex-wrap justify-center gap-3">
               <TestDriveTrigger

@@ -42,7 +42,7 @@ const georama = Georama({
 
 const title = "New Mahindra Cars, Test Drives & Authorised Service in Thane | Mahindra Modi";
 const description =
-  "Compare new Mahindra cars, book a test drive, or schedule authorised service at Mahindra Modi in Thane, Navi Mumbai and Mumbai.";
+  "Compare new Mahindra cars, book a test drive, or schedule authorised service at Mahindra Modi in Thane, Airoli and Worli.";
 
 export const metadata: Metadata = {
   // SITE_URL already resolves NEXT_PUBLIC_SITE_URL with a production

@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Mahindra Modi, authorised Mahindra dealer across Thane and Navi Mumbai";
+  "Mahindra Modi, authorised Mahindra dealer across Thane, Airoli and Worli";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -61,7 +61,7 @@ export default function OpengraphImage() {
             New Mahindra Cars, Test Drives &amp; Service
           </span>
           <span style={{ fontSize: 34, color: "#cccccc", marginTop: 12 }}>
-            Authorised Mahindra dealer across Thane &amp; Navi Mumbai
+            Authorised Mahindra dealer across Thane, Airoli &amp; Worli
           </span>
         </div>
 

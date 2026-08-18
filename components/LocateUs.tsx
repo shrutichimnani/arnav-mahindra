@@ -46,9 +46,9 @@ export default function LocateUs() {
             Explore Every Mahindra Modi Location
           </h2>
           <p className="mt-3 text-sm text-muted sm:text-base">
-            Browse our showrooms and service centres across Thane, Navi
-            Mumbai and Mumbai, preview the branch on the map, and open
-            turn-by-turn directions in Google Maps.
+            Browse our showrooms in Thane, Airoli and Worli and service centres
+            in Thane, Charkop and Sewri, preview the branch on the map, and
+            open turn-by-turn directions in Google Maps.
           </p>
         </Reveal>
 

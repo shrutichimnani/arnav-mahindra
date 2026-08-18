@@ -10,7 +10,6 @@ import {
   Facebook,
   Instagram,
   LinkedIn,
-  YouTube,
 } from "./icons";
 
 const quickLinks = [
@@ -33,9 +32,8 @@ const serviceLinks = [
 ];
 
 const socials = [
-  { Icon: Facebook, label: "Facebook", href: "https://www.facebook.com/profile.php?id=61550056716631" },
-  { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/arnavautomobiles/" },
-  { Icon: YouTube, label: "YouTube", href: "https://www.youtube.com/@MahindraModi-1" },
+  { Icon: Facebook, label: "Facebook", href: "https://www.facebook.com/share/v/1DXKyQZbKj/?mibextid=wwXIfr" },
+  { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/_mahindra.modi_?igsh=Y2E1d3ptZzJvMmxj" },
   { Icon: LinkedIn, label: "LinkedIn", href: "https://www.linkedin.com/company/modimahindra/" },
 ];
 
@@ -51,7 +49,7 @@ export default function Footer() {
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/60">
               Mahindra Modi is an authorised Mahindra dealership offering new
               car sales, servicing and genuine Mahindra parts across Thane,
-              Navi Mumbai and Mumbai.
+              Airoli and Worli.
             </p>
             <div className="mt-6 flex gap-2.5">
               {socials.map(({ Icon, label, href }) => (
@@ -170,7 +168,7 @@ export default function Footer() {
               </li>
               <li className="flex gap-3">
                 <Clock className="mt-0.5 h-4 w-4 shrink-0 text-white/60" />
-                <span>{company.hours}</span>
+                <span className="whitespace-nowrap text-xs">{company.hours}</span>
               </li>
             </ul>
           </div>

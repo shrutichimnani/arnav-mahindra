@@ -50,10 +50,9 @@ export const company = {
     servicesDone: "150,000+",
   },
   social: {
-    facebook: "https://www.facebook.com/",
-    instagram: "https://www.instagram.com/",
+    facebook: "https://www.facebook.com/share/v/1DXKyQZbKj/?mibextid=wwXIfr",
+    instagram: "https://www.instagram.com/_mahindra.modi_?igsh=Y2E1d3ptZzJvMmxj",
     twitter: "https://twitter.com/",
-    youtube: "https://www.youtube.com/",
     linkedin: "https://www.linkedin.com/",
   },
 };
@@ -148,7 +147,7 @@ export const aboutFaqData = [
   {
     question: "Is Mahindra Modi an authorised Mahindra dealership?",
     answer:
-      "Yes. Mahindra Modi is an authorised Mahindra & Mahindra Ltd dealership, with a showroom and service centre in Thane and a dedicated XUV showroom in Airoli, Navi Mumbai.",
+      "Yes. Mahindra Modi is an authorised Mahindra & Mahindra Ltd dealership, with showrooms in Thane, Airoli and Worli and service centres in Thane, Charkop and Sewri.",
   },
   {
     question: "How experienced is the Mahindra Modi team?",
@@ -158,7 +157,7 @@ export const aboutFaqData = [
   {
     question: "Which cities does Mahindra Modi serve?",
     answer:
-      "We serve Thane, Navi Mumbai and Mumbai, with a showroom and service centre in Wagle Industrial Estate, Thane, and an XUV showroom in Airoli.",
+      "We serve Thane, Navi Mumbai and Mumbai, with Mahindra showrooms in Thane, Airoli and Worli and a service centre in Wagle Industrial Estate, Thane.",
   },
   {
     question: "When was Mahindra & Mahindra founded?",
@@ -222,14 +221,6 @@ export const heroSlides: Slide[] = [
     // No mobileImage: the build script's crop clips the "Thank you"
     // disclaimer at the left edge and has a visible seam between the
     // headline/car bands on this banner — falls back to object-cover.
-  },
-  {
-    model: "Mahindra XUV 7XO",
-    image: "/images/home/hero-xuv7xo-booking.jpg",
-    alt: "Mahindra XUV 7XO bookings-open campaign banner, official homepage creative",
-    href: "/cars/xuv-7xo",
-    mobileImage: "/images/home/mobile/hero-xuv7xo-booking-mobile.jpg",
-    mobileAspect: 1080 / 775,
   },
   {
     model: "Mahindra XUV 3XO",
@@ -860,11 +851,6 @@ export const trust = [
     text: "Every car, part and accessory is 100% genuine, sourced directly from Mahindra & Mahindra Ltd.",
   },
   {
-    icon: "users",
-    title: "10,000+ Cars Sold",
-    text: "A trusted Mahindra dealer across Thane and Navi Mumbai, with a 97% customer satisfaction score.",
-  },
-  {
     icon: "network",
     title: "Wide Sales & Service Network",
     text: "A showroom and service centre in Thane, plus a dedicated XUV showroom in Airoli, Navi Mumbai.",
@@ -1036,12 +1022,7 @@ export const faqData = [
   {
     question: "Which areas does Mahindra Modi serve?",
     answer:
-      "We have a Mahindra showroom and service centre in Thane, plus a dedicated XUV showroom in Airoli, serving Thane, Navi Mumbai and Mumbai.",
-  },
-  {
-    question: "What documents do I need to buy a car from Mahindra Modi?",
-    answer:
-      "You will typically need photo ID, address proof, passport-size photographs and PAN details. Our team will guide you through the exact paperwork for cash or finance purchases.",
+      "We have Mahindra showrooms in Thane, Airoli and Worli, plus service centres in Thane, Charkop and Sewri.",
   },
 ];
 
@@ -1116,8 +1097,7 @@ export const locations: Location[] = [
     type: "Showroom",
     city: "Thane",
     address: "Survey No 412, RD, Ashar Compound, Rd Number 27, Wagle Industrial Estate, Thane West, Thane, Maharashtra 400604",
-    phone: "84699 89900",
-    phoneSecondary: "82387 85050",
+    phone: "82387 85050",
     image: "/images/locate-us/thane-showroom.webp",
     mapsUrl: "https://maps.app.goo.gl/hV126JsMg6duaCmE9",
     ftid: "0x3be7b9b401811351:0xcbb5fcaac0213170",
@@ -1129,8 +1109,7 @@ export const locations: Location[] = [
     type: "Showroom",
     city: "Navi Mumbai",
     address: "Hissa No 1, Akshar Green World, Shop No. 27(A) & 27(B), Gate No. 242, Thane - Belapur Rd, near Patni Computer IGATE, Airoli, Navi Mumbai, Maharashtra 400708",
-    phone: "84699 89900",
-    phoneSecondary: "82387 85050",
+    phone: "82387 85050",
     image: "/images/locate-us/airoli-showroom.webp",
     mapsUrl: "https://maps.app.goo.gl/LgYCDcro2fgQ7zceA",
     ftid: "0x3be7bfb7133a6f61:0x955ceba73006b316",
@@ -1138,17 +1117,29 @@ export const locations: Location[] = [
     lng: 72.9930943,
   },
   {
-    name: "Mahindra - South Mumbai",
+    name: "Mahindra - Worli",
     type: "Showroom",
     city: "Mumbai",
     address: "Unit No 48, Atria-The Millennium Mall, 69, Dr Annie Besant Rd, Lotus Colony, Worli, Mumbai, Maharashtra 400018",
     phone: "84699 89900",
-    phoneSecondary: "82387 85050",
-    image: "/images/locate-us/south-mumbai-showroom.webp",
+    image: "/images/locate-us/worli-showroom-v5.jpeg",
     mapsUrl: "https://maps.app.goo.gl/rAW8jjtkcfj6HXZNA",
     ftid: "0x3be7ce8641a673a7:0x2e73544bb5657fff",
     lat: 18.9912457,
     lng: 72.8144358,
+  },
+  {
+    name: "Mahindra - Thane Service Centre",
+    type: "Service Centre",
+    city: "Thane",
+    address: "Survey No 412, RD, Ashar Compound, Rd Number 27, Wagle Industrial Estate, Thane West, Thane, Maharashtra 400604",
+    phone: "84699 89900",
+    phoneSecondary: "82387 85050",
+    image: "/images/locate-us/thane-showroom.webp",
+    mapsUrl: "https://maps.app.goo.gl/hBShzCninyyXh9jh7",
+    ftid: "0x3be7b9b401811351:0xcbb5fcaac0213170",
+    lat: 19.1944532,
+    lng: 72.946498,
   },
   {
     name: "Mahindra - Charkop Service Centre",
@@ -1180,7 +1171,7 @@ export const locations: Location[] = [
 
 /* Curated subset for the footer's "Popular Cars" column, so it doesn't
    list all the models. */
-const popularNames = ["Thar Roxx", "XUV 7XO", "Scorpio-N", "Thar", "XUV 3XO", "Bolero"];
+const popularNames = ["Thar Roxx", "XUV 7XO", "Scorpio-N", "Thar", "XUV 3XO", "XUV400", "BE 6", "XEV 9e", "Bolero"];
 export const popularCars = popularNames
   .map((n) => cars.find((c) => c.name === n))
   .filter((c): c is Car => Boolean(c));

@@ -142,10 +142,6 @@ export default function Testimonials() {
             <h2 className="font-display text-2xl font-bold text-text sm:text-3xl">
               What Our Customers Say
             </h2>
-            <p className="mt-3 text-sm text-muted">
-              <span className="font-semibold text-text">97% customer satisfaction</span>{" "}
-              across 10,000+ Mahindra cars sold and 150,000+ services completed.
-            </p>
           </div>
           <div className="flex shrink-0 gap-2">
             <button

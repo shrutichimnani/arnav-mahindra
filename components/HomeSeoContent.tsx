@@ -125,12 +125,12 @@ export default function HomeSeoContent() {
           <Reveal className="max-w-full">
             <span className="eyebrow mb-3 block">Why Mahindra Modi</span>
             <h2 className="font-display text-2xl font-bold leading-tight tracking-tight text-text sm:text-3xl lg:text-[2.25rem]">
-              Your authorised Mahindra dealer across Thane and Navi Mumbai
+              Your authorised Mahindra dealer across Thane, Airoli and Worli
             </h2>
             <div className="mt-5 space-y-4 text-sm leading-relaxed text-muted sm:text-base">
               <p>
                 Mahindra Modi is an authorised Mahindra & Mahindra Ltd
-                dealership serving Thane, Navi Mumbai and Mumbai. Every new
+                dealership serving Thane, Airoli and Worli. Every new
                 car, genuine part and accessory we supply is sourced directly
                 from Mahindra, so your purchase is backed by the full
                 manufacturer warranty and nationwide service network.
