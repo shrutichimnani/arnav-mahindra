@@ -29,6 +29,17 @@ export default function Testimonials() {
     return card ? card.offsetWidth + 20 : 0;
   };
 
+  // Must stay in sync with the track's px-6 left padding. The track needs
+  // side (and top/bottom) padding so card shadows render inside the scroll
+  // clip box instead of being sliced flat — which is what made the shadow
+  // corners look square. Adding it shifts every card's offsetLeft, so every
+  // programmatic scrollTo must add it back to land on the same card.
+  const getPadLeft = (el: HTMLDivElement) => {
+    const p = getComputedStyle(el).paddingLeft;
+    const v = p ? parseFloat(p) : 0;
+    return Number.isFinite(v) ? v : 0;
+  };
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -43,7 +54,7 @@ export default function Testimonials() {
     const cardW = getCardW(el);
     if (!cardW) return;
     absoluteIndexRef.current = len;
-    el.scrollTo({ left: len * cardW, behavior: "instant" as ScrollBehavior });
+    el.scrollTo({ left: len * cardW + getPadLeft(el), behavior: "instant" as ScrollBehavior });
   }, [mounted, len]);
 
   const recenterIfNeeded = useCallback((el: HTMLDivElement, cardW: number) => {
@@ -55,11 +66,11 @@ export default function Testimonials() {
     if (abs < len * 0.5) {
       const newAbs = abs + len;
       absoluteIndexRef.current = newAbs;
-      el.scrollTo({ left: newAbs * cardW, behavior: "instant" as ScrollBehavior });
+      el.scrollTo({ left: newAbs * cardW + getPadLeft(el), behavior: "instant" as ScrollBehavior });
     } else if (abs >= len * 2.5) {
       const newAbs = abs - len;
       absoluteIndexRef.current = newAbs;
-      el.scrollTo({ left: newAbs * cardW, behavior: "instant" as ScrollBehavior });
+      el.scrollTo({ left: newAbs * cardW + getPadLeft(el), behavior: "instant" as ScrollBehavior });
     }
   }, [len]);
 
@@ -68,12 +79,13 @@ export default function Testimonials() {
     if (!el || !mounted) return;
 
     let settleTimer: ReturnType<typeof setTimeout> | null = null;
+    let rafId = 0;
 
-    // Only resolve the active dot (and recenter within the triple buffer)
-    // once scrolling has actually settled, rather than on every scroll
-    // frame — avoids reading stale in-transit positions and flickering
-    // the active dot mid-animation.
-    const resolveSettledPosition = () => {
+    // Update the active dot live from the scroll position so that during a
+    // touch swipe the dots track the cards in real time, exactly as they do
+    // when stepping with the arrows — instead of only after the scroll has
+    // stopped and the cards have snapped into place.
+    const updateActiveFromScroll = () => {
       const cardW = getCardW(el);
       if (!cardW) return;
       const sl = el.scrollLeft;
@@ -88,17 +100,26 @@ export default function Testimonials() {
 
       absoluteIndexRef.current = closest;
       setActive(((closest % len) + len) % len);
-      recenterIfNeeded(el, cardW);
     };
 
     const onScroll = () => {
+      // Live dot tracking, throttled to one update per animation frame.
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updateActiveFromScroll);
+
+      // Recenter within the triple buffer only once scrolling has settled,
+      // so an instant snap never interrupts an in-progress swipe.
       if (settleTimer) clearTimeout(settleTimer);
-      settleTimer = setTimeout(resolveSettledPosition, 120);
+      settleTimer = setTimeout(() => {
+        const cardW = getCardW(el);
+        if (cardW) recenterIfNeeded(el, cardW);
+      }, 120);
     };
 
     el.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       el.removeEventListener("scroll", onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
       if (settleTimer) clearTimeout(settleTimer);
     };
   }, [mounted, len, recenterIfNeeded]);
@@ -119,7 +140,7 @@ export default function Testimonials() {
 
     absoluteIndexRef.current = nextAbs;
     setActive(i);
-    el.scrollTo({ left: nextAbs * cardW, behavior: "smooth" });
+    el.scrollTo({ left: nextAbs * cardW + getPadLeft(el), behavior: "smooth" });
   }, [len]);
 
   const go = useCallback((dir: number) => {
@@ -131,7 +152,7 @@ export default function Testimonials() {
     const nextAbs = absoluteIndexRef.current + dir;
     absoluteIndexRef.current = nextAbs;
     setActive(((nextAbs % len) + len) % len);
-    el.scrollTo({ left: nextAbs * cardW, behavior: "smooth" });
+    el.scrollTo({ left: nextAbs * cardW + getPadLeft(el), behavior: "smooth" });
   }, [len]);
 
   return (
@@ -163,7 +184,7 @@ export default function Testimonials() {
 
         <div
           ref={trackRef}
-          className="relative flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="relative flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-6 pt-6 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {items.map((t, i) => (
             <figure

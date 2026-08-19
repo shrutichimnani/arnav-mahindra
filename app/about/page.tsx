@@ -207,16 +207,13 @@ export default function AboutPage() {
             </Reveal>
             <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {groupInfo.values.map((v, i) => (
-                <Reveal
-                  key={v.title}
-                  delay={i * 100}
-                  variant="scale-up"
-                  className="rounded-lg border border-border bg-white p-6 text-center transition-[transform,box-shadow] duration-700 ease-out hover:-translate-y-1 hover:shadow-[0_8px_30px_0_rgba(0,0,0,0.12)]"
-                >
-                  <h3 className="text-sm font-semibold text-text">{v.title}</h3>
-                  <p className="mt-2 text-xs leading-relaxed text-muted">
-                    {v.text}
-                  </p>
+                <Reveal key={v.title} delay={i * 100} variant="scale-up">
+                  <div className="h-full rounded-lg border border-border bg-white p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
+                    <h3 className="text-sm font-semibold text-text">{v.title}</h3>
+                    <p className="mt-2 text-xs leading-relaxed text-muted">
+                      {v.text}
+                    </p>
+                  </div>
                 </Reveal>
               ))}
             </div>

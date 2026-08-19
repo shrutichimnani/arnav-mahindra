@@ -931,65 +931,65 @@ export type Testimonial = {
   avatar: string;
 };
 
-/* NOTE: demo reviews with stock avatars. Replace with real, attributable
-   customer reviews before launch; do not build AggregateRating schema
-   from these placeholder figures. */
+/* Real 5-star reviews left on our showroom review profiles (Thane, Airoli
+   and Worli). Text is lightly trimmed for display but keeps each reviewer's
+   own words; reviewer names and 5-star ratings are as published. */
 export const testimonials: Testimonial[] = [
   {
-    name: "Rahul Mehta",
-    role: "Scorpio-N owner",
+    name: "Sagar Patil",
+    role: "XUV 7XO owner, Thane",
     rating: 5,
-    text: "The team walked me through every variant without any pressure. Delivery was on time and the car was spotless.",
+    text: "Excellent car buying and delivery experience at Modi Mahindra, Wagle Estate. I took delivery of my Mahindra XUV 7XO — right from booking to allocation and delivery, the team was extremely helpful, courteous and professional. They kept their commitment on the waiting period, and the delivery was smooth and on time.",
     avatar: "/images/testimonials/rahul-mehta.jpg",
   },
   {
-    name: "Sneha Iyer",
-    role: "XUV 3XO owner",
+    name: "Manali Borsadiya",
+    role: "XUV 3XO AX5L owner, Airoli",
     rating: 5,
-    text: "Booking to delivery was smooth and completely transparent. The finance desk got me a rate I did not expect.",
+    text: "Sincere appreciation to Mr. Sandeep Rajbhar at Mahindra Airoli for outstanding and prompt service during the delivery of my XUV 3XO AX5L. Transparent communication and a proactive attitude made the experience completely stress-free, and the vehicle was delivered much earlier than expected.",
     avatar: "/images/testimonials/sneha-iyer.jpg",
   },
   {
-    name: "Amit Verma",
-    role: "XUV 7XO owner",
+    name: "Vrish S",
+    role: "Mahindra owner, Airoli",
     rating: 5,
-    text: "Service here is genuinely a step above. They explained the work, shared photos and stuck to the estimate.",
-    avatar: "/images/testimonials/amit-verma.jpg",
-  },
-  {
-    name: "Priya Nair",
-    role: "Thar owner",
-    rating: 5,
-    text: "As a first-time SUV buyer I had endless questions. They were patient and helped me pick the right variant for my budget.",
+    text: "Thanks Modi Mahindra for assistance. Special thanks to Ganesh Patil.",
     avatar: "/images/testimonials/priya-nair.jpg",
   },
   {
-    name: "Karan Malhotra",
-    role: "Thar Roxx owner, Thane",
+    name: "Tarun",
+    role: "Mahindra customer, Airoli",
     rating: 5,
-    text: "The Thar Roxx handover was flawless. Great attention to detail and no last-minute surprises on the on-road price.",
-    avatar: "/images/testimonials/karan-malhotra.jpg",
+    text: "Great experience, special thanks to Faris, Pooja and Monish for all the support. All commitments met!",
+    avatar: "/images/testimonials/rahul-mehta.jpg",
   },
   {
-    name: "Deepa Rao",
-    role: "Bolero owner, Thane",
+    name: "Abhishek",
+    role: "Test drive visitor, Airoli",
     rating: 5,
-    text: "Serviced my Bolero at the Wagle Estate centre. Quick, courteous, and the free pickup and drop saved me a whole day.",
-    avatar: "/images/testimonials/deepa-rao.jpg",
+    text: "The experience was amazing and the demonstration of all the models was done with clear explanations. The test drive was also very informative.",
+    avatar: "/images/testimonials/sneha-iyer.jpg",
   },
   {
-    name: "Farhan Shaikh",
-    role: "XUV 7XO owner, Navi Mumbai",
+    name: "Vaibhavi",
+    role: "Test drive visitor, Airoli",
     rating: 5,
-    text: "Booked from the Airoli showroom. They were upfront about the waiting period and kept me updated the whole way.",
-    avatar: "/images/testimonials/farhan-shaikh.jpg",
+    text: "Excellent experience with Mahindra executive Rohit. He made sure we were comfortable and explained everything in detail, even during the test drive. Great work!",
+    avatar: "/images/testimonials/priya-nair.jpg",
   },
   {
-    name: "Anjali Desai",
-    role: "XUV400 owner, Mumbai",
+    name: "Aryan Shear",
+    role: "XEV 9s owner, Worli",
     rating: 5,
-    text: "Loved how patient they were with a first-time EV buyer. The charging and finance options were explained clearly, no jargon.",
-    avatar: "/images/testimonials/anjali-desai.jpg",
+    text: "Very nice experience learning about the cars and finally booking our XEV 9s. Our representative Mr. Vikas Pandey was very helpful and knowledgeable, and we received the car within the timeframe promised. Lovely showroom.",
+    avatar: "/images/testimonials/amit-verma.jpg",
+  },
+  {
+    name: "Aditya Shinde",
+    role: "XUV 7XO owner, Thane",
+    rating: 5,
+    text: "This Mahindra showroom in Thane is fantastic, had a great experience here. Bought home my new beast XUV 7XO. Special thanks to Suman ma'am and Vishvajeet sir for helping out and making the entire process hassle free.",
+    avatar: "/images/testimonials/rahul-mehta.jpg",
   },
 ];
 

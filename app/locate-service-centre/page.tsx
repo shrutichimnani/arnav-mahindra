@@ -180,7 +180,7 @@ export default function LocateServiceCentrePage() {
                 { title: "On-Site Minor Repairs", desc: "Quick fixes for minor mechanical issues right where you are." },
               ].map((card, i) => (
                 <Reveal key={card.title} delay={i * 80} variant="fade-up">
-                  <div className="h-full rounded-lg border border-white/20 bg-white/10 p-6 backdrop-blur transition-[transform,box-shadow,background-color] duration-300 hover:-translate-y-1 hover:bg-white/15 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
+                  <div className="h-full rounded-lg border border-white/20 bg-white/10 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:bg-white/15 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
                     <h3 className="font-display text-base font-bold text-white">{card.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed text-white/70">{card.desc}</p>
                   </div>
@@ -267,7 +267,7 @@ export default function LocateServiceCentrePage() {
                 },
               ].map((pkg, i) => (
                 <Reveal key={pkg.step} delay={i * 100} variant="fade-up">
-                  <div className="h-full rounded-lg border border-border bg-white p-6 shadow-[0_2px_12px_0_rgba(0,0,0,0.04)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
+                  <div className="h-full rounded-lg border border-border bg-white p-6 shadow-[0_2px_12px_0_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]">
                     <span className="text-3xl font-bold text-brand/20">{pkg.step}</span>
                     <h3 className="mt-2 font-display text-lg font-bold text-text">{pkg.title}</h3>
                     <ul className="mt-4 space-y-2">
