@@ -65,18 +65,6 @@ export default function HeroForm() {
             .
           </p>
         </div>
-        <button
-          onClick={() => {
-            setSubmitted(false);
-            setStep(1);
-            setName("");
-            setMobile("");
-            setModel("");
-          }}
-          className="mt-6 rounded border border-border px-4 py-2 text-xs font-semibold text-text transition-colors hover:bg-bg-2"
-        >
-          Book another
-        </button>
       </div>
     );
   }

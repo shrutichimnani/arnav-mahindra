@@ -32,7 +32,7 @@ const serviceLinks = [
 ];
 
 const socials = [
-  { Icon: Facebook, label: "Facebook", href: "https://www.facebook.com/share/v/1DXKyQZbKj/?mibextid=wwXIfr" },
+  { Icon: Facebook, label: "Facebook", href: "https://www.facebook.com/people/Mahindra-Modi/100094981971289/" },
   { Icon: Instagram, label: "Instagram", href: "https://www.instagram.com/_mahindra.modi_?igsh=Y2E1d3ptZzJvMmxj" },
   { Icon: LinkedIn, label: "LinkedIn", href: "https://www.linkedin.com/company/modimahindra/" },
 ];

@@ -47,6 +47,7 @@ export default function CarDetailClient({ car }: { car: Car }) {
   const gallery = getCarGallery(car);
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
+  const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
   const ctaRef = useRef<HTMLDivElement>(null);
   const subNavRef = useRef<HTMLElement>(null);
   const [stickyCtaVisible, setStickyCtaVisible] = useState(false);
@@ -276,15 +277,14 @@ export default function CarDetailClient({ car }: { car: Car }) {
                   Get a Variant Quote
                 </Link>
                 {brochureUrl && (
-                  <a
-                    href={brochureUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    type="button"
+                    onClick={() => setIsBrochureModalOpen(true)}
                     className="inline-flex items-center gap-2 rounded border border-border bg-bg-2 px-6 py-3.5 text-sm font-semibold text-text transition-all hover:border-brand hover:text-brand"
                   >
                     <Download className="h-4 w-4" />
                     Download Brochure
-                  </a>
+                  </button>
                 )}
               </div>
             </Reveal>
@@ -313,9 +313,9 @@ export default function CarDetailClient({ car }: { car: Car }) {
               Get a Variant Quote
             </Link>
             {brochureUrl && (
-              <a href={brochureUrl} target="_blank" rel="noopener noreferrer" className="whitespace-nowrap rounded border border-border bg-bg-2 px-4 py-2 text-sm font-semibold text-text transition-colors hover:border-brand hover:text-brand">
+              <button type="button" onClick={() => setIsBrochureModalOpen(true)} className="whitespace-nowrap rounded border border-border bg-bg-2 px-4 py-2 text-sm font-semibold text-text transition-colors hover:border-brand hover:text-brand">
                 Download Brochure
-              </a>
+              </button>
             )}
           </div>
         </div>
@@ -400,13 +400,45 @@ export default function CarDetailClient({ car }: { car: Car }) {
       <section id="variants" className="scroll-mt-28 bg-white py-12 lg:py-16">
         <div className="container-px mx-auto grid max-w-[1400px] gap-5 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="rounded-lg border border-border bg-bg-2 p-6 sm:p-8"><p className="text-xs font-semibold uppercase tracking-wider text-brand">Variants and colours</p><h2 className="mt-2 font-display text-2xl font-bold text-text">Choose the right specification, not just the right price.</h2><ul className="mt-5 space-y-3">{detail.variants.map((variant) => <li key={variant} className="flex gap-2 text-sm leading-relaxed text-text"><Check className="mt-0.5 h-4 w-4 shrink-0 text-brand" />{variant}</li>)}</ul><p className="mt-6 text-xs leading-relaxed text-muted">Available colours: {car.colors.map((item) => item.name).join(", ")}. Paint availability is subject to the selected variant and current stock.</p></div>
-          <aside className="rounded-lg bg-brand p-6 text-white sm:p-8"><p className="text-xs font-semibold uppercase tracking-wider text-white/60">Ownership confidence</p><h2 className="mt-2 font-display text-2xl font-bold">Warranty and next steps</h2><p className="mt-4 text-sm leading-relaxed text-white/75">{detail.warranty}</p><div className="mt-5 flex flex-col items-start gap-3">{brochureUrl && <a href={brochureUrl} target="_blank" rel="noopener noreferrer" className="inline-flex text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80">Download official brochure (PDF)</a>}</div><div className="mt-7 space-y-3"><button type="button" onClick={() => openTestDrive({ carSlug: car.slug, source: `test_drive_${car.slug.replace(/-/g, "_")}` })} className="group flex w-full items-center justify-center gap-2 rounded bg-white px-5 py-3 text-sm font-semibold text-brand transition-colors hover:bg-white/90">Book a Test Drive <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" /></button><Link href="/locate-service-centre#book-service" className="flex items-center justify-center rounded border border-white/35 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10">Already own one? Book service</Link></div></aside>
+          <aside className="rounded-lg bg-brand p-6 text-white sm:p-8"><p className="text-xs font-semibold uppercase tracking-wider text-white/60">Ownership confidence</p><h2 className="mt-2 font-display text-2xl font-bold">Warranty and next steps</h2><p className="mt-4 text-sm leading-relaxed text-white/75">{detail.warranty}</p><div className="mt-5 flex flex-col items-start gap-3">{brochureUrl && <button type="button" onClick={() => setIsBrochureModalOpen(true)} className="inline-flex text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80">Download official brochure (PDF)</button>}</div><div className="mt-7 space-y-3"><button type="button" onClick={() => openTestDrive({ carSlug: car.slug, source: `test_drive_${car.slug.replace(/-/g, "_")}` })} className="group flex w-full items-center justify-center gap-2 rounded bg-white px-5 py-3 text-sm font-semibold text-brand transition-colors hover:bg-white/90">Book a Test Drive <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" /></button><Link href="/locate-service-centre#book-service" className="flex items-center justify-center rounded border border-white/35 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10">Already own one? Book service</Link></div></aside>
         </div>
       </section>
 
       {/* Model FAQ — AEO-friendly Q&A built from the researched data so
           answer engines can extract price, mileage, seating and power facts. */}
       <CarFaq displayName={displayName} car={car} detail={detail} brochureUrl={brochureUrl} />
+
+      {/* Brochure PDF Modal */}
+      {isBrochureModalOpen && brochureUrl && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div className="relative flex h-[92vh] w-[95vw] max-w-5xl flex-col rounded-xl overflow-hidden shadow-2xl bg-white">
+            {/* Modal Header */}
+            <div className="flex h-14 shrink-0 items-center justify-between border-b border-border bg-white px-5">
+              <div className="flex items-center gap-2">
+                <Download className="h-4 w-4 text-brand" />
+                <span className="font-display text-base font-bold text-text">{displayName} — Official Brochure</span>
+              </div>
+              <button
+                onClick={() => setIsBrochureModalOpen(false)}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-bg-3 text-muted transition-colors hover:bg-border hover:text-text"
+                aria-label="Close brochure"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            {/* PDF Viewer — min-h-0 is required so the flex child can shrink
+                below its intrinsic size and the browser PDF plugin scrolls
+                inside the iframe rather than overflowing the modal */}
+            <iframe
+              src={brochureUrl}
+              title={`${displayName} Brochure`}
+              className="min-h-0 w-full flex-1 border-0"
+              style={{ display: "block" }}
+              allow="fullscreen"
+            />
+          </div>
+        </div>
+      )}
 
       {isGalleryModalOpen && (
         <div className="fixed inset-0 z-50 flex flex-col bg-bg-2 animate-in fade-in duration-200">
@@ -500,12 +532,6 @@ function CarFaq({
 
   const faqs = [
     {
-      q: `What is the price of the ${displayName} in Thane?`,
-      a: car.priceOnRequest
-        ? `The ${displayName} is priced on request. Contact Mahindra Modi for an exact, all-inclusive quotation for Thane, Navi Mumbai or Mumbai.`
-        : `The ${displayName} starts at ${formatINR(car.priceINR)}* (ex-showroom). On-road pricing depends on the chosen variant, colour, insurance, accessories and RTO charges. Request a quotation from Mahindra Modi for an exact, all-inclusive figure for Thane, Navi Mumbai or Mumbai.`,
-    },
-    {
       q: `How many variants does the ${displayName} offer?`,
       a: detail.variants.join(" "),
     },
@@ -575,4 +601,3 @@ function CarFaq({
     </section>
   );
 }
-

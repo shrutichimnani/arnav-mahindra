@@ -6,12 +6,10 @@ import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import Reveal from "@/components/Reveal";
 import FAQ from "@/components/FAQ";
-import { ArrowRight, Check } from "@/components/icons";
+import { ArrowRight } from "@/components/icons";
 import { TestDriveTrigger } from "@/components/TestDriveModalProvider";
 import {
-  company,
   groupInfo,
-  mahindraFacts,
   aboutFaqData,
   aboutPageHeroImage,
   aboutCultureImage,
@@ -78,13 +76,6 @@ const aboutPageSchema = {
   ],
 };
 
-const stats = [
-  { value: company.stats.carsSold, label: "New Cars Sold" },
-  { value: company.stats.usedCarsSold, label: "Used Cars Sold" },
-  { value: company.stats.servicesDone, label: "Services Completed" },
-  { value: company.stats.satisfaction, label: "Customer Satisfaction" },
-];
-
 function joinWithAnd(items: string[]) {
   if (items.length <= 1) return items.join("");
   return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
@@ -104,12 +95,12 @@ export default function AboutPage() {
         <section className="relative h-[320px] w-full overflow-hidden bg-brand-deep sm:h-[380px]">
           <Image
             src={aboutPageHeroImage}
-            alt="Mahindra Modi showroom at dusk, Thane"
-            title="Mahindra Modi showroom at dusk, Thane"
+            alt="Modi Mahindra Thane showroom"
+            title="Modi Mahindra Thane showroom"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[center_25%] sm:object-[center_30%] lg:object-center"
+            className="object-cover object-[62%_70%] scale-[1.2]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
           <div className="hero-safe absolute inset-x-0 bottom-0 mx-auto max-w-[1400px]">
@@ -142,17 +133,17 @@ export default function AboutPage() {
               <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted sm:text-base">
                 <p>
                   Mahindra Modi is an authorised Mahindra dealership, owned
-                  and operated by the {groupInfo.name}. We run a showroom and
-                  service centre in Thane, plus a dedicated XUV showroom in
-                  Airoli, and we have sold over{" "}
-                  {company.stats.carsSold} new cars with a{" "}
-                  {company.stats.satisfaction} customer satisfaction score.
+                  and operated by the {groupInfo.name}. We have showrooms in
+                  Thane, Airoli and Worli, along with service centres in Thane,
+                  Charkop and Sewri.
                 </p>
                 <p>
                   The {groupInfo.name} represents {joinWithAnd(groupInfo.brands)}{" "}
                   across multiple automotive businesses, alongside{" "}
-                  {joinWithAnd(groupInfo.ventures.map((v) => v.name))}.{" "}
-                  {groupInfo.founded} {groupInfo.growth}
+                  {joinWithAnd(groupInfo.ventures.map((v) => v.name))}. Built
+                  on a long-standing commitment to responsible growth, the Group
+                  continues to earn customer trust through experienced teams,
+                  dependable service and strong partner relationships.
                 </p>
               </div>
             </Reveal>
@@ -170,27 +161,6 @@ export default function AboutPage() {
                 className="object-cover"
               />
             </Reveal>
-          </div>
-        </section>
-
-        {/* Stats strip */}
-        <section className="bg-bg-2 py-10">
-          <div className="container-px mx-auto grid max-w-[1400px] grid-cols-2 gap-6 sm:grid-cols-4">
-            {stats.map((s, i) => (
-              <Reveal
-                key={s.label}
-                delay={i * 90}
-                variant="scale-up"
-                className="text-center"
-              >
-                <p className="font-display text-2xl font-bold text-brand sm:text-3xl">
-                  {s.value}
-                </p>
-                <p className="mt-1 text-xs font-medium text-muted sm:text-sm">
-                  {s.label}
-                </p>
-              </Reveal>
-            ))}
           </div>
         </section>
 
@@ -213,47 +183,6 @@ export default function AboutPage() {
                     <p className="mt-2 text-xs leading-relaxed text-muted">
                       {v.text}
                     </p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Mahindra & Mahindra credibility */}
-        <section className="bg-brand-deep py-14 text-white lg:py-20">
-          <div className="container-px mx-auto max-w-[1400px]">
-            <Reveal className="mx-auto max-w-2xl text-center">
-              <p className="text-xs font-semibold uppercase tracking-wider text-white/60">
-                Backed By
-              </p>
-              <h2 className="mt-2 font-display text-2xl font-bold sm:text-3xl">
-                Mahindra &amp; Mahindra: &ldquo;{mahindraFacts.tagline}&rdquo;
-              </h2>
-              <p className="mt-3 text-sm text-white/70 sm:text-base">
-                {mahindraFacts.foundedNote} Today, Mahindra is one of India&apos;s
-                largest SUV makers, with {mahindraFacts.plant}{" "}
-                {mahindraFacts.network}
-              </p>
-            </Reveal>
-            <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
-              {mahindraFacts.csr.map((c, i) => (
-                <Reveal
-                  key={c.title}
-                  delay={i * 100}
-                  variant="fade-up"
-                  className="rounded-lg border border-white/15 bg-white/5 p-6"
-                >
-                  <div className="flex items-start gap-3">
-                    <Check className="mt-0.5 h-5 w-5 shrink-0 text-white" />
-                    <div>
-                      <h3 className="text-sm font-semibold text-white">
-                        {c.title}
-                      </h3>
-                      <p className="mt-1 text-xs leading-relaxed text-white/70">
-                        {c.text}
-                      </p>
-                    </div>
                   </div>
                 </Reveal>
               ))}

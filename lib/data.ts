@@ -80,10 +80,8 @@ export const aboutHeroImage = stock("photo-1560179707-f14e90ef3623", 1600);
 export const contactHeroImage = "/images/contact/contact-hero.webp";
 export const locateHeroImage = "/images/locate-us/locate-hero.webp";
 export const aboutCultureImage = "/about/team-culture.webp";
-/* Real photo of the Mahindra Modi Thane showroom at dusk, sourced from the
-   dealership's own Justdial listing (its catalogue photos, uploaded by the
-   business itself). Used only for the About Us page hero. */
-export const aboutPageHeroImage = "/about/showroom-dusk.jpg";
+/* Shared Thane showroom image used on the Locate Us and About Us pages. */
+export const aboutPageHeroImage = "/images/locate-us/thane-showroom.webp";
 
 export const groupInfo = {
   name: "Gautam Modi Group",
@@ -150,14 +148,9 @@ export const aboutFaqData = [
       "Yes. Mahindra Modi is an authorised Mahindra & Mahindra Ltd dealership, with showrooms in Thane, Airoli and Worli and service centres in Thane, Charkop and Sewri.",
   },
   {
-    question: "How experienced is the Mahindra Modi team?",
-    answer:
-      "As part of the Gautam Modi Group, our team draws on decades of combined dealership experience across multiple automotive brands, backed by trained sales consultants and factory-trained service technicians.",
-  },
-  {
     question: "Which cities does Mahindra Modi serve?",
     answer:
-      "We serve Thane, Navi Mumbai and Mumbai, with Mahindra showrooms in Thane, Airoli and Worli and a service centre in Wagle Industrial Estate, Thane.",
+      "We serve Thane, Airoli and Worli, with Modi Mahindra showrooms in all three locations and service centres in Thane, Charkop and Sewri.",
   },
   {
     question: "When was Mahindra & Mahindra founded?",
@@ -1010,11 +1003,6 @@ export const faqData = [
       "Yes. Use Book a Service from the menu or footer to choose your model, preferred service centre and a convenient date, and our team will call to confirm.",
   },
   {
-    question: "What is the warranty period on a new Mahindra car?",
-    answer:
-      "New Mahindra cars come with the standard manufacturer warranty, with optional extended warranty plans available. Our sales team can confirm the exact coverage for your chosen model.",
-  },
-  {
     question: "Do you accept trade-ins for old cars?",
     answer:
       "Yes. We evaluate your current vehicle and offer an exchange bonus you can apply against your new Mahindra's on-road price.",
@@ -1093,7 +1081,7 @@ export type Location = {
    actual branch photography and Google Maps links. */
 export const locations: Location[] = [
   {
-    name: "Mahindra - Thane Showroom",
+    name: "Modi Mahindra - Thane Showroom",
     type: "Showroom",
     city: "Thane",
     address: "Survey No 412, RD, Ashar Compound, Rd Number 27, Wagle Industrial Estate, Thane West, Thane, Maharashtra 400604",
@@ -1105,7 +1093,7 @@ export const locations: Location[] = [
     lng: 72.946498,
   },
   {
-    name: "Mahindra - Airoli Showroom",
+    name: "Modi Mahindra - Airoli Showroom",
     type: "Showroom",
     city: "Navi Mumbai",
     address: "Hissa No 1, Akshar Green World, Shop No. 27(A) & 27(B), Gate No. 242, Thane - Belapur Rd, near Patni Computer IGATE, Airoli, Navi Mumbai, Maharashtra 400708",
@@ -1117,7 +1105,7 @@ export const locations: Location[] = [
     lng: 72.9930943,
   },
   {
-    name: "Mahindra - Worli",
+    name: "Modi Mahindra - Worli Showroom",
     type: "Showroom",
     city: "Mumbai",
     address: "Unit No 48, Atria-The Millennium Mall, 69, Dr Annie Besant Rd, Lotus Colony, Worli, Mumbai, Maharashtra 400018",
@@ -1129,12 +1117,11 @@ export const locations: Location[] = [
     lng: 72.8144358,
   },
   {
-    name: "Mahindra - Thane Service Centre",
+    name: "Modi Mahindra - Thane Service Centre",
     type: "Service Centre",
     city: "Thane",
     address: "Survey No 412, RD, Ashar Compound, Rd Number 27, Wagle Industrial Estate, Thane West, Thane, Maharashtra 400604",
-    phone: "84699 89900",
-    phoneSecondary: "82387 85050",
+    phone: "82387 85050",
     image: "/images/locate-us/thane-showroom.webp",
     mapsUrl: "https://maps.app.goo.gl/hBShzCninyyXh9jh7",
     ftid: "0x3be7b9b401811351:0xcbb5fcaac0213170",
@@ -1142,12 +1129,11 @@ export const locations: Location[] = [
     lng: 72.946498,
   },
   {
-    name: "Mahindra - Charkop Service Centre",
+    name: "Modi Mahindra - Charkop Service Centre",
     type: "Service Centre",
     city: "Mumbai",
     address: "Plot 95/96, Mahatma Gandhi Rd, Hindustan Naka, Charkop Industrial Estate, Kandivali West, Mumbai, Maharashtra 400067",
     phone: "84699 89900",
-    phoneSecondary: "82387 85050",
     image: "/images/locate-us/charkop-service.webp",
     mapsUrl: "https://maps.app.goo.gl/cgV166Va4iuyVuky7",
     ftid: "0x3be7b75555bdaf83:0xed5e86c80f211998",
@@ -1155,12 +1141,11 @@ export const locations: Location[] = [
     lng: 72.8298505,
   },
   {
-    name: "Mahindra - Sewri Service Center",
+    name: "Modi Mahindra - Sewri Service Centre",
     type: "Service Centre",
     city: "Mumbai",
     address: "Sewree Fort, Best Saparia Sub Station, Sewri - Chembur Rd, BPCL Complex, Sewri, Mumbai, Maharashtra 400015",
     phone: "84699 89900",
-    phoneSecondary: "82387 85050",
     image: "/images/blogs/sewri-workshop.png",
     mapsUrl: "https://maps.app.goo.gl/GbXbyiRbsUHrxUr58",
     ftid: "0x3be7cf1a54cf9235:0x42a17a954159a947",
@@ -1177,7 +1162,11 @@ export const popularCars = popularNames
   .filter((c): c is Car => Boolean(c));
 
 export const testDriveImage = "/images/home/test-drive-interior.jpg";
-export const serviceHeroImage = "/images/service/service-hero.webp";
+export const serviceHeroImage = "/images/locate-us/charkop-service.png";
 export const carModels = cars.map((c) => c.name);
-export const cityOptions = ["Thane", "Navi Mumbai", "Mumbai"];
+export const cityOptions = [
+  "Modi Mahindra - Thane Showroom",
+  "Modi Mahindra - Airoli Showroom",
+  "Modi Mahindra - Worli Showroom",
+];
 export const serviceCentres = locations.filter((l) => l.type === "Service Centre");

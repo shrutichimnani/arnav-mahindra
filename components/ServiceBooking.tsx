@@ -16,7 +16,7 @@ const timeSlots = [
   { label: "Evening (4–8)", start: 16, end: 20 },
 ];
 
-const serviceCentreOptions = serviceCentres.map((s) => `${s.name} - ${s.city}`);
+const serviceCentreOptions = serviceCentres.map((s) => s.name);
 
 const serviceTypes = ["Free Service", "Paid Service", "Running Repair"];
 

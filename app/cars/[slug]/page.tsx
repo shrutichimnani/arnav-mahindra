@@ -109,11 +109,6 @@ export default async function CarDetailPage({
         mainEntity: [
           {
             "@type": "Question",
-            name: `What is the price of the ${displayName} in Mumbai?`,
-            acceptedAnswer: { "@type": "Answer", text: car.priceOnRequest ? `The ${displayName} price is available on request. Contact Mahindra Modi in Thane for the latest on-road price in Mumbai, Navi Mumbai and surrounding areas.` : `The ${displayName} starts at ${formatINR(car.priceINR)} ex-showroom. Visit Mahindra Modi in Thane for the exact on-road price in Mumbai including RTO, insurance and registration.` },
-          },
-          {
-            "@type": "Question",
             name: `How many variants does the ${displayName} offer?`,
             acceptedAnswer: { "@type": "Answer", text: `The ${displayName} is available in multiple variants across petrol and diesel engine options, with manual and automatic transmissions. Browse the full variant list and features on this page, or contact Mahindra Modi to compare trims.` },
           },

@@ -127,7 +127,6 @@ export default function TestDrive() {
       phone,
       email: String(fd.get("email") ?? ""),
       pincode: String(fd.get("pincode") ?? ""),
-      address: String(fd.get("address") ?? ""),
       preferreddate: date,
       preferredtime: effectiveTime,
     }).then((r) => {
@@ -203,12 +202,6 @@ export default function TestDrive() {
                     .
                   </p>
                 </div>
-                <button
-                  onClick={() => setSubmitted(false)}
-                  className="mt-6 rounded border border-border px-6 py-3 text-sm font-semibold text-text transition-colors hover:bg-bg-3"
-                >
-                  Book another
-                </button>
               </div>
             ) : (
               <OtpGate
@@ -267,17 +260,6 @@ export default function TestDrive() {
                       />
                     </label>
 
-                    <label className="col-span-full block">
-                      <span className="mb-1.5 block text-xs font-semibold text-muted">
-                        Address <span className="font-normal text-faint">(optional)</span>
-                      </span>
-                      <input
-                        name="address"
-                        type="text"
-                        placeholder="House no., street, area"
-                        className={fieldBase}
-                      />
-                    </label>
 
                     <label className="block">
                       <span className="mb-1.5 block text-xs font-semibold text-muted">Preferred Date</span>

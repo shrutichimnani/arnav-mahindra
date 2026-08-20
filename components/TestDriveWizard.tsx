@@ -54,7 +54,6 @@ export default function TestDriveWizard({
   const [mobile, setMobile] = useState(verifiedPhone ?? "");
   const [email, setEmail] = useState("");
   const [pincode, setPincode] = useState("");
-  const [address, setAddress] = useState("");
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState("");
 
@@ -73,7 +72,7 @@ export default function TestDriveWizard({
   const selectedCar = cars.find((c) => c.slug === carSlug);
   const otherCars = useMemo(() => cars.filter((c) => c.slug !== carSlug), [carSlug]);
   const showroomsInCity = locations.filter(
-    (l) => l.type === "Showroom" && (city ? l.city === city : true),
+    (l) => l.type === "Showroom" && city === l.name,
   );
 
   const availableTimeSlots = useMemo(() => {
@@ -207,7 +206,6 @@ export default function TestDriveWizard({
       phone: mobile,
       email,
       pincode,
-      address,
     }).then((r) => {
       setSending(false);
       if (r.ok) setSubmitted(true);
@@ -377,11 +375,11 @@ export default function TestDriveWizard({
               {city && (
                 <div className="mt-4 space-y-2">
                   <p className="text-xs font-semibold text-muted">
-                    Showrooms in {city}
+                    Selected showroom
                   </p>
                   {showroomsInCity.length === 0 && (
                     <p className="text-sm text-faint">
-                      No showroom listed in {city} yet - our nearest team will reach out.
+                      No showroom is listed for this selection yet - our nearest team will reach out.
                     </p>
                   )}
                   {showroomsInCity.map((s) => (
@@ -452,18 +450,6 @@ export default function TestDriveWizard({
                     value={pincode}
                     onChange={(e) => setPincode(e.target.value)}
                     placeholder="6-digit pincode"
-                    className={fieldBase}
-                  />
-                </label>
-                <label className="col-span-full block">
-                  <span className="mb-1.5 block text-xs font-semibold text-muted">
-                    Address <span className="font-normal text-faint">(optional)</span>
-                  </span>
-                  <input
-                    type="text"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                    placeholder="House no., street, area"
                     className={fieldBase}
                   />
                 </label>

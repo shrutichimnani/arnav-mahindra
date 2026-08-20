@@ -55,7 +55,6 @@ const TABLE_COLUMNS: Record<string, Record<string, string>> = {
     phone: "mobile_number",
     email: "email",
     pincode: "pincode",
-    address: "address",
   },
   service: {
     ...UTM_COLUMNS,

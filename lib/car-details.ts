@@ -937,27 +937,26 @@ const modelFeatureGallery: Record<string, GalleryImage[]> = {
   ],
 };
 
-/* No confirmed Mahindra brochure URLs were available to link directly,
-   so this map stays empty and getCarBrochure() returns undefined —
-   CarDetailClient already renders the "Download Brochure" button
-   conditionally and hides it cleanly when this happens. */
+/* Brochures are hosted locally under /public/brochures/ so the PDF viewer
+   never navigates to an external Mahindra URL. Files were downloaded and
+   committed to the repository. */
 const brochurePathBySlug: Record<string, string> = {
-  "xuv-7xo": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw5ba5f731/XUV-7XO/brochures/XUV-7XO-Brochure.pdf",
-  "thar-roxx": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw1e1f0b3f/thar-roxx/THAR-ROXX-Brochure-20-April-26.pdf",
-  "thar": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dwd39c2522/brochure/Thar-Brochure-2025-NEW.pdf",
-  "scorpio-n": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw648313f2/SCN/Scorpio-Big-Daddy_Horizontal-Brochure-0807.pdf",
-  "xuv-3xo": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw54d8b67d/X3XO/XUV_3XO_Brochure.pdf",
-  "scorpio-classic": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw50e4041a/SCRC/brochure/Scorpio-Classic-Accessories-Brochure.pdf",
-  "bolero": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw5e3dbfce/Bolero/brochure/Bolero-Accessories-brochure.pdf",
-  "bolero-neo": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dwc3956d51/NEO/Bolero-Neo-Accessories-brochure.pdf",
-  "bolero-neo-plus": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dwa63dc1a3/NEOP/pdfs/Bolero-Neo-Plus.pdf",
-  "xuv400": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw4dc915da/mahindraelectricimages/images/xuv400images/XUV400ProRangeBrochure.pdf",
-  "marazzo": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dwa00130f0/Marazzo/Marazzo_Brochure.pdf",
-  "xuv3xo-ev": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw485a2dcf/X3XO/29-06-MM-3XO-EV-BROCHURE_R3.pdf",
-  "xev-9e": "https://www.mahindraelectricsuv.com/on/demandware.static/-/Library-Sites-eSUVSharedLibrary/default/dweb0d1969/MXV9/XEV9e_BROCHURE_R1_20260428.pdf",
-  "be-6": "https://www.mahindraelectricsuv.com/on/demandware.static/-/Library-Sites-eSUVSharedLibrary/default/MBE6/BE-6-Brochure-V29.pdf",
-  "bolero-maxx-pik-up": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw55120724/Pik-up/Pikup-brochure-PDF.pdf",
-  "maxx-city-cng": "https://auto.mahindra.com/on/demandware.static/-/Sites-amc-Library/default/dw9d5e36d0/MAXX/AUTO-BOLERO-SM-A4-CITY-8-PG-BROCHURE-R1-FOR-WEB.pdf",
+  "xuv-7xo":            "/brochures/xuv-7xo.pdf",
+  "thar-roxx":          "/brochures/thar-roxx.pdf",
+  "thar":               "/brochures/thar.pdf",
+  "scorpio-n":          "/brochures/scorpio-n.pdf",
+  "xuv-3xo":            "/brochures/xuv-3xo.pdf",
+  "scorpio-classic":    "/brochures/scorpio-classic.pdf",
+  "bolero":             "/brochures/bolero.pdf",
+  "bolero-neo":         "/brochures/bolero-neo.pdf",
+  "bolero-neo-plus":    "/brochures/bolero-neo-plus.pdf",
+  "xuv400":             "/brochures/xuv400.pdf",
+  "marazzo":            "/brochures/marazzo.pdf",
+  "xuv3xo-ev":          "/brochures/xuv3xo-ev.pdf",
+  "xev-9e":             "/brochures/xev-9e.pdf",
+  "be-6":               "/brochures/be-6.pdf",
+  "bolero-maxx-pik-up": "/brochures/bolero-maxx-pik-up.pdf",
+  "maxx-city-cng":      "/brochures/maxx-city-cng.pdf",
 };
 
 export function getCarBrochure(car: Car): string | undefined {
