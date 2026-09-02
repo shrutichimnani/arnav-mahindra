@@ -76,11 +76,6 @@ const aboutPageSchema = {
   ],
 };
 
-function joinWithAnd(items: string[]) {
-  if (items.length <= 1) return items.join("");
-  return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
-}
-
 export default function AboutPage() {
   return (
     <>
@@ -122,7 +117,7 @@ export default function AboutPage() {
 
         {/* Our story */}
         <section className="bg-white py-14 lg:py-20">
-          <div className="container-px mx-auto grid max-w-[1400px] gap-10 lg:grid-cols-2 lg:gap-16">
+          <div className="container-px mx-auto grid max-w-[1400px] items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <Reveal variant="slide-right">
               <p className="text-xs font-semibold uppercase tracking-wider text-brand">
                 Our Story
@@ -138,10 +133,7 @@ export default function AboutPage() {
                   Charkop and Sewri.
                 </p>
                 <p>
-                  The {groupInfo.name} represents {joinWithAnd(groupInfo.brands)}{" "}
-                  across multiple automotive businesses, alongside{" "}
-                  {joinWithAnd(groupInfo.ventures.map((v) => v.name))}. Built
-                  on a long-standing commitment to responsible growth, the Group
+                  Built on a long-standing commitment to responsible growth, the Group
                   continues to earn customer trust through experienced teams,
                   dependable service and strong partner relationships.
                 </p>
@@ -150,16 +142,52 @@ export default function AboutPage() {
             <Reveal
               variant="slide-left"
               delay={150}
-              className="relative min-h-[260px] overflow-hidden rounded-lg lg:min-h-full"
+              className="relative overflow-hidden rounded-lg flex items-center"
             >
               <Image
                 src={aboutCultureImage}
                 alt="Mahindra Modi team culture"
                 title="Mahindra Modi team culture"
-                fill
+                width={1200}
+                height={800}
                 sizes="(max-width: 1024px) 100vw, 45vw"
-                className="object-cover"
+                className="w-full h-auto"
               />
+            </Reveal>
+          </div>
+        </section>
+
+        {/* Local commitment */}
+        <section className="relative overflow-hidden bg-brand-deep py-14 lg:py-20">
+          <div className="container-px mx-auto grid max-w-[1400px] items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            <Reveal variant="slide-right">
+              <p className="text-xs font-semibold uppercase tracking-wider text-white/60">
+                Our Local Commitment
+              </p>
+              <h2 className="mt-2 font-display text-2xl font-bold text-white sm:text-3xl lg:text-4xl">
+                Here for every milestone on the road.
+              </h2>
+            </Reveal>
+            <Reveal variant="slide-left" delay={150}>
+              <p className="text-sm leading-relaxed text-white/80 sm:text-base">
+                Whether you are buying your first Mahindra, upgrading your
+                family SUV or arranging routine service, our showroom and
+                service teams provide practical help close to home. Visit
+                Modi Mahindra across the Mumbai region for new Mahindra cars,
+                test drives, genuine parts and expert service support.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {["Thane", "Airoli", "Worli", "Charkop", "Sewri"].map(
+                  (place) => (
+                    <span
+                      key={place}
+                      className="rounded-full border border-white/40 px-4 py-2 text-sm font-medium text-white"
+                    >
+                      {place}
+                    </span>
+                  )
+                )}
+              </div>
             </Reveal>
           </div>
         </section>

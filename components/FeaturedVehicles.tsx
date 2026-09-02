@@ -11,20 +11,40 @@ const categories: ("All" | CarCategory)[] = [
   "All",
   "SUV",
   "Electric",
-  "MPV",
   "Pickup",
   "Commercial",
 ];
 
-// Cache lives on `window` so it survives HMR module re-evaluation in dev mode,
-// SPA navigation (e.g. car detail page -> back), but resets on a hard refresh.
-// Per-category keys mean switching tabs generates a fresh shuffle on first
-// visit to that category, but returns the saved order on back-navigation.
-function getShuffleCache(): Map<string, typeof cars> {
-  if (typeof window === "undefined") return new Map();
-  const key = "__mahindra_featured_vehicles_shuffle__";
-  if (!(window as any)[key]) (window as any)[key] = new Map();
-  return (window as any)[key];
+// Persisted in sessionStorage (not just an in-memory `window` cache) so the
+// shuffled order survives a page reload — browsers give JS no way to tell a
+// plain refresh apart from a hard/cache-busting one, so "reshuffle only on
+// hard refresh" isn't something a page can detect. sessionStorage is the
+// closest match: the order stays put across reloads and back/forward nav,
+// and only resets once the tab itself is closed. Per-category keys mean
+// switching tabs generates a fresh shuffle on first visit to that category.
+const SHUFFLE_STORAGE_PREFIX = "mahindra_featured_vehicles_shuffle:";
+
+function loadShuffle(cacheKey: string): typeof cars | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = sessionStorage.getItem(SHUFFLE_STORAGE_PREFIX + cacheKey);
+    if (!raw) return null;
+    const slugs: string[] = JSON.parse(raw);
+    const bySlug = new Map(cars.map((c) => [c.slug, c]));
+    const arr = slugs.map((s) => bySlug.get(s)).filter((c): c is (typeof cars)[number] => Boolean(c));
+    return arr.length === slugs.length ? arr : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveShuffle(cacheKey: string, arr: typeof cars) {
+  if (typeof window === "undefined") return;
+  try {
+    sessionStorage.setItem(SHUFFLE_STORAGE_PREFIX + cacheKey, JSON.stringify(arr.map((c) => c.slug)));
+  } catch {
+    // sessionStorage unavailable (private mode, quota) — shuffle just won't persist.
+  }
 }
 
 export default function FeaturedVehicles() {
@@ -45,36 +65,36 @@ export default function FeaturedVehicles() {
 
   const cacheKey = category;
 
-  const [filtered, setFiltered] = useState(() => {
-    const cached = getShuffleCache().get(cacheKey);
-    if (cached) return cached;
-    return categoryFiltered;
-  });
+  // Initial state must match what the server rendered (server has no
+  // sessionStorage, so it always renders `categoryFiltered` unshuffled) —
+  // reading sessionStorage here too would make the client's first render
+  // diverge from the SSR HTML and trigger a hydration error. The stored
+  // order is applied client-only, in the effect below.
+  const [filtered, setFiltered] = useState(categoryFiltered);
 
   useEffect(() => {
-  const cache = getShuffleCache();
-  const cached = cache.get(cacheKey);
-  if (cached) {
-    setFiltered(cached);
-    return;
-  }
-  const arr = [...categoryFiltered];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  // In the "All" tab, the carousel should always open on an SUV; everything
-  // after that first slot stays in shuffled order.
-  if (cacheKey === "All") {
-    const suvIndex = arr.findIndex((c) => c.category === "SUV");
-    if (suvIndex > 0) {
-      const [suv] = arr.splice(suvIndex, 1);
-      arr.unshift(suv);
+    const cached = loadShuffle(cacheKey);
+    if (cached) {
+      setFiltered(cached);
+      return;
     }
-  }
-  cache.set(cacheKey, arr);
-  setFiltered(arr);
-}, [categoryFiltered, cacheKey]);
+    const arr = [...categoryFiltered];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    // In the "All" tab, the carousel should always open on an SUV; everything
+    // after that first slot stays in shuffled order.
+    if (cacheKey === "All") {
+      const suvIndex = arr.findIndex((c) => c.category === "SUV");
+      if (suvIndex > 0) {
+        const [suv] = arr.splice(suvIndex, 1);
+        arr.unshift(suv);
+      }
+    }
+    saveShuffle(cacheKey, arr);
+    setFiltered(arr);
+  }, [categoryFiltered, cacheKey]);
 
   const active = filtered[index] ?? filtered[0];
 

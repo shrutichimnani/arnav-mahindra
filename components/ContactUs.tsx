@@ -5,12 +5,14 @@ import { company } from "@/lib/data";
 import { Check, Clock, Mail, Phone, WhatsApp } from "./icons";
 import Reveal from "./Reveal";
 import OtpGate, { VerifiedPhoneField } from "./OtpGate";
+import { usePhoneVerification } from "./PhoneVerificationProvider";
 import { submitToSheet } from "@/lib/sheets";
 
 const fieldBase =
   "w-full rounded border border-border bg-white px-4 py-3 text-sm text-text outline-none transition-colors placeholder:text-faint focus:border-brand focus:ring-2 focus:ring-brand/10";
 
 export default function ContactUs() {
+  const { verifiedPhone } = usePhoneVerification();
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState("");
@@ -129,13 +131,15 @@ export default function ContactUs() {
           <Reveal
             delay={120}
             variant="slide-left"
-            className="relative overflow-hidden rounded-lg border border-border bg-white p-6 shadow-[0_4px_32px_0_rgba(0,0,0,0.06)] sm:p-8"
+            className="relative overflow-hidden rounded-lg border border-border bg-white shadow-[0_4px_32px_0_rgba(0,0,0,0.06)]"
           >
-            <h3 className="font-display text-lg font-bold text-text">
-              Send Us a Message
-            </h3>
+            {(submitted || verifiedPhone) && (
+              <h3 className="p-6 pb-0 font-display text-lg font-bold text-text sm:p-8 sm:pb-0">
+                Send Us a Message
+              </h3>
+            )}
             {submitted ? (
-              <div className="flex flex-col items-center justify-center py-8 text-center">
+              <div className="flex flex-col items-center justify-center p-6 py-8 text-center sm:p-8">
                 <span className="grid h-14 w-14 place-items-center rounded-full bg-brand/10 text-brand">
                   <Check className="h-7 w-7" />
                 </span>
@@ -153,7 +157,7 @@ export default function ContactUs() {
                 </button>
               </div>
             ) : (
-              <div className="mt-5">
+              <div className={verifiedPhone ? "p-6 pt-5 sm:p-8 sm:pt-5" : ""}>
                 <OtpGate
                   source="contact_us_form"
                   heroImage={{
@@ -163,11 +167,11 @@ export default function ContactUs() {
                     // (test-drive modal, etc.), and the default 0.85fr
                     // column cropped off the "mahindra" signage on the
                     // storefront. Widen the column so more of the photo's
-                    // width is visible, and nudge the anchor right (which
-                    // pans the visible window right, i.e. the image reads
-                    // as shifted left) so the signage sits inside it.
+                    // width is visible, and anchor near the left edge so the
+                    // butterfly logo, "mahindra" wordmark, and the first car
+                    // are all inside the crop.
                     columnWidth: "0.85fr",
-                    objectPosition: "30% center",
+                    objectPosition: "5% center",
                   }}
                   frameless
                 >

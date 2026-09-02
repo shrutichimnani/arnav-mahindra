@@ -12,7 +12,7 @@ import CarsGrid from "@/components/CarsGrid";
 
 const title = "New Mahindra Cars, Prices, Variants & Specifications | Mahindra Modi";
 const description =
-  "Browse the full Mahindra lineup at Mahindra Modi: SUVs, MPVs, electric vehicles and commercial pickups, with on-road prices, specs and colours for every model.";
+  "Browse the full Mahindra lineup at Mahindra Modi: SUVs, electric vehicles and commercial pickups, with on-road prices, specs and colours for every model.";
 
 export const metadata: Metadata = {
   title,

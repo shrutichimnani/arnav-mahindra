@@ -8,6 +8,7 @@ import TestDriveModalProvider from "@/components/TestDriveModalProvider";
 import PhoneVerificationProvider from "@/components/PhoneVerificationProvider";
 import MobileBottomBar from "@/components/MobileBottomBar";
 import UtmCapture from "@/components/UtmCapture";
+import ScrollPositionRestore from "@/components/ScrollPositionRestore";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -108,9 +109,41 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-IN" className={`${inter.variable} ${sora.variable} ${lato.variable} ${georama.variable}`}>
+    <html
+      lang="en-IN"
+      className={`${inter.variable} ${sora.variable} ${lato.variable} ${georama.variable}`}
+      // The scroll-restoration script below sets style.visibility on this
+      // element before React hydrates, outside React's control — expected
+      // to differ from the server-rendered markup, so don't warn about it.
+      suppressHydrationWarning
+    >
       <body className="min-h-screen antialiased pb-16 md:pb-0">
+        {/* A raw <script> tag, deliberately not next/script: next/script's
+            "beforeInteractive" only *fetches* early in this Next.js version
+            — it doesn't literally land in the served HTML as a blocking
+            <script>, so it still runs after first paint (visible as the
+            page flashing at the top before jumping to the restored scroll
+            position). A plain inline script tag here is real HTML, parsed
+            and executed synchronously by the browser before anything below
+            it can paint.
+
+            Chrome/Firefox restore the previous scroll offset on a plain
+            reload (not just back/forward), but they do it before the page
+            has grown to its final height, so the restored position can
+            land past the (still short) bottom. Disabling native scroll
+            restoration here stops that, and ScrollPositionRestore below
+            does the restore itself once the page is actually tall enough
+            — hiding the page synchronously (before any paint) in the
+            meantime, and revealing it right after the scroll lands. */}
+        <script
+          id="disable-scroll-restoration"
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if('scrollRestoration' in history){history.scrollRestoration='manual';}var __sy=sessionStorage.getItem('scrollY:'+location.pathname);if(__sy&&parseInt(__sy,10)>0){document.documentElement.style.visibility='hidden';setTimeout(function(){document.documentElement.style.visibility='';},2000);}}catch(e){}",
+          }}
+        />
         <JsonLd />
+        <ScrollPositionRestore />
         <PhoneVerificationProvider>
           <TestDriveModalProvider>
             {children}

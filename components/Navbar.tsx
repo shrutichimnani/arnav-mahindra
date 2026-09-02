@@ -134,8 +134,8 @@ export default function Navbar() {
       }`}
     >
       {/* Main nav */}
-      <nav className="container-px mx-auto flex h-[60px] max-w-[1400px] items-center justify-between">
-        <Logo showSubtitle={false} />
+      <nav className="container-px mx-auto flex h-[80px] max-w-[1400px] items-center justify-between">
+        <Logo />
 
         {/* Desktop links */}
         <ul ref={desktopNavRef} className="relative hidden items-center gap-0.5 xl:flex">
@@ -213,7 +213,7 @@ export default function Navbar() {
           }`}
         >
           <div className="mb-6 flex shrink-0 items-center justify-between">
-            <Logo showSubtitle={false} />
+            <Logo />
             <button
               aria-label="Close menu"
               onClick={() => setOpen(false)}

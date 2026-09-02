@@ -31,17 +31,17 @@ const lineages = [
     href: "/cars",
   },
   {
-    name: "Rugged & MPV",
+    name: "Rugged SUVs",
     blurb:
-      "Decades of reliability in the Bolero range, plus the spacious Marazzo MPV for families who need genuine third-row room.",
-    models: ["Bolero", "Bolero Neo", "Marazzo"],
+      "Decades of reliability in the Bolero range, built for tough roads and dependable everyday use.",
+    models: ["Bolero", "Bolero Neo"],
     href: "/cars",
   },
   {
     name: "Electric",
     blurb:
-      "Mahindra's electric range spans the practical XUV400 to the new-generation BE 6 and XEV 9e electric SUV coupes.",
-    models: ["XUV400", "BE 6", "XEV 9e"],
+      "Mahindra's electric range spans the new-generation BE 6 and XEV 9e electric SUV coupes to the 7-seat XEV 9S.",
+    models: ["BE 6", "XEV 9e", "XEV 9S"],
     href: "/cars",
   },
 ];
@@ -90,8 +90,8 @@ export default function HomeSeoContent() {
             <p className="mt-3 text-base text-muted">
               As an authorised Mahindra dealership, Mahindra Modi stocks the
               complete Mahindra range: lifestyle off-roaders, compact and
-              mid-size SUVs, a spacious MPV, commercial pickups and fully
-              electric SUVs. Discover{" "}
+              mid-size SUVs, commercial pickups and fully electric SUVs.
+              Discover{" "}
               <Link href="/cars" className="font-semibold text-text underline underline-offset-2 hover:text-brand transition-colors">
                 Mahindra&apos;s complete range
               </Link>

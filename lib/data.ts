@@ -9,11 +9,6 @@
    photos use stock stand-ins where noted.
    ============================================================ */
 
-/* Stock stand-ins for people, showroom buildings and a small number of
-   models where no clean official product shot could be sourced. */
-const stock = (id: string, w = 800) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
-
 /* Indian numbering (lakh/crore) grouping, e.g. 1090700 -> "10,90,700". */
 export const formatINR = (n: number) => `₹${n.toLocaleString("en-IN")}`;
 
@@ -76,7 +71,7 @@ export const nav = {
    facts (values, brand portfolio, workforce/sales growth) sourced from
    gautammodigroup.com. Mahindra & Mahindra Ltd brand facts sourced
    from Mahindra's own public "About Us" / corporate history pages. */
-export const aboutHeroImage = stock("photo-1560179707-f14e90ef3623", 1600);
+export const aboutHeroImage = "/images/about/about-hero.webp";
 export const contactHeroImage = "/images/contact/contact-hero.webp";
 export const locateHeroImage = "/images/locate-us/locate-hero.webp";
 export const aboutCultureImage = "/about/team-culture.webp";
@@ -252,7 +247,7 @@ export const heroSlides: Slide[] = [
   },
 ];
 
-export type CarCategory = "SUV" | "Pickup" | "Electric" | "Commercial" | "MPV";
+export type CarCategory = "SUV" | "Pickup" | "Electric" | "Commercial";
 
 export type CarColor = { name: string; hex: string; image: string };
 
@@ -314,8 +309,8 @@ export const cars: Car[] = [
     slug: slugify("THAR ROXX"),
     type: "5-Door Lifestyle SUV",
     category: "SUV",
-    price: lakh(1299000),
-    priceINR: 1299000,
+    price: lakh(1239000),
+    priceINR: 1239000,
     engine: "2.0L mStallion Turbo Petrol, 2.2L mHawk Turbo Diesel",
     transmission: "6-Speed Manual, 6-Speed Torque Converter Automatic",
     fuel: "Petrol · Diesel",
@@ -348,8 +343,8 @@ export const cars: Car[] = [
     slug: slugify("XUV 3XO"),
     type: "Compact SUV",
     category: "SUV",
-    price: lakh(749000),
-    priceINR: 749000,
+    price: lakh(754000),
+    priceINR: 754000,
     engine: "1.2L Turbo Petrol, 1.5L Diesel",
     transmission: "5/6-Speed Manual, 6-Speed AMT/Automatic",
     fuel: "Petrol · Diesel",
@@ -382,8 +377,8 @@ export const cars: Car[] = [
     slug: slugify("THAR"),
     type: "Off-Road Lifestyle SUV",
     category: "SUV",
-    price: lakh(1125000),
-    priceINR: 1125000,
+    price: lakh(999000),
+    priceINR: 999000,
     engine: "2.0L mStallion Turbo Petrol, 2.2L mHawk Turbo Diesel",
     transmission: "6-Speed Manual, 6-Speed Torque Converter Automatic",
     fuel: "Petrol · Diesel",
@@ -414,8 +409,8 @@ export const cars: Car[] = [
     slug: slugify("SCORPIO-N"),
     type: "Mid-size SUV",
     category: "SUV",
-    price: lakh(1360199),
-    priceINR: 1360199,
+    price: lakh(1320000),
+    priceINR: 1320000,
     engine: "2.0L mStallion Turbo Petrol, 2.2L mHawk Turbo Diesel",
     transmission: "6-Speed Manual, 6-Speed Automatic",
     fuel: "Petrol · Diesel",
@@ -445,8 +440,8 @@ export const cars: Car[] = [
     slug: slugify("SCORPIO CLASSIC"),
     type: "Body-on-Frame SUV",
     category: "SUV",
-    price: lakh(1358600),
-    priceINR: 1358600,
+    price: lakh(1300000),
+    priceINR: 1300000,
     engine: "2.2L mHawk Turbo Diesel",
     transmission: "6-Speed Manual, 6-Speed Automatic",
     fuel: "Diesel",
@@ -475,8 +470,8 @@ export const cars: Car[] = [
     slug: slugify("XUV 7XO"),
     type: "5/7-Seater Flagship SUV",
     category: "SUV",
-    price: lakh(1399001),
-    priceINR: 1399001,
+    price: lakh(1366000),
+    priceINR: 1366000,
     engine: "2.0L mStallion Turbo Petrol, 2.2L mHawk Turbo Diesel",
     transmission: "6-Speed Manual, 6-Speed Automatic",
     fuel: "Petrol · Diesel",
@@ -501,36 +496,6 @@ export const cars: Car[] = [
       "Dual 10.25\" screens with Amazon Alexa built-in",
       "Sony 3D audio with 12 speakers on top trims",
       "7 airbags across the range",
-    ],
-  },
-  {
-    name: "Marazzo",
-    slug: slugify("MARAZZO"),
-    type: "MPV",
-    category: "MPV",
-    price: lakh(1439400),
-    priceINR: 1439400,
-    engine: "1.5L mHawk100 Turbo Diesel",
-    transmission: "6-Speed Manual",
-    fuel: "Diesel",
-    blurb: "A spacious, comfortable MPV built for families and long road trips, with room for up to 8.",
-    cta: "Explore the Marazzo",
-    image: "/cars/marazzo-arnav.webp",
-    alt: "Mahindra Marazzo MPV, dealer product shot",
-    // Uses the same studio cutout as the listing card (`image` above) —
-    // same fix as Bolero Maxx Pik-Up / Maxx City CNG: the detail page's
-    // hero should match the card instead of a different studio crop.
-    colors: [
-      { name: "Everest White", hex: "#cfcdcd", image: "/cars/marazzo-arnav.webp" },
-    ],
-    seating: "6 / 7 / 8",
-    mileage: "Up to 17.6 kmpl",
-    bootSpace: "Expandable with third row folded",
-    highlights: [
-      "Flexible 6, 7 and 8-seat configurations",
-      "Segment-first First Row Captain Seats",
-      "High ground clearance for varied road conditions",
-      "Wide cabin with abundant headroom and legroom",
     ],
   },
   {
@@ -568,8 +533,8 @@ export const cars: Car[] = [
     slug: slugify("BOLERO NEO"),
     type: "Compact SUV",
     category: "SUV",
-    price: lakh(989600),
-    priceINR: 989600,
+    price: lakh(885000),
+    priceINR: 885000,
     engine: "1.5L mHawk75 Turbo Diesel",
     transmission: "5-Speed Manual",
     fuel: "Diesel",
@@ -626,53 +591,12 @@ export const cars: Car[] = [
     ],
   },
   {
-    name: "XUV400",
-    slug: slugify("XUV400"),
-    type: "Electric SUV",
-    category: "Electric",
-    price: lakh(1549000),
-    priceINR: 1549000,
-    engine: "Permanent Magnet Synchronous Motor",
-    transmission: "Single-Speed Automatic",
-    fuel: "Electric",
-    blurb: "Blistering acceleration, a long real-world range and Mahindra's familiar SUV comfort, now electric.",
-    cta: "Explore the XUV400",
-    image: "/cars/xuv400.png",
-    alt: "Mahindra XUV400 electric SUV, official product shot",
-    // Real per-colour photos (base/single-tone variant), downloaded from
-    // auto.mahindra.com/suv/xuv400/X400.html#variants and stored locally
-    // under public/images/cars/colors/ — previously all four swatches
-    // pointed at the same generic shot, so switching colour never changed
-    // the photo. "Stealth Black" is renamed to "Napoli Black": Mahindra's
-    // own site doesn't sell a solid "Stealth Black" for this model, only a
-    // dualtone; Napoli Black is the real solid-black paint name and photo.
-    // Nebula Blue is listed first — it's the closest match to the blue
-    // dualtone shot used as the listing-card image (`image` above), and
-    // colors[0] is the colour the detail page opens on by default.
-    colors: [
-      { name: "Nebula Blue", hex: "#07132a", image: "/images/cars/colors/XUV400_NebulaBlue.png" },
-      { name: "Napoli Black", hex: "#0a0a0a", image: "/images/cars/colors/XUV400_NapoliBlack.webp" },
-      { name: "Galaxy Grey", hex: "#575a63", image: "/images/cars/colors/XUV400_GalaxyGrey.webp" },
-      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/XUV400_EverestWhite.webp" },
-    ],
-    seating: "5",
-    mileage: "Up to 456 km range per charge (MIDC, 39.4 kWh)",
-    bootSpace: "378 litres",
-    highlights: [
-      "0-100 kmph in under 9 seconds",
-      "Fast charging, 0-80% in about 50 minutes",
-      "Familiar, spacious XUV cabin",
-      "6 airbags and ESC standard",
-    ],
-  },
-  {
     name: "XEV 9e",
     slug: slugify("XEV 9e"),
     type: "Electric SUV Coupe",
     category: "Electric",
-    price: "On Request",
+    price: lakh(2190000),
     priceINR: 2190000,
-    priceOnRequest: true,
     engine: "Dual Permanent Magnet Synchronous Motors (AWD option)",
     transmission: "Single-Speed Automatic",
     fuel: "Electric",
@@ -709,9 +633,8 @@ export const cars: Car[] = [
     slug: slugify("BE 6"),
     type: "Electric SUV Coupe",
     category: "Electric",
-    price: "On Request",
-    priceINR: 1890000,
-    priceOnRequest: true,
+    price: lakh(1945000),
+    priceINR: 1945000,
     engine: "Permanent Magnet Synchronous Motor",
     transmission: "Single-Speed Automatic",
     fuel: "Electric",
@@ -743,6 +666,79 @@ export const cars: Car[] = [
     ],
   },
   {
+    name: "XEV 9S",
+    slug: slugify("XEV 9S"),
+    type: "Electric SUV",
+    category: "Electric",
+    price: lakh(2065000),
+    priceINR: 2065000,
+    engine: "Permanent Magnet Synchronous Motor (59/70/79 kWh packs)",
+    transmission: "Single-Speed Automatic",
+    fuel: "Electric",
+    blurb: "Mahindra's flagship 6/7-seat electric SUV, built on the INGLO platform with up to 679 km of claimed range and a spacious three-row cabin.",
+    cta: "Explore the XEV 9S",
+    image: "/cars/xev9s-rubyvelvet-studio.png",
+    alt: "Mahindra XEV 9S electric SUV in Ruby Velvet, official product shot (Mahindra)",
+    // Real per-colour photos, downloaded from Mahindra's own XEV 9S
+    // configurator (mahindraelectricsuv.com/own-online/variant-selection?pid=XEV9)
+    // and stored locally. All 6 colours offered on the official configurator
+    // are included below.
+    colors: [
+      { name: "Ruby Velvet", hex: "#2d0406", image: "/images/cars/colors/XEV9S_RubyVelvet.png" },
+      { name: "Midnight Black", hex: "#171f3c", image: "/images/cars/colors/XEV9S_MidnightBlack.png" },
+      { name: "Desert Myst", hex: "#C0BEB7", image: "/images/cars/colors/XEV9S_DesertMyst.png" },
+      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/XEV9S_EverestWhite.png" },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/XEV9S_StealthBlack.png" },
+      { name: "Nebula Blue", hex: "#07132a", image: "/images/cars/colors/XEV9S_NebulaBlue.png" },
+    ],
+    seating: "6 / 7",
+    mileage: "Up to 679 km range per charge (MIDC P1+P2, 79 kWh pack)",
+    bootSpace: "527 litres (third row folded), plus a 150-litre front trunk",
+    highlights: [
+      "Built on Mahindra's dedicated INGLO EV platform",
+      "Three battery packs: 59 kWh, 70 kWh and 79 kWh",
+      "6-seat (captain seats) and 7-seat layouts available",
+      "Level 2 ADAS and up to 7 airbags on higher trims",
+    ],
+  },
+  {
+    name: "XUV 3XO EV",
+    slug: slugify("XUV 3XO EV"),
+    type: "Electric Compact SUV",
+    category: "Electric",
+    price: lakh(1389000),
+    priceINR: 1389000,
+    engine: "Permanent Magnet Synchronous Motor, 39.4 kWh battery (110 kW / 310 Nm)",
+    transmission: "Single-Speed Automatic",
+    fuel: "Electric",
+    blurb: "The XUV 3XO's bold styling, space and tech, now electric — with a real-world range of up to 285 km and segment-first Level 2 ADAS.",
+    cta: "Explore the XUV 3XO EV",
+    image: "/cars/xuv-3xo-ev-everest-white.png",
+    alt: "Mahindra XUV 3XO EV electric compact SUV in Everest White, official product image (CarDekho)",
+    // Left-facing product photos for all 6 launch colours, downloaded from
+    // CarDekho's XUV 3XO EV colours gallery (cardekho.com/mahindra/xuv-3xo-ev)
+    // and processed locally with a shared alpha mask (scripts/remove-bg.mjs +
+    // scripts/apply-shared-mask.mjs) so the white colourway doesn't lose its
+    // roof/bonnet to a white-on-white cutout.
+    colors: [
+      { name: "Everest White", hex: "#cfcdcd", image: "/images/cars/colors/XUV3XOEV_EverestWhite.png" },
+      { name: "Galaxy Grey", hex: "#46494d", image: "/images/cars/colors/XUV3XOEV_GalaxyGrey.png" },
+      { name: "Stealth Black", hex: "#060505", image: "/images/cars/colors/XUV3XOEV_StealthBlack.png" },
+      { name: "Nebula Blue", hex: "#07132a", image: "/images/cars/colors/XUV3XOEV_NebulaBlue.png" },
+      { name: "Deep Forest", hex: "#282d22", image: "/images/cars/colors/XUV3XOEV_DeepForest.png" },
+      { name: "Tango Red", hex: "#970211", image: "/images/cars/colors/XUV3XOEV_TangoRed.png" },
+    ],
+    seating: "5",
+    mileage: "Up to 285 km real-world range per charge (claimed, internal tests)",
+    bootSpace: "364 litres",
+    highlights: [
+      "Real-world range of up to 285 km, with 0-80% DC fast charging in 50 minutes",
+      "Level 2 ADAS with 10 driver-assist features including Smart Pilot Assist",
+      "Panoramic Skyroof and Adrenox connectivity with 80+ features",
+      "0-100 km/h in 8.3 seconds with Fun, Fast & Fearless drive modes",
+    ],
+  },
+  {
     name: "Bolero Maxx Pik-Up",
     slug: slugify("BOLERO MAXX PIK-UP"),
     type: "Pickup Truck",
@@ -756,12 +752,6 @@ export const cars: Car[] = [
     cta: "Explore the Bolero Maxx Pik-Up",
     image: "/cars/bolero-maxx-pikup.webp",
     alt: "Mahindra Bolero Maxx Pik-Up pickup truck, official image from Arnav Automobiles",
-    /* Mahindra's official pickup line only lists a single "Bolero Pik-up"
-       model (no separate "Bolero Maxx Pik-up" product exists on
-       auto.mahindra.com), and that model is offered in one colour only.
-       Uses the same studio cutout as the listing card (`image` above) —
-       the outdoor lifestyle shot this pointed to previously didn't match
-       the card and looked out of place as the detail page's hero. */
     colors: [
       { name: "White", hex: "#e3dfd0", image: "/cars/bolero-maxx-pikup.webp" },
     ],
@@ -776,12 +766,128 @@ export const cars: Car[] = [
     ],
   },
   {
+    name: "Bolero Pik-Up",
+    slug: slugify("BOLERO PIK-UP"),
+    type: "Pickup Truck",
+    category: "Pickup",
+    price: lakh(935100),
+    priceINR: 935100,
+    engine: "1.5L m2Di Diesel (59.7 kW / 220 Nm)",
+    transmission: "5-Speed Manual",
+    fuel: "Diesel",
+    blurb: "A distinct model from the Bolero Maxx Pik-Up, with a powerful m2Di diesel and an available 4WD option for tougher terrain.",
+    cta: "Explore the Bolero Pik-Up",
+    image: "/cars/bolero-pikup-v2.png",
+    alt: "Mahindra Bolero Pik-up pickup truck in white, official product image",
+    /* Product shot downloaded from auto.mahindra.com/pick-up-trucks/
+       bolero-pik-up/PUP.html, cutout locally with scripts/remove-bg.mjs. */
+    colors: [
+      { name: "White", hex: "#e3dfd0", image: "/cars/bolero-pikup-v2.png" },
+    ],
+    seating: "2",
+    mileage: "Up to 17 kmpl",
+    bootSpace: "1,440 kg rated payload",
+    highlights: [
+      "7R15 tyres with an available 4WD option for tough terrain",
+      "Powerful 1.5L m2Di diesel — 59.7 kW and 220 Nm",
+      "AC with heater, driver seat headrest and a wider co-driver seat",
+      "Rugged body-on-frame commercial build backed by Mahindra's wide service network",
+    ],
+  },
+  {
+    name: "Veero",
+    slug: slugify("VEERO"),
+    type: "LCV Pickup Truck",
+    category: "Pickup",
+    price: lakh(856000),
+    priceINR: 856000,
+    engine: "mDI 3-Cylinder Diesel / CNG",
+    transmission: "5-Speed Manual",
+    fuel: "Diesel · CNG",
+    blurb: "Mahindra's next-generation light commercial pickup with a long cargo box, high payload and multi-energy powertrain options.",
+    cta: "Explore the Veero",
+    // Match the listing-card orientation: the Veero faces left in both the
+    // card and detail hero instead of flipping direction between views.
+    image: "/cars/requested/veero-polar-white-left.png",
+    alt: "Mahindra Veero light commercial pickup truck, official product image",
+    colors: [
+      { name: "Polar White", hex: "#e9ebec", image: "/cars/requested/veero-polar-white-left.png" },
+      { name: "Concrete Grey", hex: "#697b83", image: "/cars/requested/veero-concrete-grey.png" },
+    ],
+    seating: "D+2",
+    mileage: "Up to 18.4 kmpl",
+    bootSpace: "1,600 kg rated payload",
+    highlights: [
+      "India's first multi-energy LCV platform",
+      "Best-in-class 1,600 kg payload and 3,035 mm cargo length",
+      "Smart cabin with modern comfort and safety features",
+      "Diesel and factory-fitted CNG powertrain choices",
+    ],
+  },
+  {
+    name: "Bolero MaXX HD",
+    slug: slugify("BOLERO MAXX HD"),
+    type: "Heavy-Duty Pickup Truck",
+    category: "Pickup",
+    price: lakh(961000),
+    priceINR: 961000,
+    engine: "2.5L m2Di Diesel",
+    transmission: "5-Speed Manual",
+    fuel: "Diesel",
+    blurb: "A heavy-duty Bolero pickup engineered for demanding loads, dependable uptime and everyday business profitability.",
+    cta: "Explore the Bolero MaXX HD",
+    image: "/cars/requested/maxx-hd-white.png",
+    alt: "Mahindra Bolero MaXX HD heavy-duty pickup truck, official product image",
+    colors: [{ name: "White", hex: "#e3dfd0", image: "/cars/requested/maxx-hd-white.png" }],
+    seating: "D+2",
+    mileage: "Up to 13.9 kmpl",
+    bootSpace: "1,700 kg rated payload",
+    highlights: [
+      "Heavy-duty payload capability for commercial operators",
+      "Long cargo deck for higher load volume",
+      "Rugged ladder-frame construction and high ground clearance",
+      "Mahindra service network and low cost of ownership",
+    ],
+  },
+  {
+    name: "Bolero Camper",
+    slug: slugify("BOLERO CAMPER"),
+    type: "Lifestyle Pickup Truck",
+    category: "Pickup",
+    price: lakh(881000),
+    priceINR: 881000,
+    engine: "2.5L m2DiCR Diesel",
+    transmission: "5-Speed Manual",
+    fuel: "Diesel",
+    blurb: "A versatile double-cabin pickup that combines a comfortable passenger cabin with serious load-carrying ability.",
+    cta: "Explore the Bolero Camper",
+    image: "/cars/requested/bolero-camper-java-brown.png",
+    alt: "Mahindra Bolero Camper double-cabin pickup truck, official product image",
+    colors: [
+      { name: "Java Brown", hex: "#2f2825", image: "/cars/requested/bolero-camper-java-brown.png" },
+      // Mahindra's current Camper variation endpoint serves the same
+      // product cutout for its Diamond White option; keep a separate local
+      // asset so the colour option remains explicit and replaceable if a
+      // dedicated white cutout is published.
+      { name: "White", hex: "#e3dfd0", image: "/cars/requested/bolero-camper-white.png" },
+    ],
+    seating: "5",
+    mileage: "Up to 13.9 kmpl",
+    bootSpace: "1,000 kg rated payload",
+    highlights: [
+      "Spacious double-cabin seating for five",
+      "Comfortable ride with a practical open cargo deck",
+      "Rugged body-on-frame build for mixed terrain",
+      "Ideal for business, farm and lifestyle use",
+    ],
+  },
+  {
     name: "Supro Profit Truck",
     slug: slugify("SUPRO PROFIT TRUCK"),
     type: "Small Commercial Truck",
     category: "Commercial",
-    price: lakh(611808),
-    priceINR: 611808,
+    price: lakh(685000),
+    priceINR: 685000,
     engine: "1.5L mDI Diesel",
     transmission: "5-Speed Manual",
     fuel: "Diesel",
@@ -808,8 +914,8 @@ export const cars: Car[] = [
     slug: slugify("MAXX CITY CNG"),
     type: "CNG Pickup",
     category: "Commercial",
-    price: lakh(846000),
-    priceINR: 846000,
+    price: lakh(950000),
+    priceINR: 950000,
     engine: "1.5L Bi-Fuel Petrol with CNG",
     transmission: "5-Speed Manual",
     fuel: "Petrol · CNG",
@@ -1093,6 +1199,18 @@ export const locations: Location[] = [
     lng: 72.946498,
   },
   {
+    name: "Modi Mahindra - Thane Commercial Showroom",
+    type: "Showroom",
+    city: "Thane",
+    address: "Survey No 412, RD, Ashar Compound, Rd Number 27, Wagle Industrial Estate, Thane West, Thane, Maharashtra 400604",
+    phone: "82387 85050",
+    image: "/images/locate-us/thane-commercial-showroom.jpeg",
+    mapsUrl: "https://maps.app.goo.gl/hV126JsMg6duaCmE9",
+    ftid: "0x3be7b9b401811351:0xcbb5fcaac0213170",
+    lat: 19.1944532,
+    lng: 72.946498,
+  },
+  {
     name: "Modi Mahindra - Airoli Showroom",
     type: "Showroom",
     city: "Navi Mumbai",
@@ -1122,7 +1240,7 @@ export const locations: Location[] = [
     city: "Thane",
     address: "Survey No 412, RD, Ashar Compound, Rd Number 27, Wagle Industrial Estate, Thane West, Thane, Maharashtra 400604",
     phone: "82387 85050",
-    image: "/images/locate-us/thane-showroom.webp",
+    image: "/images/locate-us/thane-service-centre.jpeg",
     mapsUrl: "https://maps.app.goo.gl/hBShzCninyyXh9jh7",
     ftid: "0x3be7b9b401811351:0xcbb5fcaac0213170",
     lat: 19.1944532,
@@ -1156,7 +1274,7 @@ export const locations: Location[] = [
 
 /* Curated subset for the footer's "Popular Cars" column, so it doesn't
    list all the models. */
-const popularNames = ["Thar Roxx", "XUV 7XO", "Scorpio-N", "Thar", "XUV 3XO", "XUV400", "BE 6", "XEV 9e", "Bolero"];
+const popularNames = ["Thar Roxx", "XUV 7XO", "Scorpio-N", "Thar", "XUV 3XO", "BE 6", "XEV 9e", "XEV 9S", "Bolero"];
 export const popularCars = popularNames
   .map((n) => cars.find((c) => c.name === n))
   .filter((c): c is Car => Boolean(c));

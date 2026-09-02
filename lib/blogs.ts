@@ -57,7 +57,6 @@ const xuv7xo = car("XUV 7XO");
 const tharRoxx = car("Thar Roxx");
 const thar = car("Thar");
 const xuv3xo = car("XUV 3XO");
-const xuv400 = car("XUV400");
 const xev9e = car("XEV 9e");
 const be6 = car("BE 6");
 const bolero = car("Bolero");
@@ -130,10 +129,10 @@ export const blogPosts: BlogPost[] = [
     image: "/cars/be6-everest-white.png",
     alt: "Mahindra BE 6 electric SUV coupe in Everest White",
     content: [
-      `Mahindra's electric ambitions have moved well past the XUV400. The BE 6 and XEV 9e are both built on the dedicated INGLO EV platform, engineered from the ground up for electric power rather than adapted from a petrol or diesel chassis.`,
+      `Mahindra's electric ambitions are now built entirely around dedicated EV architecture. The BE 6 and XEV 9e are both built on the dedicated INGLO EV platform, engineered from the ground up for electric power rather than adapted from a petrol or diesel chassis.`,
       `The XEV 9e is the flagship of the two: a coupe-SUV silhouette, dual 12.3 inch curved displays, Level 2 ADAS, and a claimed range of up to ${xev9e.mileage.toLowerCase()}. An available all-wheel-drive dual-motor layout adds genuine performance on top of the range figures.`,
       `The BE 6 shares the same INGLO underpinnings in a slightly sharper, more futuristic body, with a claimed range of up to ${be6.mileage.toLowerCase()} and rapid DC fast-charging support. Both cars are priced on request, reflecting how new and fast-moving this segment still is.`,
-      `If you are considering a jump to electric, Mahindra Modi can walk you through charging setup at home, applicable subsidies, and a side-by-side comparison with the XUV400 so you pick the EV that actually matches how you drive.`,
+      `If you are considering a jump to electric, Mahindra Modi can walk you through charging setup at home, applicable subsidies, and which of the two matches how you drive.`,
     ],
   },
   {
@@ -160,18 +159,17 @@ export const blogPosts: BlogPost[] = [
     title: "Electric SUVs by Mahindra: What You Need to Know",
     category: "Electric",
     excerpt:
-      "From the XUV400 to the new BE and XEV ranges, here's how Mahindra's electric SUV lineup fits together and who each one suits.",
+      "Here's how Mahindra's BE and XEV electric SUV lineup fits together and who each one suits.",
     readTime: "6 min read",
     date: "07 Jul 2026",
-    image:
-      "/images/cars/colors/XUV400_602x339.png",
-    alt: "Mahindra XUV400 electric SUV",
+    image: "/cars/xev9e-rubyvelvet-transparent.png",
+    alt: "Mahindra XEV 9e electric SUV coupe",
     content: [
-      `Mahindra now offers three distinct electric SUVs, each aimed at a different buyer, and it is worth understanding the differences before choosing one over a petrol or diesel model.`,
-      `The XUV400 is the familiar entry point: a converted-platform electric SUV with a claimed range of ${xuv400.mileage.toLowerCase()}, priced from ${formatINR(xuv400.priceINR)}. It suits buyers who want the spacious, known XUV cabin with an electric drivetrain rather than a radically different design.`,
-      `The BE 6 and XEV 9e sit above it, both built on Mahindra's purpose-designed INGLO platform. They trade some of the XUV400's familiarity for genuinely new coupe-SUV styling, longer claimed ranges, dual-screen cockpits, and available all-wheel drive on the XEV 9e.`,
-      `The practical question for most buyers is charging access. If you can charge at home or at work reliably, the daily range on any of these three easily covers a normal commute with margin to spare. For longer trips, Mahindra's growing fast-charging network cuts a 0 to 80 percent charge down to well under an hour on the newer platform.`,
-      `Not sure which electric SUV fits your driving pattern? Our team at Mahindra Modi can talk you through real-world range, home charger installation, and current offers on all three models.`,
+      `Mahindra now offers a pair of distinct electric SUVs, each aimed at a different buyer, and it is worth understanding the differences before choosing one over a petrol or diesel model.`,
+      `The BE 6 and XEV 9e are both built on Mahindra's purpose-designed INGLO platform, engineered from the ground up for electric power rather than adapted from a petrol or diesel chassis. Both bring genuinely new coupe-SUV styling, long claimed ranges, dual-screen cockpits, and available all-wheel drive on the XEV 9e.`,
+      `The XEV 9e is the flagship of the two, with a bolder coupe silhouette and a claimed range of up to ${xev9e.mileage.toLowerCase()}. The BE 6 shares the same underpinnings in a sharper, more futuristic body, with a claimed range of up to ${be6.mileage.toLowerCase()}.`,
+      `The practical question for most buyers is charging access. If you can charge at home or at work reliably, the daily range on either model easily covers a normal commute with margin to spare. For longer trips, Mahindra's growing fast-charging network cuts a 0 to 80 percent charge down to well under an hour.`,
+      `Not sure which electric SUV fits your driving pattern? Our team at Mahindra Modi can talk you through real-world range, home charger installation, and current offers on both models.`,
     ],
   },
   {

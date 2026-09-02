@@ -442,12 +442,12 @@ export default function OtpGate({
 /* Flag emoji don't render as pictures on Windows (Chrome/Edge show the
    bare two-letter code instead, e.g. "IN") because Windows' system font
    has no color flag glyphs. A real flag image is the only way to show an
-   actual flag reliably across every OS. */
+   actual flag reliably across every OS. Images are self-hosted (originally
+   sourced from flagcdn.com's 48x36 PNGs) under /public/images/flags/. */
 function FlagImg({ iso, name }: { iso: string; name: string }) {
   return (
     <img
-      src={`https://flagcdn.com/24x18/${iso.toLowerCase()}.png`}
-      srcSet={`https://flagcdn.com/48x36/${iso.toLowerCase()}.png 2x`}
+      src={`/images/flags/${iso.toLowerCase()}.png`}
       alt={`${name} flag`}
       title={`${name}`}
       width={20}

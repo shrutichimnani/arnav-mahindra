@@ -286,45 +286,6 @@ export const carDetails: Record<string, CarDetail> = {
     ],
     sourceUrl: "https://auto.mahindra.com/suv/xuv-7xo.html",
   }),
-  marazzo: detail({
-    overview:
-      "MARAZZO is Mahindra's spacious MPV, built for families and long road trips with flexible 6-, 7- and 8-seat configurations.",
-    idealFor: "Large families and group travellers who want genuine third-row comfort and a high seating position.",
-    performance: [
-      "1.5L mHawk100 turbo-diesel produces 123 PS and 300 Nm.",
-      "6-speed manual transmission across the range.",
-    ],
-    safety: [
-      "Dual airbags standard, with ABS and EBD across the range.",
-      "Reverse parking camera and sensors are available on higher trims.",
-    ],
-    interior: [
-      "Segment-first First Row Captain Seats on select variants.",
-      "Wide cabin with abundant headroom and legroom across all three rows.",
-    ],
-    exterior: [
-      "Sculpted body panels and a high, van-like roofline maximise interior space.",
-    ],
-    infotainment: [
-      "Touchscreen infotainment with Android Auto and Apple CarPlay on higher trims.",
-    ],
-    comfort: [
-      "Automatic climate control with rear vents keeps every row comfortable.",
-      "High ground clearance handles varied road conditions with ease.",
-    ],
-    variants: [
-      "M2, M4, M6 and M8 trims span 6-, 7- and 8-seat layouts.",
-      "Confirm captain-seat vs bench layout on your preferred trim before booking.",
-    ],
-    specifications: [
-      { label: "Dimensions (L × W × H)", value: "4,585 × 1,860 × 1,774 mm" },
-      { label: "Wheelbase", value: "2,772 mm" },
-      { label: "Ground clearance", value: "185 mm" },
-      { label: "Fuel tank", value: "55 L" },
-      { label: "Claimed efficiency", value: "Up to 17.6 kmpl" },
-    ],
-    sourceUrl: "https://auto.mahindra.com/suv/marazzo/MRZO.html",
-  }),
   bolero: detail({
     overview:
       "BOLERO is India's best-selling rugged SUV nameplate: proven reliability, high ground clearance and low running costs, built for decades of tough use.",
@@ -439,47 +400,6 @@ export const carDetails: Record<string, CarDetail> = {
     ],
     sourceUrl: "https://auto.mahindra.com/suv/bolero-neo-plus/NEOP.html",
   }),
-  xuv400: detail({
-    overview:
-      "XUV400 pairs Mahindra's familiar, spacious SUV cabin with a silent electric powertrain, blistering acceleration and a long real-world range.",
-    idealFor: "Buyers moving to their first electric SUV who still want strong performance and everyday practicality.",
-    performance: [
-      "Permanent magnet synchronous motor produces up to 150 PS and 310 Nm.",
-      "0-100 kmph in under 9 seconds, with a single-speed automatic transmission.",
-    ],
-    safety: [
-      "6 airbags, ESC and hill-hold assist are standard.",
-      "Rear parking camera and sensors are available on higher trims.",
-    ],
-    interior: [
-      "Familiar, spacious XUV cabin with a 378-litre boot.",
-      "Digital instrument cluster and touchscreen infotainment across the range.",
-    ],
-    exterior: [
-      "Copper-accented badging and closed-off grille signal the EV powertrain.",
-    ],
-    infotainment: [
-      "Touchscreen infotainment with Android Auto and Apple CarPlay.",
-    ],
-    comfort: [
-      "Automatic climate control and cruise control are available on higher trims.",
-      "Regenerative braking with selectable levels improves range and driving feel.",
-    ],
-    variants: [
-      "EC and EL trims span the standard-range battery option.",
-      "Confirm current battery capacity and charging equipment with Mahindra Modi before booking.",
-    ],
-    specifications: [
-      { label: "Dimensions (L × W × H)", value: "4,200 × 1,821 × 1,634 mm" },
-      { label: "Wheelbase", value: "2,600 mm" },
-      { label: "Battery / motor", value: "39.4 kWh / PMSM" },
-      { label: "Claimed range", value: "Up to 456 km (MIDC)" },
-      { label: "Boot space", value: "378 L" },
-      { label: "DC charge (0–80%)", value: "About 50 min with compatible fast charger" },
-    ],
-    warranty: evWarranty,
-    sourceUrl: "https://auto.mahindra.com/suv/xuv400/X400.html",
-  }),
   "xev-9e": detail({
     overview:
       "XEV 9e is Mahindra's flagship electric SUV coupe, built on the dedicated INGLO EV platform with a dual-screen cockpit, ADAS and a bold coupe silhouette.",
@@ -523,6 +443,56 @@ export const carDetails: Record<string, CarDetail> = {
     ],
     warranty: evWarranty,
     sourceUrl: "https://auto.mahindra.com",
+  }),
+  "xev-9s": detail({
+    overview:
+      "XEV 9S is Mahindra's flagship electric SUV, built on the INGLO EV platform with three battery pack options, a spacious 6/7-seat cabin and Level 2 ADAS on higher trims.",
+    idealFor: "Families who want a genuinely three-row electric SUV with long range and Mahindra's latest EV technology.",
+    performance: [
+      "Rear-wheel-drive layout with a choice of 59 kWh, 70 kWh or 79 kWh battery packs.",
+      "MIDC (P1+P2) claimed range of up to 521 km (59 kWh) or up to 679 km (79 kWh pack).",
+      "DC fast-charging from 20-80% in about 20 minutes on the compatible charger for each pack.",
+    ],
+    safety: [
+      "6 airbags on entry variants, 7 airbags (with knee airbag) on higher trims.",
+      "Level 2 ADAS with adaptive cruise control and lane-keep assist on Pack Two Above and above.",
+    ],
+    adas: [
+      "Traffic sign recognition, high beam assist and forward collision warning on top trims.",
+      "Secure 360 camera with recording and live view on the highest trim.",
+    ],
+    interior: [
+      "6-seat (captain seats, second row) or 7-seat layouts, depending on trim.",
+      "527-litre boot with the third row folded, plus a 150-litre front trunk.",
+      "Third-row seats with multi-step recline (Club, Calm & Cosy modes).",
+    ],
+    exterior: [
+      "Full-width LED lighting signature with an illuminated front badge on higher trims.",
+      "235/60 R18 wheels, styled alloys on mid and top variants.",
+    ],
+    infotainment: [
+      "Triple 31.24 cm (12.3-inch class) displays across instrument cluster, infotainment and co-passenger screen on top trims.",
+      "Harman Kardon 16-speaker immersive audio on Pack Two Above and above; wireless charger and OTA updates.",
+    ],
+    comfort: [
+      "Ventilated front and second-row seats, powered driver's seat with memory, on higher trims.",
+      "Adaptive suspension with FDD and MTV-CL damping technology on the top variant.",
+    ],
+    variants: [
+      "Pack One Above, Pack Two Above, Pack Three and Pack Three Above, spanning the 59/70/79 kWh battery packs.",
+      "6-seat captain-seat layout is available on Pack Two Above, Pack Three and Pack Three Above.",
+      "Confirm current battery pack, seating layout and pricing with Mahindra Modi.",
+    ],
+    specifications: [
+      { label: "Dimensions (L × W × H)", value: "4,737 × 1,900 × 1,747 mm" },
+      { label: "Wheelbase", value: "2,762 mm" },
+      { label: "Ground clearance", value: "205 mm unladen (222 mm at battery)" },
+      { label: "Battery / motor", value: "59 / 70 / 79 kWh pack, single PMSM, rear-wheel drive" },
+      { label: "Claimed range", value: "521-679 km (MIDC P1+P2, depending on pack)" },
+      { label: "Boot / frunk", value: "527 L (3rd row folded) + 150 L front trunk" },
+    ],
+    warranty: evWarranty,
+    sourceUrl: "https://www.mahindraelectricsuv.com/esuv/xev-9s.html",
   }),
   "be-6": detail({
     overview:
@@ -568,6 +538,56 @@ export const carDetails: Record<string, CarDetail> = {
     warranty: evWarranty,
     sourceUrl: "https://auto.mahindra.com",
   }),
+  "xuv-3xo-ev": detail({
+    overview:
+      "XUV 3XO EV brings the XUV 3XO's bold styling, segment-leading ADAS and feature list to Mahindra's electric line-up, with a 39.4 kWh battery, a claimed real-world range of up to 285 km and fast DC charging.",
+    idealFor: "City-first buyers who want the XUV 3XO's design and tech but are ready to switch to electric.",
+    performance: [
+      "Single motor produces 110 kW and 310 Nm, driving the front wheels through a single-speed automatic.",
+      "0-100 km/h in a claimed 8.3 seconds, with Fun, Fast and Fearless drive modes to tune throttle response.",
+      "39.4 kWh battery offers a real-world range of 270-300 km (up to 285 km claimed, internal tests); a 50 kW DC charger takes it from 0-80% in 50 minutes, while a 7.2 kW AC charger takes 0-100% in 6.5 hours.",
+    ],
+    safety: [
+      "6 airbags (dual front, side and curtain) with a passenger-airbag deactivation switch, ABS with EBD and ESP.",
+      "Electronic parking brake, TPMS, a 360-degree camera, ISOFIX child seat anchors and seatbelt reminders.",
+    ],
+    adas: [
+      "Level 2 ADAS with 10 driver-assist features, including Smart Pilot Assist, Adaptive Cruise Control and Forward Collision Warning.",
+    ],
+    interior: [
+      "Twin 26.03 cm (10.25-inch) HD screens for the infotainment and driver display.",
+      "Leatherette seats with soft-touch trim, a 6-way adjustable driver seat, rear armrest and 60:40 split rear seats.",
+      "First-in-segment dual-zone automatic climate control, plus rear AC vents.",
+      "364-litre boot; there's no front trunk, since the EV shares its platform with the ICE XUV 3XO.",
+    ],
+    exterior: [
+      "R17 diamond-cut alloy wheels (R16 on AX5), auto LED projector headlamps and LED DRLs/tail lamps.",
+      "Six colours at launch, each also offered as a dual-tone with copper accents on the roof and grille.",
+    ],
+    infotainment: [
+      "Adrenox connected-car tech with 80+ features, standard on both variants.",
+      "Wireless Android Auto and Apple CarPlay; Harman Kardon 7-speaker audio with Dolby Atmos on the AX7L.",
+    ],
+    comfort: [
+      "Panoramic Skyroof, wireless charging (15W) and USB-C fast charging front and rear.",
+      "Height-adjustable headrests front and rear, and a one-touch up/down power window for the driver.",
+    ],
+    variants: [
+      "AX5 and AX7L span the range, both with the full 80+ Adrenox feature set.",
+      "AX7L adds the panoramic sunroof, Harman Kardon audio, ADAS, the 360-degree camera, LED fog lamps and R17 wheels over the AX5's R16 wheels and fabric seats.",
+    ],
+    specifications: [
+      { label: "Battery / motor", value: "39.4 kWh, PMSM · 110 kW / 310 Nm" },
+      { label: "Real-world range", value: "270-300 km (up to 285 km claimed, internal tests)" },
+      { label: "Charging", value: "0-80% in 50 min (50 kW DC) · 0-100% in 6.5 hrs (7.2 kW AC)" },
+      { label: "0-100 km/h", value: "8.3 seconds (claimed)" },
+      { label: "Ground clearance", value: "190 mm (as per IS:9435)" },
+      { label: "Boot space", value: "364 L" },
+    ],
+    warranty:
+      "3-year/unlimited km vehicle warranty, plus an 8-year/160,000 km battery and motor warranty (whichever is earlier). Extended protection options are available; confirm current terms with Mahindra Modi.",
+    sourceUrl: "https://auto.mahindra.com/suv/xuv3xo-ev.html",
+  }),
   "bolero-maxx-pik-up": detail({
     overview:
       "BOLERO MAXX PIK-UP is a tough, high-payload pickup for small business owners who need reliability every single day, backed by the Bolero's rugged reputation.",
@@ -600,6 +620,47 @@ export const carDetails: Record<string, CarDetail> = {
       { label: "Rated payload", value: "1,440 kg" },
       { label: "Fuel", value: "Diesel" },
       { label: "Claimed efficiency", value: "Up to 17 kmpl" },
+    ],
+    warranty: commercialWarranty,
+    sourceUrl: "https://auto.mahindra.com/pick-up-trucks",
+  }),
+  "bolero-pik-up": detail({
+    overview:
+      "BOLERO PIK-UP is a tough, high-payload pickup for small business owners who need reliability every single day, with a powerful m2Di diesel and an available 4WD option for tougher terrain.",
+    idealFor: "Small business owners and fleet operators who need dependable daily load-carrying capacity, on-road or off it.",
+    performance: [
+      "1.5L m2Di diesel engine produces 59.7 kW and 220 Nm, tuned for load-carrying torque.",
+      "5-speed manual transmission across the range.",
+      "7R15 tyres, with an available 4WD option for tough terrain and worksites.",
+    ],
+    safety: [
+      "Driver airbag and ABS with EBD are standard on current models.",
+    ],
+    interior: [
+      "2-seat cabin with a durable, easy-to-clean trim.",
+      "Driver seat with headrest and a wider co-driver seat for long working days.",
+    ],
+    exterior: [
+      "Rugged body-on-frame commercial build with a reinforced cargo bed.",
+    ],
+    infotainment: [
+      "Basic audio and connectivity equipment varies by fleet configuration.",
+    ],
+    comfort: [
+      "AC with heater option, and power steering are available on higher trims.",
+    ],
+    variants: [
+      "Five 2WD trims (PIK-UP FB MS CBC through PIK-UP FB PS AC) and five 4WD trims (PIK-UP CBC 4WD Diesel through PIK-UP 4WD AC) span the range.",
+      "Ask Mahindra Modi for a commercial quotation covering maintenance, insurance and delivery commitments.",
+    ],
+    specifications: [
+      { label: "Seating", value: "2" },
+      { label: "Engine", value: "1.5L m2Di Diesel · 59.7 kW / 220 Nm" },
+      { label: "Rated payload", value: "1,440 kg" },
+      { label: "Fuel", value: "Diesel" },
+      { label: "Tyres", value: "7R15, with available 4WD" },
+      { label: "Claimed efficiency", value: "Up to 17 kmpl" },
+      { label: "Price range", value: "₹9.35L – ₹10.32L ex-showroom" },
     ],
     warranty: commercialWarranty,
     sourceUrl: "https://auto.mahindra.com/pick-up-trucks/bolero-pik-up/PUP.html",
@@ -675,6 +736,102 @@ export const carDetails: Record<string, CarDetail> = {
     ],
     warranty: commercialWarranty,
     sourceUrl: "https://auto.mahindra.com/pick-up-trucks/maxx-city/MAXX.html",
+  }),
+  veero: detail({
+    overview:
+      "VEERO is Mahindra's next-generation light commercial pickup, built on a multi-energy platform with a long cargo box and class-leading payload capability.",
+    idealFor: "Small businesses, delivery operators and owner-drivers who need high payload with diesel or CNG flexibility.",
+    performance: [
+      "mDI 3-cylinder diesel and factory-fitted CNG powertrain options are available.",
+      "5-speed manual transmission is tuned for loaded starts and everyday commercial use.",
+      "Up to 1,600 kg payload and a 3,035 mm cargo box support high-volume work.",
+    ],
+    safety: [
+      "Driver airbag, ABS with EBD and reverse parking assistance are available by variant.",
+      "High-strength cabin structure and visibility-focused design support daily fleet use.",
+    ],
+    interior: [
+      "D+2 smart-cabin layout with practical storage and easy-clean commercial trim.",
+      "Ergonomic seating and a modern dashboard keep long workdays comfortable.",
+    ],
+    exterior: [
+      "Long cargo box and robust pickup body designed for demanding loading cycles.",
+      "Distinctive Veero front styling with a compact footprint for urban routes.",
+    ],
+    infotainment: ["Connectivity and audio features vary by commercial variant; ask for the current trim sheet."],
+    comfort: ["Air-conditioning, power steering and convenience features vary by selected variant."],
+    variants: [
+      "V2, V4 and V6 configurations span diesel and CNG options with different cargo-body specifications.",
+      "Confirm payload, cargo length, fuel type and body configuration in the fleet quotation.",
+    ],
+    specifications: [
+      { label: "Seating", value: "D+2" },
+      { label: "Wheelbase", value: "2,550 mm" },
+      { label: "Rated payload", value: "Up to 1,600 kg" },
+      { label: "Cargo length", value: "3,035 mm" },
+      { label: "Fuel", value: "Diesel / CNG" },
+      { label: "Claimed efficiency", value: "Up to 18.4 kmpl" },
+    ],
+    warranty: commercialWarranty,
+    sourceUrl: "https://auto.mahindra.com/pick-up-trucks/veero/UPP.html",
+  }),
+  "bolero-maxx-hd": detail({
+    overview:
+      "BOLERO MaXX HD is a heavy-duty pickup for operators who need a rugged workhorse, a long cargo deck and dependable uptime under demanding loads.",
+    idealFor: "Fleet and owner-operators carrying heavy goods across city, highway and semi-urban routes.",
+    performance: [
+      "2.5L m2Di diesel engine delivers strong low-end torque for loaded operation.",
+      "5-speed manual transmission prioritises control, durability and efficient hauling.",
+      "Payload and cargo-body dimensions vary by the selected MaXX HD configuration.",
+    ],
+    safety: ["Driver airbag, ABS with EBD and robust ladder-frame construction are available across the range, subject to variant."],
+    interior: ["D+2 cabin with durable commercial trim, practical storage and an easy-to-service layout."],
+    exterior: ["Long cargo deck, high ground clearance and rugged body-on-frame construction are designed for heavy-duty work."],
+    infotainment: ["Audio and connectivity equipment varies by variant and body configuration."],
+    comfort: ["Power steering, air-conditioning and convenience equipment vary by selected specification."],
+    variants: [
+      "MaXX HD variants cover multiple wheelbase, cargo-body and payload configurations.",
+      "Confirm the exact payload, deck length, tyres and registration class in your quotation.",
+    ],
+    specifications: [
+      { label: "Seating", value: "D+2" },
+      { label: "Fuel", value: "Diesel" },
+      { label: "Engine", value: "2.5L m2Di diesel" },
+      { label: "Transmission", value: "5-speed manual" },
+      { label: "Rated payload", value: "Up to 1,700 kg" },
+      { label: "Claimed efficiency", value: "Up to 13.9 kmpl" },
+    ],
+    warranty: commercialWarranty,
+    sourceUrl: "https://auto.mahindra.com/pick-up-trucks/maxx-hd/MXHD.html",
+  }),
+  "bolero-camper": detail({
+    overview:
+      "BOLERO CAMPER combines a comfortable double cabin with a practical open cargo deck, making it equally useful for business, farm and lifestyle work.",
+    idealFor: "Buyers who need five-seat practicality without giving up a genuine pickup bed and rugged all-terrain ability.",
+    performance: [
+      "2.5L m2DiCR diesel engine provides dependable torque for mixed passenger-and-load duty.",
+      "5-speed manual transmission is paired with a rugged ladder-frame chassis.",
+      "Available 4WD configurations add confidence on rough or unpaved routes.",
+    ],
+    safety: ["Dual airbags, ABS with EBD and a strong body-on-frame structure support occupant protection; equipment varies by variant."],
+    interior: ["Spacious double cabin seats five, with durable upholstery and practical storage for work and family use."],
+    exterior: ["Distinctive Bolero styling, high ground clearance and an open cargo deck make it versatile across work sites and rural roads."],
+    infotainment: ["Audio and connectivity features vary by Camper variant."],
+    comfort: ["Air-conditioning, power steering and convenience features vary by selected model and drivetrain."],
+    variants: [
+      "Camper variants are offered with different payload, wheelbase and 4WD configurations.",
+      "Confirm the exact seating, payload, cargo dimensions and 4WD availability before booking.",
+    ],
+    specifications: [
+      { label: "Seating", value: "5" },
+      { label: "Fuel", value: "Diesel" },
+      { label: "Engine", value: "2.5L m2DiCR diesel" },
+      { label: "Transmission", value: "5-speed manual" },
+      { label: "Rated payload", value: "Up to 1,000 kg" },
+      { label: "Price range", value: "₹10.10L – ₹10.86L ex-showroom" },
+    ],
+    warranty: commercialWarranty,
+    sourceUrl: "https://auto.mahindra.com/pick-up-trucks/bolero-camper/CMPR.html",
   }),
 };
 
@@ -869,32 +1026,6 @@ const modelFeatureGallery: Record<string, GalleryImage[]> = {
     { src: "/images/cars/gallery/xuv-7xo/xuv-7xo-12-sun-roof-moon-roof-81.webp", alt: "XUV 7XO panoramic sunroof", label: "Sunroof" },
     { src: "/images/cars/gallery/xuv-7xo/xuv-7xo-13-boot-space-with-third-row-folded-279.webp", alt: "XUV 7XO boot space", label: "Boot space" },
   ],
-  marazzo: [
-    { src: "/images/cars/gallery/marazzo/marazzo-01-front-left-side-47.webp", alt: "Marazzo, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
-    { src: "/images/cars/gallery/marazzo/marazzo-02-front-right-view-120.webp", alt: "Marazzo, side profile", label: "Side profile", kind: "styling" },
-    { src: "/images/cars/gallery/marazzo/marazzo-03-rear-left-view-121.webp", alt: "Marazzo, rear three-quarter", label: "Rear three-quarter", kind: "styling" },
-    { src: "/images/cars/gallery/marazzo/marazzo-04-grille-97.webp", alt: "Marazzo, front grille styling", label: "Grille styling", kind: "styling" },
-    { src: "/images/cars/gallery/marazzo/marazzo-05-wheel-42.webp", alt: "Marazzo, alloy wheel design", label: "Wheel design", kind: "styling" },
-    { src: "/images/cars/gallery/marazzo/marazzo-06-dashboard-59.webp", alt: "Marazzo dashboard", label: "Dashboard", kind: "cabin" },
-    { src: "/images/cars/gallery/marazzo/marazzo-07-steering-wheel-54.webp", alt: "Marazzo steering wheel", label: "Steering wheel", kind: "cabin" },
-    { src: "/images/cars/gallery/marazzo/marazzo-08-instrument-cluster-62.webp", alt: "Marazzo instrument cluster", label: "Instrument cluster", kind: "cabin" },
-    { src: "/images/cars/gallery/marazzo/marazzo-09-center-console-55.webp", alt: "Marazzo centre console", label: "Centre console", kind: "cabin" },
-    { src: "/images/cars/gallery/marazzo/marazzo-10-infotainment-system-main-menu-183.webp", alt: "Marazzo infotainment system", label: "Infotainment", kind: "cabin" },
-    { src: "/images/cars/gallery/marazzo/marazzo-11-door-view-of-driver-seat-51.webp", alt: "Marazzo front seats", label: "Front seats", kind: "cabin" },
-  ],
-  xuv400: [
-    { src: "/images/cars/gallery/xuv400/xuv400-01-front-left-side-47.webp", alt: "XUV400, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
-    { src: "/images/cars/gallery/xuv400/xuv400-02-front-view-118.webp", alt: "XUV400, front view", label: "Front view", kind: "styling" },
-    { src: "/images/cars/gallery/xuv400/xuv400-03-rear-left-view-121.webp", alt: "XUV400, rear three-quarter", label: "Rear three-quarter", kind: "styling" },
-    { src: "/images/cars/gallery/xuv400/xuv400-04-grille-97.webp", alt: "XUV400, closed-off front panel styling", label: "Front panel styling", kind: "styling" },
-    { src: "/images/cars/gallery/xuv400/xuv400-05-wheel-42.webp", alt: "XUV400, alloy wheel design", label: "Wheel design", kind: "styling" },
-    { src: "/images/cars/gallery/xuv400/xuv400-06-dashboard-59.webp", alt: "XUV400 dashboard", label: "Dashboard", kind: "cabin" },
-    { src: "/images/cars/gallery/xuv400/xuv400-07-steering-wheel-54.webp", alt: "XUV400 steering wheel", label: "Steering wheel", kind: "cabin" },
-    { src: "/images/cars/gallery/xuv400/xuv400-08-gear-shifter-87.webp", alt: "XUV400 gear selector", label: "Gear selector", kind: "cabin" },
-    { src: "/images/cars/gallery/xuv400/xuv400-09-infotainment-system-main-menu-183.webp", alt: "XUV400 infotainment system", label: "Infotainment", kind: "cabin" },
-    { src: "/images/cars/gallery/xuv400/xuv400-10-sun-roof-moon-roof-81.webp", alt: "XUV400 sunroof", label: "Sunroof", kind: "cabin" },
-    { src: "/images/cars/gallery/xuv400/xuv400-11-seat-headrest-200.webp", alt: "XUV400 seat detail", label: "Seat detail", kind: "cabin" },
-  ],
   "xev-9e": [
     { src: "/images/cars/gallery/xev-9e/xev-9e-01-front-left-side-47.webp", alt: "XEV 9e, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
     { src: "/images/cars/gallery/xev-9e/xev-9e-02-front-right-view-120.webp", alt: "XEV 9e, side profile", label: "Side profile", kind: "styling" },
@@ -907,6 +1038,20 @@ const modelFeatureGallery: Record<string, GalleryImage[]> = {
     { src: "/images/cars/gallery/xev-9e/xev-9e-09-rear-seats-52.webp", alt: "XEV 9e rear seats", label: "Rear seats", kind: "cabin" },
     { src: "/images/cars/gallery/xev-9e/xev-9e-10-door-view-of-driver-seat-51.webp", alt: "XEV 9e front seats", label: "Front seats", kind: "cabin" },
     { src: "/images/cars/gallery/xev-9e/xev-9e-11-passenger-cabin-view-132.webp", alt: "XEV 9e cabin view", label: "Cabin view", kind: "cabin" },
+  ],
+  "xev-9s": [
+    { src: "/images/cars/gallery/xev-9s/xev-9s-01-front-three-quarter.webp", alt: "XEV 9S, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "/images/cars/gallery/xev-9s/xev-9s-02-side-profile.webp", alt: "XEV 9S, side profile", label: "Side profile", kind: "styling" },
+    { src: "/images/cars/gallery/xev-9s/xev-9s-03-rear-three-quarter.webp", alt: "XEV 9S, rear three-quarter", label: "Rear three-quarter", kind: "styling" },
+    { src: "/images/cars/gallery/xev-9s/xev-9s-04-rear-view.webp", alt: "XEV 9S, rear view", label: "Rear view", kind: "styling" },
+    { src: "/images/cars/gallery/xev-9s/xev-9s-05-front-view.webp", alt: "XEV 9S, front view and grille", label: "Front view", kind: "styling" },
+    { src: "/images/cars/gallery/xev-9s/xev-9s-06-dashboard.webp", alt: "XEV 9S dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "/images/cars/gallery/xev-9s/xev-9s-07-steering-wheel.webp", alt: "XEV 9S steering wheel", label: "Steering wheel", kind: "cabin" },
+    { src: "/images/cars/gallery/xev-9s/xev-9s-08-instrument-cluster.webp", alt: "XEV 9S instrument cluster", label: "Instrument cluster", kind: "cabin" },
+    { src: "/images/cars/gallery/xev-9s/xev-9s-09-front-seats.webp", alt: "XEV 9S front seats", label: "Front seats", kind: "cabin" },
+    { src: "/images/cars/gallery/xev-9s/xev-9s-10-second-row-seats.webp", alt: "XEV 9S second-row seats", label: "Second-row seats", kind: "cabin" },
+    { src: "/images/cars/gallery/xev-9s/xev-9s-11-third-row-seats.webp", alt: "XEV 9S third-row seats", label: "Third-row seats", kind: "cabin" },
+    { src: "/images/cars/gallery/xev-9s/xev-9s-12-boot-space.webp", alt: "XEV 9S open boot with third row folded", label: "Boot space", kind: "cabin" },
   ],
   "be-6": [
     { src: "/images/cars/gallery/be-6/be-6-01-front-left-side-47.webp", alt: "BE 6, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
@@ -925,7 +1070,64 @@ const modelFeatureGallery: Record<string, GalleryImage[]> = {
     { src: "/images/cars/gallery/bolero-maxx-pik-up/bolero-maxx-pik-up-02-mahindra-bolero-maxx-pik-up-exterior-539740.webp", alt: "Bolero Maxx Pik-Up, side profile", label: "Side profile", kind: "styling" },
     { src: "/images/cars/gallery/bolero-maxx-pik-up/bolero-maxx-pik-up-03-mahindra-bolero-maxx-pik-up-exterior-684528.webp", alt: "Bolero Maxx Pik-Up, rear view", label: "Rear view", kind: "styling" },
     { src: "/images/cars/gallery/bolero-maxx-pik-up/bolero-maxx-pik-up-04-mahindra-bolero-maxx-pik-up-exterior-351747.webp", alt: "Bolero Maxx Pik-Up, cargo bed styling", label: "Cargo bed styling", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-maxx-pik-up/bolero-maxx-pik-up-06-front-grille-909708.webp", alt: "Bolero Maxx Pik-Up, front grille styling", label: "Front grille styling", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-maxx-pik-up/bolero-maxx-pik-up-07-rear-three-quarter-485643.webp", alt: "Bolero Maxx Pik-Up, rear three-quarter styling", label: "Rear three-quarter", kind: "styling" },
     { src: "/images/cars/gallery/bolero-maxx-pik-up/bolero-maxx-pik-up-05-mahindra-bolero-maxx-pik-up-interior-979540.webp", alt: "Bolero Maxx Pik-Up cabin", label: "Cabin", kind: "cabin" },
+  ],
+  "bolero-pik-up": [
+    { src: "/images/cars/gallery/bolero-pik-up/bolero-pik-up-01-front-three-quarter-164.webp", alt: "Bolero Pik-Up, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-pik-up/bolero-pik-up-02-side-profile-165.webp", alt: "Bolero Pik-Up, side profile", label: "Side profile", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-pik-up/bolero-pik-up-03-rear-three-quarter-121.webp", alt: "Bolero Pik-Up, rear three-quarter with cargo bed loaded", label: "Rear three-quarter", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-pik-up/bolero-pik-up-04-off-road-action-168.webp", alt: "Bolero Pik-Up, off-road action shot", label: "Off-road", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-pik-up/bolero-pik-up-05-dashboard-59.webp", alt: "Bolero Pik-Up dashboard and steering wheel", label: "Dashboard", kind: "cabin" },
+    { src: "/images/cars/gallery/bolero-pik-up/bolero-pik-up-06-front-seats-51.webp", alt: "Bolero Pik-Up front seats", label: "Front seats", kind: "cabin" },
+  ],
+  "veero": [
+    { src: "/images/cars/gallery/veero/veero-01-front-three-quarter-257123.webp", alt: "Veero, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "/images/cars/gallery/veero/veero-02-rear-three-quarter-123652.webp", alt: "Veero, rear three-quarter styling", label: "Rear three-quarter", kind: "styling" },
+    { src: "/images/cars/gallery/veero/veero-03-side-profile-652174.webp", alt: "Veero, side profile with cargo bed", label: "Side profile", kind: "styling" },
+    { src: "/images/cars/gallery/veero/veero-04-front-view-191736.webp", alt: "Veero, front view", label: "Front view", kind: "styling" },
+    { src: "/images/cars/gallery/veero/veero-05-dashboard-controls-375786.webp", alt: "Veero dashboard controls", label: "Dashboard controls", kind: "cabin" },
+    { src: "/images/cars/gallery/veero/veero-06-gear-shifter-983138.webp", alt: "Veero gear shifter", label: "Gear shifter", kind: "cabin" },
+    { src: "/images/cars/gallery/veero/veero-07-center-console-144321.webp", alt: "Veero centre console", label: "Centre console", kind: "cabin" },
+    { src: "/images/cars/gallery/veero/veero-08-climate-control-410271.webp", alt: "Veero climate control", label: "Climate control", kind: "cabin" },
+  ],
+  "xuv-3xo-ev": [
+    { src: "/images/cars/gallery/xuv-3xo-ev/xuv-3xo-ev-01-front-view-118.webp", alt: "XUV 3XO EV, front view", label: "Front view", kind: "styling" },
+    { src: "/images/cars/gallery/xuv-3xo-ev/xuv-3xo-ev-02-rear-view-119.webp", alt: "XUV 3XO EV, rear view", label: "Rear view", kind: "styling" },
+    { src: "/images/cars/gallery/xuv-3xo-ev/xuv-3xo-ev-03-rear-three-quarter-48.webp", alt: "XUV 3XO EV, rear three-quarter styling", label: "Rear three-quarter", kind: "styling" },
+    { src: "/images/cars/gallery/xuv-3xo-ev/xuv-3xo-ev-04-wheel-42.webp", alt: "XUV 3XO EV, alloy wheel design", label: "Wheel design", kind: "styling" },
+    { src: "/images/cars/gallery/xuv-3xo-ev/xuv-3xo-ev-05-front-grill-logo-98.webp", alt: "XUV 3XO EV, front grille styling", label: "Grille styling", kind: "styling" },
+    { src: "/images/cars/gallery/xuv-3xo-ev/xuv-3xo-ev-06-headlight-43.webp", alt: "XUV 3XO EV, LED light signature", label: "Light signature", kind: "styling" },
+    { src: "/images/cars/gallery/xuv-3xo-ev/xuv-3xo-ev-07-dashboard-59.webp", alt: "XUV 3XO EV dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "/images/cars/gallery/xuv-3xo-ev/xuv-3xo-ev-08-steering-wheel-54.webp", alt: "XUV 3XO EV steering wheel", label: "Steering wheel", kind: "cabin" },
+    { src: "/images/cars/gallery/xuv-3xo-ev/xuv-3xo-ev-09-instrument-cluster-62.webp", alt: "XUV 3XO EV instrument cluster", label: "Instrument cluster", kind: "cabin" },
+    { src: "/images/cars/gallery/xuv-3xo-ev/xuv-3xo-ev-10-gear-shifter-87.webp", alt: "XUV 3XO EV gear shifter", label: "Gear shifter", kind: "cabin" },
+    { src: "/images/cars/gallery/xuv-3xo-ev/xuv-3xo-ev-11-rear-seats-52.webp", alt: "XUV 3XO EV rear seats", label: "Rear seats", kind: "cabin" },
+    { src: "/images/cars/gallery/xuv-3xo-ev/xuv-3xo-ev-12-sunroof-81.webp", alt: "XUV 3XO EV Skyroof panoramic sunroof", label: "Skyroof", kind: "cabin" },
+    { src: "/images/cars/gallery/xuv-3xo-ev/xuv-3xo-ev-13-infotainment-57.webp", alt: "XUV 3XO EV infotainment system", label: "Infotainment", kind: "cabin" },
+  ],
+  /* CarDekho only has one clean, unwatermarked photo for this exact HD
+     variant, so the rest of this set is sourced from Mahindra's own
+     official product page (auto.mahindra.com/pick-up-trucks/maxx-hd) —
+     third-party alternatives (e.g. trucksfloor.com) carried a visible
+     watermark across every frame, so they were skipped. */
+  "bolero-maxx-hd": [
+    { src: "/images/cars/gallery/bolero-maxx-hd/bolero-maxx-hd-01-side-profile.webp", alt: "Bolero MaXX HD, side profile", label: "Side profile", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-maxx-hd/bolero-maxx-hd-02-front-three-quarter.webp", alt: "Bolero MaXX HD, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-maxx-hd/bolero-maxx-hd-03-front-three-quarter-loaded.webp", alt: "Bolero MaXX HD, front three-quarter with a loaded cargo bed", label: "Loaded cargo bed", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-maxx-hd/bolero-maxx-hd-04-side-profile-action.webp", alt: "Bolero MaXX HD, side profile action shot", label: "On the move", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-maxx-hd/bolero-maxx-hd-05-cabin-seats.webp", alt: "Bolero MaXX HD cabin seats", label: "Cabin seats", kind: "cabin" },
+  ],
+  "bolero-camper": [
+    { src: "/images/cars/gallery/bolero-camper/bolero-camper-01-front-three-quarter.webp", alt: "Bolero Camper, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-camper/bolero-camper-02-off-road-action.webp", alt: "Bolero Camper, off-road action shot", label: "Off-road", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-camper/bolero-camper-03-rear-three-quarter.webp", alt: "Bolero Camper, rear three-quarter with open cargo deck", label: "Rear three-quarter", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-camper/bolero-camper-04-side-profile.webp", alt: "Bolero Camper, side profile", label: "Side profile", kind: "styling" },
+    { src: "/images/cars/gallery/bolero-camper/bolero-camper-05-steering-wheel-front-seats.webp", alt: "Bolero Camper steering wheel and front seats", label: "Steering wheel", kind: "cabin" },
+    { src: "/images/cars/gallery/bolero-camper/bolero-camper-06-dashboard.webp", alt: "Bolero Camper dashboard", label: "Dashboard", kind: "cabin" },
+    { src: "/images/cars/gallery/bolero-camper/bolero-camper-07-center-console.webp", alt: "Bolero Camper centre console and AC controls", label: "Centre console", kind: "cabin" },
+    { src: "/images/cars/gallery/bolero-camper/bolero-camper-08-rear-seats.webp", alt: "Bolero Camper rear seats", label: "Rear seats", kind: "cabin" },
   ],
   "supro-profit-truck": [
     { src: "/images/cars/gallery/supro-profit-truck/supro-profit-truck-01-0.webp", alt: "Supro Profit Truck, front three-quarter styling", label: "Front three-quarter", kind: "styling" },
@@ -950,13 +1152,16 @@ const brochurePathBySlug: Record<string, string> = {
   "bolero":             "/brochures/bolero.pdf",
   "bolero-neo":         "/brochures/bolero-neo.pdf",
   "bolero-neo-plus":    "/brochures/bolero-neo-plus.pdf",
-  "xuv400":             "/brochures/xuv400.pdf",
-  "marazzo":            "/brochures/marazzo.pdf",
-  "xuv3xo-ev":          "/brochures/xuv3xo-ev.pdf",
   "xev-9e":             "/brochures/xev-9e.pdf",
+  "xev-9s":             "/brochures/xev-9s.pdf",
   "be-6":               "/brochures/be-6.pdf",
   "bolero-maxx-pik-up": "/brochures/bolero-maxx-pik-up.pdf",
   "maxx-city-cng":      "/brochures/maxx-city-cng.pdf",
+  "xuv-3xo-ev":         "/brochures/xuv-3xo-ev.pdf",
+  "bolero-pik-up":      "/brochures/bolero-pik-up.pdf",
+  "veero":              "/brochures/veero.pdf",
+  "bolero-camper":      "/brochures/bolero-camper.pdf",
+  "bolero-maxx-hd":     "/brochures/bolero-maxx-hd.pdf",
 };
 
 export function getCarBrochure(car: Car): string | undefined {

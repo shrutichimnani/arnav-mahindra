@@ -49,7 +49,8 @@ export default function Footer() {
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/60">
               Mahindra Modi is an authorised Mahindra dealership offering new
               car sales, servicing and genuine Mahindra parts across Thane,
-              Airoli and Worli.
+              Airoli and Worli, with service centres in Thane, Charkop and
+              Sewri.
             </p>
             <div className="mt-6 flex gap-2.5">
               {socials.map(({ Icon, label, href }) => (

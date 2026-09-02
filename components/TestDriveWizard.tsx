@@ -230,12 +230,12 @@ export default function TestDriveWizard({
     <>
       <div className={inModal ? undefined : "mx-auto max-w-3xl rounded-lg border border-border bg-white p-6 shadow-[0_4px_32px_0_rgba(0,0,0,0.08)] sm:p-10"}>
         {/* Step indicator */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-start justify-between">
           {steps.map((label, i) => {
             const n = i + 1;
             const state = n === step ? "active" : n < step ? "done" : "todo";
             return (
-              <div key={label} className="flex flex-1 items-center last:flex-none">
+              <div key={label} className="flex flex-1 items-start last:flex-none">
                 <div className="flex flex-col items-center gap-1.5">
                   <span
                     className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-xs font-bold transition-colors ${
@@ -258,7 +258,7 @@ export default function TestDriveWizard({
                 </div>
                 {n < steps.length && (
                   <span
-                    className={`mx-1.5 h-0.5 flex-1 rounded transition-colors ${
+                    className={`mx-1.5 mt-[15px] h-0.5 flex-1 rounded transition-colors ${
                       state === "done" ? "bg-brand" : "bg-border"
                     }`}
                   />

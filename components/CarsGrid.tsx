@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -11,19 +11,51 @@ const categories: ("All" | CarCategory)[] = [
   "All",
   "SUV",
   "Electric",
-  "MPV",
   "Pickup",
   "Commercial",
 ];
 
 const categorySet = new Set<string>(categories);
 
-function getShuffleCache(): Map<string, typeof cars> {
-  if (typeof window === "undefined") return new Map();
-  const key = "__mahindra_cars_grid_shuffle__";
-  if (!(window as any)[key]) (window as any)[key] = new Map();
-  return (window as any)[key];
+// Persisted in sessionStorage (not just an in-memory `window` cache) so the
+// shuffled order survives a page reload — browsers give JS no way to tell a
+// plain refresh apart from a hard/cache-busting one, so "reshuffle only on
+// hard refresh" isn't something a page can detect. sessionStorage is the
+// closest match: the order stays put across reloads and back/forward nav,
+// and only resets once the tab itself is closed. Per-category keys mean
+// switching tabs generates a fresh shuffle on first visit to that category.
+const SHUFFLE_STORAGE_PREFIX = "mahindra_cars_grid_shuffle:";
+
+function loadShuffle(cacheKey: string): typeof cars | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = sessionStorage.getItem(SHUFFLE_STORAGE_PREFIX + cacheKey);
+    if (!raw) return null;
+    const slugs: string[] = JSON.parse(raw);
+    const bySlug = new Map(cars.map((c) => [c.slug, c]));
+    const arr = slugs.map((s) => bySlug.get(s)).filter((c): c is (typeof cars)[number] => Boolean(c));
+    return arr.length === slugs.length ? arr : null;
+  } catch {
+    return null;
+  }
 }
+
+function saveShuffle(cacheKey: string, arr: typeof cars) {
+  if (typeof window === "undefined") return;
+  try {
+    sessionStorage.setItem(SHUFFLE_STORAGE_PREFIX + cacheKey, JSON.stringify(arr.map((c) => c.slug)));
+  } catch {
+    // sessionStorage unavailable (private mode, quota) — shuffle just won't persist.
+  }
+}
+
+// These product shots have more empty space around the vehicle than the
+// other listing photos, so they read smaller at the same box size — nudge
+// them up to match visual weight with their neighbours.
+const cardImageScale: Partial<Record<string, string>> = {
+  veero: "scale-[1.12]",
+  "bolero-pik-up": "scale-[1.4]",
+};
 
 export default function CarsGrid() {
   const router = useRouter();
@@ -49,23 +81,37 @@ export default function CarsGrid() {
 
   const cacheKey = category;
 
-  const [filtered, setFiltered] = useState(() => {
-    const cached = getShuffleCache().get(cacheKey);
-    if (cached) return cached;
-    return categoryFiltered;
-  });
+  // Initial state must match what the server rendered (server has no
+  // sessionStorage, so it always renders `categoryFiltered` unshuffled) —
+  // reading sessionStorage here too would make the client's first render
+  // diverge from the SSR HTML and trigger a hydration error. The stored
+  // order is applied client-only, in the layout effect below.
+  const [filtered, setFiltered] = useState(categoryFiltered);
 
-  useEffect(() => {
-    const cache = getShuffleCache();
-    let arr = cache.get(cacheKey);
-    if (!arr) {
-      arr = [...categoryFiltered];
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      cache.set(cacheKey, arr);
+  // useLayoutEffect (not useEffect) so the shuffle lands before the browser
+  // paints this commit — reordering after paint, while Reveal's entrance
+  // transition is running, was what previously made a card flicker/vanish.
+  useLayoutEffect(() => {
+    const cached = loadShuffle(cacheKey);
+    if (cached) {
+      setFiltered(cached);
+      return;
     }
+    const arr = [...categoryFiltered];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    // On the "All" tab, the grid should always open on an SUV; everything
+    // after that first slot stays in shuffled order.
+    if (cacheKey === "All") {
+      const suvIndex = arr.findIndex((c) => c.category === "SUV");
+      if (suvIndex > 0) {
+        const [suv] = arr.splice(suvIndex, 1);
+        arr.unshift(suv);
+      }
+    }
+    saveShuffle(cacheKey, arr);
     setFiltered(arr);
   }, [categoryFiltered, cacheKey]);
 
@@ -102,14 +148,16 @@ export default function CarsGrid() {
                   className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-white shadow-[0_2px_12px_0_rgba(0,0,0,0.06)] transition-[transform,box-shadow] duration-500 ease-in-out hover:scale-[1.02] hover:shadow-[0_8px_28px_0_rgba(0,0,0,0.12)]"
                 >
                   <div className="relative flex h-52 items-center justify-center overflow-hidden bg-bg-2 p-6">
-                    <Image
-                      src={car.image}
-                      alt={car.alt}
-                      title={`Mahindra ${car.name}`}
-                      width={400}
-                      height={150}
-                      className="max-h-full w-auto max-w-full object-contain drop-shadow-lg transition-transform duration-500 group-hover:scale-105"
-                    />
+                    <div className={cardImageScale[car.slug] ?? ""}>
+                      <Image
+                        src={car.image}
+                        alt={car.alt}
+                        title={`Mahindra ${car.name}`}
+                        width={400}
+                        height={150}
+                        className="max-h-full w-auto max-w-full object-contain drop-shadow-lg transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
                   </div>
                   <div className="flex flex-1 flex-col p-5">
                     <p className="text-xs font-semibold uppercase tracking-wider text-brand">

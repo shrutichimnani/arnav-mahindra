@@ -2,10 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
-  allowedDevOrigins: ["10.5.50.63"], // 
-  experimental: {
-    scrollRestoration: true,
-  },
+  allowedDevOrigins: ["10.5.50.63"], //
   images: {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 2678400,
@@ -17,10 +14,6 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "images.openai.com",
-      },
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
       },
       {
         protocol: "https",

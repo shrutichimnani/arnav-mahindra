@@ -34,7 +34,6 @@ export default function FAQ({
               {rest && <>{rest} </>}
               <span className="relative inline-block">
                 {last}
-                <span className="absolute inset-x-0 -bottom-0.5 h-1 rounded-full bg-brand" />
               </span>
             </h2>
             <p className="mt-5 max-w-sm text-sm text-muted sm:text-base">{subtitle}</p>

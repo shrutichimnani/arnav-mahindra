@@ -120,7 +120,7 @@ export default function ServiceBooking() {
   return (
     <section id="book-service" className="scroll-mt-24 bg-white py-14 lg:py-20">
       <div className="container-px mx-auto max-w-[1400px]">
-        <Reveal className="mx-auto mb-10 max-w-xl text-center">
+        <Reveal className="mx-auto mb-4 max-w-xl text-center">
           <p className="text-xs font-semibold uppercase tracking-wider text-brand">
             Service Booking
           </p>
@@ -133,9 +133,9 @@ export default function ServiceBooking() {
           </p>
         </Reveal>
 
-        <Reveal delay={150} className="mx-auto max-w-3xl rounded-lg border border-border bg-white p-8 shadow-[0_4px_32px_0_rgba(0,0,0,0.08)] sm:p-10">
+        <Reveal delay={150} className="mx-auto max-w-2xl overflow-hidden rounded-lg border border-border bg-white shadow-[0_4px_32px_0_rgba(0,0,0,0.08)]">
           {submitted ? (
-            <div className="flex flex-col items-center justify-center py-10 text-center">
+            <div className="flex flex-col items-center justify-center p-8 py-10 text-center sm:p-10">
               <span className="grid h-16 w-16 place-items-center rounded-full bg-brand/10 text-brand">
                 <Check className="h-8 w-8" />
               </span>
@@ -159,7 +159,7 @@ export default function ServiceBooking() {
               frameless
             >
               {({ phone, onResetPhone }) => (
-                <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <form onSubmit={onSubmit} className="grid grid-cols-1 gap-4 p-8 sm:grid-cols-2 sm:p-10">
                   <SelectField
                     label="Select Car Model"
                     placeholder="Select Car Model"

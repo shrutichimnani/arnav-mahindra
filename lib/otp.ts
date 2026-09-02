@@ -2,8 +2,15 @@
    One-time-password (OTP) handling for the lead forms.
 
    Delivery: WhatsApp Business API "registration" template message.
-   Storage:  the `phone_otps` table in Supabase (full audit trail —
-             every OTP ever issued for a number is a separate row).
+   Storage:  in-memory (primary) + Supabase `phone_otps` table
+             (async best-effort audit trail).
+
+   KEY DESIGN: WhatsApp delivery is **independent** of Supabase.
+   Rate limiting and OTP storage live in-memory so the user receives
+   their code even if Supabase is down or slow. Supabase is written
+   to asynchronously after the WhatsApp message succeeds — it serves
+   as an audit trail and fallback for verification after a server
+   restart, but never blocks delivery.
 
    Env vars (set in .env.local):
      SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY       — DB (see lib/supabase.ts)
@@ -41,6 +48,35 @@ type OtpRow = {
   verified: boolean;
 };
 
+/* ---- In-memory stores (survive Next.js HMR via globalThis) ------------ */
+
+/** The latest OTP issued for each phone number. Only the most recent is
+    ever valid — matches the existing "latest wins" semantics. */
+type MemoryOtpEntry = {
+  otp: string;
+  createdAt: number; // Date.now() when issued
+  expiresAt: number; // Date.now() + OTP_TTL_MS
+  attempts: number;
+  verified: boolean;
+};
+
+/** Timestamps of every OTP issued for a phone in the current process
+    lifetime. Used for in-memory rate limiting. */
+type RateLimitEntry = number[]; // array of Date.now() timestamps
+
+declare global {
+  var __otpStore: Map<string, MemoryOtpEntry> | undefined;
+  var __otpRateLimits: Map<string, RateLimitEntry> | undefined;
+}
+
+function getOtpStore(): Map<string, MemoryOtpEntry> {
+  return (globalThis.__otpStore ??= new Map());
+}
+
+function getRateLimits(): Map<string, RateLimitEntry> {
+  return (globalThis.__otpRateLimits ??= new Map());
+}
+
 /* Accept whatever the form captures and normalise to the digits-only
    international format WhatsApp expects and the DB keys on. The client
    sends "+918080888131"; we keep 8–15 digit numbers. */
@@ -54,29 +90,29 @@ export type SendResult =
   | { ok: false; error: string; status?: number };
 
 /**
- * Issue a fresh OTP for `phone`. Every call generates a brand-new code,
-   inserts a new phone_otps row (never updates/reuses an old one), and
-   sends it via WhatsApp. On WhatsApp failure the inserted row is deleted
-   so no "ghost" code the user can never fulfil remains.
+ * Issue a fresh OTP for `phone`. Generates a new code, sends it via
+   WhatsApp immediately, stores it in-memory for verification, and
+   writes to Supabase asynchronously as a best-effort audit trail.
+
+   WhatsApp delivery is completely independent of Supabase — if the DB
+   is down or slow, the user still receives their code.
  */
 export const issueOtp = async (phone: NormalizedPhone): Promise<SendResult> => {
   const now = Date.now();
+  const rateLimits = getRateLimits();
+  const otpStore = getOtpStore();
 
-  // ---- 1. Rate limit -----------------------------------------------
-  // a) Most recent request too recent? (resend cooldown)
-  const { data: recent, error: recentErr } = await supabase
-    .from(TABLE)
-    .select("created_at")
-    .eq("phone_number", phone)
-    .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  // ---- 1. Rate limit (in-memory, no DB dependency) --------------------
 
-  if (recentErr) return dbError();
+  // Clean up timestamps older than 1 hour for this phone.
+  const timestamps = rateLimits.get(phone) ?? [];
+  const hourAgo = now - 60 * 60 * 1000;
+  const recentTimestamps = timestamps.filter((t) => t > hourAgo);
 
-  if (recent) {
-    const lastMs = new Date(recent.created_at).getTime();
-    if (now - lastMs < RESEND_COOLDOWN_MS) {
+  // a) Resend cooldown — most recent request too recent?
+  if (recentTimestamps.length > 0) {
+    const lastTs = recentTimestamps[recentTimestamps.length - 1];
+    if (now - lastTs < RESEND_COOLDOWN_MS) {
       return {
         ok: false,
         status: 429,
@@ -86,15 +122,7 @@ export const issueOtp = async (phone: NormalizedPhone): Promise<SendResult> => {
   }
 
   // b) Too many requests in the last hour?
-  const hourAgo = new Date(now - 60 * 60 * 1000).toISOString();
-  const { count, error: countErr } = await supabase
-    .from(TABLE)
-    .select("id", { count: "exact", head: true })
-    .eq("phone_number", phone)
-    .gte("created_at", hourAgo);
-
-  if (countErr) return dbError();
-  if ((count ?? 0) >= HOURLY_MAX) {
+  if (recentTimestamps.length >= HOURLY_MAX) {
     return {
       ok: false,
       status: 429,
@@ -102,34 +130,52 @@ export const issueOtp = async (phone: NormalizedPhone): Promise<SendResult> => {
     };
   }
 
-  // ---- 2. Generate a fresh 4-digit OTP (server-side, cryptographic) -
+  // ---- 2. Generate a fresh 4-digit OTP (server-side, cryptographic) ---
   const otp = String(randomInt(1000, 10000));
 
-  // ---- 3. Insert a new row (full audit trail, never reuse) ---------
-  const expiresAt = new Date(now + OTP_TTL_MS).toISOString();
-  const { data: inserted, error: insertErr } = await supabase
-    .from(TABLE)
-    .insert({
-      phone_number: phone,
-      otp,
-      expires_at: expiresAt,
-      attempts: 0,
-      verified: false,
-    })
-    .select("id")
-    .single();
-
-  if (insertErr) return dbError();
-  const rowId = inserted.id;
-
-  // ---- 4. Send via WhatsApp ---------------------------------------
+  // ---- 3. Send via WhatsApp FIRST (no Supabase dependency) ------------
   const send = await sendOtpWhatsApp(phone, otp);
 
-  // ---- 5. On failure, remove the ghost row ------------------------
   if (!send.ok) {
-    await supabase.from(TABLE).delete().eq("id", rowId);
     return { ok: false, status: 502, error: "Could not send the code. Please try again." };
   }
+
+  // ---- 4. Record in-memory (for verification) -------------------------
+  const expiresAt = now + OTP_TTL_MS;
+  otpStore.set(phone, {
+    otp,
+    createdAt: now,
+    expiresAt,
+    attempts: 0,
+    verified: false,
+  });
+
+  // Record the timestamp for rate limiting.
+  recentTimestamps.push(now);
+  rateLimits.set(phone, recentTimestamps);
+
+  // ---- 5. Write to Supabase async (best-effort audit trail) -----------
+  //      Fire-and-forget — never blocks the response to the user.
+  const expiresAtISO = new Date(expiresAt).toISOString();
+  Promise.resolve(
+    supabase
+      .from(TABLE)
+      .insert({
+        phone_number: phone,
+        otp,
+        expires_at: expiresAtISO,
+        attempts: 0,
+        verified: false,
+      }),
+  )
+    .then(({ error: insertErr }) => {
+      if (insertErr) {
+        console.error("[OTP] Supabase insert failed (non-blocking):", insertErr.message);
+      }
+    })
+    .catch((err: unknown) => {
+      console.error("[OTP] Supabase insert threw (non-blocking):", err);
+    });
 
   // Never return the OTP to the client.
   return { ok: true };
@@ -140,16 +186,85 @@ export type VerifyResult =
   | { ok: false; error: string };
 
 /**
- * Verify a code against the MOST RECENT, non-expired, unverified row for
-   `phone`. Older rows are inherently invalid even if the code matches, so
-   a stale OTP can't be replayed. Successful verification marks the row
-   `verified = true` and the code can't be reused.
+ * Verify a code against the latest OTP for `phone`.
+   Checks in-memory first (fast, no DB dependency). Falls back to
+   Supabase if the in-memory entry is missing (e.g. after a server
+   restart between send and verify).
  */
 export const verifyOtp = async (
   phone: NormalizedPhone,
   code: string,
 ): Promise<VerifyResult> => {
-  // Only the newest row for this number — that alone enforces "latest wins".
+  const otpStore = getOtpStore();
+  const entry = otpStore.get(phone);
+
+  // ---- Try in-memory store first --------------------------------------
+  if (entry && !entry.verified) {
+    return verifyFromMemory(phone, code, entry, otpStore);
+  }
+
+  // ---- Fallback to Supabase (server may have restarted) ---------------
+  return verifyFromSupabase(phone, code);
+};
+
+/** Verify against the in-memory OTP entry. */
+function verifyFromMemory(
+  phone: string,
+  code: string,
+  entry: MemoryOtpEntry,
+  otpStore: Map<string, MemoryOtpEntry>,
+): VerifyResult {
+  if (Date.now() > entry.expiresAt) {
+    return { ok: false, error: "This code has expired. Please request a new OTP." };
+  }
+  if (entry.attempts >= OTP_MAX_ATTEMPTS) {
+    return { ok: false, error: "Too many incorrect attempts. Please request a new OTP." };
+  }
+
+  // Consume one attempt.
+  entry.attempts += 1;
+
+  if (entry.otp !== code) {
+    const left = OTP_MAX_ATTEMPTS - entry.attempts;
+    return {
+      ok: false,
+      error: `Incorrect code. ${left} attempt${left === 1 ? "" : "s"} left.`,
+    };
+  }
+
+  // Success — mark verified (one-time use).
+  entry.verified = true;
+  otpStore.set(phone, entry);
+
+  // Best-effort: update the Supabase row too (fire-and-forget).
+  Promise.resolve(
+    supabase
+      .from(TABLE)
+      .update({ verified: true, attempts: entry.attempts })
+      .eq("phone_number", phone)
+      .order("created_at", { ascending: false })
+      .limit(1),
+  )
+    .then(({ error: updErr }) => {
+      if (updErr) {
+        console.error("[OTP] Supabase verify-update failed (non-blocking):", updErr.message);
+      }
+    })
+    .catch((err: unknown) => {
+      console.error("[OTP] Supabase verify-update threw (non-blocking):", err);
+    });
+
+  return { ok: true };
+}
+
+/** Fallback: verify against the Supabase `phone_otps` table.
+    Used when the in-memory store doesn't have an entry (e.g. server
+    restarted between OTP send and verify). */
+async function verifyFromSupabase(
+  phone: string,
+  code: string,
+): Promise<VerifyResult> {
+  // Only the newest row for this number — "latest wins".
   const { data: row, error } = await supabase
     .from(TABLE)
     .select("*")
@@ -202,14 +317,4 @@ export const verifyOtp = async (
   }
 
   return { ok: true };
-};
-
-/* Map a Supabase error to a user-facing SendResult. The upstream message
-   is intentionally not surfaced to the client (could leak internals). */
-function dbError(): SendResult {
-  return {
-    ok: false,
-    status: 502,
-    error: "Something went wrong. Please try again.",
-  };
 }

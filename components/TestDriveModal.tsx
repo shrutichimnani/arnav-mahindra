@@ -40,7 +40,7 @@ export default function TestDriveModal({
         aria-modal="true"
         aria-label="Book a test drive"
         onClick={(e) => e.stopPropagation()}
-        className="relative my-4 w-full max-w-3xl rounded-lg bg-white shadow-2xl sm:my-8"
+        className="relative my-4 w-full max-w-2xl overflow-hidden rounded-lg bg-white shadow-2xl sm:my-8"
       >
         <button
           aria-label="Close"
@@ -50,7 +50,7 @@ export default function TestDriveModal({
           <X className="h-5 w-5" />
         </button>
 
-        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto p-6 sm:p-8">
+        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto">
           <OtpGate
             source={source ?? "test_drive_popup"}
             heroImage={{ src: "/about/showroom-jdm.jpg", alt: "Mahindra Modi showroom at dusk" }}
@@ -58,7 +58,7 @@ export default function TestDriveModal({
             frameless
           >
             {({ phone, onResetPhone }) => (
-              <div>
+              <div className="p-6 pt-14 sm:p-8 sm:pt-14">
                 <div className="mb-6 rounded-lg border border-brand/20 bg-brand/5 p-4">
                   <VerifiedPhoneField phone={phone} onChange={onResetPhone} />
                 </div>
