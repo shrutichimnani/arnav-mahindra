@@ -94,7 +94,7 @@ export default function Locations() {
                   <span className="mb-1.5 inline-block rounded bg-white/20 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur">
                     {loc.type}
                   </span>
-                  <h3 className="font-display text-sm font-bold leading-snug text-white">
+                  <h3 className="font-display text-xs font-bold leading-snug text-white">
                     {loc.name}
                   </h3>
                   <p className="mt-1 line-clamp-2 flex items-start gap-1 text-[11px] text-white/75">

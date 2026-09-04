@@ -1187,24 +1187,12 @@ export type Location = {
    actual branch photography and Google Maps links. */
 export const locations: Location[] = [
   {
-    name: "Modi Mahindra - Thane Showroom",
+    name: "Modi Mahindra - SUV & Commercial Vehicle Thane Showroom",
     type: "Showroom",
     city: "Thane",
     address: "Survey No 412, RD, Ashar Compound, Rd Number 27, Wagle Industrial Estate, Thane West, Thane, Maharashtra 400604",
     phone: "82387 85050",
     image: "/images/locate-us/thane-showroom.webp",
-    mapsUrl: "https://maps.app.goo.gl/hV126JsMg6duaCmE9",
-    ftid: "0x3be7b9b401811351:0xcbb5fcaac0213170",
-    lat: 19.1944532,
-    lng: 72.946498,
-  },
-  {
-    name: "Modi Mahindra - Thane Commercial Showroom",
-    type: "Showroom",
-    city: "Thane",
-    address: "Survey No 412, RD, Ashar Compound, Rd Number 27, Wagle Industrial Estate, Thane West, Thane, Maharashtra 400604",
-    phone: "82387 85050",
-    image: "/images/locate-us/thane-commercial-showroom.jpeg",
     mapsUrl: "https://maps.app.goo.gl/hV126JsMg6duaCmE9",
     ftid: "0x3be7b9b401811351:0xcbb5fcaac0213170",
     lat: 19.1944532,
