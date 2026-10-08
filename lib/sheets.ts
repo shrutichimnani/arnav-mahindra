@@ -1,7 +1,9 @@
 import { getUtmPayloadFields } from "@/lib/utm";
 import { insertLeadToDb } from "@/lib/leads";
 
-const SHEET_SCRIPT_URL = process.env.NEXT_PUBLIC_SHEET_SCRIPT_URL ?? "";
+// Posts go through our own relay (app/api/sheet/route.ts) so the Google
+// Apps Script URL stays server-side and isn't exposed in the browser.
+const SHEET_ENDPOINT = "/api/sheet";
 
 export async function submitToSheet(payload: Record<string, string>) {
   const utm = getUtmPayloadFields();
@@ -14,7 +16,7 @@ export async function submitToSheet(payload: Record<string, string>) {
   insertLeadToDb(formType, fullPayload);
 
   try {
-    const res = await fetch(SHEET_SCRIPT_URL, {
+    const res = await fetch(SHEET_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(fullPayload),

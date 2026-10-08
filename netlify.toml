@@ -10,7 +10,7 @@
   # NEXT_PUBLIC_-prefixed and stay server-only, so they're not exempted
   # here and would still correctly fail the scan if ever leaked.
   [build.environment]
-    SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SHEET_SCRIPT_URL,NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY"
+    SECRETS_SCAN_OMIT_KEYS = "NEXT_PUBLIC_SITE_URL,NEXT_PUBLIC_SUPABASE_URL,NEXT_PUBLIC_SUPABASE_ANON_KEY"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
