@@ -1,7 +1,7 @@
 /* ============================================================
    One-time-password (OTP) handling for the lead forms.
 
-   Delivery: WhatsApp Business API "registration" template message.
+   Delivery: SMS via alotsolutions.in (lib/sms.ts).
    Storage:  in-memory (primary) + Supabase `phone_otps` table
              (async best-effort audit trail).
 
@@ -14,7 +14,7 @@
 
    Env vars (set in .env.local):
      SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY       — DB (see lib/supabase.ts)
-     WHATSAPP_ENDPOINT_URL, WHATSAPP_API_KEY        — delivery (lib/whatsapp.ts)
+     SMS_API_KEY, SMS_DLT_TEMPLATE_ID, SMS_MESSAGE_TEMPLATE — delivery (lib/sms.ts)
 
    Phone format: `normalizePhone` returns digits only (e.g. "918080888131"),
    which is both the WhatsApp `to` format (country code + number, no "+")
@@ -24,11 +24,11 @@
 
 import { randomInt } from "node:crypto";
 import { supabase } from "./supabase";
-import { sendOtpWhatsApp } from "./whatsapp";
+import { sendOtpSms } from "./sms";
 
 export type NormalizedPhone = string; // digits only, e.g. "918080888131"
 
-export const OTP_TTL_MS = 5 * 60 * 1000; // 5 minutes
+export const OTP_TTL_MS = 10 * 60 * 1000; // 10 minutes (keep in sync with SMS_MESSAGE_TEMPLATE)
 const OTP_MAX_ATTEMPTS = 5;
 
 // Rate limits per phone number (see issueOtp). Tuned to prevent WhatsApp
@@ -133,8 +133,8 @@ export const issueOtp = async (phone: NormalizedPhone): Promise<SendResult> => {
   // ---- 2. Generate a fresh 4-digit OTP (server-side, cryptographic) ---
   const otp = String(randomInt(1000, 10000));
 
-  // ---- 3. Send via WhatsApp FIRST (no Supabase dependency) ------------
-  const send = await sendOtpWhatsApp(phone, otp);
+  // ---- 3. Send via SMS FIRST (no Supabase dependency) ------------------
+  const send = await sendOtpSms(phone, otp);
 
   if (!send.ok) {
     return { ok: false, status: 502, error: "Could not send the code. Please try again." };

@@ -19,7 +19,7 @@ export async function POST(req: Request) {
 
   const result = await issueOtp(phone);
   if (!result.ok) {
-    // 429 = rate limited; 502 = WhatsApp upstream failure; 400 otherwise.
+    // 429 = rate limited; 502 = SMS upstream failure; 400 otherwise.
     return NextResponse.json(result, { status: result.status ?? 400 });
   }
   return NextResponse.json(result);
